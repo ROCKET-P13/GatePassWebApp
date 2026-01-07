@@ -1,0 +1,29 @@
+import { Box, Stepper, Step, StepLabel } from '@mui/material';
+import { useOnboardingStore } from '../../store/useOnboardingStore';
+import { Steps } from '../../store/useOnboardingStore';
+import _ from 'lodash';
+
+const StepLabels = Object.freeze({
+	[Steps.VENUE]: 'Venue',
+	[Steps.FEATURES]: 'Features',
+	[Steps.WAIVER]: 'Waiver',
+	[Steps.EVENT]: 'First Event',
+	[Steps.COMPLETE]: 'Complete',
+});
+
+export const VenueOnboarding = () => {
+	const step = useOnboardingStore((state) => state.step);
+	const currentStepIndex = _.chain(Steps).values().findIndex(step).value();
+
+	return (
+		<Box maxWidth={600} mx="auto" mt={6}>
+			<Stepper activeStep={currentStepIndex} alternativeLabel>
+				{_.map(StepLabels, (stepId, stepLabel) => (
+					<Step key={stepId}>
+						<StepLabel>{stepLabel}</StepLabel>
+					</Step>
+				))}
+			</Stepper>
+		</Box>
+	);
+};
