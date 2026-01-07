@@ -3,6 +3,7 @@ import globals from 'globals';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import { defineConfig, globalIgnores } from 'eslint/config';
+import pluginReact from 'eslint-plugin-react';
 
 export default defineConfig([
 	globalIgnores(['dist']),
@@ -12,8 +13,14 @@ export default defineConfig([
 			js.configs.recommended,
 			reactHooks.configs.flat.recommended,
 			reactRefresh.configs.vite,
-			'plugin:react/recommended',
+			pluginReact.configs.flat.recommended,
 		],
+		settings: {
+			react: {
+				version: 'detect',
+				jsxRuntime: 'automatic',
+			},
+		},
 		languageOptions: {
 			ecmaVersion: 2020,
 			globals: globals.browser,
@@ -24,6 +31,7 @@ export default defineConfig([
 			},
 		},
 		rules: {
+			'react/react-in-jsx-scope': 'off',
 			'no-trailing-spaces': ['error'],
 			'brace-style': ['error', '1tbs'],
 			'no-inner-declarations': ['off'],
