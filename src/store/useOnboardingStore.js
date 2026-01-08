@@ -18,24 +18,27 @@ export const useOnboardingStore = create((set, get) => ({
 		type: '',
 	},
 	features: {
-		waivers: true,
-		events: true,
-		checkIn: true,
-		payments: true,
+		waivers: false,
+		events: false,
+		checkIn: false,
+		payments: false,
 	},
 	next: () => {
 		const steps = _.values(Steps);
 		const currentStep = get().step;
-		if (Steps[currentStep]) {
-			set({ step: steps[_.findIndex(steps, currentStep) + 1] });
+		const nextStepIndex = _.findIndex(steps, (step) => step === currentStep) + 1;
+
+		if (steps[nextStepIndex]) {
+			set({ step: steps[nextStepIndex] });
 		}
 	},
 	back: () => {
 		const steps = _.values(Steps);
 		const currentStep = get().step;
-		if (Steps[currentStep]) [
-			set({ step: steps[_.findIndex(steps, currentStep) - 1] }),
-		];
+		const previousStepIndex = _.findIndex(steps, (step) => step === currentStep) - 1;
+		if (steps[previousStepIndex]) {
+			set({ step: steps[previousStepIndex] });
+		}
 	},
 	updateVenue: (data) => {
 		set(({ venue }) => ({
@@ -49,7 +52,7 @@ export const useOnboardingStore = create((set, get) => ({
 		set(({ features }) => ({
 			features: {
 				...features,
-				[key]: !state.features[key],
+				[key]: !features[key],
 			},
 		}));
 	},

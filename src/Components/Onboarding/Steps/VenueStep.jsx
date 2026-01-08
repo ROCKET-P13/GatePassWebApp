@@ -1,7 +1,7 @@
 import { TextField, Button, Stack, MenuItem, FormControl, Select, InputLabel, Box } from '@mui/material';
 import { useOnboardingStore } from '../../../store/useOnboardingStore';
 import _ from 'lodash';
-import { States } from '../Common/constants';
+import { States } from '../Common/states';
 
 export const VenueStep = () => {
 	const venue = useOnboardingStore((state) => state.venue);
