@@ -40,15 +40,15 @@ export const useOnboardingStore = create((set, get) => ({
 	updateVenue: (data) => {
 		set(({ venue }) => ({
 			venue: {
-				...state.venue,
+				...venue,
 				...data,
 			},
 		}));
 	},
 	toggleFeature: (key) => {
-		set((state) => ({
+		set(({ features }) => ({
 			features: {
-				...state.features,
+				...features,
 				[key]: !state.features[key],
 			},
 		}));

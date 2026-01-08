@@ -1,7 +1,8 @@
-import { Box, Stepper, Step, StepLabel } from '@mui/material';
+import { Box, Stepper, Step, StepLabel, Paper } from '@mui/material';
 import { useOnboardingStore } from '../../store/useOnboardingStore';
 import { Steps } from '../../store/useOnboardingStore';
 import _ from 'lodash';
+import { VenueStep } from './Steps/VenueStep';
 
 const StepLabels = Object.freeze({
 	[Steps.VENUE]: 'Venue',
@@ -18,12 +19,18 @@ export const VenueOnboarding = () => {
 	return (
 		<Box maxWidth={600} mx="auto" mt={6}>
 			<Stepper activeStep={currentStepIndex} alternativeLabel>
-				{_.map(StepLabels, (stepId, stepLabel) => (
-					<Step key={stepId}>
-						<StepLabel>{stepLabel}</StepLabel>
-					</Step>
-				))}
+				{
+					_.map(StepLabels, (stepId, stepLabel) => (
+						<Step key={stepId}>
+							<StepLabel>{stepLabel}</StepLabel>
+						</Step>
+					))
+				}
 			</Stepper>
+
+			<Paper sx={{ mt: 4, p: 4 }}>
+				{step === Steps.VENUE && <VenueStep />}
+			</Paper>
 		</Box>
 	);
 };
