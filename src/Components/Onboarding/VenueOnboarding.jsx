@@ -6,6 +6,7 @@ import { FeaturesStep } from './Steps/FeaturesStep';
 import _ from 'lodash';
 import { WaiverStep } from './Steps/WaiverStep';
 import { EventStep } from './Steps/EventStep';
+import { CompleteStep } from './Steps/CompleteStep';
 
 const StepLabels = Object.freeze({
 	[Steps.VENUE]: 'Venue',
@@ -36,6 +37,7 @@ export const VenueOnboarding = () => {
 				{step === Steps.FEATURES && <FeaturesStep />}
 				{step === Steps.WAIVER && <WaiverStep />}
 				{step === Steps.EVENT && <EventStep />}
+				{step === Steps.COMPLETE && <CompleteStep />}
 			</Paper>
 		</Box>
 	);
