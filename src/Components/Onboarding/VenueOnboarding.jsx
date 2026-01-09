@@ -1,9 +1,9 @@
 import { Box, Stepper, Step, StepLabel, Paper } from '@mui/material';
 import { useOnboardingStore } from '../../store/useOnboardingStore';
 import { Steps } from '../../store/useOnboardingStore';
-import _ from 'lodash';
 import { VenueStep } from './Steps/VenueStep';
 import { FeaturesStep } from './Steps/FeaturesStep';
+import _ from 'lodash';
 
 const StepLabels = Object.freeze({
 	[Steps.VENUE]: 'Venue',
