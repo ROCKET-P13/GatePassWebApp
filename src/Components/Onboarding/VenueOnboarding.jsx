@@ -4,6 +4,7 @@ import { Steps } from '../../store/useOnboardingStore';
 import { VenueStep } from './Steps/VenueStep';
 import { FeaturesStep } from './Steps/FeaturesStep';
 import _ from 'lodash';
+import { WaiverStep } from './Steps/WaiverStep';
 
 const StepLabels = Object.freeze({
 	[Steps.VENUE]: 'Venue',
@@ -32,6 +33,7 @@ export const VenueOnboarding = () => {
 			<Paper sx={{ mt: 4, p: 4 }}>
 				{step === Steps.VENUE && <VenueStep />}
 				{step === Steps.FEATURES && <FeaturesStep />}
+				{step === Steps.WAIVER && <WaiverStep />}
 			</Paper>
 		</Box>
 	);
