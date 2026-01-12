@@ -11,6 +11,8 @@ import { CssBaseline, Container } from '@mui/material';
 import { VenueOnboarding } from './Components/Onboarding/VenueOnboarding';
 import { Routes } from './Common/routes';
 
+import './App.css';
+
 const rootRoute = createRootRoute({
 	component: () => (
 		<>
