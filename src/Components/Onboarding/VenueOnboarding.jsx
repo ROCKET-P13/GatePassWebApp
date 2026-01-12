@@ -18,11 +18,26 @@ const StepLabels = Object.freeze({
 
 export const VenueOnboarding = () => {
 	const step = useOnboardingStore((state) => state.step);
-	const currentStepIndex = _.chain(Steps).values().findIndex(step).value();
-
+	const currentStepIndex = _.chain(Steps).keys().indexOf(step).value();
 	return (
 		<Box maxWidth={600} mx="auto" mt={6}>
-			<Stepper activeStep={currentStepIndex} alternativeLabel>
+			<Stepper
+				activeStep={currentStepIndex}
+				sx={{
+					'& .MuiStepLabel-label.Mui-active': {
+						fontWeight: 600,
+					},
+					'& .MuiStepLabel-label.Mui-completed': {
+						color: 'text.secondary',
+					},
+					'& .MuiStepIcon-root.Mui-active': {
+						color: 'primary.main',
+					},
+					'& .MuiStepIcon-root.Mui-completed': {
+						color: 'success.main',
+					},
+				}}
+			>
 				{
 					_.map(StepLabels, (stepId, stepLabel) => (
 						<Step key={stepId}>
