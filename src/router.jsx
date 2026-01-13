@@ -10,6 +10,7 @@ import { CssBaseline, Container } from '@mui/material';
 
 import { VenueOnboarding } from './Components/Onboarding/VenueOnboarding';
 import { Routes } from './Common/routes';
+import { DashboardDrawer } from './Components/Dashboard/DashboardDrawer';
 
 const rootRoute = createRootRoute({
 	component: () => (
@@ -37,7 +38,14 @@ const onboardingRoute = createRoute({
 const dashboardRoute = createRoute({
 	getParentRoute: () => rootRoute,
 	path: Routes.DASHBOARD,
-	component: () => <div>Dashboard</div>,
+	component: DashboardDrawer,
+	children: [
+		createRoute({
+			getParentRoute: () => dashboardRoute,
+			path: '/',
+			component: () => <div>Dashboard</div>,
+		}),
+	],
 });
 
 const routeTree = rootRoute.addChildren([
