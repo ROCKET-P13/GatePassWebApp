@@ -19,11 +19,11 @@ import { DashboardAppBar } from './DashboardAppBar';
 const DrawerItems = Object.freeze({
 	SETTINGS: {
 		label: 'Settings',
-		icon: <SettingsIcon />,
+		icon: <SettingsIcon style={{ color: '#ffff' }} />,
 	},
 	ACCOUNT: {
 		label: 'Account',
-		icon: <PersonIcon />,
+		icon: <PersonIcon style={{  color: '#ffff' }}/>,
 	},
 });
 

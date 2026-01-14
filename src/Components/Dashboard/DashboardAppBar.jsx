@@ -11,8 +11,8 @@ export const DashboardAppBar = () => {
 				position='fixed'
 				open={drawerOpen}
 				sx={{
-					display: { xs: 'auto', md: 'none' },
 					boxShadow: 0,
+					bgcolor: 'background.paper',
 					backgroundImage: 'none',
 					borderBottom: '1px solid',
 					borderColor: 'divider',
