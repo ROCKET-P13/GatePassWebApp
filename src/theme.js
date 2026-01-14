@@ -1,5 +1,7 @@
 import { createTheme, alpha } from '@mui/material/styles';
 
+import { inputsCustomizations } from './theme/customizations/inputs';
+
 export const brand = {
 	50: 'hsl(210, 100%, 95%)',
 	100: 'hsl(210, 100%, 92%)',
@@ -90,7 +92,6 @@ const theme = createTheme({
 			dark: red[700],
 		},
 		success: {
-
 			light: green[400],
 			main: green[500],
 			dark: green[700],
@@ -118,6 +119,9 @@ const theme = createTheme({
 	},
 	typography: {
 		fontFamily: `'Inter', system-ui, -apple-system, BlinkMacSystemFont`,
+	},
+	components: {
+		...inputsCustomizations,
 	},
 });
 

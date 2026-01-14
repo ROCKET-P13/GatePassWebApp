@@ -37,7 +37,7 @@ export const FeaturesStep = () => {
 				}
 			</FormGroup>
 			<Stack direction='row' spacing={2}>
-				<Button variant='contained' onClick={back}>Back</Button>
+				<Button variant='outlined' color='secondary' onClick={back}>Back</Button>
 				<Button variant='contained' onClick={next}>Continue</Button>
 			</Stack>
 		</Stack>
