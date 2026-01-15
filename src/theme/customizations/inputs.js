@@ -4,7 +4,7 @@ import { gray, brand } from '../../theme';
 export const inputsCustomizations = {
 	MuiInputBase: {
 		styleOverrides: {
-			root: ({ theme }) => ({
+			root: () => ({
 				backgroundColor: alpha(gray[700], 0.2),
 			}),
 		},
@@ -173,7 +173,7 @@ export const inputsCustomizations = {
 	},
 	MuiSwitch: {
 		styleOverrides: {
-			switchBase: ({ theme }) => ({
+			switchBase: () => ({
 				transitionDuration: '200ms',
 				'&.Mui-checked': {
 					// transform: 'translateX(16px)',
@@ -195,7 +195,7 @@ export const inputsCustomizations = {
 				height: 20,
 				boxSizing: 'border-box',
 			},
-			track: ({ theme }) => ({
+			track: () => ({
 				borderRadius: 13,
 				backgroundColor: gray[700],
 				opacity: 1,
