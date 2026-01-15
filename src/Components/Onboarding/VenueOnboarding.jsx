@@ -23,20 +23,6 @@ export const VenueOnboarding = () => {
 		<Box maxWidth={600} mx="auto" mt={6}>
 			<Stepper
 				activeStep={currentStepIndex}
-				sx={{
-					'& .MuiStepLabel-label.Mui-active': {
-						fontWeight: 600,
-					},
-					'& .MuiStepLabel-label.Mui-completed': {
-						color: 'text.secondary',
-					},
-					'& .MuiStepIcon-root.Mui-active': {
-						color: 'primary.main',
-					},
-					'& .MuiStepIcon-root.Mui-completed': {
-						color: 'success.main',
-					},
-				}}
 			>
 				{
 					_.map(StepLabels, (stepId, stepLabel) => (

@@ -56,31 +56,10 @@ export const inputsCustomizations = {
 							variant: 'contained',
 						},
 						style: {
-							color: gray[300],
+							color: theme.palette.text.primary,
 							'&:disabled': {
 								backgroundColor: alpha(gray[600], 0.3),
 								color: alpha(gray[300], 0.3),
-							},
-						},
-					},
-					{
-						props: {
-							color: 'secondary',
-							variant: 'contained',
-						},
-						style: {
-							color: gray[50],
-							backgroundColor: brand[300],
-							backgroundImage: `linear-gradient(to bottom, ${alpha(brand[400], 0.8)}, ${brand[500]})`,
-							boxShadow: `inset 0 2px 0 ${alpha(brand[200], 0.2)}, inset 0 -2px 0 ${alpha(brand[700], 0.4)}`,
-							border: `1px solid ${brand[500]}`,
-							'&:hover': {
-								backgroundColor: brand[700],
-								boxShadow: 'none',
-							},
-							'&:active': {
-								backgroundColor: brand[700],
-								backgroundImage: 'none',
 							},
 						},
 					},
@@ -149,22 +128,13 @@ export const inputsCustomizations = {
 							variant: 'text',
 						},
 						style: {
-							color: brand[700],
+							color: brand[100],
 							'&:hover': {
-								backgroundColor: alpha(brand[100], 0.5),
+								backgroundColor: alpha(brand[900], 0.5),
 							},
 							'&:active': {
-								backgroundColor: alpha(brand[200], 0.7),
+								backgroundColor: alpha(brand[900], 0.3),
 							},
-							...theme.applyStyles('dark', {
-								color: brand[100],
-								'&:hover': {
-									backgroundColor: alpha(brand[900], 0.5),
-								},
-								'&:active': {
-									backgroundColor: alpha(brand[900], 0.3),
-								},
-							}),
 						},
 					},
 				],
@@ -176,7 +146,6 @@ export const inputsCustomizations = {
 			switchBase: () => ({
 				transitionDuration: '200ms',
 				'&.Mui-checked': {
-					// transform: 'translateX(16px)',
 					color: gray[50],
 					'& + .MuiSwitch-track': {
 						backgroundColor: brand[500],

@@ -1,6 +1,7 @@
 import { createTheme, alpha } from '@mui/material/styles';
 
 import { inputsCustomizations } from './theme/customizations/inputs';
+import { stepperCustomizations } from './theme/customizations/stepper';
 
 export const brand = {
 	50: 'hsl(210, 100%, 95%)',
@@ -102,7 +103,7 @@ const theme = createTheme({
 		divider: alpha(gray[700], 0.6),
 		background: {
 			default: gray[800],
-			paper: 'hsl(220, 30%, 7%)',
+			paper: 'hsl(220, 30%, 9%)',
 		},
 		text: {
 			warning: orange[400],
@@ -122,6 +123,7 @@ const theme = createTheme({
 	},
 	components: {
 		...inputsCustomizations,
+		...stepperCustomizations,
 	},
 });
 
