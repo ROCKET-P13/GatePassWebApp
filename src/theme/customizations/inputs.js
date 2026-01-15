@@ -2,6 +2,13 @@ import { alpha } from '@mui/material/styles';
 import { gray, brand } from '../../theme';
 
 export const inputsCustomizations = {
+	MuiInputBase: {
+		styleOverrides: {
+			root: ({ theme }) => ({
+				backgroundColor: alpha(gray[700], 0.2),
+			}),
+		},
+	},
 	MuiButtonBase: {
 		defaultProps: {
 			disableTouchRipple: true,
@@ -51,7 +58,8 @@ export const inputsCustomizations = {
 						style: {
 							color: gray[300],
 							'&:disabled': {
-								color: gray[700],
+								backgroundColor: alpha(gray[600], 0.3),
+								color: alpha(gray[300], 0.3),
 							},
 						},
 					},
@@ -61,7 +69,7 @@ export const inputsCustomizations = {
 							variant: 'contained',
 						},
 						style: {
-							color: 'white',
+							color: gray[50],
 							backgroundColor: brand[300],
 							backgroundImage: `linear-gradient(to bottom, ${alpha(brand[400], 0.8)}, ${brand[500]})`,
 							boxShadow: `inset 0 2px 0 ${alpha(brand[200], 0.2)}, inset 0 -2px 0 ${alpha(brand[700], 0.4)}`,
@@ -83,26 +91,15 @@ export const inputsCustomizations = {
 						style: {
 							color: (theme.vars || theme).palette.text.primary,
 							border: '1px solid',
-							borderColor: gray[200],
-							backgroundColor: alpha(gray[50], 0.3),
+							backgroundColor: gray[800],
+							borderColor: gray[700],
 							'&:hover': {
-								backgroundColor: gray[100],
-								borderColor: gray[300],
+								backgroundColor: gray[900],
+								borderColor: gray[600],
 							},
 							'&:active': {
-								backgroundColor: gray[200],
+								backgroundColor: gray[900],
 							},
-							...theme.applyStyles('dark', {
-								backgroundColor: gray[800],
-								borderColor: gray[700],
-								'&:hover': {
-									backgroundColor: gray[900],
-									borderColor: gray[600],
-								},
-								'&:active': {
-									backgroundColor: gray[900],
-								},
-							}),
 						},
 					},
 					{

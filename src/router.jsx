@@ -31,7 +31,7 @@ const indexRoute = createRoute({
 
 const onboardingRoute = createRoute({
 	getParentRoute: () => rootRoute,
-	path: '/onboarding',
+	path: Routes.ONBOARDING,
 	component: VenueOnboarding,
 });
 
