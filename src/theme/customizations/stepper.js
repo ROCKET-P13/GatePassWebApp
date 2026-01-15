@@ -23,7 +23,6 @@ export const stepperCustomizations = {
 				'&.Mui-active': {
 					color: theme.palette.primary.main,
 				},
-
 				'&.Mui-completed': {
 					color: theme.palette.success.main,
 				},

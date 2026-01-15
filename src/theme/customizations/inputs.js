@@ -57,6 +57,7 @@ export const inputsCustomizations = {
 						},
 						style: {
 							color: theme.palette.text.primary,
+							backgroundColor: theme.palette.main,
 							'&:disabled': {
 								backgroundColor: alpha(gray[600], 0.3),
 								color: alpha(gray[300], 0.3),
@@ -104,22 +105,13 @@ export const inputsCustomizations = {
 							variant: 'text',
 						},
 						style: {
-							color: gray[600],
+							color: gray[50],
 							'&:hover': {
-								backgroundColor: gray[100],
+								backgroundColor: gray[700],
 							},
 							'&:active': {
-								backgroundColor: gray[200],
+								backgroundColor: alpha(gray[700], 0.7),
 							},
-							...theme.applyStyles('dark', {
-								color: gray[50],
-								'&:hover': {
-									backgroundColor: gray[700],
-								},
-								'&:active': {
-									backgroundColor: alpha(gray[700], 0.7),
-								},
-							}),
 						},
 					},
 					{
@@ -143,12 +135,13 @@ export const inputsCustomizations = {
 	},
 	MuiSwitch: {
 		styleOverrides: {
-			switchBase: () => ({
+			switchBase: ({ theme }) => ({
 				transitionDuration: '200ms',
 				'&.Mui-checked': {
 					color: gray[50],
 					'& + .MuiSwitch-track': {
-						backgroundColor: brand[500],
+						color: theme.palette.text.primary,
+						backgroundColor: theme.palette.main,
 						opacity: 1,
 						border: 0,
 					},
