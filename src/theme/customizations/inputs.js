@@ -1,5 +1,4 @@
 import { alpha } from '@mui/material/styles';
-import { svgIconClasses } from '@mui/material/SvgIcon';
 import { gray, brand } from '../../theme';
 
 export const inputsCustomizations = {
@@ -175,59 +174,36 @@ export const inputsCustomizations = {
 			}),
 		},
 	},
-	MuiIconButton: {
+	MuiSwitch: {
 		styleOverrides: {
-			root: ({ theme }) => ({
-				boxShadow: 'none',
-				borderRadius: (theme.vars || theme).shape.borderRadius,
-				textTransform: 'none',
-				fontWeight: theme.typography.fontWeightMedium,
-				letterSpacing: 0,
-				color: (theme.vars || theme).palette.text.primary,
-				border: '1px solid ',
-				borderColor: gray[200],
-				backgroundColor: alpha(gray[50], 0.3),
-				'&:hover': {
-					backgroundColor: gray[100],
-					borderColor: gray[300],
+			switchBase: ({ theme }) => ({
+				transitionDuration: '200ms',
+				'&.Mui-checked': {
+					// transform: 'translateX(16px)',
+					color: gray[50],
+					'& + .MuiSwitch-track': {
+						backgroundColor: brand[500],
+						opacity: 1,
+						border: 0,
+					},
 				},
-				'&:active': {
-					backgroundColor: gray[200],
+				'&.Mui-disabled': {
+					'& + .MuiSwitch-track': {
+						opacity: 0.4,
+					},
 				},
-				...theme.applyStyles('dark', {
-					backgroundColor: gray[800],
-					borderColor: gray[700],
-					'&:hover': {
-						backgroundColor: gray[900],
-						borderColor: gray[600],
-					},
-					'&:active': {
-						backgroundColor: gray[900],
-					},
-				}),
-				variants: [
-					{
-						props: {
-							size: 'small',
-						},
-						style: {
-							width: '2.25rem',
-							height: '2.25rem',
-							padding: '0.25rem',
-							[`& .${svgIconClasses.root}`]: { fontSize: '1rem' },
-						},
-					},
-					{
-						props: {
-							size: 'medium',
-						},
-						style: {
-							width: '2.5rem',
-							height: '2.5rem',
-						},
-					},
-				],
+			}),
+			thumb: {
+				width: 20,
+				height: 20,
+				boxSizing: 'border-box',
+			},
+			track: ({ theme }) => ({
+				borderRadius: 13,
+				backgroundColor: gray[700],
+				opacity: 1,
 			}),
 		},
 	},
+
 };
