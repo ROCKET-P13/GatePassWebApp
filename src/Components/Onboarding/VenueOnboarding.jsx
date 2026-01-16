@@ -1,12 +1,12 @@
 import { Box, Stepper, Step, StepLabel, Paper } from '@mui/material';
 import { useOnboardingStore } from '../../store/useOnboardingStore';
 import { Steps } from '../../store/useOnboardingStore';
-import { VenueStep } from './Steps/VenueStep';
-import { FeaturesStep } from './Steps/FeaturesStep';
+import { VenueStep } from './Components.jsx/VenueStep';
+import { FeaturesStep } from './Components.jsx/FeaturesStep';
 import _ from 'lodash';
-import { WaiverStep } from './Steps/WaiverStep';
-import { EventStep } from './Steps/EventStep';
-import { CompleteStep } from './Steps/CompleteStep';
+import { WaiverStep } from './Components.jsx/WaiverStep';
+import { EventStep } from './Components.jsx/EventStep';
+import { CompleteStep } from './Components.jsx/CompleteStep';
 
 const StepLabels = Object.freeze({
 	[Steps.VENUE]: 'Venue',
