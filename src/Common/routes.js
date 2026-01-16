@@ -4,7 +4,7 @@ export const Routes = Object.freeze({
 	EVENTS: '/events',
 	PEOPLE: '/people',
 	WAIVERS: '/waivers',
-	VENUE_SETTINGS: '/venuesettings',
+	VENUE_SETTINGS: '/venue_settings',
 	ACCOUNT: '/account',
 	SETTINGS: '/settings',
 });

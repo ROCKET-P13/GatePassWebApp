@@ -12,7 +12,10 @@ export const DashboardAppBar = () => {
 					<IconButton
 						color="inherit"
 						aria-label="open drawer"
-						onClick={toggleDrawer}
+						onClick={(event) => {
+							event.currentTarget.blur();
+							toggleDrawer(!drawerOpen);
+						}}
 						edge="start"
 						sx={[
 							{

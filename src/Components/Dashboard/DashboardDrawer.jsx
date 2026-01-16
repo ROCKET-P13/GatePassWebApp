@@ -73,16 +73,7 @@ export const DashboardDrawer = () =>  {
 	return (
 		<>
 			<DashboardAppBar />
-			<Drawer
-				variant='temporary'
-				open={drawerOpen}
-				onClose={toggleDrawer}
-				ModalProps={{
-					keepMounted: true,
-					disableAutoFocus: true,
-					disableEnforceFocus: true,
-				}}
-			>
+			<Drawer open={drawerOpen} onClose={toggleDrawer}>
 				<Box
 					sx={{
 						width: 250,
@@ -96,7 +87,8 @@ export const DashboardDrawer = () =>  {
 						<List>
 							{_.chain(DrawerItems).keys().map((drawerItemKey) => (
 								<ListItem key={drawerItemKey} disablePadding>
-									<ListItemButton onClick={() => {
+									<ListItemButton onClick={(event) => {
+										event.currentTarget.blur();
 										toggleDrawer(!drawerOpen);
 										navigate({ to: DrawerItems[drawerItemKey].route });
 									}}>
