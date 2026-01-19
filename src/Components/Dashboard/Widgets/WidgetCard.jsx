@@ -11,13 +11,14 @@ export const WidgetCard = ({ title, action, children }) => {
 						flexDirection: 'row',
 						justifyContent: 'space-between',
 						alignItems: 'center',
+						paddingX: 1,
 					}}>
-						<Typography variant='h5'>{title}</Typography>
+						<Typography variant='h6'>{title}</Typography>
 						{action}
 					</Box>
 					: <></>
 			}
-			<CardContent>
+			<CardContent sx={{ paddingX: 1 }}>
 				{children}
 			</CardContent>
 		</Card>

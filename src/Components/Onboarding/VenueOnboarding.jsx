@@ -20,7 +20,7 @@ export const VenueOnboarding = () => {
 	const step = useOnboardingStore((state) => state.step);
 	const currentStepIndex = _.chain(Steps).keys().indexOf(step).value();
 	return (
-		<Box maxWidth={600} mx="auto" mt={6}>
+		<Box maxWidth={800} mx="auto" mt={6}>
 			<Stepper
 				activeStep={currentStepIndex}
 			>
