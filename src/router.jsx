@@ -11,6 +11,7 @@ import { CssBaseline, Container } from '@mui/material';
 import { VenueOnboarding } from './Components/Onboarding/VenueOnboarding';
 import { Routes } from './Common/routes';
 import { DashboardDrawer } from './Components/Dashboard/DashboardDrawer';
+import { Dashboard } from './Components/Dashboard/Dashboard';
 
 const rootRoute = createRootRoute({
 	component: () => (
@@ -39,13 +40,12 @@ const dashboardRoute = createRoute({
 	getParentRoute: () => rootRoute,
 	path: Routes.DASHBOARD,
 	component: DashboardDrawer,
-	children: [
-		createRoute({
-			getParentRoute: () => dashboardRoute,
-			path: '/',
-			component: () => <div>Dashboard</div>,
-		}),
-	],
+});
+
+const dashboardIndexRoute = createRoute({
+	getParentRoute: () => dashboardRoute,
+	path: '/',
+	component: Dashboard,
 });
 
 const eventsRoute = createRoute({
@@ -84,16 +84,20 @@ const settingsRoute = createRoute({
 	component: () => <div>Settings</div>,
 });
 
-const routeTree = rootRoute.addChildren([
-	indexRoute,
-	onboardingRoute,
-	dashboardRoute,
+dashboardRoute.addChildren([
+	dashboardIndexRoute,
 	eventsRoute,
 	peopleRoute,
 	waiversRoute,
 	venueSettingsRoute,
 	accountRoute,
 	settingsRoute,
+]);
+
+const routeTree = rootRoute.addChildren([
+	indexRoute,
+	onboardingRoute,
+	dashboardRoute,
 ]);
 
 export const router = createRouter({ routeTree });

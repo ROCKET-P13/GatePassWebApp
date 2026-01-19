@@ -21,7 +21,7 @@ import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 
 import { useDashboardStore } from '../../Store/userDashboardStore';
 import { DashboardAppBar } from './DashboardAppBar';
-import {  useNavigate } from '@tanstack/react-router';
+import {  Outlet, useNavigate } from '@tanstack/react-router';
 import { Routes } from '../../Common/routes';
 
 const DrawerItems = Object.freeze({
@@ -71,8 +71,9 @@ export const DashboardDrawer = () =>  {
 
 	const navigate = useNavigate();
 	return (
-		<>
+		<Box>
 			<DashboardAppBar />
+
 			<Drawer open={drawerOpen} onClose={toggleDrawer}>
 				<Box
 					sx={{
@@ -127,8 +128,18 @@ export const DashboardDrawer = () =>  {
 						</Box>
 					</Box>
 				</Box>
-
 			</Drawer>
-		</>
+
+			<Box
+				component='main'
+				sx={{
+					flexGrow: 1,
+					p: 3,
+					mt: 8,
+				}}
+			>
+				<Outlet />
+			</Box>
+		</Box>
 	);
 };

@@ -44,6 +44,7 @@ export default defineConfig([
 			'quote-props': ['error', 'as-needed'],
 			'padded-blocks': ['error', 'never'],
 			'space-before-blocks': ['error', 'always'],
+			'react/prop-types': 'off',
 			semi: ['error', 'always'],
 			'comma-spacing': ['error', {
 				before: false,
