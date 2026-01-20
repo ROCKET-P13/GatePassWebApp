@@ -11,7 +11,7 @@ export const EventStep = () => {
 			<TextField label="Event Name" fullWidth />
 			<DateTimePicker label='Event Date' />
 			<Stack direction="row" spacing={2}>
-				<Button variant='outlined'color='secondary' onClick={back}>Back</Button>
+				<Button variant='outlined' color='secondary' onClick={back}>Back</Button>
 				<Button variant='contained' onClick={next}>
 					Go Live
 				</Button>

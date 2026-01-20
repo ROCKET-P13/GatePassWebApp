@@ -11,7 +11,7 @@ export const WidgetCard = ({ title, action, children }) => {
 						flexDirection: 'row',
 						justifyContent: 'space-between',
 						alignItems: 'center',
-						paddingX: 1,
+						paddingX: 2,
 					}}>
 						<Typography variant='h6'>{title}</Typography>
 						{action}
