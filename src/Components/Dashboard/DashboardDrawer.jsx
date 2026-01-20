@@ -71,7 +71,7 @@ export const DashboardDrawer = () =>  {
 
 	const navigate = useNavigate();
 	return (
-		<Box>
+		<Box sx={{ display: 'flex', width: '80vw' }}>
 			<DashboardAppBar />
 
 			<Drawer open={drawerOpen} onClose={toggleDrawer}>

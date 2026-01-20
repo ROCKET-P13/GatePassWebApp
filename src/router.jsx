@@ -17,9 +17,7 @@ const rootRoute = createRootRoute({
 	component: () => (
 		<>
 			<CssBaseline />
-			<Container>
-				<Outlet />
-			</Container>
+			<Outlet />
 		</>
 	),
 });

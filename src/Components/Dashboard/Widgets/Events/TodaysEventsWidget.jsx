@@ -7,8 +7,16 @@ import { WidgetCard } from '../WidgetCard';
 
 export const TodaysEventsWidget = () => {
 	const events = [
-		{ id: 1, name: 'Open Ride', status: 'Live' },
-		{ id: 2, name: 'Kids Practice', status: 'Upcoming' },
+		{
+			id: 1,
+			name: 'Open Ride',
+			status: 'Live',
+		},
+		{
+			id: 2,
+			name: 'Kids Practice',
+			status: 'Upcoming',
+		},
 	];
 
 	return (
