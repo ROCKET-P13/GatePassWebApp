@@ -1,4 +1,5 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Stack, TextField } from '@mui/material';
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Stack, TextField } from '@mui/material';
+import { TimePicker } from '@mui/x-date-pickers';
 
 export const AddEventDialog = ({ open, onClose }) => {
 	return (
@@ -10,7 +11,7 @@ export const AddEventDialog = ({ open, onClose }) => {
 		>
 			<DialogTitle>Add Event</DialogTitle>
 
-			<DialogContent>
+			<DialogContent dividers>
 				<Stack spacing={2} mt={1}>
 					<TextField
 						label="Event Name"
@@ -18,11 +19,16 @@ export const AddEventDialog = ({ open, onClose }) => {
 						placeholder="Open Ride"
 					/>
 
-					<TextField
-						label="Status"
-						fullWidth
-						placeholder="Live / Upcoming"
-					/>
+					<Box fullWidth sx={{ display: 'flex' }}>
+						<TextField
+							label="Status"
+							placeholder="Live / Upcoming"
+							sx={{ marginRight: 3 }}
+						/>
+
+						<TimePicker label="Event Time" />
+					</Box>
+
 				</Stack>
 
 				<DialogActions sx={{ paddingTop: 3 }}>
