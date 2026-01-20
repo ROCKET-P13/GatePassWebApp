@@ -9,6 +9,22 @@ export const inputsCustomizations = {
 			}),
 		},
 	},
+	MuiPickersTextField: {
+		styleOverrides: {
+			root: ({ theme }) => ({
+				backgroundColor: alpha(gray[700], 0.2),
+				borderRadius: (theme.vars || theme).shape.borderRadius,
+				color: (theme.vars || theme).palette.text.primary,
+			}),
+		},
+	},
+	MuiSvgIcon: {
+		styleOverrides: {
+			root: ({ theme }) => ({
+				color: (theme.vars || theme).palette.text.primary,
+			}),
+		},
+	},
 	MuiButtonBase: {
 		defaultProps: {
 			disableTouchRipple: true,
