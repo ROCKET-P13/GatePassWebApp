@@ -6,7 +6,7 @@ import {
 } from '@tanstack/react-router';
 
 import { Outlet } from '@tanstack/react-router';
-import { CssBaseline, Container } from '@mui/material';
+import { CssBaseline } from '@mui/material';
 
 import { VenueOnboarding } from './Components/Onboarding/VenueOnboarding';
 import { Routes } from './Common/routes';
