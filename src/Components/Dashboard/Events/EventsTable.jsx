@@ -47,8 +47,7 @@ export const EventsTable = ({ events }) => {
 			{
 				accessorKey: 'date',
 				header: 'Date',
-				cell: (info) =>
-					new Date(info.getValue()).toLocaleDateString(),
+				cell: (info) => new Date(info.getValue()).toLocaleDateString(),
 			},
 			{
 				accessorKey: 'status',
@@ -79,6 +78,7 @@ export const EventsTable = ({ events }) => {
 		[]
 	);
 
+	// eslint-disable-next-line react-hooks/incompatible-library
 	const table = useReactTable({
 		data: events,
 		columns,
@@ -92,39 +92,53 @@ export const EventsTable = ({ events }) => {
 		<TableContainer component={Paper}>
 			<Table size="small">
 				<TableHead>
-					{table.getHeaderGroups().map((headerGroup) => (
-						<TableRow key={headerGroup.id}>
-							{headerGroup.headers.map((header) => (
-								<TableCell key={header.id}>
-									{header.isPlaceholder ? null : (
-										<TableSortLabel
-											active={header.column.getIsSorted()}
-											direction={header.column.getIsSorted() || 'asc'}
-											onClick={header.column.getToggleSortingHandler()}
-										>
-											{flexRender(
-												header.column.columnDef.header,
-												header.getContext()
-											)}
-										</TableSortLabel>
-									)}
-								</TableCell>
-							))}
-						</TableRow>
-					))}
+					{
+						table.getHeaderGroups().map((headerGroup) => (
+							<TableRow key={headerGroup.id}>
+								{
+									headerGroup.headers.map((header) => (
+										<TableCell key={header.id}>
+											{
+												header.isPlaceholder
+													? null
+													: (
+														<TableSortLabel
+															active={header.column.getIsSorted()}
+															direction={header.column.getIsSorted() || 'asc'}
+															onClick={header.column.getToggleSortingHandler()}
+														>
+															{
+																flexRender(
+																	header.column.columnDef.header,
+																	header.getContext()
+																)
+															}
+														</TableSortLabel>
+													)
+											}
+										</TableCell>
+									))
+								}
+							</TableRow>
+						))
+					}
 				</TableHead>
 
 				<TableBody>
 					{table.getRowModel().rows.map((row) => (
 						<TableRow key={row.id} hover>
-							{row.getVisibleCells().map((cell) => (
-								<TableCell key={cell.id}>
-									{flexRender(
-										cell.column.columnDef.cell,
-										cell.getContext()
-									)}
-								</TableCell>
-							))}
+							{
+								row.getVisibleCells().map((cell) => (
+									<TableCell key={cell.id}>
+										{
+											flexRender(
+												cell.column.columnDef.cell,
+												cell.getContext()
+											)
+										}
+									</TableCell>
+								))
+							}
 						</TableRow>
 					))}
 				</TableBody>
