@@ -23,16 +23,10 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 import { useMemo, useState } from 'react';
 
-const statusColor = (status) => {
-	switch (status) {
-		case 'Live':
-			return 'success';
-		case 'Upcoming':
-			return 'warning';
-		default:
-			return 'default';
-	}
-};
+const EventStatusColor = Object.freeze({
+	LIVE: 'success',
+	UPCOMING: 'warning',
+});
 
 export const EventsTable = ({ events }) => {
 	const [sorting, setSorting] = useState([]);
@@ -55,7 +49,7 @@ export const EventsTable = ({ events }) => {
 				cell: (info) => (
 					<Chip
 						label={info.getValue()}
-						color={statusColor(info.getValue())}
+						color={EventStatusColor[info.getValue().toUpperCase()] ?? 'default'}
 						size="small"
 					/>
 				),
