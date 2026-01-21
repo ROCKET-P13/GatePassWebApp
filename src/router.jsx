@@ -12,6 +12,7 @@ import { VenueOnboarding } from './Components/Onboarding/VenueOnboarding';
 import { Routes } from './Common/routes';
 import { DashboardDrawer } from './Components/Dashboard/DashboardDrawer';
 import { Dashboard } from './Components/Dashboard/Dashboard';
+import { EventsPage } from './Components/Dashboard/Events/EventsPage';
 
 const rootRoute = createRootRoute({
 	component: () => (
@@ -49,7 +50,7 @@ const dashboardIndexRoute = createRoute({
 const eventsRoute = createRoute({
 	getParentRoute: () => dashboardRoute,
 	path: Routes.EVENTS,
-	component: () => <div>Events</div>,
+	component: EventsPage,
 });
 
 const peopleRoute = createRoute({
