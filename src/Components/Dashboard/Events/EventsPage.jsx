@@ -1,7 +1,11 @@
 import { Box, Button, Paper, Stack, Typography } from '@mui/material';
 import { EventsTable } from './EventsTable';
+import { useState } from 'react';
+import { AddEventDialog } from '../Widgets/Events/AddEventDialog';
 
 export const EventsPage = () => {
+	const [open, setOpen] = useState(false);
+
 	const events = [
 		{
 			id: 1,
@@ -16,6 +20,7 @@ export const EventsPage = () => {
 			status: 'Upcoming',
 		},
 	];
+
 	return (
 		<Box>
 			<Stack
@@ -26,7 +31,10 @@ export const EventsPage = () => {
 			>
 				<Typography variant="h4">Events</Typography>
 
-				<Button variant="contained">
+				<Button
+					variant="contained"
+					onClick={() => setOpen(true)}
+				>
 					Add Event
 				</Button>
 			</Stack>
@@ -34,6 +42,8 @@ export const EventsPage = () => {
 			<Paper sx={{ p: 2 }}>
 				<EventsTable events={events} />
 			</Paper>
+
+			<AddEventDialog open={open} onClose={() => setOpen(false)} />
 		</Box>
 	);
 };
