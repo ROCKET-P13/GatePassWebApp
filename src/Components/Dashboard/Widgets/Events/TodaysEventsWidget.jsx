@@ -27,7 +27,10 @@ export const TodaysEventsWidget = () => {
 			<WidgetCard
 				title="Today's Events"
 				action={
-					<IconButton color='inherit' onClick={() => setOpen(true)}>
+					<IconButton
+						color='inherit'
+						onClick={() => setOpen(true)}
+					>
 						<AddBoxIcon />
 					</IconButton>
 				}

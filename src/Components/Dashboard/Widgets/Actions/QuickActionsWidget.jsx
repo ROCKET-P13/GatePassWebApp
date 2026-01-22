@@ -9,7 +9,10 @@ export const QuickActionsWidget = () => {
 	return (
 		<WidgetCard title="Quick Actions">
 			<Stack spacing={1}>
-				<Button variant="contained">Create Event</Button>
+				<Button
+					variant="contained"
+					onClick={() => setOpen(true)}
+				>Create Event</Button>
 			</Stack>
 
 			<AddEventDialog open={open} onClose={() => setOpen(false)} />
