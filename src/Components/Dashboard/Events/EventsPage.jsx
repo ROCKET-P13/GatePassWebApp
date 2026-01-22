@@ -1,10 +1,10 @@
 import { Box, Button, Paper, Stack, Typography } from '@mui/material';
 import { EventsTable } from './EventsTable';
 import { useState } from 'react';
-import { AddEventDialog } from '../Widgets/Events/AddEventDialog';
+import { AddEventDialog } from '../Dialog/AddEventDialog';
 
 export const EventsPage = () => {
-	const [open, setOpen] = useState(false);
+	const [isEventDialogOpen, setIsEventDialogOpen] = useState(false);
 
 	const events = [
 		{
@@ -33,7 +33,7 @@ export const EventsPage = () => {
 
 				<Button
 					variant="contained"
-					onClick={() => setOpen(true)}
+					onClick={() => setIsEventDialogOpen(true)}
 				>
 					Add Event
 				</Button>
@@ -43,7 +43,7 @@ export const EventsPage = () => {
 				<EventsTable events={events} />
 			</Paper>
 
-			<AddEventDialog open={open} onClose={() => setOpen(false)} />
+			<AddEventDialog open={isEventDialogOpen} onClose={() => setIsEventDialogOpen(false)} />
 		</Box>
 	);
 };

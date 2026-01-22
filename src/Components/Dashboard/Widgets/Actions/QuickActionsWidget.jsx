@@ -1,7 +1,7 @@
 import { Stack, Button } from '@mui/material';
 import { WidgetCard } from '../WidgetCard';
 import { useState } from 'react';
-import { AddEventDialog } from '../Events/AddEventDialog';
+import { AddEventDialog } from '../../Dialog/AddEventDialog';
 
 export const QuickActionsWidget = () => {
 	const [open, setOpen] = useState(false);

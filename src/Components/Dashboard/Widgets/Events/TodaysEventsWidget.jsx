@@ -4,7 +4,7 @@ import IconButton from '@mui/material/IconButton';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 
 import { WidgetCard } from '../WidgetCard';
-import { AddEventDialog } from './AddEventDialog';
+import { AddEventDialog } from '../../Dialog/AddEventDialog';
 import { useState } from 'react';
 
 export const TodaysEventsWidget = () => {
