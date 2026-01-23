@@ -22,6 +22,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 import { useMemo, useState } from 'react';
+import { ConfirmDialog } from '../Dialog/ConfirmDialog';
 
 const EventStatusColor = Object.freeze({
 	LIVE: 'success',
@@ -30,6 +31,8 @@ const EventStatusColor = Object.freeze({
 
 export const EventsTable = ({ events }) => {
 	const [sorting, setSorting] = useState([]);
+	const [eventToDelete, setEventToDelete] = useState(null);
+	const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false);
 
 	const columns = useMemo(
 		() => [
@@ -57,12 +60,19 @@ export const EventsTable = ({ events }) => {
 			{
 				id: 'actions',
 				header: '',
-				cell: () => (
+				cell: ({ row }) => (
 					<Stack direction="row" spacing={1}>
 						<IconButton size="small">
 							<EditIcon fontSize="small" />
 						</IconButton>
-						<IconButton size="small" color="error">
+						<IconButton
+							size="small"
+							color="error"
+							onClick={() => {
+								setIsConfirmDialogOpen(true);
+								setEventToDelete(row.original);
+							}}
+						>
 							<DeleteIcon fontSize="small" />
 						</IconButton>
 					</Stack>
@@ -137,6 +147,18 @@ export const EventsTable = ({ events }) => {
 					))}
 				</TableBody>
 			</Table>
+
+			<ConfirmDialog
+				open={isConfirmDialogOpen}
+				title='Delete Event?'
+				description={`This will permanently delete "${eventToDelete?.name}"`}
+				onCancel={() => setIsConfirmDialogOpen(false)}
+				onConfirm={() => {
+					setIsConfirmDialogOpen(false);
+					console.log('Deleting Event:', eventToDelete);
+				}}
+				onExited={() => setEventToDelete(null)}
+			/>
 		</TableContainer>
 	);
 };
