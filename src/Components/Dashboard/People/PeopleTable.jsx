@@ -1,49 +1,37 @@
 import {
-	flexRender,
+	useReactTable,
 	getCoreRowModel,
-	getSortedRowModel,
-	useReactTable
+	flexRender,
+	getSortedRowModel
 } from '@tanstack/react-table';
 
 import {
 	Table,
 	TableBody,
 	TableCell,
-	TableContainer,
 	TableHead,
 	TableRow,
 	Paper,
 	Chip,
-	IconButton,
-	Stack,
-	TableSortLabel
+	TableSortLabel,
+	TableContainer
 } from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
 
 import { useMemo, useState } from 'react';
-import { ConfirmDialog } from '../Dialog/ConfirmDialog';
 
-const EventStatusColor = Object.freeze({
-	LIVE: 'success',
-	UPCOMING: 'warning',
-});
-
-export const EventsTable = ({ events }) => {
+export const PeopleTable = ({ people }) => {
 	const [sorting, setSorting] = useState([]);
-	const [eventToDelete, setEventToDelete] = useState(null);
-	const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false);
 
 	const columns = useMemo(() => [
 		{
-			accessorKey: 'name',
-			header: 'Event',
+			accessorFn: (row) => `${row.firstName} ${row.lastName}`,
+			header: 'Name',
 			cell: (info) => info.getValue(),
 		},
 		{
-			accessorKey: 'date',
-			header: 'Date',
-			cell: (info) => new Date(info.getValue()).toLocaleDateString(),
+			accessorKey: 'role',
+			header: 'Role',
+			cell: (info) => info.getValue(),
 		},
 		{
 			accessorKey: 'status',
@@ -51,37 +39,32 @@ export const EventsTable = ({ events }) => {
 			cell: (info) => (
 				<Chip
 					label={info.getValue()}
-					color={EventStatusColor[info.getValue().toUpperCase()] ?? 'default'}
+					color={info.getValue() === 'Checked In' ? 'success' : 'default'}
 					size="small"
 				/>
 			),
 		},
 		{
-			id: 'actions',
-			header: '',
-			cell: ({ row }) => (
-				<Stack direction="row" spacing={1}>
-					<IconButton size="small">
-						<EditIcon fontSize="small" />
-					</IconButton>
-					<IconButton
-						size="small"
-						color="error"
-						onClick={() => {
-							setIsConfirmDialogOpen(true);
-							setEventToDelete(row.original);
-						}}
-					>
-						<DeleteIcon fontSize="small" />
-					</IconButton>
-				</Stack>
+			accessorKey: 'waiverStatus',
+			header: 'Waiver',
+			cell: (info) => (
+				<Chip
+					label={info.getValue()}
+					color={info.getValue() === 'Complete' ? 'success' : 'warning'}
+					size="small"
+				/>
 			),
+		},
+		{
+			accessorKey: 'lastEvent',
+			header: 'Last Event',
+			cell: (info) => info.getValue(),
 		},
 	], []);
 
 	// eslint-disable-next-line react-hooks/incompatible-library
 	const table = useReactTable({
-		data: events,
+		data: people,
 		columns,
 		state: { sorting },
 		onSortingChange: setSorting,
@@ -146,18 +129,6 @@ export const EventsTable = ({ events }) => {
 					}
 				</TableBody>
 			</Table>
-
-			<ConfirmDialog
-				open={isConfirmDialogOpen}
-				title='Delete Event?'
-				description={`This will permanently delete "${eventToDelete?.name}"`}
-				onCancel={() => setIsConfirmDialogOpen(false)}
-				onConfirm={() => {
-					setIsConfirmDialogOpen(false);
-					console.log('Deleting Event:', eventToDelete);
-				}}
-				onExited={() => setEventToDelete(null)}
-			/>
 		</TableContainer>
 	);
 };

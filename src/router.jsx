@@ -13,6 +13,7 @@ import { Routes } from './Common/routes';
 import { DashboardDrawer } from './Components/Dashboard/DashboardDrawer';
 import { Dashboard } from './Components/Dashboard/Dashboard';
 import { EventsPage } from './Components/Dashboard/Events/EventsPage';
+import { PeoplePage } from './Components/Dashboard/People/PeoplePage';
 
 const rootRoute = createRootRoute({
 	component: () => (
@@ -56,7 +57,7 @@ const eventsRoute = createRoute({
 const peopleRoute = createRoute({
 	getParentRoute: () => dashboardRoute,
 	path: Routes.PEOPLE,
-	component: () => <div>People</div>,
+	component: PeoplePage,
 });
 
 const waiversRoute = createRoute({
