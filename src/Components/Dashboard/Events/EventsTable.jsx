@@ -29,8 +29,7 @@ const EventStatusColor = Object.freeze({
 	UPCOMING: 'warning',
 });
 
-export const EventsTable = ({ events }) => {
-	const [sorting, setSorting] = useState([]);
+export const EventsTable = ({ events, sorting, onSortingChange }) => {
 	const [eventToDelete, setEventToDelete] = useState(null);
 	const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false);
 
@@ -84,7 +83,8 @@ export const EventsTable = ({ events }) => {
 		data: events,
 		columns,
 		state: { sorting },
-		onSortingChange: setSorting,
+		onSortingChange,
+		manualSorting: true,
 		getCoreRowModel: getCoreRowModel(),
 		getSortedRowModel: getSortedRowModel(),
 	});
