@@ -4,11 +4,7 @@ import { Routes } from '../../Common/routes';
 import { Box, Button, Paper, Stack, Typography } from '@mui/material';
 
 export const LoginPage = () => {
-	const { loginWithRedirect, isAuthenticated, isLoading } = useAuth0();
-
-	if (isLoading) {
-		return null;
-	}
+	const { loginWithRedirect, isAuthenticated } = useAuth0();
 
 	if (isAuthenticated) {
 		return <Navigate to={Routes.DASHBOARD} replace />;
