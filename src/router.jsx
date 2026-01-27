@@ -15,7 +15,7 @@ import { Dashboard } from './Components/Dashboard/Dashboard';
 import { EventsPage } from './Components/Dashboard/Events/EventsPage';
 import { PeoplePage } from './Components/Dashboard/People/PeoplePage';
 import { LoginPage } from './Components/Login/LoginPage';
-import { RequireAuth } from './Components/Auth/RequireAuth';
+import { RequireAuth } from './Auth/RequireAuth';
 
 const rootRoute = createRootRoute({
 	component: () => (
