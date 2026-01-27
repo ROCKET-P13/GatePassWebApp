@@ -120,7 +120,9 @@ export const AppRouter = () => {
 	]);
 
 	if (auth.isLoading) {
-		return null;
+		return (
+			<div>Loading...</div>
+		);
 	}
 
 	const router = createRouter({
