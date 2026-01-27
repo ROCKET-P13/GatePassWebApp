@@ -2,10 +2,10 @@ import {
 	createRouter,
 	createRootRoute,
 	createRoute,
-	Navigate
+	Navigate,
+	Outlet
 } from '@tanstack/react-router';
 
-import { Outlet } from '@tanstack/react-router';
 import { CssBaseline } from '@mui/material';
 
 import { VenueOnboarding } from './Components/Onboarding/VenueOnboarding';
@@ -14,6 +14,8 @@ import { DashboardDrawer } from './Components/Dashboard/DashboardDrawer';
 import { Dashboard } from './Components/Dashboard/Dashboard';
 import { EventsPage } from './Components/Dashboard/Events/EventsPage';
 import { PeoplePage } from './Components/Dashboard/People/PeoplePage';
+import { LoginPage } from './Components/Login/LoginPage';
+import { RequireAuth } from './Components/Auth/RequireAuth';
 
 const rootRoute = createRootRoute({
 	component: () => (
@@ -27,7 +29,13 @@ const rootRoute = createRootRoute({
 const indexRoute = createRoute({
 	getParentRoute: () => rootRoute,
 	path: '/',
-	component: () => <Navigate to={Routes.ONBOARDING} />,
+	component: () => <Navigate to={Routes.DASHBOARD} />,
+});
+
+const loginRoute = createRoute({
+	getParentRoute: () => rootRoute,
+	path: Routes.LOGIN,
+	component: LoginPage,
 });
 
 const onboardingRoute = createRoute({
@@ -36,8 +44,14 @@ const onboardingRoute = createRoute({
 	component: VenueOnboarding,
 });
 
-const dashboardRoute = createRoute({
+const protectedRoute = createRoute({
 	getParentRoute: () => rootRoute,
+	id: 'protected',
+	component: RequireAuth,
+});
+
+const dashboardRoute = createRoute({
+	getParentRoute: () => protectedRoute,
 	path: Routes.DASHBOARD,
 	component: DashboardDrawer,
 });
@@ -96,8 +110,9 @@ dashboardRoute.addChildren([
 
 const routeTree = rootRoute.addChildren([
 	indexRoute,
+	loginRoute,
 	onboardingRoute,
-	dashboardRoute,
+	protectedRoute,
 ]);
 
 export const router = createRouter({ routeTree });

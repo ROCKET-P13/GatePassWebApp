@@ -2,6 +2,11 @@ import axios from 'axios';
 
 export class APIClient {
 	#API_BASE_URL = import.meta.env.VITE_API_URL ?? '/api';
+	#getAccessToken;
+
+	constructor (params = {}) {
+		this.#getAccessToken = params.getAccessToken;
+	}
 
 	async #request (params = {}) {
 		try {
@@ -32,10 +37,15 @@ export class APIClient {
 		}
 	}
 
-	get ({ url }) {
-		return this.#request({
+	async get ({ url }) {
+		const token = await this.#getAccessToken();
+
+		return await this.#request({
 			method: 'GET',
 			url,
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
 		});
 	}
 

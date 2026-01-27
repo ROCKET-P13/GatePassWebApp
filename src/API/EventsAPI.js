@@ -4,7 +4,9 @@ import { APIClient } from './APIClient';
 export class EventsAPI {
 	#apiClient;
 	constructor (params = {}) {
-		this.#apiClient = params.apiClient ?? new APIClient();
+		this.#apiClient = params.apiClient ?? new APIClient({
+			getAccessToken: params.getAccessToken,
+		});
 	}
 
 	async getEvents ({ sorting = [] }) {

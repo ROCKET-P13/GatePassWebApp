@@ -7,4 +7,5 @@ export const Routes = Object.freeze({
 	VENUE_SETTINGS: '/venue_settings',
 	ACCOUNT: '/account',
 	SETTINGS: '/settings',
+	LOGIN: '/login',
 });

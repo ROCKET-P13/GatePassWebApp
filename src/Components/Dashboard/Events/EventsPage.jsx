@@ -1,15 +1,21 @@
 import { Box, Button, Paper, Stack, Typography } from '@mui/material';
 import { EventsTable } from './EventsTable';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { AddEventDialog } from '../Dialog/AddEventDialog';
 import { EventsAPI } from '../../../API/EventsAPI';
-const eventsAPI = new EventsAPI();
+import { useAuth0 } from '@auth0/auth0-react';
 
 export const EventsPage = () => {
 	const [isEventDialogOpen, setIsEventDialogOpen] = useState(false);
 	const [events, setEvents] = useState([]);
 	const [sorting, setSorting] = useState([]);
 	const [loading, setLoading] = useState(false);
+
+	const { isAuthenticated, getAccessTokenSilently } = useAuth0();
+	const eventsAPI = useMemo(
+		() => new EventsAPI({ getAccessToken: getAccessTokenSilently }),
+		[getAccessTokenSilently]
+	);
 
 	useEffect(() => {
 		let cancelled = false;
@@ -34,7 +40,7 @@ export const EventsPage = () => {
 		return () => {
 			cancelled = true;
 		};
-	}, [sorting]);
+	}, [sorting, isAuthenticated, eventsAPI]);
 
 	return (
 		<Box>
