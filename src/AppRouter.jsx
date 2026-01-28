@@ -17,6 +17,7 @@ import { PeoplePage } from './Components/Dashboard/People/PeoplePage';
 import { LoginPage } from './Components/Login/LoginPage';
 import { RequireAuth } from './Auth/RequireAuth';
 import { Routes } from './Common/routes';
+import { AppLoadingScreen } from './Components/Common/LoadingScreen';
 
 const rootRoute = createRootRoute({
 	component: () => (
@@ -98,7 +99,7 @@ export const AppRouter = () => {
 	const auth = useAuth0();
 
 	if (auth.isLoading) {
-		return <div>Loading...</div>;
+		return <AppLoadingScreen message="Signing you in..." />;
 	}
 
 	return (
