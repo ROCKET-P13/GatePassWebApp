@@ -102,6 +102,8 @@ export const AppRouter = () => {
 		component: () => <div>Settings</div>,
 	});
 
+	protectedRoute.addChildren([dashboardRoute]);
+
 	dashboardRoute.addChildren([
 		dashboardIndexRoute,
 		eventsRoute,
