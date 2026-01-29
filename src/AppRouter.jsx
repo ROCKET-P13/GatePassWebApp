@@ -76,12 +76,40 @@ const peopleRoute = createRoute({
 	component: PeoplePage,
 });
 
+const waiversRoute = createRoute({
+	getParentRoute: () => dashboardRoute,
+	path: Routes.WAIVERS,
+	component: () => <div>Waivers</div>,
+});
+
+const venueSettingsRoute = createRoute({
+	getParentRoute: () => dashboardRoute,
+	path: Routes.VENUE_SETTINGS,
+	component: () => <div>Venue Settings</div>,
+});
+
+const accountRoute = createRoute({
+	getParentRoute: () => dashboardRoute,
+	path: Routes.ACCOUNT,
+	component: () => <div>Account</div>,
+});
+
+const userSettings = createRoute({
+	getParentRoute: () => dashboardRoute,
+	path: Routes.SETTINGS,
+	component: () => <div>User Settings</div>,
+});
+
 protectedRoute.addChildren([dashboardRoute]);
 
 dashboardRoute.addChildren([
 	dashboardIndexRoute,
 	eventsRoute,
 	peopleRoute,
+	waiversRoute,
+	venueSettingsRoute,
+	accountRoute,
+	userSettings,
 ]);
 
 protectedRoute.addChildren([dashboardRoute]);
