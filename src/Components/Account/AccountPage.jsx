@@ -1,6 +1,5 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import { Avatar, Box, Button, Paper, Stack, Typography } from '@mui/material';
-import { Routes } from '../../Common/routes';
 
 export const AccountPage = () => {
 	const { user, isLoading, logout } = useAuth0();
