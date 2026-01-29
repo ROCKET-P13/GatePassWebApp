@@ -16,12 +16,50 @@ export const VenueStep = () => {
 				onChange={(event) => updateVenue({ name: event.target.value })}
 				fullWidth
 			/>
+			<TextField
+				label='Venue Type'
+				value={venue.type}
+				onChange={(event) => updateVenue({ type: event.target.value })}
+				fullWidth
+				placeholder='Track'
+			/>
+			<Stack direction="column" spacing={3}>
+				<TextField
+					label="Address Line 1"
+					value={venue.addressLine1}
+					onChange={(event) => updateVenue({ addressLine1: event.target.value })}
+					fullWidth
+					placeholder="123 Main Street"
+				/>
+				<TextField
+					label="Address Line 2"
+					value={venue.addressLine2}
+					onChange={(event) => updateVenue({ addressLine2: event.target.value })}
+					fullWidth
+					placeholder="Unit #30"
+				/>
+				<TextField
+					label="Phone Number"
+					value={venue.phoneNumber}
+					onChange={(event) => updateVenue({ phoneNumber: event.target.value.replace(/[^\d+()\-\s]/g, '') })}
+					sx={{ maxWidth: 200 }}
+					slotProps={{
+						htmlInput: {
+							inputMode: 'tel',
+							maxLength: 20,
+						},
+					}}
+					placeholder="(555) 123-4567"
+				/>
+			</Stack>
+
 			<Stack direction='row' spacing={2}>
 				<TextField
 					label='City'
 					value={venue.city}
 					onChange={(event) => updateVenue({ city: event.target.value })}
 					fullWidth
+					placeholder="Jacksonville"
 				/>
 				<Box sx={{ minWidth: 120 }}>
 					<FormControl fullWidth>
@@ -47,12 +85,6 @@ export const VenueStep = () => {
 					</FormControl>
 				</Box>
 			</Stack>
-			<TextField
-				label='Venue Type'
-				value={venue.type}
-				onChange={(event) => updateVenue({ type: event.target.value })}
-				fullWidth
-			/>
 			<Button
 				variant='contained'
 				size='large'

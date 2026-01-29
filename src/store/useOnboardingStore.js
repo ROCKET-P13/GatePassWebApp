@@ -13,9 +13,13 @@ export const useOnboardingStore = create((set, get) => ({
 	step: Steps.VENUE,
 	venue: {
 		name: '',
+		type: '',
+		phoneNumber: '',
+		addressLine1: '',
+		addressLine2: '',
 		city: '',
 		state: '',
-		type: '',
+		country: 'US',
 	},
 	features: {
 		waivers: false,
