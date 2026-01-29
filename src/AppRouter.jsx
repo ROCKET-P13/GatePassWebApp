@@ -18,6 +18,7 @@ import { LoginPage } from './Components/Login/LoginPage';
 import { RequireAuth } from './Auth/RequireAuth';
 import { Routes } from './Common/routes';
 import { AppLoadingScreen } from './Components/Common/LoadingScreen';
+import { AccountPage } from './Components/Account/AccountPage';
 
 const rootRoute = createRootRoute({
 	component: () => (
@@ -91,7 +92,7 @@ const venueSettingsRoute = createRoute({
 const accountRoute = createRoute({
 	getParentRoute: () => dashboardRoute,
 	path: Routes.ACCOUNT,
-	component: () => <div>Account</div>,
+	component: AccountPage,
 });
 
 const userSettings = createRoute({
