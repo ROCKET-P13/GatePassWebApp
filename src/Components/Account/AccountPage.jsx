@@ -35,7 +35,7 @@ export const AccountPage = () => {
 					<Button
 						variant="outlined"
 						color="secondary"
-						onClick={() => logout({ logoutParams: { returnTo: Routes.LOGIN } })}
+						onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}
 					>
 					Logout
 					</Button>
