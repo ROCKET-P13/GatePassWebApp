@@ -4,27 +4,6 @@ import { PeopleTable } from './PeopleTable';
 import { PeopleFilters } from './PeopleFilters';
 
 export const PeoplePage = () => {
-	const people = [
-		{
-			id: 1,
-			firstName: 'Alex',
-			lastName: 'Rider',
-			role: 'Rider',
-			status: 'Checked In',
-			waiverStatus: 'Complete',
-			lastEvent: 'Open Ride',
-		},
-		{
-			id: 1,
-			firstName: 'Alex',
-			lastName: 'Rider',
-			role: 'Rider',
-			status: 'Registered',
-			waiverStatus: 'Missing',
-			lastEvent: 'Open Ride',
-		},
-	];
-
 	return (
 		<Box>
 			<Stack
