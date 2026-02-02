@@ -2,6 +2,7 @@ import _ from 'lodash';
 import { APIClient } from './APIClient';
 
 export class EventsAPI {
+	#url = '/events';
 	#apiClient;
 	constructor (params = {}) {
 		this.#apiClient = params.apiClient ?? new APIClient({
@@ -18,7 +19,7 @@ export class EventsAPI {
 		}
 
 		return await this.#apiClient.get({
-			url: `/events?${params.toString()}`,
+			url: `${this.#url}?${params.toString()}`,
 		});
 	}
 }
