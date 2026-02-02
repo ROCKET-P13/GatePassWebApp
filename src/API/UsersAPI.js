@@ -4,7 +4,6 @@ export class UsersAPI {
 	#url;
 	#apiClient;
 	constructor (params = {}) {
-		console.log({ params });
 		this.#apiClient = params.apiClient ?? new APIClient({
 			getAccessToken: params.getAccessToken,
 		});
