@@ -10,7 +10,7 @@ export class EventsAPI {
 		});
 	}
 
-	async getEvents ({ sorting = [] }) {
+	async getAll ({ sorting = [] }) {
 		const params = new URLSearchParams();
 
 		if (_.some(sorting)) {
@@ -20,6 +20,18 @@ export class EventsAPI {
 
 		return await this.#apiClient.get({
 			url: `${this.#url}?${params.toString()}`,
+		});
+	}
+
+	async create ({ eventName, eventDate, participantCapacity, status }) {
+		return await this.#apiClient.post({
+			url: this.#url,
+			body: {
+				eventName,
+				eventDate,
+				participantCapacity,
+				status,
+			},
 		});
 	}
 }

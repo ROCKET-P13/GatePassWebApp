@@ -49,7 +49,7 @@ export class APIClient {
 		});
 	}
 
-	post (url, body) {
+	post ({ url, body }) {
 		return this.#request(url, {
 			method: 'POST',
 			body: JSON.stringify(body),

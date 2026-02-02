@@ -19,7 +19,7 @@ export const EventsPage = () => {
 
 	const { data: events = [], isLoading, error, refetch } = useQuery({
 		queryKey: ['events', sorting],
-		queryFn: () => eventsAPI.getEvents({ sorting }),
+		queryFn: () => eventsAPI.getAll({ sorting }),
 		enabled: isAuthenticated,
 		keepPreviousData: true,
 	});
