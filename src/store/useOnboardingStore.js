@@ -8,17 +8,31 @@ export const Steps = Object.freeze({
 	COMPLETE: 'COMPLETE',
 });
 
+const stringIsValidLength = (value) => value.length > 2 && value.length < 100;
+
 export const useOnboardingStore = create((set, get) => ({
 	step: Steps.VENUE,
 	venue: {
 		name: '',
-		type: '',
 		phoneNumber: '',
 		addressLine1: '',
 		addressLine2: '',
 		city: '',
 		state: '',
+		email: '',
 		country: 'US',
+		isValid: () => {
+			const venue = get().venue;
+			const validEmailPattern = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+			const rules = [
+				stringIsValidLength(venue.name),
+				validEmailPattern.test(venue.email),
+				stringIsValidLength(venue.addressLine1),
+				stringIsValidLength(venue.addressLine2),
+			];
+
+			return _.every(rules);
+		},
 	},
 	features: {
 		waivers: false,

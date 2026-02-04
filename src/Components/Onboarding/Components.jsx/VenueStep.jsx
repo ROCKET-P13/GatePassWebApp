@@ -17,11 +17,11 @@ export const VenueStep = () => {
 				fullWidth
 			/>
 			<TextField
-				label='Venue Type'
-				value={venue.type}
-				onChange={(event) => updateVenue({ type: event.target.value })}
+				label='Email'
+				value={venue.email}
+				onChange={(event) => updateVenue({ email: event.target.value })}
 				fullWidth
-				placeholder='Track'
+				placeholder='Contact Email'
 			/>
 			<Stack direction="column" spacing={3}>
 				<TextField
@@ -89,7 +89,7 @@ export const VenueStep = () => {
 				variant='contained'
 				size='large'
 				onClick={next}
-				disabled={!venue.name}
+				disabled={!venue.isValid()}
 			>
 				Continue
 			</Button>
