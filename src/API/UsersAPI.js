@@ -1,7 +1,7 @@
 import { APIClient } from './APIClient';
 
 export class UsersAPI {
-	#url;
+	#url = '/users';
 	#apiClient;
 	constructor (params = {}) {
 		this.#apiClient = params.apiClient ?? new APIClient({
@@ -10,6 +10,8 @@ export class UsersAPI {
 	}
 
 	async getCurrent () {
-		return await this.#apiClient.get({ url: this.#url });
+		return await this.#apiClient.get({
+			url: `${this.#url}/me`,
+		});
 	}
 }

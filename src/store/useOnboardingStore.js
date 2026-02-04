@@ -5,7 +5,6 @@ export const Steps = Object.freeze({
 	VENUE: 'VENUE',
 	FEATURES: 'FEATURES',
 	WAIVER: 'WAIVER',
-	EVENT: 'EVENT',
 	COMPLETE: 'COMPLETE',
 });
 

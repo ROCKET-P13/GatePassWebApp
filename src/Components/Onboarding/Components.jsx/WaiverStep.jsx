@@ -17,7 +17,7 @@ export const WaiverStep = () => {
 
 			<Stack direction='row' spacing={2}>
 				<Button variant='contained' onClick={back}>Back</Button>
-				<Button variant='contained' onClick={next}>Continue</Button>
+				<Button variant='contained' onClick={next}>Go Live!</Button>
 			</Stack>
 		</Stack>
 	);

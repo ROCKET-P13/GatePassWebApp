@@ -5,14 +5,12 @@ import { VenueStep } from './Components.jsx/VenueStep';
 import { FeaturesStep } from './Components.jsx/FeaturesStep';
 import _ from 'lodash';
 import { WaiverStep } from './Components.jsx/WaiverStep';
-import { EventStep } from './Components.jsx/EventStep';
 import { CompleteStep } from './Components.jsx/CompleteStep';
 
 const StepLabels = Object.freeze({
 	[Steps.VENUE]: 'Venue',
 	[Steps.FEATURES]: 'Features',
 	[Steps.WAIVER]: 'Waiver',
-	[Steps.EVENT]: 'First Event',
 	[Steps.COMPLETE]: 'Complete',
 });
 
@@ -37,7 +35,6 @@ export const VenueOnboarding = () => {
 				{step === Steps.VENUE && <VenueStep />}
 				{step === Steps.FEATURES && <FeaturesStep />}
 				{step === Steps.WAIVER && <WaiverStep />}
-				{step === Steps.EVENT && <EventStep />}
 				{step === Steps.COMPLETE && <CompleteStep />}
 			</Paper>
 		</Box>
