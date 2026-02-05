@@ -10,12 +10,14 @@ export class APIClient {
 
 	async #request (params = {}) {
 		try {
+			const token = await this.#getAccessToken();
 			const response = await axios.request({
 				method: params.method,
 				url: `${this.#API_BASE_URL}${params.url}`,
 				data: params.body,
 				headers: {
 					'Content-Type': 'application/json',
+					Authorization: `Bearer ${token}`,
 					...(params.headers || {}),
 				},
 				withCredentials: true,
@@ -38,21 +40,17 @@ export class APIClient {
 	}
 
 	async get ({ url }) {
-		const token = await this.#getAccessToken();
-
 		return await this.#request({
 			method: 'GET',
 			url,
-			headers: {
-				Authorization: `Bearer ${token}`,
-			},
 		});
 	}
 
 	post ({ url, body }) {
-		return this.#request(url, {
+		return this.#request({
 			method: 'POST',
-			body: JSON.stringify(body),
+			url,
+			body,
 		});
 	}
 }

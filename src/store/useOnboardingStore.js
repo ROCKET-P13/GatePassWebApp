@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import _ from 'lodash';
+import { States } from '../Components/Onboarding/Common/states';
 
 export const Steps = Object.freeze({
 	VENUE: 'VENUE',
@@ -29,6 +30,8 @@ export const useOnboardingStore = create((set, get) => ({
 				validEmailPattern.test(venue.email),
 				stringIsValidLength(venue.addressLine1),
 				stringIsValidLength(venue.addressLine2),
+				stringIsValidLength(venue.city),
+				!!States[venue.state],
 			];
 
 			return _.every(rules);
