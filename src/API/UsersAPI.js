@@ -14,4 +14,10 @@ export class UsersAPI {
 			url: `${this.#url}/me`,
 		});
 	}
+
+	async getVenue () {
+		return await this.#apiClient.get({
+			url: `${this.#url}/venue`,
+		});
+	}
 }

@@ -10,14 +10,16 @@ export const CheckinsWidget = () => {
 	return (
 		<WidgetCard title="Live Check-ins">
 			<List dense>
-				{checkins.map(c => (
-					<ListItem key={c.id}>
-						<ListItemText
-							primary={c.name}
-							secondary={c.time}
-						/>
-					</ListItem>
-				))}
+				{
+					checkins.map((data) => (
+						<ListItem key={data.id}>
+							<ListItemText
+								primary={data.name}
+								secondary={data.time}
+							/>
+						</ListItem>
+					))
+				}
 			</List>
 		</WidgetCard>
 	);
