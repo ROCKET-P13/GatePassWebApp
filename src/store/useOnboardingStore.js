@@ -22,6 +22,7 @@ export const useOnboardingStore = create((set, get) => ({
 		state: '',
 		email: '',
 		country: 'US',
+		logoImageUrl: '',
 		isValid: () => {
 			const venue = get().venue;
 			const validEmailPattern = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;

@@ -47,6 +47,8 @@ export const WaiverStep = () => {
 						phoneNumber: venue.phoneNumber,
 						city: venue.city,
 						state: venue.state,
+						logoImageUrl: venue.logoImageUrl,
+						country: venue.country,
 					})}
 				>
 					{createVenue.isPending ? 'Creating...' : 'Go Live!'}

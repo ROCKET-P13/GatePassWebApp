@@ -9,7 +9,7 @@ export class VenuesAPI {
 		});
 	}
 
-	async create ({ name, email, addressLine1, addressLine2, phoneNumber, city, state }) {
+	async create ({ name, email, addressLine1, addressLine2, phoneNumber, city, state, logoImageUrl, country }) {
 		return await this.#apiClient.post({
 			url: this.#url,
 			body: {
@@ -20,6 +20,8 @@ export class VenuesAPI {
 				phoneNumber,
 				city,
 				state,
+				logoImageUrl,
+				country,
 			},
 		});
 	}
