@@ -45,17 +45,19 @@ export const TodaysEventsWidget = () => {
 						: (
 							<List dense>
 								{
-									_.map(events, (event) => (
-										<ListItem key={event.id} sx={{ paddingX: 0 }}>
-											<ListItemText primary={event.name} sx={{ margin: 1 }} />
-											<Chip
-												label={event.status}
-												color={event.status === 'Live' ? 'success' : 'default'}
-												size="small"
-												sx={{ margin: 1 }}
-											/>
-										</ListItem>
-									))
+									_.isEmpty(events)
+										? <Typography variant='subtitle2'>No Events</Typography>
+										: _.map(events, (event) => (
+											<ListItem key={event.id} sx={{ paddingX: 0 }}>
+												<ListItemText primary={event.name} sx={{ margin: 1 }} />
+												<Chip
+													label={event.status}
+													color={event.status === 'Live' ? 'success' : 'default'}
+													size="small"
+													sx={{ margin: 1 }}
+												/>
+											</ListItem>
+										))
 								}
 							</List>
 						)
