@@ -24,7 +24,7 @@ export const PeoplePage = () => {
 			</Stack>
 
 			<Paper sx={{ p: 2 }}>
-				<PeopleTable people={people} />
+				<PeopleTable people={[]} />
 			</Paper>
 
 		</Box>
