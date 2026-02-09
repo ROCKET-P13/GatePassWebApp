@@ -19,12 +19,20 @@ export const TodaysEventsWidget = () => {
 		[getAccessTokenSilently]
 	);
 
-	const { data: events, isLoading } = useQuery({
+	const {
+		data: events,
+		isLoading,
+		error,
+	} = useQuery({
 		queryKey: ['events', 'today'],
 		queryFn: () => eventsAPI.getTodays(),
 		enabled: isAuthenticated,
 		keepPreviousData: true,
 	});
+
+	if (error) {
+		return <Typography color="error">Failed to load events</Typography>;
+	}
 
 	return (
 		<>
