@@ -23,6 +23,12 @@ export class EventsAPI {
 		});
 	}
 
+	async getTodays () {
+		return await this.#apiClient.get({
+			url: `${this.#url}/today`,
+		});
+	}
+
 	async create ({ eventName, eventDate, participantCapacity, status }) {
 		return await this.#apiClient.post({
 			url: this.#url,
