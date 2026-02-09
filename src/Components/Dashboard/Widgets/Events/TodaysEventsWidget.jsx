@@ -20,7 +20,7 @@ export const TodaysEventsWidget = () => {
 	);
 
 	const { data: events, isLoading } = useQuery({
-		queryKey: ['todaysEvents'],
+		queryKey: ['events', 'today'],
 		queryFn: () => eventsAPI.getTodays(),
 		enabled: isAuthenticated,
 		keepPreviousData: true,
