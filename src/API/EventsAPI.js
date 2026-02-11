@@ -29,12 +29,12 @@ export class EventsAPI {
 		});
 	}
 
-	async create ({ name, date, participantCapacity, status }) {
+	async create ({ name, startDateTime, participantCapacity, status }) {
 		return await this.#apiClient.post({
 			url: this.#url,
 			body: {
 				name,
-				date,
+				startDateTime,
 				participantCapacity,
 				status,
 			},

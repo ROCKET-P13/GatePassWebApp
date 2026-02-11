@@ -4,7 +4,7 @@ import { useState, useMemo } from 'react';
 import { AddEventDialog } from '../Dialog/AddEventDialog';
 import { EventsAPI } from '../../../API/EventsAPI';
 import { useAuth0 } from '@auth0/auth0-react';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 
 export const EventsPage = () => {
 	const [isEventDialogOpen, setIsEventDialogOpen] = useState(false);
@@ -27,6 +27,10 @@ export const EventsPage = () => {
 		queryFn: () => eventsAPI.getAll({ sorting }),
 		enabled: isAuthenticated,
 		keepPreviousData: true,
+	});
+
+	const addEventMutation = useMutation({
+		mutationFn: (event) => eventsAPI.create(event),
 	});
 
 	if (error) {
@@ -71,6 +75,7 @@ export const EventsPage = () => {
 				open={isEventDialogOpen}
 				onClose={() => setIsEventDialogOpen(false)}
 				onEventAdded={refetch}
+				mutation={addEventMutation}
 			/>
 		</Box>
 	);
