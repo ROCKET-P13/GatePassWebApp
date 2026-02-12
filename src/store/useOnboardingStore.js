@@ -1,6 +1,5 @@
 import { create } from 'zustand';
 import _ from 'lodash';
-import { States } from '../Components/Onboarding/Common/states';
 
 export const Steps = Object.freeze({
 	VENUE: 'VENUE',
@@ -8,8 +7,6 @@ export const Steps = Object.freeze({
 	WAIVER: 'WAIVER',
 	COMPLETE: 'COMPLETE',
 });
-
-const stringIsValidLength = (value) => value.length > 2 && value.length < 100;
 
 export const useOnboardingStore = create((set, get) => ({
 	step: Steps.VENUE,
@@ -23,20 +20,6 @@ export const useOnboardingStore = create((set, get) => ({
 		email: '',
 		country: 'US',
 		logoImageUrl: '',
-		isValid: () => {
-			const venue = get().venue;
-			const validEmailPattern = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
-			const rules = [
-				stringIsValidLength(venue.name),
-				validEmailPattern.test(venue.email),
-				stringIsValidLength(venue.addressLine1),
-				stringIsValidLength(venue.addressLine2),
-				stringIsValidLength(venue.city),
-				!!States[venue.state],
-			];
-
-			return _.every(rules);
-		},
 	},
 	features: {
 		waivers: false,
