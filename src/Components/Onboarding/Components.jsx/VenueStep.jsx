@@ -1,5 +1,5 @@
 import { TextField, Button, Stack, MenuItem, FormControl, Select, InputLabel, Box } from '@mui/material';
-import { useOnboardingStore } from '../../../store/useOnboardingStore';
+import { useOnboardingStore } from '../../../Store/useOnboardingStore';
 import { States } from '../Common/states';
 import _ from 'lodash';
 import { useMemo } from 'react';
