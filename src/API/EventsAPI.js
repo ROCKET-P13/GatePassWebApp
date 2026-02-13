@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import { APIClient } from './APIClient';
+import dayjs from 'dayjs';
 
 export class EventsAPI {
 	#url = '/events';
@@ -18,9 +19,18 @@ export class EventsAPI {
 			params.set('sortDir', sorting[0].desc ? 'desc' : 'asc');
 		}
 
-		return await this.#apiClient.get({
+		const events = await this.#apiClient.get({
 			url: `${this.#url}?${params.toString()}`,
 		});
+
+		return _.map(events, (event) => ({
+			id: event.id,
+			name: event.name,
+			participantCapacity: event.participantCapacity,
+			status: event.status,
+			date: dayjs(event.startDateTime).format('MMM DD, YYYY'),
+			time: dayjs(event.startDateTime).format('hh:mm a'),
+		}));
 	}
 
 	async getTodays () {

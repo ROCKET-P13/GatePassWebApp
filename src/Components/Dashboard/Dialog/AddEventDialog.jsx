@@ -17,7 +17,7 @@ import { EventStatus, useAddEventStore } from '../../../Store/useAddEventStore';
 import dayjs from 'dayjs';
 import _ from 'lodash';
 
-export const AddEventDialog = ({ open, onClose }) => {
+export const AddEventDialog = ({ open, onClose, onEventAdded }) => {
 	const eventData = useAddEventStore((state) => state.eventData);
 	const updateEventData = useAddEventStore((state) => state.updateEventData);
 
@@ -58,6 +58,8 @@ export const AddEventDialog = ({ open, onClose }) => {
 			status: eventData.status,
 			participantCapacity: eventData.participantCapacity,
 		});
+
+		onEventAdded();
 	};
 
 	return (

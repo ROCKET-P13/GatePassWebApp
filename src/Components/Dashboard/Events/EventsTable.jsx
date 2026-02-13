@@ -42,7 +42,12 @@ export const EventsTable = ({ events, sorting, onSortingChange }) => {
 		{
 			accessorKey: 'date',
 			header: 'Date',
-			cell: (info) => new Date(info.getValue()).toLocaleDateString(),
+			cell: (info) => info.getValue(),
+		},
+		{
+			accessorKey: 'time',
+			header: 'Time',
+			cell: (info) => info.getValue(),
 		},
 		{
 			accessorKey: 'status',
