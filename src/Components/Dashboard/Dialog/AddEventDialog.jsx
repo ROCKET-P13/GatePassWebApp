@@ -5,15 +5,15 @@ import {
 	DialogActions,
 	DialogContent,
 	DialogTitle,
+	MenuItem,
 	Stack,
 	TextField
 } from '@mui/material';
-
 import { DatePicker, TimePicker } from '@mui/x-date-pickers';
 import { useMemo } from 'react';
 import { EventsAPI } from '../../../API/EventsAPI';
 import { useMutation } from '@tanstack/react-query';
-import { useAddEventStore } from '../../../Store/useAddEventStore';
+import { EventStatus, useAddEventStore } from '../../../Store/useAddEventStore';
 import dayjs from 'dayjs';
 import _ from 'lodash';
 
@@ -52,60 +52,81 @@ export const AddEventDialog = ({ open, onClose }) => {
 	}, [eventData, eventDateTime]);
 
 	const handleSubmit = () => {
-		addEventMutation({
+		addEventMutation.mutate({
 			name: eventData.name,
 			startDateTime: eventDateTime.toISOString(),
-			status: '',
-			participantCapacity: 100,
+			status: eventData.status,
+			participantCapacity: eventData.participantCapacity,
 		});
 	};
 
 	return (
-		<Dialog
+		    <Dialog
 			open={open}
 			onClose={onClose}
 			fullWidth
-			maxWidth='sm'
+			maxWidth="sm"
 		>
 			<DialogTitle>Add Event</DialogTitle>
 
-			<DialogContent dividers>
-				<Stack spacing={2} mt={1}>
+			<DialogContent>
+				<Stack
+					direction='row'
+					spacing={3}
+					sx={{
+						justifyContent: 'start',
+						marginTop: 3,
+					}}
+				>
 					<TextField
+						sx={{ maxWidth: '60%' }}
 						label="Event Name"
-						fullWidth
-						placeholder="Open Ride"
 						value={eventData.name}
-						onChange={(event) => updateEventData({ name: event.target.value })}
+						onChange={(e) => updateEventData({ name: e.target.value })}
+						fullWidth
 					/>
-
-					<Stack direction="row" spacing={2}>
-						<DatePicker
-							label="Event Date"
-							sx={{ width: '50%' }}
-							defaultValue={eventData.date}
-							onChange={(value) => updateEventData({ date: value })}
-						/>
-						<TimePicker
-							label="Start Time"
-							sx={{ width: '50%' }}
-							defaultValue={eventData.startTime}
-							onChange={(value) => updateEventData({ startTime: value })}
-						/>
-					</Stack>
+					<TextField
+						select
+						label="Status"
+						sx={{ width: '25%' }}
+						value={eventData.status}
+						onChange={(e) => updateEventData({ status: e.target.value })}
+					>
+						<MenuItem value={EventStatus.DRAFT}>{EventStatus.DRAFT}</MenuItem>
+						<MenuItem value={EventStatus.SCHEDULED}>{EventStatus.SCHEDULED}</MenuItem>
+						<MenuItem value={EventStatus.OPEN}>{EventStatus.OPEN}</MenuItem>
+					</TextField>
 
 				</Stack>
 
-				<DialogActions sx={{ marginTop: 4 }}>
-					<Button variant='outlined' onClick={onClose}>Cancel</Button>
-					<Button
-						variant='contained'
-						onClick={handleSubmit}
-						disabled={!formIsValid}
-					>Save</Button>
-				</DialogActions>
-			</DialogContent>
+				<Stack spacing={3} mt={3} direction='row'>
+					<DatePicker
+						label="Event Date"
+						sx={{ width: '50%' }}
+						disablePast
+						defaultValue={eventData.date}
+						onChange={(value) => updateEventData({ date: value })}
+					/>
+					<TimePicker
+						label="Start Time"
+						sx={{ width: '50%' }}
+						defaultValue={eventData.startTime}
+						onChange={(value) => updateEventData({ startTime: value })}
+					/>
 
+				</Stack>
+
+			</DialogContent>
+			<DialogActions sx={{ mt: 3 }}>
+				<Button variant='outlined' onClick={onClose}>Cancel</Button>
+				<Button
+					variant='contained'
+					onClick={handleSubmit}
+					disabled={!formIsValid}
+				>
+						Save
+				</Button>
+	 			</DialogActions>
 		</Dialog>
 	);
 };
