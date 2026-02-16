@@ -159,6 +159,7 @@ export const EventsTable = ({ events, sorting, onSortingChange }) => {
 					setIsConfirmDialogOpen(false);
 				}}
 				onExited={() => setEventToDelete(null)}
+				sorting={sorting}
 			/>
 		</TableContainer>
 	);

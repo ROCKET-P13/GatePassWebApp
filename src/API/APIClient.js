@@ -46,11 +46,18 @@ export class APIClient {
 		});
 	}
 
-	post ({ url, body }) {
-		return this.#request({
+	async post ({ url, body }) {
+		return await this.#request({
 			method: 'POST',
 			url,
 			body,
+		});
+	}
+
+	async delete ({ url }) {
+		return await this.#request({
+			method: 'DELETE',
+			url,
 		});
 	}
 }

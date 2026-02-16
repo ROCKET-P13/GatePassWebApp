@@ -38,35 +38,42 @@ export const AddEventDialog = ({ open, onClose, sorting }) => {
 
 			const temporaryId = Math.random().toString(32);
 
-			queryClient.setQueryData(['events', sorting], (old) => {
-				return [
-					...old,
-					{
-						...newEvent,
-						id: temporaryId,
-						isOptimistic: true,
-					},
-				];
-			});
+			queryClient.setQueryData(
+				['events', sorting],
+				(old) => {
+					return [
+						...old,
+						{
+							...newEvent,
+							id: temporaryId,
+							isOptimistic: true,
+						},
+					];
+				});
 
 			return { previousEvents, temporaryId };
 		},
 		onError: (_err, _vars, context) => {
-			queryClient.setQueryData(['events', sorting], context.previousEvents);
+			queryClient.setQueryData(
+				['events', sorting],
+				context.previousEvents
+			);
 		},
 		onSettled: () => {
 			queryClient.invalidateQueries({ queryKey: ['events', sorting] });
 		},
 		onSuccess: (createdEvent, _variables, context) => {
-			queryClient.setQueryData(['events', sorting], (old) => {
-				return _.map(old, (event) => {
-					if (event.id === context.temporaryId) {
-						return createdEvent;
-					}
+			queryClient.setQueryData(
+				['events', sorting]
+				, (old) => {
+					return _.map(old, (event) => {
+						if (event.id === context.temporaryId) {
+							return createdEvent;
+						}
 
-					return event;
+						return event;
+					});
 				});
-			});
 		},
 	});
 
@@ -152,7 +159,6 @@ export const AddEventDialog = ({ open, onClose, sorting }) => {
 						defaultValue={eventData.startTime}
 						onChange={(value) => updateEventData({ startTime: value })}
 					/>
-
 				</Stack>
 
 			</DialogContent>

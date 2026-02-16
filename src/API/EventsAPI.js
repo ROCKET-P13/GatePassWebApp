@@ -50,4 +50,10 @@ export class EventsAPI {
 			},
 		});
 	}
+
+	async delete ({ eventId }) {
+		return await this.#apiClient.delete({
+			url: `${this.#url}/${eventId}`,
+		});
+	}
 }
