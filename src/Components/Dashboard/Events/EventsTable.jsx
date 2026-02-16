@@ -22,7 +22,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 import { useMemo, useState } from 'react';
-import { ConfirmDialog } from '../Dialog/ConfirmDialog';
+import { DeleteEventDialog } from '../Dialog/DeleteEventDialog';
 
 const EventStatusColor = Object.freeze({
 	LIVE: 'success',
@@ -152,14 +152,11 @@ export const EventsTable = ({ events, sorting, onSortingChange }) => {
 				</TableBody>
 			</Table>
 
-			<ConfirmDialog
+			<DeleteEventDialog
 				open={isConfirmDialogOpen}
-				title='Delete Event?'
-				description={`This will permanently delete "${eventToDelete?.name}"`}
-				onCancel={() => setIsConfirmDialogOpen(false)}
-				onConfirm={() => {
+				eventToDelete={eventToDelete}
+				onClose={() => {
 					setIsConfirmDialogOpen(false);
-					console.log('Deleting Event:', eventToDelete);
 				}}
 				onExited={() => setEventToDelete(null)}
 			/>
