@@ -21,7 +21,6 @@ export const EventsPage = () => {
 		data: events,
 		isLoading,
 		error,
-		refetch,
 	} = useQuery({
 		queryKey: ['events', sorting],
 		queryFn: () => eventsAPI.getAll({ sorting }),
@@ -70,7 +69,7 @@ export const EventsPage = () => {
 			<AddEventDialog
 				open={isEventDialogOpen}
 				onClose={() => setIsEventDialogOpen(false)}
-				onEventAdded={refetch}
+				sorting={sorting}
 			/>
 		</Box>
 	);

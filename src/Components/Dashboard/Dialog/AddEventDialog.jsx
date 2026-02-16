@@ -12,16 +12,17 @@ import {
 import { DatePicker, TimePicker } from '@mui/x-date-pickers';
 import { useMemo } from 'react';
 import { EventsAPI } from '../../../API/EventsAPI';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { EventStatus, useAddEventStore } from '../../../Store/useAddEventStore';
 import dayjs from 'dayjs';
 import _ from 'lodash';
 
-export const AddEventDialog = ({ open, onClose, onEventAdded }) => {
+export const AddEventDialog = ({ open, onClose, sorting }) => {
 	const eventData = useAddEventStore((state) => state.eventData);
 	const updateEventData = useAddEventStore((state) => state.updateEventData);
 
 	const { getAccessTokenSilently } = useAuth0();
+	const queryClient = useQueryClient();
 
 	const eventsAPI = useMemo(
 		() => new EventsAPI({ getAccessToken: getAccessTokenSilently }),
@@ -30,6 +31,43 @@ export const AddEventDialog = ({ open, onClose, onEventAdded }) => {
 
 	const addEventMutation = useMutation({
 		mutationFn: (event) => eventsAPI.create(event),
+		onMutate: async (newEvent) => {
+			await queryClient.getQueryData({ queryKey: ['events', sorting] });
+
+			const previousEvents = queryClient.getQueryData(['events', sorting]);
+
+			const temporaryId = Math.random().toString(32);
+
+			queryClient.setQueryData(['events', sorting], (old) => {
+				return [
+					...old,
+					{
+						...newEvent,
+						id: temporaryId,
+						isOptimistic: true,
+					},
+				];
+			});
+
+			return { previousEvents, temporaryId };
+		},
+		onError: (_err, _vars, context) => {
+			queryClient.setQueryData(['events', sorting], context.previousEvents);
+		},
+		onSettled: () => {
+			queryClient.invalidateQueries({ queryKey: ['events', sorting] });
+		},
+		onSuccess: (createdEvent, _variables, context) => {
+			queryClient.setQueryData(['events', sorting], (old) => {
+				return _.map(old, (event) => {
+					if (event.id === context.temporaryId) {
+						return createdEvent;
+					}
+
+					return event;
+				});
+			});
+		},
 	});
 
 	const eventDateTime = useMemo(() => {
@@ -52,14 +90,13 @@ export const AddEventDialog = ({ open, onClose, onEventAdded }) => {
 	}, [eventData, eventDateTime]);
 
 	const handleSubmit = () => {
+		onClose();
 		addEventMutation.mutate({
 			name: eventData.name,
 			startDateTime: eventDateTime.toISOString(),
 			status: eventData.status,
 			participantCapacity: eventData.participantCapacity,
 		});
-
-		onEventAdded();
 	};
 
 	return (
