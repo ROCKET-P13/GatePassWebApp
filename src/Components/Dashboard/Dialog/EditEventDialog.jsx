@@ -18,7 +18,7 @@ import dayjs from 'dayjs';
 import _ from 'lodash';
 import { EventStatus } from '../../../Common/eventStatus';
 
-export const AddEventDialog = ({ open, onClose, sorting }) => {
+export const EditEventDialog = ({ open, onClose, sorting }) => {
 	const eventData = addEventStore((state) => state.eventData);
 	const updateEventData = addEventStore((state) => state.updateEventData);
 
@@ -30,7 +30,7 @@ export const AddEventDialog = ({ open, onClose, sorting }) => {
 		[getAccessTokenSilently]
 	);
 
-	const addEventMutation = useMutation({
+	const editEventMutation = useMutation({
 		mutationFn: (event) => eventsAPI.create(event),
 		onMutate: async (newEvent) => {
 			await queryClient.getQueryData({ queryKey: ['events', sorting] });
@@ -99,7 +99,7 @@ export const AddEventDialog = ({ open, onClose, sorting }) => {
 
 	const handleSubmit = () => {
 		onClose();
-		addEventMutation.mutate({
+		editEventMutation.mutate({
 			name: eventData.name,
 			startDateTime: eventDateTime.toISOString(),
 			status: eventData.status,

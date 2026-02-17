@@ -26,7 +26,7 @@ import { DeleteEventDialog } from '../Dialog/DeleteEventDialog';
 
 const EventStatusColor = Object.freeze({
 	LIVE: 'success',
-	UPCOMING: 'warning',
+	SCHEDULED: 'warning',
 });
 
 export const EventsTable = ({ events, sorting, onSortingChange }) => {
