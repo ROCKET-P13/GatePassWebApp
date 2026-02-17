@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 import { create } from 'zustand';
 import { EventStatus } from '../Common/eventStatus';
 
-export const eventEventStore = create((set, get) => ({
+export const editEventStore = create((set, get) => ({
 	eventData: {
 		name: '',
 		date: dayjs(),
