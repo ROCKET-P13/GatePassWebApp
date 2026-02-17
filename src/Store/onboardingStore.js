@@ -8,7 +8,7 @@ export const Steps = Object.freeze({
 	COMPLETE: 'COMPLETE',
 });
 
-export const useOnboardingStore = create((set, get) => ({
+export const onboardingStore = create((set, get) => ({
 	step: Steps.VENUE,
 	venue: {
 		name: '',

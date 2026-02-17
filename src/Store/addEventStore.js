@@ -10,7 +10,7 @@ export const EventStatus = Object.freeze({
 	CANCELLED: 'Cancelled',
 });
 
-export const useAddEventStore = create((set, get) => ({
+export const addEventStore = create((set, get) => ({
 	eventData: {
 		name: '',
 		date: dayjs(),

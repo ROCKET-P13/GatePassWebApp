@@ -1,10 +1,10 @@
 import { AppBar, IconButton, Toolbar, Typography } from '@mui/material';
-import { useDashboardStore } from '../../Store/userDashboardStore';
+import { dashboardStore } from '../../Store/dashboardStore';
 import MenuIcon from '@mui/icons-material/Menu';
 
 export const DashboardAppBar = () => {
-	const toggleDrawer = useDashboardStore((state) => state.toggleDrawer);
-	const drawerOpen = useDashboardStore((state) => state.drawerOpen);
+	const toggleDrawer = dashboardStore((state) => state.toggleDrawer);
+	const drawerOpen = dashboardStore((state) => state.drawerOpen);
 	return (
 		<>
 			<AppBar open={drawerOpen}>

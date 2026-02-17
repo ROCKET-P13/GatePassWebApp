@@ -1,14 +1,14 @@
 import { Button, Stack, Typography } from '@mui/material';
-import { useOnboardingStore } from '../../../store/useOnboardingStore';
+import { onboardingStore } from '../../../store/onboardingStore';
 import { useMutation } from '@tanstack/react-query';
 import { useMemo } from 'react';
 import { VenuesAPI } from '../../../API/VenuesAPI';
 import { useAuth0 } from '@auth0/auth0-react';
 
 export const WaiverStep = () => {
-	const next = useOnboardingStore((state) => state.next);
-	const back = useOnboardingStore((state) => state.back);
-	const venue = useOnboardingStore((state) => state.venue);
+	const next = onboardingStore((state) => state.next);
+	const back = onboardingStore((state) => state.back);
+	const venue = onboardingStore((state) => state.venue);
 
 	const { getAccessTokenSilently } = useAuth0();
 

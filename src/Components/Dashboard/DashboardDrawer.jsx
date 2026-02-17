@@ -19,7 +19,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 
-import { useDashboardStore } from '../../Store/userDashboardStore';
+import { dashboardStore } from '../../Store/dashboardStore';
 import { DashboardAppBar } from './DashboardAppBar';
 import {  Outlet, useNavigate } from '@tanstack/react-router';
 import { Routes } from '../../Common/routes';
@@ -66,8 +66,8 @@ const AccountDrawerItems = Object.freeze({
 });
 
 export const DashboardDrawer = () =>  {
-	const toggleDrawer = useDashboardStore((state) => state.toggleDrawer);
-	const drawerOpen = useDashboardStore((state) => state.drawerOpen);
+	const toggleDrawer = dashboardStore((state) => state.toggleDrawer);
+	const drawerOpen = dashboardStore((state) => state.drawerOpen);
 
 	const navigate = useNavigate();
 	return (

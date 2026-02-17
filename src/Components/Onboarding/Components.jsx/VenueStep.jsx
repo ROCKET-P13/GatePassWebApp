@@ -1,13 +1,13 @@
 import { TextField, Button, Stack, MenuItem, FormControl, Select, InputLabel, Box } from '@mui/material';
-import { useOnboardingStore } from '../../../Store/useOnboardingStore';
+import { onboardingStore } from '../../../Store/onboardingStore';
 import { States } from '../Common/states';
 import _ from 'lodash';
 import { useMemo } from 'react';
 
 export const VenueStep = () => {
-	const venue = useOnboardingStore((state) => state.venue);
-	const updateVenue = useOnboardingStore((state) => state.updateVenue);
-	const next = useOnboardingStore((state) => state.next);
+	const venue = onboardingStore((state) => state.venue);
+	const updateVenue = onboardingStore((state) => state.updateVenue);
+	const next = onboardingStore((state) => state.next);
 	const stringIsValidLength = (value) => value.length > 2 && value.length < 100;
 
 	const formIsValid = useMemo(() => {

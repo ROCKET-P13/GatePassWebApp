@@ -1,5 +1,5 @@
 import { Button, FormControlLabel, FormGroup, Stack, Switch } from '@mui/material';
-import { useOnboardingStore } from '../../../store/useOnboardingStore';
+import { onboardingStore } from '../../../store/onboardingStore';
 import _ from 'lodash';
 
 const FeatureLabels = Object.freeze({
@@ -10,10 +10,10 @@ const FeatureLabels = Object.freeze({
 });
 
 export const FeaturesStep = () => {
-	const features = useOnboardingStore((state) => state.features);
-	const toggleFeature = useOnboardingStore((state) => state.toggleFeature);
-	const next = useOnboardingStore((state) => state.next);
-	const back = useOnboardingStore((state) => state.back);
+	const features = onboardingStore((state) => state.features);
+	const toggleFeature = onboardingStore((state) => state.toggleFeature);
+	const next = onboardingStore((state) => state.next);
+	const back = onboardingStore((state) => state.back);
 
 	return (
 		<Stack spacing={3}>

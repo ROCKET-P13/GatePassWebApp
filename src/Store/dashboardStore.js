@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-export const useDashboardStore = create((set) => ({
+export const dashboardStore = create((set) => ({
 	drawerOpen: false,
 	toggleDrawer: () => set((state) => ({ drawerOpen: !state.drawerOpen })),
 }));

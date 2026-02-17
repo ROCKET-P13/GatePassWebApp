@@ -13,13 +13,13 @@ import { DatePicker, TimePicker } from '@mui/x-date-pickers';
 import { useMemo } from 'react';
 import { EventsAPI } from '../../../API/EventsAPI';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { EventStatus, useAddEventStore } from '../../../Store/useAddEventStore';
+import { EventStatus, addEventStore } from '../../../Store/addEventStore';
 import dayjs from 'dayjs';
 import _ from 'lodash';
 
 export const AddEventDialog = ({ open, onClose, sorting }) => {
-	const eventData = useAddEventStore((state) => state.eventData);
-	const updateEventData = useAddEventStore((state) => state.updateEventData);
+	const eventData = addEventStore((state) => state.eventData);
+	const updateEventData = addEventStore((state) => state.updateEventData);
 
 	const { getAccessTokenSilently } = useAuth0();
 	const queryClient = useQueryClient();

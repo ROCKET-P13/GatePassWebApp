@@ -1,6 +1,6 @@
 import { Box, Stepper, Step, StepLabel, Paper } from '@mui/material';
-import { useOnboardingStore } from '../../store/useOnboardingStore';
-import { Steps } from '../../store/useOnboardingStore';
+import { onboardingStore } from '../../store/onboardingStore';
+import { Steps } from '../../store/onboardingStore';
 import { VenueStep } from './Components.jsx/VenueStep';
 import { FeaturesStep } from './Components.jsx/FeaturesStep';
 import _ from 'lodash';
@@ -15,7 +15,7 @@ const StepLabels = Object.freeze({
 });
 
 export const VenueOnboarding = () => {
-	const step = useOnboardingStore((state) => state.step);
+	const step = onboardingStore((state) => state.step);
 	const currentStepIndex = _.chain(Steps).keys().indexOf(step).value();
 	return (
 		<Box maxWidth={800} mx="auto" mt={6}>
