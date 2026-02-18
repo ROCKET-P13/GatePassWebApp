@@ -1,58 +1,56 @@
-import { useAuth0 } from '@auth0/auth0-react';
-import {
-	Button,
-	Dialog,
-	DialogActions,
-	DialogContent,
-	DialogTitle,
-	MenuItem,
-	Stack,
-	TextField
-} from '@mui/material';
-import { DatePicker, TimePicker } from '@mui/x-date-pickers';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, MenuItem, Stack, TextField } from '@mui/material';
 import { useMemo } from 'react';
 import { EventsAPI } from '../../../API/EventsAPI';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { addEventStore } from '../../../Store/addEventStore';
-import dayjs from 'dayjs';
-import _ from 'lodash';
+import { useAuth0 } from '@auth0/auth0-react';
+import { DatePicker, TimePicker } from '@mui/x-date-pickers';
 import { EventStatus } from '../../../Common/eventStatus';
+import _ from 'lodash';
+import { editEventStore } from '../../../Store/editEventStore';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import dayjs from 'dayjs';
 
-export const EditEventDialog = ({ open, onClose, sorting }) => {
-	const eventData = addEventStore((state) => state.eventData);
-	const updateEventData = addEventStore((state) => state.updateEventData);
-
+export const EditEventDialog = ({ open, eventData, sorting }) => {
 	const { getAccessTokenSilently } = useAuth0();
-	const queryClient = useQueryClient();
-
 	const eventsAPI = useMemo(
 		() => new EventsAPI({ getAccessToken: getAccessTokenSilently }),
 		[getAccessTokenSilently]
 	);
 
+	const {
+		closeDialog: closeEditEventDialog,
+		updateField: updateEventData,
+		clearDialog,
+	} = editEventStore((state) => state);
+
+	console.log({ eventData });
+
+	const queryClient = useQueryClient();
+
 	const editEventMutation = useMutation({
-		mutationFn: (event) => eventsAPI.create(event),
-		onMutate: async (newEvent) => {
-			await queryClient.getQueryData({ queryKey: ['events', sorting] });
+		mutationFn: (event) => eventsAPI.update(event),
+		onMutate: async (updatedEvent) => {
+			await queryClient.cancelQueries({ queryKey: ['events', sorting] });
 
 			const previousEvents = queryClient.getQueryData(['events', sorting]);
 
-			const temporaryId = Math.random().toString(32);
-
 			queryClient.setQueryData(
 				['events', sorting],
-				(old) => {
-					return [
-						...old,
-						{
-							...newEvent,
-							id: temporaryId,
-							isOptimistic: true,
-						},
-					];
-				});
+				(old = []) => {
+					return _.map(old, (event) => {
+						if (event.id === updatedEvent.id) {
+							return {
+								...event,
+								...updatedEvent,
+								isOptimistic: true,
+							};
+						}
 
-			return { previousEvents, temporaryId };
+						return event;
+					});
+				}
+			);
+
+			return { previousEvents };
 		},
 		onError: (_err, _vars, context) => {
 			queryClient.setQueryData(
@@ -62,19 +60,6 @@ export const EditEventDialog = ({ open, onClose, sorting }) => {
 		},
 		onSettled: () => {
 			queryClient.invalidateQueries({ queryKey: ['events', sorting] });
-		},
-		onSuccess: (createdEvent, _variables, context) => {
-			queryClient.setQueryData(
-				['events', sorting]
-				, (old) => {
-					return _.map(old, (event) => {
-						if (event.id === context.temporaryId) {
-							return createdEvent;
-						}
-
-						return event;
-					});
-				});
 		},
 	});
 
@@ -98,8 +83,9 @@ export const EditEventDialog = ({ open, onClose, sorting }) => {
 	}, [eventData, eventDateTime]);
 
 	const handleSubmit = () => {
-		onClose();
+		closeEditEventDialog();
 		editEventMutation.mutate({
+			id: eventData.id,
 			name: eventData.name,
 			startDateTime: eventDateTime.toISOString(),
 			status: eventData.status,
@@ -110,11 +96,14 @@ export const EditEventDialog = ({ open, onClose, sorting }) => {
 	return (
 		    <Dialog
 			open={open}
-			onClose={onClose}
+			onClose={closeEditEventDialog}
 			fullWidth
 			maxWidth="sm"
+			slotProps={{
+				transition: { onExited: clearDialog },
+			}}
 		>
-			<DialogTitle>Add Event</DialogTitle>
+			<DialogTitle>Edit Event</DialogTitle>
 
 			<DialogContent>
 				<Stack
@@ -127,7 +116,7 @@ export const EditEventDialog = ({ open, onClose, sorting }) => {
 				>
 					<TextField
 						sx={{ maxWidth: '60%' }}
-						label="Event Name"
+						label="Name"
 						value={eventData.name}
 						onChange={(e) => updateEventData({ name: e.target.value })}
 						fullWidth
@@ -148,9 +137,8 @@ export const EditEventDialog = ({ open, onClose, sorting }) => {
 
 				<Stack spacing={3} mt={3} direction='row'>
 					<DatePicker
-						label="Event Date"
+						label="Date"
 						sx={{ width: '50%' }}
-						disablePast
 						defaultValue={eventData.date}
 						onChange={(value) => updateEventData({ date: value })}
 					/>
@@ -164,7 +152,7 @@ export const EditEventDialog = ({ open, onClose, sorting }) => {
 
 			</DialogContent>
 			<DialogActions sx={{ mt: 3 }}>
-				<Button variant='outlined' onClick={onClose}>Cancel</Button>
+				<Button variant='outlined' onClick={closeEditEventDialog}>Cancel</Button>
 				<Button
 					variant='contained'
 					onClick={handleSubmit}

@@ -1,19 +1,21 @@
-import dayjs from 'dayjs';
 import { create } from 'zustand';
-import { EventStatus } from '../Common/eventStatus';
 
-export const editEventStore = create((set, get) => ({
-	eventData: {
+export const editEventStore = create((set) => ({
+	isOpen: false,
+	event: {
 		name: '',
-		date: dayjs(),
-		startTime: dayjs().hour(8).minute(0),
-		status: EventStatus.DRAFT,
+		date: '',
+		startTime: '',
+		status: '',
 		participantCapacity: null,
 	},
-	updateEventData: (data) => {
-		set(({ eventData }) => ({
-			eventData: {
-				...eventData,
+	openDialog: (event) => set({ isOpen: true, event }),
+	closeDialog: () => set({ isOpen: false }),
+	clearDialog: () => set({ event: null }),
+	updateField: (data) => {
+		set(({ event }) => ({
+			event: {
+				...event,
 				...data,
 			},
 		}));

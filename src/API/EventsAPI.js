@@ -29,7 +29,8 @@ export class EventsAPI {
 			participantCapacity: event.participantCapacity,
 			status: event.status,
 			date: dayjs(event.startDateTime).format('MMM DD, YYYY'),
-			time: dayjs(event.startDateTime).format('hh:mm a'),
+			startTime: dayjs(event.startDateTime).format('hh:mm a'),
+			startDateTime: dayjs(event.startDateTime),
 		}));
 	}
 
@@ -54,6 +55,18 @@ export class EventsAPI {
 	async delete ({ eventId }) {
 		return await this.#apiClient.delete({
 			url: `${this.#url}/${eventId}`,
+		});
+	}
+
+	async update ({ id, name, startDateTime, participantCapacity, status }) {
+		return await this.#apiClient.patch({
+			url: `${this.#url}/${id}`,
+			body: {
+				name,
+				startDateTime,
+				participantCapacity,
+				status,
+			},
 		});
 	}
 }

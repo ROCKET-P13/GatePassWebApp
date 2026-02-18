@@ -127,7 +127,7 @@ export const AddEventDialog = ({ open, onClose, sorting }) => {
 				>
 					<TextField
 						sx={{ maxWidth: '60%' }}
-						label="Event Name"
+						label="Name"
 						value={eventData.name}
 						onChange={(e) => updateEventData({ name: e.target.value })}
 						fullWidth
@@ -148,7 +148,7 @@ export const AddEventDialog = ({ open, onClose, sorting }) => {
 
 				<Stack spacing={3} mt={3} direction='row'>
 					<DatePicker
-						label="Event Date"
+						label="Date"
 						sx={{ width: '50%' }}
 						disablePast
 						defaultValue={eventData.date}

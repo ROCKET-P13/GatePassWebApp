@@ -60,4 +60,12 @@ export class APIClient {
 			url,
 		});
 	}
+
+	async patch ({ url, body }) {
+		return await this.#request({
+			method: 'PATCH',
+			url,
+			body,
+		});
+	}
 }

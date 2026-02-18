@@ -23,6 +23,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 import { useMemo, useState } from 'react';
 import { DeleteEventDialog } from '../Dialog/DeleteEventDialog';
+import { EditEventDialog } from '../Dialog/EditEventDialog';
+import { editEventStore } from '../../../Store/editEventStore';
 
 const EventStatusColor = Object.freeze({
 	LIVE: 'success',
@@ -31,7 +33,14 @@ const EventStatusColor = Object.freeze({
 
 export const EventsTable = ({ events, sorting, onSortingChange }) => {
 	const [eventToDelete, setEventToDelete] = useState(null);
-	const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false);
+	const [isDeleteEventDialogOpen, setisDeleteEventDialogOpen] = useState(false);
+
+	const {
+		openDialog: openEditEventDialog,
+		isOpen: isEditEventDialogOpen,
+		event: eventToUpdate,
+		updateField: setEventToUpdate,
+	} = editEventStore((state) => state);
 
 	const columns = useMemo(() => [
 		{
@@ -45,7 +54,7 @@ export const EventsTable = ({ events, sorting, onSortingChange }) => {
 			cell: (info) => info.getValue(),
 		},
 		{
-			accessorKey: 'time',
+			accessorKey: 'startTime',
 			header: 'Time',
 			cell: (info) => info.getValue(),
 		},
@@ -65,14 +74,28 @@ export const EventsTable = ({ events, sorting, onSortingChange }) => {
 			header: '',
 			cell: ({ row }) => (
 				<Stack direction="row" spacing={1}>
-					<IconButton size="small">
+					<IconButton
+						size="small"
+						onClick={() => {
+							openEditEventDialog(true);
+							setEventToUpdate({
+								id: row.original.id,
+								name: row.original.name,
+								status: row.original.status,
+								participantCapacity: row.original.participantCapacity,
+								startDateTime: row.original.startDateTime,
+								startTime: row.original.startDateTime,
+								date: row.original.startDateTime,
+							});
+						}}
+					>
 						<EditIcon fontSize="small" />
 					</IconButton>
 					<IconButton
 						size="small"
 						color="error"
 						onClick={() => {
-							setIsConfirmDialogOpen(true);
+							setisDeleteEventDialogOpen(true);
 							setEventToDelete(row.original);
 						}}
 					>
@@ -81,7 +104,7 @@ export const EventsTable = ({ events, sorting, onSortingChange }) => {
 				</Stack>
 			),
 		},
-	], []);
+	], [openEditEventDialog, setEventToUpdate]);
 
 	// eslint-disable-next-line react-hooks/incompatible-library
 	const table = useReactTable({
@@ -153,14 +176,23 @@ export const EventsTable = ({ events, sorting, onSortingChange }) => {
 			</Table>
 
 			<DeleteEventDialog
-				open={isConfirmDialogOpen}
+				open={isDeleteEventDialogOpen}
 				eventToDelete={eventToDelete}
 				onClose={() => {
-					setIsConfirmDialogOpen(false);
+					setisDeleteEventDialogOpen(false);
 				}}
 				onExited={() => setEventToDelete(null)}
 				sorting={sorting}
 			/>
+			{
+				isEditEventDialogOpen
+				&& <EditEventDialog
+					open={isEditEventDialogOpen}
+					eventData={eventToUpdate}
+					sorting={sorting}
+				/>
+			}
+
 		</TableContainer>
 	);
 };
