@@ -19,8 +19,12 @@ export const EditEventDialog = ({ open, eventDraft, sorting }) => {
 		closeDialog,
 		updateEventDraft,
 		clearDialog,
-		hasPendingChanges,
+		originalEvent,
 	} = editEventStore((state) => state);
+
+	const hasPendingChanges = useMemo(() => {
+		return !_.isEqual(originalEvent, eventDraft);
+	}, [originalEvent, eventDraft]);
 
 	const queryClient = useQueryClient();
 
@@ -135,7 +139,7 @@ export const EditEventDialog = ({ open, eventDraft, sorting }) => {
 				<Button
 					variant='contained'
 					onClick={handleSubmit}
-					disabled={!hasPendingChanges()}
+					disabled={!hasPendingChanges}
 				>
 					Save
 				</Button>
