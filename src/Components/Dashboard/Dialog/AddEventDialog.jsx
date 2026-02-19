@@ -33,7 +33,7 @@ export const AddEventDialog = ({ open, onClose, sorting }) => {
 	const addEventMutation = useMutation({
 		mutationFn: (event) => eventsAPI.create(event),
 		onMutate: async (newEvent) => {
-			await queryClient.getQueryData({ queryKey: ['events', sorting] });
+			await queryClient.cancelQueries({ queryKey: ['events', sorting] });
 
 			const previousEvents = queryClient.getQueryData(['events', sorting]);
 

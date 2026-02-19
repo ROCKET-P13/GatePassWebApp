@@ -22,8 +22,6 @@ export const EditEventDialog = ({ open, eventData, sorting }) => {
 		clearDialog,
 	} = editEventStore((state) => state);
 
-	console.log({ eventData });
-
 	const queryClient = useQueryClient();
 
 	const editEventMutation = useMutation({
