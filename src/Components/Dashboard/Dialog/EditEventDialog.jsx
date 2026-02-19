@@ -8,7 +8,7 @@ import _ from 'lodash';
 import { editEventStore } from '../../../Store/editEventStore';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-export const EditEventDialog = ({ open, eventData, sorting }) => {
+export const EditEventDialog = ({ open, eventDraft, sorting }) => {
 	const { getAccessTokenSilently } = useAuth0();
 	const eventsAPI = useMemo(
 		() => new EventsAPI({ getAccessToken: getAccessTokenSilently }),
@@ -16,9 +16,10 @@ export const EditEventDialog = ({ open, eventData, sorting }) => {
 	);
 
 	const {
-		closeDialog: closeEditEventDialog,
-		updateField: updateEventData,
+		closeDialog,
+		updateEventDraft,
 		clearDialog,
+		hasPendingChanges,
 	} = editEventStore((state) => state);
 
 	const queryClient = useQueryClient();
@@ -60,39 +61,21 @@ export const EditEventDialog = ({ open, eventData, sorting }) => {
 		},
 	});
 
-	const eventDateTime = useMemo(() => {
-		if (!eventData.startTime) {
-			return null;
-		}
-
-		return eventData.date
-			.hour(eventData.startTime.hour())
-			.minute(eventData.startTime.minute())
-			.second(0)
-			.millisecond(0);
-	}, [eventData.date, eventData.startTime]);
-
-	const formIsValid = useMemo(() => {
-		return _.every([
-			eventData.name.length > 2 && eventData.name.length < 100,
-		]);
-	}, [eventData]);
-
 	const handleSubmit = () => {
-		closeEditEventDialog();
+		closeDialog();
 		editEventMutation.mutate({
-			id: eventData.id,
-			name: eventData.name,
+			id: eventDraft.id,
+			name: eventDraft.name,
 			startDateTime: eventDateTime.toISOString(),
-			status: eventData.status,
-			participantCapacity: eventData.participantCapacity,
+			status: eventDraft.status,
+			participantCapacity: eventDraft.participantCapacity,
 		});
 	};
 
 	return (
 		    <Dialog
 			open={open}
-			onClose={closeEditEventDialog}
+			onClose={closeDialog}
 			fullWidth
 			maxWidth="sm"
 			slotProps={{
@@ -113,16 +96,16 @@ export const EditEventDialog = ({ open, eventData, sorting }) => {
 					<TextField
 						sx={{ maxWidth: '60%' }}
 						label="Name"
-						value={eventData.name}
-						onChange={(e) => updateEventData({ name: e.target.value })}
+						value={eventDraft.name}
+						onChange={(e) => updateEventDraft({ name: e.target.value })}
 						fullWidth
 					/>
 					<TextField
 						select
 						label="Status"
 						sx={{ width: '25%' }}
-						value={eventData.status}
-						onChange={(e) => updateEventData({ status: e.target.value })}
+						value={eventDraft.status}
+						onChange={(e) => updateEventDraft({ status: e.target.value })}
 					>
 						<MenuItem value={EventStatus.DRAFT}>{EventStatus.DRAFT}</MenuItem>
 						<MenuItem value={EventStatus.SCHEDULED}>{EventStatus.SCHEDULED}</MenuItem>
@@ -135,26 +118,26 @@ export const EditEventDialog = ({ open, eventData, sorting }) => {
 					<DatePicker
 						label="Date"
 						sx={{ width: '50%' }}
-						defaultValue={eventData.date}
-						onChange={(value) => updateEventData({ date: value })}
+						defaultValue={eventDraft.date}
+						onChange={(value) => updateEventDraft({ date: value })}
 					/>
 					<TimePicker
 						label="Start Time"
 						sx={{ width: '50%' }}
-						defaultValue={eventData.startTime}
-						onChange={(value) => updateEventData({ startTime: value })}
+						defaultValue={eventDraft.startTime}
+						onChange={(value) => updateEventDraft({ startTime: value })}
 					/>
 				</Stack>
 
 			</DialogContent>
 			<DialogActions sx={{ mt: 3 }}>
-				<Button variant='outlined' onClick={closeEditEventDialog}>Cancel</Button>
+				<Button variant='outlined' onClick={closeDialog}>Cancel</Button>
 				<Button
 					variant='contained'
 					onClick={handleSubmit}
-					disabled={!formIsValid}
+					disabled={!hasPendingChanges()}
 				>
-						Save
+					Save
 				</Button>
 	 			</DialogActions>
 		</Dialog>

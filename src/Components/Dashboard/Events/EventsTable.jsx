@@ -38,8 +38,8 @@ export const EventsTable = ({ events, sorting, onSortingChange }) => {
 	const {
 		openDialog: openEditEventDialog,
 		isOpen: isEditEventDialogOpen,
-		event: eventToUpdate,
-		updateField: setEventToUpdate,
+		eventDraft,
+		setEventDraft,
 	} = editEventStore((state) => state);
 
 	const columns = useMemo(() => [
@@ -77,8 +77,8 @@ export const EventsTable = ({ events, sorting, onSortingChange }) => {
 					<IconButton
 						size="small"
 						onClick={() => {
-							openEditEventDialog(true);
-							setEventToUpdate({
+							openEditEventDialog();
+							setEventDraft({
 								id: row.original.id,
 								name: row.original.name,
 								status: row.original.status,
@@ -104,7 +104,7 @@ export const EventsTable = ({ events, sorting, onSortingChange }) => {
 				</Stack>
 			),
 		},
-	], [openEditEventDialog, setEventToUpdate]);
+	], [openEditEventDialog, setEventDraft]);
 
 	// eslint-disable-next-line react-hooks/incompatible-library
 	const table = useReactTable({
@@ -188,7 +188,7 @@ export const EventsTable = ({ events, sorting, onSortingChange }) => {
 				isEditEventDialogOpen
 				&& <EditEventDialog
 					open={isEditEventDialogOpen}
-					eventData={eventToUpdate}
+					eventDraft={eventDraft}
 					sorting={sorting}
 				/>
 			}
