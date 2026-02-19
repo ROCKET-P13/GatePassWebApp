@@ -27,12 +27,7 @@ export const editEventStore = create((set, get) => ({
 		});
 	},
 	updateEventDraft: (data) => {
-		set(({ eventDraft }) => ({
-			eventDraft: {
-				...eventDraft,
-				...data,
-			},
-		}));
+		set(({ eventDraft }) => _.assign(eventDraft, data));
 	},
 	hasPendingChanges: () => {
 		const { originalEvent, eventDraft } = get();
