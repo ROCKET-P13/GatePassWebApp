@@ -7,7 +7,6 @@ import { EventStatus } from '../../../Common/eventStatus';
 import _ from 'lodash';
 import { editEventStore } from '../../../Store/editEventStore';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import dayjs from 'dayjs';
 
 export const EditEventDialog = ({ open, eventData, sorting }) => {
 	const { getAccessTokenSilently } = useAuth0();
@@ -76,9 +75,8 @@ export const EditEventDialog = ({ open, eventData, sorting }) => {
 	const formIsValid = useMemo(() => {
 		return _.every([
 			eventData.name.length > 2 && eventData.name.length < 100,
-			eventDateTime.isAfter(dayjs()),
 		]);
-	}, [eventData, eventDateTime]);
+	}, [eventData]);
 
 	const handleSubmit = () => {
 		closeEditEventDialog();
