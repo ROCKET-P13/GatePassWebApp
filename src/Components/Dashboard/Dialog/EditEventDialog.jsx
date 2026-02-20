@@ -61,8 +61,21 @@ export const EditEventDialog = ({ open, eventDraft, sorting }) => {
 		},
 	});
 
+	const eventDateTime = useMemo(() => {
+		if (!eventDraft.startTime) {
+			return null;
+		}
+
+		return eventDraft.date
+			.hour(eventDraft.startTime.hour())
+			.minute(eventDraft.startTime.minute())
+			.second(0)
+			.millisecond(0);
+	}, [eventDraft.date, eventDraft.startTime]);
+
 	const handleSubmit = () => {
 		closeDialog();
+
 		editEventMutation.mutate({
 			id: eventDraft.id,
 			name: eventDraft.name,
