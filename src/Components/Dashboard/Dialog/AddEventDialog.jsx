@@ -41,7 +41,7 @@ export const AddEventDialog = ({ open, onClose, sorting }) => {
 
 			queryClient.setQueryData(
 				['events', sorting],
-				(old) => {
+				(old = []) => {
 					return [
 						...old,
 						{
@@ -66,7 +66,7 @@ export const AddEventDialog = ({ open, onClose, sorting }) => {
 		onSuccess: (createdEvent, _variables, context) => {
 			queryClient.setQueryData(
 				['events', sorting]
-				, (old) => {
+				, (old = []) => {
 					return _.map(old, (event) => {
 						if (event.id === context.temporaryId) {
 							return createdEvent;
