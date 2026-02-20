@@ -9,6 +9,7 @@ import { useMemo, useState } from 'react';
 import { EventsAPI } from '../../../../API/EventsAPI';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useQuery } from '@tanstack/react-query';
+import { EventStatusColorClass } from '../../../../Common/eventStatus';
 
 export const TodaysEventsWidget = () => {
 	const queryKey = ['events', 'today'];
@@ -61,7 +62,7 @@ export const TodaysEventsWidget = () => {
 												<ListItemText primary={event.name} sx={{ margin: 1 }} />
 												<Chip
 													label={event.status}
-													color={event.status === 'Live' ? 'success' : 'default'}
+													color={EventStatusColorClass[event.status]}
 													size="small"
 													sx={{ margin: 1 }}
 												/>
