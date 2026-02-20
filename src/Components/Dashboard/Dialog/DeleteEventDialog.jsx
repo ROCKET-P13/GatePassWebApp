@@ -40,6 +40,12 @@ export const DeleteEventDialog = ({ open, onClose, eventToDelete, onExited, sort
 			queryClient.invalidateQueries({ queryKey: ['events', sorting] });
 		},
 	});
+
+	const handleSubmit = () => {
+		onClose();
+		deleteEventMutation.mutate(eventToDelete.id);
+	};
+
 	return (
 		<Dialog
 			open={open}
@@ -64,10 +70,7 @@ export const DeleteEventDialog = ({ open, onClose, eventToDelete, onExited, sort
 					Cancel
 				</Button>
 				<Button
-					onClick={() => {
-						onClose();
-						deleteEventMutation.mutate(eventToDelete.id);
-					}}
+					onClick={handleSubmit}
 					color="error"
 					variant="contained"
 				>
