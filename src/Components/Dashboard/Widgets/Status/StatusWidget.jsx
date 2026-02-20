@@ -22,7 +22,7 @@ export const StatusWidget = () => {
 
 	return (
 		<WidgetCard>
-			<Box sx={{ paddingBottom: 2 }}>
+			<Box>
 				<Typography variant='h5'>
 					{
 						isLoading
@@ -40,12 +40,6 @@ export const StatusWidget = () => {
 						)
 				}
 			</Box>
-			<Stack direction='row' spacing={4} justifyContent='center'>
-				<Metric label='Venue' value='Open' />
-				<Metric label='Event' value='Live' />
-				<Metric label='Check-ins' value='28' />
-				<Metric label='Waivers' value='24' />
-			</Stack>
 		</WidgetCard>
 	);
 };
