@@ -22,10 +22,6 @@ export const EditEventDialog = ({ open, eventDraft, sorting }) => {
 		originalEvent,
 	} = editEventStore((state) => state);
 
-	const hasPendingChanges = useMemo(() => {
-		return !_.isEqual(originalEvent, eventDraft);
-	}, [originalEvent, eventDraft]);
-
 	const queryClient = useQueryClient();
 
 	const editEventMutation = useMutation({
@@ -139,7 +135,7 @@ export const EditEventDialog = ({ open, eventDraft, sorting }) => {
 				<Button
 					variant='contained'
 					onClick={handleSubmit}
-					disabled={!hasPendingChanges}
+					disabled={_.isEqual(originalEvent, eventDraft)}
 				>
 					Save
 				</Button>
