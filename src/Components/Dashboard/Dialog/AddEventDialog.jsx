@@ -18,7 +18,7 @@ import dayjs from 'dayjs';
 import _ from 'lodash';
 import { EventStatus } from '../../../Common/eventStatus';
 
-export const AddEventDialog = ({ open, onClose, sorting }) => {
+export const AddEventDialog = ({ open, onClose, queryKey }) => {
 	const eventData = addEventStore((state) => state.eventData);
 	const updateEventData = addEventStore((state) => state.updateEventData);
 
@@ -33,14 +33,14 @@ export const AddEventDialog = ({ open, onClose, sorting }) => {
 	const addEventMutation = useMutation({
 		mutationFn: (event) => eventsAPI.create(event),
 		onMutate: async (newEvent) => {
-			await queryClient.cancelQueries({ queryKey: ['events', sorting] });
+			await queryClient.cancelQueries({ queryKey });
 
-			const previousEvents = queryClient.getQueryData(['events', sorting]);
+			const previousEvents = queryClient.getQueryData(queryKey);
 
 			const temporaryId = Math.random().toString(32);
 
 			queryClient.setQueryData(
-				['events', sorting],
+				queryKey,
 				(old = []) => {
 					return [
 						...old,
@@ -56,16 +56,16 @@ export const AddEventDialog = ({ open, onClose, sorting }) => {
 		},
 		onError: (_err, _vars, context) => {
 			queryClient.setQueryData(
-				['events', sorting],
+				queryKey,
 				context.previousEvents
 			);
 		},
 		onSettled: () => {
-			queryClient.invalidateQueries({ queryKey: ['events', sorting] });
+			queryClient.invalidateQueries({ queryKey: queryKey });
 		},
 		onSuccess: (createdEvent, _variables, context) => {
 			queryClient.setQueryData(
-				['events', sorting]
+				queryKey
 				, (old = []) => {
 					return _.map(old, (event) => {
 						if (event.id === context.temporaryId) {

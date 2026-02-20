@@ -11,6 +11,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { useQuery } from '@tanstack/react-query';
 
 export const TodaysEventsWidget = () => {
+	const queryKey = ['events', 'today'];
 	const [open, setOpen] = useState(false);
 	const { getAccessTokenSilently, isAuthenticated } = useAuth0();
 
@@ -24,7 +25,7 @@ export const TodaysEventsWidget = () => {
 		isLoading,
 		error,
 	} = useQuery({
-		queryKey: ['events', 'today'],
+		queryKey,
 		queryFn: () => eventsAPI.getTodays(),
 		enabled: isAuthenticated,
 		keepPreviousData: true,
@@ -73,7 +74,11 @@ export const TodaysEventsWidget = () => {
 
 			</WidgetCard>
 
-			<AddEventDialog open={open} onClose={() => setOpen(false)} />
+			<AddEventDialog
+				open={open}
+				onClose={() => setOpen(false)}
+				queryKey={queryKey}
+			/>
 		</>
 
 	);

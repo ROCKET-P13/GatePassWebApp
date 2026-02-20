@@ -9,6 +9,7 @@ import { useQuery } from '@tanstack/react-query';
 export const EventsPage = () => {
 	const [isEventDialogOpen, setIsEventDialogOpen] = useState(false);
 	const [sorting, setSorting] = useState([]);
+	const queryKey = ['events', sorting];
 
 	const { isAuthenticated, getAccessTokenSilently } = useAuth0();
 
@@ -22,7 +23,7 @@ export const EventsPage = () => {
 		isLoading,
 		error,
 	} = useQuery({
-		queryKey: ['events', sorting],
+		queryKey: queryKey,
 		queryFn: () => eventsAPI.getAll({ sorting }),
 		enabled: isAuthenticated,
 		keepPreviousData: true,
@@ -69,7 +70,7 @@ export const EventsPage = () => {
 			<AddEventDialog
 				open={isEventDialogOpen}
 				onClose={() => setIsEventDialogOpen(false)}
-				sorting={sorting}
+				queryKey={queryKey}
 			/>
 		</Box>
 	);
