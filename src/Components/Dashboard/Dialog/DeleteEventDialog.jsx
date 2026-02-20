@@ -65,6 +65,7 @@ export const DeleteEventDialog = ({ open, onClose, eventToDelete, onExited, sort
 				</Button>
 				<Button
 					onClick={() => {
+						onClose();
 						deleteEventMutation.mutate(eventToDelete.id);
 					}}
 					color="error"
@@ -73,7 +74,6 @@ export const DeleteEventDialog = ({ open, onClose, eventToDelete, onExited, sort
 					Delete
 				</Button>
 			</DialogActions>
-
 		</Dialog>
 	);
 };

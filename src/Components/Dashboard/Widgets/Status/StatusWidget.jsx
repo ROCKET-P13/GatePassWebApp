@@ -1,7 +1,6 @@
 import { useAuth0 } from '@auth0/auth0-react';
-import { Box, Stack, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { WidgetCard } from '../WidgetCard';
-import { Metric } from './Metric';
 import { UsersAPI } from '../../../../API/UsersAPI';
 import { useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
