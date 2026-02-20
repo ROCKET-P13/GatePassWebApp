@@ -1,4 +1,3 @@
-import { QuickActionsWidget } from './Actions/QuickActionsWidget';
 import { CheckinsWidget } from './Checkins/CheckinsWidget';
 import { TodaysEventsWidget } from './Events/TodaysEventsWidget';
 import { RevenueWidget } from './Revenue/RevenueWidget';
@@ -25,9 +24,5 @@ export const widgetRegistry = {
 	revenue: {
 		component: RevenueWidget,
 		w: 6,
-	},
-	actions: {
-		component: QuickActionsWidget,
-		w: 12,
 	},
 };
