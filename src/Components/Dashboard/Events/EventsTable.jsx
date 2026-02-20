@@ -16,7 +16,8 @@ import {
 	Chip,
 	IconButton,
 	Stack,
-	TableSortLabel
+	TableSortLabel,
+	Typography
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -25,6 +26,8 @@ import { useMemo, useState } from 'react';
 import { DeleteEventDialog } from '../Dialog/DeleteEventDialog';
 import { EditEventDialog } from '../Dialog/EditEventDialog';
 import { editEventStore } from '../../../Store/editEventStore';
+import { Link, useNavigate } from '@tanstack/react-router';
+import { Routes } from '../../../Common/routes';
 
 const EventStatusColor = Object.freeze({
 	LIVE: 'success',
@@ -34,6 +37,8 @@ const EventStatusColor = Object.freeze({
 export const EventsTable = ({ events, sorting, onSortingChange }) => {
 	const [eventToDelete, setEventToDelete] = useState(null);
 	const [isDeleteEventDialogOpen, setisDeleteEventDialogOpen] = useState(false);
+
+	const navigate = useNavigate();
 
 	const {
 		openDialog: openEditEventDialog,
@@ -101,10 +106,20 @@ export const EventsTable = ({ events, sorting, onSortingChange }) => {
 					>
 						<DeleteIcon fontSize="small" />
 					</IconButton>
+					<IconButton
+						size='small'
+						onClick={() => navigate({
+							to: `${Routes.DASHBOARD}/${Routes.EVENTS}/$eventId`,
+							params: { eventId: row.original.id },
+						})}
+					>
+						<Typography variant='h5' color='white'>View</Typography>
+					</IconButton>
+
 				</Stack>
 			),
 		},
-	], [openEditEventDialog, setEventDraft]);
+	], [openEditEventDialog, setEventDraft, navigate]);
 
 	// eslint-disable-next-line react-hooks/incompatible-library
 	const table = useReactTable({

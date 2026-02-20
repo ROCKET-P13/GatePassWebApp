@@ -19,6 +19,7 @@ import { RequireAuth } from './Auth/RequireAuth';
 import { Routes } from './Common/routes';
 import { AppLoadingScreen } from './Components/Common/LoadingScreen';
 import { AccountPage } from './Components/Account/AccountPage';
+// import { EventDetailsPage } from './Components/Dashboard/Events/EventDetailsPage';
 
 const rootRoute = createRootRoute({
 	component: () => (
@@ -71,6 +72,14 @@ const eventsRoute = createRoute({
 	component: EventsPage,
 });
 
+const eventDetailsRoute = createRoute({
+	getParentRoute: () => eventsRoute,
+	path: '$eventId',
+	component: () => <div>Event Details</div>,
+});
+
+eventsRoute.addChildren([eventDetailsRoute]);
+
 const peopleRoute = createRoute({
 	getParentRoute: () => dashboardRoute,
 	path: Routes.PEOPLE,
@@ -100,8 +109,6 @@ const userSettings = createRoute({
 	path: Routes.SETTINGS,
 	component: () => <div>User Settings</div>,
 });
-
-protectedRoute.addChildren([dashboardRoute]);
 
 dashboardRoute.addChildren([
 	dashboardIndexRoute,
