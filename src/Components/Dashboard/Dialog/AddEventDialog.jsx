@@ -18,7 +18,7 @@ import dayjs from 'dayjs';
 import _ from 'lodash';
 import { EventStatus } from '../../../Common/eventStatus';
 
-export const AddEventDialog = ({ open, onClose, queryKey }) => {
+export const AddEventDialog = ({ open, onClose, sorting, queryKey }) => {
 	const eventData = addEventStore((state) => state.eventData);
 	const updateEventData = addEventStore((state) => state.updateEventData);
 

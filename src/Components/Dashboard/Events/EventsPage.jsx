@@ -58,11 +58,14 @@ export const EventsPage = () => {
 							<Typography>Loading Events...</Typography>
 						)
 						: (
-							<EventsTable
-								events={events}
-								sorting={sorting}
-								onSortingChange={setSorting}
-							/>
+							<>
+								<EventsTable
+									events={events}
+									sorting={sorting}
+									onSortingChange={setSorting}
+								/>
+								{/* <Outlet /> */}
+							</>
 						)
 				}
 			</Paper>

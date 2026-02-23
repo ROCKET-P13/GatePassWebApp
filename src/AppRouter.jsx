@@ -19,7 +19,7 @@ import { RequireAuth } from './Auth/RequireAuth';
 import { Routes } from './Common/routes';
 import { AppLoadingScreen } from './Components/Common/LoadingScreen';
 import { AccountPage } from './Components/Account/AccountPage';
-// import { EventDetailsPage } from './Components/Dashboard/Events/EventDetailsPage';
+import { EventDetailsPage } from './Components/Dashboard/Events/EventDetailsPage';
 
 const rootRoute = createRootRoute({
 	component: () => (
@@ -73,12 +73,12 @@ const eventsRoute = createRoute({
 });
 
 const eventDetailsRoute = createRoute({
-	getParentRoute: () => eventsRoute,
-	path: '$eventId',
-	component: () => <div>Event Details</div>,
+	getParentRoute: () => dashboardRoute,
+	path: `${Routes.EVENTS}/$eventId`,
+	component: EventDetailsPage,
 });
 
-eventsRoute.addChildren([eventDetailsRoute]);
+// eventsRoute.addChildren([eventDetailsRoute]);
 
 const peopleRoute = createRoute({
 	getParentRoute: () => dashboardRoute,
@@ -113,6 +113,7 @@ const userSettings = createRoute({
 dashboardRoute.addChildren([
 	dashboardIndexRoute,
 	eventsRoute,
+	eventDetailsRoute,
 	peopleRoute,
 	waiversRoute,
 	venueSettingsRoute,

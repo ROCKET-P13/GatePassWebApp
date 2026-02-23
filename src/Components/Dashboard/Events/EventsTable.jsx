@@ -16,8 +16,7 @@ import {
 	Chip,
 	IconButton,
 	Stack,
-	TableSortLabel,
-	Typography
+	TableSortLabel
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -26,7 +25,7 @@ import { useMemo, useState } from 'react';
 import { DeleteEventDialog } from '../Dialog/DeleteEventDialog';
 import { EditEventDialog } from '../Dialog/EditEventDialog';
 import { editEventStore } from '../../../Store/editEventStore';
-import { Link, useNavigate } from '@tanstack/react-router';
+import { Link } from '@tanstack/react-router';
 import { Routes } from '../../../Common/routes';
 
 const EventStatusColor = Object.freeze({
@@ -37,8 +36,6 @@ const EventStatusColor = Object.freeze({
 export const EventsTable = ({ events, sorting, onSortingChange }) => {
 	const [eventToDelete, setEventToDelete] = useState(null);
 	const [isDeleteEventDialogOpen, setisDeleteEventDialogOpen] = useState(false);
-
-	const navigate = useNavigate();
 
 	const {
 		openDialog: openEditEventDialog,
@@ -51,7 +48,14 @@ export const EventsTable = ({ events, sorting, onSortingChange }) => {
 		{
 			accessorKey: 'name',
 			header: 'Event',
-			cell: (info) => info.getValue(),
+			cell: (info) => (
+				<Link
+					to={`${Routes.DASHBOARD}/${Routes.EVENTS}/$eventId`}
+					params={{ eventId: info.row.original.id }}
+				>
+					{info.getValue()}
+				</Link>
+			),
 		},
 		{
 			accessorKey: 'date',
@@ -106,20 +110,10 @@ export const EventsTable = ({ events, sorting, onSortingChange }) => {
 					>
 						<DeleteIcon fontSize="small" />
 					</IconButton>
-					<IconButton
-						size='small'
-						onClick={() => navigate({
-							to: `${Routes.DASHBOARD}/${Routes.EVENTS}/$eventId`,
-							params: { eventId: row.original.id },
-						})}
-					>
-						<Typography variant='h5' color='white'>View</Typography>
-					</IconButton>
-
 				</Stack>
 			),
 		},
-	], [openEditEventDialog, setEventDraft, navigate]);
+	], [openEditEventDialog, setEventDraft]);
 
 	// eslint-disable-next-line react-hooks/incompatible-library
 	const table = useReactTable({
