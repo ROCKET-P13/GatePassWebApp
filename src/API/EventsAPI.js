@@ -11,6 +11,22 @@ export class EventsAPI {
 		});
 	}
 
+	async getById (eventId) {
+		const event = await this.#apiClient.get({
+			url: `${this.#url}/${eventId}`,
+		});
+
+		return {
+			id: event.id,
+			name: event.name,
+			participantCapacity: event.participantCapacity,
+			status: event.status,
+			date: dayjs(event.startDateTime).format('MMM DD, YYYY'),
+			startTime: dayjs(event.startDateTime).format('hh:mm a'),
+			startDateTime: dayjs(event.startDateTime),
+		};
+	}
+
 	async getAll ({ sorting = [] }) {
 		const params = new URLSearchParams();
 

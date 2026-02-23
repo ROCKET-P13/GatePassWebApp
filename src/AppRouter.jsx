@@ -20,6 +20,10 @@ import { Routes } from './Common/routes';
 import { AppLoadingScreen } from './Components/Common/LoadingScreen';
 import { AccountPage } from './Components/Account/AccountPage';
 import { EventDetailsPage } from './Components/Dashboard/Events/EventDetailsPage';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { EventsAPI } from './API/EventsAPI';
+
+const queryClient = new QueryClient();
 
 const rootRoute = createRootRoute({
 	component: () => (
@@ -76,6 +80,13 @@ const eventDetailsRoute = createRoute({
 	getParentRoute: () => dashboardRoute,
 	path: `${Routes.EVENTS}/$eventId`,
 	component: EventDetailsPage,
+	loader: ({ params, context }) => {
+		const eventsAPI = new EventsAPI({ getAccessToken: context.getAccessTokenSilently });
+		return queryClient.ensureQueryData({
+			queryKey: ['events', params.eventId],
+			queryFn: async () => await eventsAPI.getById(params.eventId),
+		});
+	},
 });
 
 const peopleRoute = createRoute({
@@ -128,7 +139,15 @@ const routeTree = rootRoute.addChildren([
 	protectedRoute,
 ]);
 
-const router = createRouter({ routeTree });
+const router = createRouter({
+	routeTree,
+	defaultPreload: 'intent',
+	defaultPreloadStaleTime: 0,
+	scrollRestoration: true,
+	context: {
+		queryClient,
+	},
+});
 
 export const AppRouter = () => {
 	const auth = useAuth0();
@@ -138,11 +157,16 @@ export const AppRouter = () => {
 	}
 
 	return (
-		<RouterProvider
-			router={router}
-			context={{
-				isAuthenticated: auth.isAuthenticated,
-			}}
-		/>
+		<QueryClientProvider client={queryClient}>
+			<RouterProvider
+				router={router}
+				context={{
+					isAuthenticated: auth.isAuthenticated,
+					queryClient,
+					getAccessTokenSilently: auth.getAccessTokenSilently,
+				}}
+			/>
+		</QueryClientProvider>
+
 	);
 };
