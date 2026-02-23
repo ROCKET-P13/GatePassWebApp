@@ -78,8 +78,6 @@ const eventDetailsRoute = createRoute({
 	component: EventDetailsPage,
 });
 
-// eventsRoute.addChildren([eventDetailsRoute]);
-
 const peopleRoute = createRoute({
 	getParentRoute: () => dashboardRoute,
 	path: Routes.PEOPLE,
