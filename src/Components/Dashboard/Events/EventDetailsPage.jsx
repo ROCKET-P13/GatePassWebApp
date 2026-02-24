@@ -11,10 +11,21 @@ import {
 import EditIcon from '@mui/icons-material/Edit';
 import { useState } from 'react';
 import { EventStatus } from '../../../Common/eventStatus';
+import { editEventStore } from '../../../Store/editEventStore';
+import { EditEventDialog } from '../Dialog/EditEventDialog';
 
 export const EventDetailsPage = () => {
 	const event = useLoaderData({ strict: false });
 	const [activeTab, setActiveTab] = useState(0);
+
+	const {
+		openDialog: openEditEventDialog,
+		isOpen: isEditEventDialogOpen,
+		eventDraft,
+		setEventDraft,
+	} = editEventStore((state) => state);
+
+	console.log({ event });
 
 	const handleTabChange = (ignore, newValue) => {
 		setActiveTab(newValue);
@@ -49,6 +60,18 @@ export const EventDetailsPage = () => {
 				<Button
 					variant="contained"
 					startIcon={<EditIcon />}
+					onClick={() => {
+						openEditEventDialog();
+						setEventDraft({
+							id: event.id,
+							name: event.name,
+							status: event.status,
+							participantCapacity: event.participantCapacity,
+							startDateTime: event.startDateTime,
+							startTime: event.startDateTime,
+							date: event.startDateTime,
+						});
+					}}
 				>
 					Edit Event
 				</Button>
@@ -64,6 +87,14 @@ export const EventDetailsPage = () => {
 				<Tab label="Check-Ins" />
 				<Tab label="Settings" />
 			</Tabs>
+			{
+				isEditEventDialogOpen
+				&& <EditEventDialog
+					open={isEditEventDialogOpen}
+					eventDraft={eventDraft}
+					queryKey={['event', event.id]}
+				/>
+			}
 		</Box>
 	);
 };

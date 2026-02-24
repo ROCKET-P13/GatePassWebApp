@@ -198,7 +198,7 @@ export const EventsTable = ({ events, sorting, onSortingChange }) => {
 				&& <EditEventDialog
 					open={isEditEventDialogOpen}
 					eventDraft={eventDraft}
-					sorting={sorting}
+					queryKey={['events', sorting]}
 				/>
 			}
 

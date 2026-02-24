@@ -8,7 +8,7 @@ import _ from 'lodash';
 import { editEventStore } from '../../../Store/editEventStore';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-export const EditEventDialog = ({ open, eventDraft, sorting }) => {
+export const EditEventDialog = ({ open, eventDraft, queryKey }) => {
 	const { getAccessTokenSilently } = useAuth0();
 	const eventsAPI = useMemo(
 		() => new EventsAPI({ getAccessToken: getAccessTokenSilently }),
@@ -27,12 +27,12 @@ export const EditEventDialog = ({ open, eventDraft, sorting }) => {
 	const editEventMutation = useMutation({
 		mutationFn: (event) => eventsAPI.update(event),
 		onMutate: async (updatedEvent) => {
-			await queryClient.cancelQueries({ queryKey: ['events', sorting] });
+			await queryClient.cancelQueries({ queryKey });
 
-			const previousEvents = queryClient.getQueryData(['events', sorting]);
+			const previousEvents = queryClient.getQueryData(queryKey);
 
 			queryClient.setQueryData(
-				['events', sorting],
+				queryKey,
 				(old = []) => {
 					return _.map(old, (event) => {
 						if (event.id === updatedEvent.id) {
@@ -52,12 +52,12 @@ export const EditEventDialog = ({ open, eventDraft, sorting }) => {
 		},
 		onError: (_err, _vars, context) => {
 			queryClient.setQueryData(
-				['events', sorting],
+				queryKey,
 				context.previousEvents
 			);
 		},
 		onSettled: () => {
-			queryClient.invalidateQueries({ queryKey: ['events', sorting] });
+			queryClient.invalidateQueries({ queryKey });
 		},
 	});
 
