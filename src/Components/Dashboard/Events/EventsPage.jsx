@@ -64,7 +64,6 @@ export const EventsPage = () => {
 									sorting={sorting}
 									onSortingChange={setSorting}
 								/>
-								{/* <Outlet /> */}
 							</>
 						)
 				}
