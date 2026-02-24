@@ -27,6 +27,10 @@ import { EditEventDialog } from '../Dialog/EditEventDialog';
 import { editEventStore } from '../../../Store/editEventStore';
 import { Link } from '@tanstack/react-router';
 import { Routes } from '../../../Common/routes';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { EventsAPI } from '../../../API/EventsAPI';
+import { useAuth0 } from '@auth0/auth0-react';
+import _ from 'lodash';
 
 const EventStatusColor = Object.freeze({
 	LIVE: 'success',
@@ -37,12 +41,55 @@ export const EventsTable = ({ events, sorting, onSortingChange }) => {
 	const [eventToDelete, setEventToDelete] = useState(null);
 	const [isDeleteEventDialogOpen, setisDeleteEventDialogOpen] = useState(false);
 
+	const { getAccessTokenSilently } = useAuth0();
+	const eventsAPI = useMemo(
+		() => new EventsAPI({ getAccessToken: getAccessTokenSilently }),
+		[getAccessTokenSilently]
+	);
+
+	const queryKey = ['events', sorting];
+
 	const {
 		openDialog: openEditEventDialog,
 		isOpen: isEditEventDialogOpen,
 		eventDraft,
 		setEventDraft,
 	} = editEventStore((state) => state);
+
+	const queryClient = useQueryClient();
+
+	const editEventMutation = useMutation({
+		mutationFn: (event) => eventsAPI.update(event),
+		onMutate: async (updatedEvent) => {
+			await queryClient.cancelQueries({ queryKey });
+
+			const previousEvents = queryClient.getQueryData(queryKey);
+
+			queryClient.setQueryData(
+				queryKey,
+				(oldEvents = []) => _.map(oldEvents, (event) => {
+					return event.id === updatedEvent.id
+						? {
+							...event,
+							...updatedEvent,
+							isOptimistic: true,
+						}
+						: event;
+				})
+			);
+			;
+			return { previousEvents };
+		},
+		onError: (_err, _vars, context) => {
+			queryClient.setQueryData(
+				queryKey,
+				context.previousEvents
+			);
+		},
+		onSettled: () => {
+			queryClient.invalidateQueries({ queryKey });
+		},
+	});
 
 	const columns = useMemo(() => [
 		{
@@ -198,7 +245,7 @@ export const EventsTable = ({ events, sorting, onSortingChange }) => {
 				&& <EditEventDialog
 					open={isEditEventDialogOpen}
 					eventDraft={eventDraft}
-					queryKey={['events', sorting]}
+					editEventMutation={editEventMutation}
 				/>
 			}
 

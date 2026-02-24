@@ -1,76 +1,17 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, MenuItem, Stack, TextField } from '@mui/material';
 import { useMemo } from 'react';
-import { EventsAPI } from '../../../API/EventsAPI';
-import { useAuth0 } from '@auth0/auth0-react';
 import { DatePicker, TimePicker } from '@mui/x-date-pickers';
 import { EventStatus } from '../../../Common/eventStatus';
 import _ from 'lodash';
 import { editEventStore } from '../../../Store/editEventStore';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useRouter } from '@tanstack/react-router';
 
-export const EditEventDialog = ({ open, eventDraft, queryKey }) => {
-	const { getAccessTokenSilently } = useAuth0();
-	const eventsAPI = useMemo(
-		() => new EventsAPI({ getAccessToken: getAccessTokenSilently }),
-		[getAccessTokenSilently]
-	);
-
+export const EditEventDialog = ({ open, eventDraft, editEventMutation }) => {
 	const {
 		closeDialog,
 		updateEventDraft,
 		clearDialog,
 		originalEvent,
 	} = editEventStore((state) => state);
-
-	const queryClient = useQueryClient();
-	const router = useRouter();
-
-	const editEventMutation = useMutation({
-		mutationFn: (event) => eventsAPI.update(event),
-		onMutate: async (updatedEvent) => {
-			await queryClient.cancelQueries({ queryKey });
-
-			const previousEvents = await queryClient.getQueryData(queryKey);
-
-			queryClient.setQueryData(
-				queryKey,
-				(old = []) => {
-					if (_.isArray(old)) {
-						return _.map(old, (event) => {
-							if (event.id === updatedEvent.id) {
-								return {
-									...event,
-									...updatedEvent,
-									isOptimistic: true,
-								};
-							}
-
-							return event;
-						});
-					}
-
-					return {
-						...old,
-						...updatedEvent,
-						isOptimistic: true,
-					};
-				}
-			);
-
-			return { previousEvents };
-		},
-		onError: (_err, _vars, context) => {
-			queryClient.setQueryData(
-				queryKey,
-				context.previousEvents
-			);
-		},
-		onSettled: () => {
-			queryClient.invalidateQueries({ queryKey });
-			router.invalidate({ to: '$eventId' });
-		},
-	});
 
 	const eventDateTime = useMemo(() => {
 		if (!eventDraft.startTime) {

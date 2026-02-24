@@ -1,4 +1,4 @@
-import { useLoaderData } from '@tanstack/react-router';
+import { useLoaderData, useRouter } from '@tanstack/react-router';
 import {
 	Box,
 	Typography,
@@ -9,14 +9,18 @@ import {
 	Divider
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { EventStatus } from '../../../Common/eventStatus';
 import { editEventStore } from '../../../Store/editEventStore';
 import { EditEventDialog } from '../Dialog/EditEventDialog';
 import { Routes } from '../../../Common/routes';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { EventsAPI } from '../../../API/EventsAPI';
+import { useAuth0 } from '@auth0/auth0-react';
 
 export const EventDetailsPage = () => {
 	const event = useLoaderData({ from: `/protected${Routes.DASHBOARD}${Routes.EVENTS}/$eventId` });
+	const queryKey = ['events', event.id];
 	const [activeTab, setActiveTab] = useState(0);
 
 	const {
@@ -29,6 +33,45 @@ export const EventDetailsPage = () => {
 	const handleTabChange = (ignore, newValue) => {
 		setActiveTab(newValue);
 	};
+
+	const { getAccessTokenSilently } = useAuth0();
+	const eventsAPI = useMemo(
+		() => new EventsAPI({ getAccessToken: getAccessTokenSilently }),
+		[getAccessTokenSilently]
+	);
+	const queryClient = useQueryClient();
+	const router = useRouter();
+
+	const editEventMutation = useMutation({
+		mutationFn: (event) => eventsAPI.update(event),
+		onMutate: async (updatedEvent) => {
+			await queryClient.cancelQueries({ queryKey });
+
+			const previousEventData = queryClient.getQueryData(queryKey);
+
+			queryClient.setQueryData(
+				queryKey,
+				(oldEventData) => ({
+					...oldEventData,
+					...updatedEvent,
+					isOptimistic: true,
+				})
+			);
+
+			return { previousEventData };
+		},
+		onError: (_err, _vars, context) => {
+			console.log({ context });
+			queryClient.setQueryData(
+				queryKey,
+				context.previousEventData
+			);
+		},
+		onSettled: () => {
+			queryClient.invalidateQueries({ queryKey });
+			router.invalidate({ to: '$eventId' });
+		},
+	});
 
 	return (
 		<Box>
@@ -92,6 +135,7 @@ export const EventDetailsPage = () => {
 					open={isEditEventDialogOpen}
 					eventDraft={eventDraft}
 					queryKey={['events', event.id]}
+					editEventMutation={editEventMutation}
 				/>
 			}
 		</Box>
