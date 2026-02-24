@@ -7,6 +7,7 @@ import { EventStatus } from '../../../Common/eventStatus';
 import _ from 'lodash';
 import { editEventStore } from '../../../Store/editEventStore';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useRouter } from '@tanstack/react-router';
 
 export const EditEventDialog = ({ open, eventDraft, queryKey }) => {
 	const { getAccessTokenSilently } = useAuth0();
@@ -23,28 +24,37 @@ export const EditEventDialog = ({ open, eventDraft, queryKey }) => {
 	} = editEventStore((state) => state);
 
 	const queryClient = useQueryClient();
+	const router = useRouter();
 
 	const editEventMutation = useMutation({
 		mutationFn: (event) => eventsAPI.update(event),
 		onMutate: async (updatedEvent) => {
 			await queryClient.cancelQueries({ queryKey });
 
-			const previousEvents = queryClient.getQueryData(queryKey);
+			const previousEvents = await queryClient.getQueryData(queryKey);
 
 			queryClient.setQueryData(
 				queryKey,
 				(old = []) => {
-					return _.map(old, (event) => {
-						if (event.id === updatedEvent.id) {
-							return {
-								...event,
-								...updatedEvent,
-								isOptimistic: true,
-							};
-						}
+					if (_.isArray(old)) {
+						return _.map(old, (event) => {
+							if (event.id === updatedEvent.id) {
+								return {
+									...event,
+									...updatedEvent,
+									isOptimistic: true,
+								};
+							}
 
-						return event;
-					});
+							return event;
+						});
+					}
+
+					return {
+						...old,
+						...updatedEvent,
+						isOptimistic: true,
+					};
 				}
 			);
 
@@ -58,6 +68,7 @@ export const EditEventDialog = ({ open, eventDraft, queryKey }) => {
 		},
 		onSettled: () => {
 			queryClient.invalidateQueries({ queryKey });
+			router.invalidate({ to: '$eventId' });
 		},
 	});
 

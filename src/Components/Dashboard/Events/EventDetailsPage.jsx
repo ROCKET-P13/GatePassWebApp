@@ -13,9 +13,10 @@ import { useState } from 'react';
 import { EventStatus } from '../../../Common/eventStatus';
 import { editEventStore } from '../../../Store/editEventStore';
 import { EditEventDialog } from '../Dialog/EditEventDialog';
+import { Routes } from '../../../Common/routes';
 
 export const EventDetailsPage = () => {
-	const event = useLoaderData({ strict: false });
+	const event = useLoaderData({ from: `/protected${Routes.DASHBOARD}${Routes.EVENTS}/$eventId` });
 	const [activeTab, setActiveTab] = useState(0);
 
 	const {
@@ -24,8 +25,6 @@ export const EventDetailsPage = () => {
 		eventDraft,
 		setEventDraft,
 	} = editEventStore((state) => state);
-
-	console.log({ event });
 
 	const handleTabChange = (ignore, newValue) => {
 		setActiveTab(newValue);
@@ -92,7 +91,7 @@ export const EventDetailsPage = () => {
 				&& <EditEventDialog
 					open={isEditEventDialogOpen}
 					eventDraft={eventDraft}
-					queryKey={['event', event.id]}
+					queryKey={['events', event.id]}
 				/>
 			}
 		</Box>
