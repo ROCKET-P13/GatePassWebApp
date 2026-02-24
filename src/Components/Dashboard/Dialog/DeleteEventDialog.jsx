@@ -4,10 +4,15 @@ import { EventsAPI } from '../../../API/EventsAPI';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import _ from 'lodash';
+import { deleteEventStore } from '../../../Store/deleteEventStore';
 
-export const DeleteEventDialog = ({ open, onClose, eventToDelete, onExited, sorting }) => {
+export const DeleteEventDialog = ({ open, eventToDelete, queryKey }) => {
+	const {
+		closeDialog,
+		clearDialog,
+	} = deleteEventStore((state) => state);
+
 	const { getAccessTokenSilently } = useAuth0();
-
 	const eventsAPI = useMemo(
 		() => new EventsAPI({ getAccessToken: getAccessTokenSilently }),
 		[getAccessTokenSilently]
@@ -19,12 +24,12 @@ export const DeleteEventDialog = ({ open, onClose, eventToDelete, onExited, sort
 		mutationFn: (eventId) => eventsAPI.delete({ eventId }),
 		onMutate: async (eventId) => {
 			await queryClient.cancelQueries({
-				queryKey: ['events', sorting],
+				queryKey: queryKey,
 			});
 
-			const previousEvents = queryClient.getQueryData(['events', sorting]);
+			const previousEvents = queryClient.getQueryData(queryKey);
 
-			queryClient.setQueryData(['events', sorting], (old) => {
+			queryClient.setQueryData(queryKey, (old) => {
 				return _.filter(old, (event) => event.id !== eventId);
 			});
 
@@ -32,28 +37,28 @@ export const DeleteEventDialog = ({ open, onClose, eventToDelete, onExited, sort
 		},
 		onError: (_err, _eventId, context) => {
 			queryClient.setQueryData(
-				['events', sorting],
+				queryKey,
 				context.previousEvents
 			);
 		},
 		onSettled: () => {
-			queryClient.invalidateQueries({ queryKey: ['events', sorting] });
+			queryClient.invalidateQueries({ queryKey: queryKey });
 		},
 	});
 
 	const handleSubmit = () => {
-		onClose();
+		closeDialog();
 		deleteEventMutation.mutate(eventToDelete.id);
 	};
 
 	return (
 		<Dialog
 			open={open}
-			onClose={onClose}
+			onClose={closeDialog}
 			fullWidth
 			maxWidth="sm"
 			slotProps={{
-				transition: { onExited },
+				transition: { onExited: clearDialog },
 			}}
 		>
 			<DialogTitle>Delete Event?</DialogTitle>
@@ -65,7 +70,7 @@ export const DeleteEventDialog = ({ open, onClose, eventToDelete, onExited, sort
 			<DialogActions>
 				<Button
 					variant="outlined"
-					onClick={onClose}
+					onClick={closeDialog}
 				>
 					Cancel
 				</Button>

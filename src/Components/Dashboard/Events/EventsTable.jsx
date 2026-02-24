@@ -21,7 +21,7 @@ import {
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { DeleteEventDialog } from '../Dialog/DeleteEventDialog';
 import { EditEventDialog } from '../Dialog/EditEventDialog';
 import { editEventStore } from '../../../Store/editEventStore';
@@ -31,6 +31,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { EventsAPI } from '../../../API/EventsAPI';
 import { useAuth0 } from '@auth0/auth0-react';
 import _ from 'lodash';
+import { deleteEventStore } from '../../../Store/deleteEventStore';
 
 const EventStatusColor = Object.freeze({
 	LIVE: 'success',
@@ -38,9 +39,6 @@ const EventStatusColor = Object.freeze({
 });
 
 export const EventsTable = ({ events, sorting, onSortingChange }) => {
-	const [eventToDelete, setEventToDelete] = useState(null);
-	const [isDeleteEventDialogOpen, setisDeleteEventDialogOpen] = useState(false);
-
 	const { getAccessTokenSilently } = useAuth0();
 	const eventsAPI = useMemo(
 		() => new EventsAPI({ getAccessToken: getAccessTokenSilently }),
@@ -55,6 +53,13 @@ export const EventsTable = ({ events, sorting, onSortingChange }) => {
 		eventDraft,
 		setEventDraft,
 	} = editEventStore((state) => state);
+
+	const {
+		openDialog: openDeleteEventDialog,
+		isOpen: isDeleteEventDialogOpen,
+		setEventToDelete,
+		eventToDelete,
+	} = deleteEventStore((state) => state);
 
 	const queryClient = useQueryClient();
 
@@ -151,8 +156,11 @@ export const EventsTable = ({ events, sorting, onSortingChange }) => {
 						size="small"
 						color="error"
 						onClick={() => {
-							setisDeleteEventDialogOpen(true);
-							setEventToDelete(row.original);
+							openDeleteEventDialog();
+							setEventToDelete({
+								id: row.original.id,
+								name: row.original.name,
+							});
 						}}
 					>
 						<DeleteIcon fontSize="small" />
@@ -160,7 +168,7 @@ export const EventsTable = ({ events, sorting, onSortingChange }) => {
 				</Stack>
 			),
 		},
-	], [openEditEventDialog, setEventDraft]);
+	], [openEditEventDialog, setEventDraft, openDeleteEventDialog, setEventToDelete]);
 
 	// eslint-disable-next-line react-hooks/incompatible-library
 	const table = useReactTable({
@@ -231,15 +239,14 @@ export const EventsTable = ({ events, sorting, onSortingChange }) => {
 				</TableBody>
 			</Table>
 
-			<DeleteEventDialog
-				open={isDeleteEventDialogOpen}
-				eventToDelete={eventToDelete}
-				onClose={() => {
-					setisDeleteEventDialogOpen(false);
-				}}
-				onExited={() => setEventToDelete(null)}
-				sorting={sorting}
-			/>
+			{
+				isDeleteEventDialogOpen
+				&& <DeleteEventDialog
+					open={isDeleteEventDialogOpen}
+					eventToDelete={eventToDelete}
+					queryKey={queryKey}
+				/>
+			}
 			{
 				isEditEventDialogOpen
 				&& <EditEventDialog

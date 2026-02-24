@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { create } from 'zustand';
 
-export const editEventStore = create((set, get) => ({
+export const editEventStore = create((set) => ({
 	isOpen: false,
 	originalEvent: {
 		name: '',
