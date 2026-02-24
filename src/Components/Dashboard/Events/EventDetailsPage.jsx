@@ -61,7 +61,7 @@ export const EventDetailsPage = () => {
 				sx={{ mt: 2 }}
 			>
 				<Tab label="Registrations" />
-				<Tab label="Check-In" />
+				<Tab label="Check-Ins" />
 				<Tab label="Settings" />
 			</Tabs>
 		</Box>
