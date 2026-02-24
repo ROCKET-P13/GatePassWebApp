@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import { useMemo, useState } from 'react';
-import { EventStatus } from '../../../Common/eventStatus';
+import { EventStatusColorClass } from '../../../Common/eventStatus';
 import { editEventStore } from '../../../Store/editEventStore';
 import { EditEventDialog } from '../Dialog/EditEventDialog';
 import { Routes } from '../../../Common/routes';
@@ -93,7 +93,7 @@ export const EventDetailsPage = () => {
 
 					<Chip
 						label={event.status}
-						color={event.status === EventStatus.OPEN ? 'success' : 'default'}
+						color={EventStatusColorClass[event.status]}
 						size="small"
 						sx={{ mt: 1 }}
 					/>

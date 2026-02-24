@@ -32,11 +32,7 @@ import { EventsAPI } from '../../../API/EventsAPI';
 import { useAuth0 } from '@auth0/auth0-react';
 import _ from 'lodash';
 import { deleteEventStore } from '../../../Store/deleteEventStore';
-
-const EventStatusColor = Object.freeze({
-	LIVE: 'success',
-	SCHEDULED: 'warning',
-});
+import { EventStatusColorClass } from '../../../Common/eventStatus';
 
 export const EventsTable = ({ events, sorting, onSortingChange }) => {
 	const { getAccessTokenSilently } = useAuth0();
@@ -125,7 +121,7 @@ export const EventsTable = ({ events, sorting, onSortingChange }) => {
 			cell: (info) => (
 				<Chip
 					label={info.getValue()}
-					color={EventStatusColor[info.getValue().toUpperCase()] ?? 'default'}
+					color={EventStatusColorClass[info.getValue()]}
 					size="small"
 				/>
 			),
