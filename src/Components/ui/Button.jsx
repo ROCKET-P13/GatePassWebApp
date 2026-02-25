@@ -13,33 +13,33 @@ const baseStyles = `
   transition-colors
   focus:outline-none
   focus:ring-2
-  focus:ring-[rgb(var(--ring))]
+  focus:ring-ring
   focus:ring-offset-2
   font-bold
 `;
 
 const Variants = Object.freeze({
 	default: `
-		bg-[rgb(var(--primary))]
-		text-[rgb(var(--primary-foreground))]
+		bg-primary
+		text-primary-foreground
 		hover:opacity-90
   	`,
 	secondary: `
-		bg-[rgb(var(--secondary))]
-		text-[rgb(var(--secondary-foreground))]
+		bg-secondary
+		text-secondary-foreground
 		hover:opacity-80
   	`,
 	outline: `
-		border border-[rgb(var(--border))]
+		border border-border
 		bg-transparent
-		hover:bg-[rgb(var(--accent))]
+		hover:bg-accent
   	`,
 	ghost: `
-		hover:bg-[rgb(var(--accent))]
+		hover:bg-accent
   	`,
 	destructive: `
-		bg-[rgb(var(--destructive))]
-		text-[rgb(var(--destructive-foreground))]
+		bg-destructive
+		text-destructive-foreground
 		hover:opacity-90
   	`,
 });

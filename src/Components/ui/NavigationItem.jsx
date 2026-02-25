@@ -20,12 +20,12 @@ export const NavigationItem = React.forwardRef(
 				className={
 					mergeTailwindClasses(
 						'flex items-center gap-3 w-full rounded-md px-3 py-2 text-sm transition-colors',
-						'text-[rgb(var(--foreground))]',
-						'hover:bg-[rgb(var(--accent))]',
-						'hover:text-[rgb(var(--accent-foreground))]',
+						'text-foreground',
+						'hover:bg-accent',
+						'hover:text-accent-foreground',
 						active && [
-							'bg-[rgb(var(--accent))]',
-							'text-[rgb(var(--accent-foreground))]',
+							'bg-accent',
+							'text-accent-foreground',
 						],
 						disabled && 'opacity-50 pointer-events-none',
 						className
@@ -35,7 +35,7 @@ export const NavigationItem = React.forwardRef(
 			>
 				{
 					Icon && (
-						<Icon className="text-[rgb(var(--muted-foreground))]" fontSize="small" />
+						<Icon className="text-muted-foreground" fontSize="small" />
 					)
 				}
 				<span className="truncate">{children}</span>

@@ -70,7 +70,7 @@ export const DashboardDrawer = () => {
 	};
 
 	return (
-		<div className="min-h-screen bg-[rgb(var(--background))] text-[rgb(var(--foreground))]">
+		<div className="min-h-screen bg-background text-foreground">
 			<DashboardAppBar />
 
 			<Drawer open={drawerOpen} onClose={() => toggleDrawer(false)}>
@@ -93,7 +93,7 @@ export const DashboardDrawer = () => {
 						}
 					</div>
 
-					<div className="border-t border-[rgb(var(--border))] p-4 space-y-1">
+					<div className="border-t border-border p-4 space-y-1">
 						{
 							AccountDrawerItems.map((item) => (
 								<NavigationItem

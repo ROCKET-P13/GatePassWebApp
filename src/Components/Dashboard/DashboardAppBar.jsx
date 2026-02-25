@@ -16,7 +16,7 @@ export const DashboardAppBar = () => {
 			<AppBarLeft>
 				<button
 					onClick={() => toggleDrawer(true)}
-					className="p-2 rounded-md hover:bg-[rgb(var(--accent))]"
+					className="p-2 rounded-md hover:bg-accent"
 				>
 					<MenuIcon fontSize="small" />
 				</button>
@@ -27,7 +27,7 @@ export const DashboardAppBar = () => {
 			</AppBarLeft>
 
 			<AppBarRight>
-				<span className="text-sm text-[rgb(var(--muted-foreground))]">
+				<span className="text-sm text-muted-foreground">
 					Welcome back
 				</span>
 			</AppBarRight>

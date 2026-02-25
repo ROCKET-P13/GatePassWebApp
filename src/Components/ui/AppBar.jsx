@@ -7,9 +7,9 @@ const AppBar = ({ className, children, ...props }) => {
 			className={
 				mergeTailwindClasses(
 					'sticky top-0 z-40 w-full',
-					'border-b border-[rgb(var(--border))]',
-					'bg-[rgb(var(--background))]/80',
-					'backdrop-blur supports-backdrop-filter:bg-[rgb(var(--background))]/60',
+					'border-b border-border',
+					'bg-background/80',
+					'backdrop-blur supports-backdrop-filter:bg-background/60',
 					className
 				)
 			}

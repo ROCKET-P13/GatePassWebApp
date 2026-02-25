@@ -19,7 +19,7 @@ const DialogOverlay = ({ className, ...props }) => {
 	return (
 		<div
 			className={mergeTailwindClasses(
-				'fixed inset-0 z-50 bg-[rgb(var(--background))]50 backdrop-blur-sm',
+				'fixed inset-0 z-50 bg-background50 backdrop-blur-sm',
 				className
 			)}
 			{...props}
@@ -55,7 +55,7 @@ const DialogContent = ({
 				onClick={(e) => e.stopPropagation()}
 				className={
 					mergeTailwindClasses(
-						'relative z-50 w-full max-w-lg rounded-xl border border-[rgb(var(--border))] bg-[rgb(var(--card))] shadow-lg pt-4 px-4',
+						'relative z-50 w-full max-w-lg rounded-xl border border-border bg-card shadow-lg pt-4 px-4',
 						className
 					)
 				}
@@ -63,7 +63,7 @@ const DialogContent = ({
 				{children}
 				<button
 					onClick={() => onClose?.(false)}
-					className="absolute right-4 top-4 rounded-md p-1 hover:bg-[rgb(var(--muted-foreground))]"
+					className="absolute right-4 top-4 rounded-md p-1 hover:bg-muted-foreground"
 				>
           			✕
 				</button>
@@ -97,7 +97,7 @@ const DialogDescription = ({ className, ...props }) => {
 	return (
 		<p
 			className={mergeTailwindClasses(
-				'text-sm text-[rgb(var(--muted-foreground))]',
+				'text-sm text-muted-foreground',
 				className
 			)}
 			{...props}

@@ -24,7 +24,7 @@ const Drawer = ({ open, onClose, children }) => {
 				onClick={onClose}
 				className={
 					mergeTailwindClasses(
-						'fixed inset-0 z-40 bg-[rgb(var(--background))]80 backdrop-blur-sm transition-transform duration-300 ease-in-out',
+						'fixed inset-0 z-40 bg-background80 backdrop-blur-sm transition-transform duration-300 ease-in-out',
 						open ? 'opacity-100' : 'pointer-events-none opacity-0 overflow-hidden'
 					)
 				}
@@ -54,9 +54,9 @@ const DrawerContent = ({ side = 'right', className, children, open }, ref) => {
 			className={
 				mergeTailwindClasses(
 					'fixed z-50 shadow-lg transition-transform duration-300 ease-in-out',
-					'bg-[rgb(var(--background))]',
-					'text-[rgb(var(--foreground))]',
-					'border-[rgb(var(--border))]',
+					'bg-background',
+					'text-foreground',
+					'border-border',
 					sideStyles[side],
 					slideStyles[side],
 					className
@@ -71,7 +71,7 @@ const DrawerContent = ({ side = 'right', className, children, open }, ref) => {
 const DrawerHeader = ({ className, ...props }) => (
 	<div
 		className={mergeTailwindClasses(
-			'p-6 border-b border-[rgb(var(--border))]',
+			'p-6 border-b border-border',
 			className
 		)}
 		{...props}
@@ -91,7 +91,7 @@ const DrawerTitle = ({ className, ...props }) => (
 const DrawerDescription = ({ className, ...props }) => (
 	<p
 		className={mergeTailwindClasses(
-			'text-sm text-[rgb(var(--muted-foreground))]',
+			'text-sm text-muted-foreground',
 			className
 		)}
 		{...props}
@@ -101,7 +101,7 @@ const DrawerDescription = ({ className, ...props }) => (
 const DrawerFooter = ({ className, ...props }) => (
 	<div
 		className={mergeTailwindClasses(
-			'p-6 border-t border-[rgb(var(--border))] flex justify-end gap-2',
+			'p-6 border-t border-border flex justify-end gap-2',
 			className
 		)}
 		{...props}

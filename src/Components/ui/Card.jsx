@@ -13,9 +13,9 @@ const Card = (
 					`w-full
 					rounded-xl
 					border
-					border-[rgb(var(--border))]
-					bg-[rgb(var(--card))]
-					text-[rgb(var(--card-foreground))]
+					border-border
+					bg-card
+					text-card-foreground
 					shadow-sm
 					transition-shadow
 					hover:shadow-md
@@ -97,7 +97,7 @@ const CardFooter = (
 		<div
 			ref={ref}
 			data-slot="card-footer"
-			className={mergeTailwindClasses('flex items-center border-[rgb(var(--border))] bg-[rgb(var(--muted))]/40 p-6 pt-4', className)}
+			className={mergeTailwindClasses('flex items-center border-border bg-muted/40 p-6 pt-4', className)}
 			{...props}
 		/>
 	);
