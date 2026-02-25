@@ -10,10 +10,16 @@ const Card = (
 			data-slot="card"
 			className={
 				mergeTailwindClasses(
-					'rounded-(--radius) border shadow-sm p-2 mb-2',
-					'bg-[rgb(var(--card))]',
-					'text-[rgb(var(--card-foreground))]',
-					'border-[rgb(var(--border))]',
+					`w-full
+					rounded-xl
+					border
+					border-border
+					bg-card
+					text-card-foreground
+					shadow-sm
+					transition-shadow
+					hover:shadow-md
+					`,
 					className
 				)
 			}
@@ -63,7 +69,7 @@ const CardDescription = (
 		<p
 			ref={ref}
 			data-slot="card-description"
-			className={mergeTailwindClasses('text-sm text-gray-500', className)}
+			className={mergeTailwindClasses('text-sm text-muted-foreground', className)}
 			{...props}
 		/>
 	);
@@ -91,7 +97,7 @@ const CardFooter = (
 		<div
 			ref={ref}
 			data-slot="card-footer"
-			className={mergeTailwindClasses('flex items-center p-6 pt-0', className)}
+			className={mergeTailwindClasses('flex items-center border-t border-border bg-muted/40 p-6 pt-4', className)}
 			{...props}
 		/>
 	);

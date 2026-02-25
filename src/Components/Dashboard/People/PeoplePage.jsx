@@ -1,7 +1,8 @@
-import { Box, Button, Paper, Stack, Typography } from '@mui/material';
+import { Box, Paper, Stack, Typography } from '@mui/material';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { PeopleTable } from './PeopleTable';
 import { PeopleFilters } from './PeopleFilters';
+import { Button } from '../../ui/Button';
 
 export const PeoplePage = () => {
 	return (
@@ -15,7 +16,7 @@ export const PeoplePage = () => {
 				<Typography variant="h5">People</Typography>
 
 				<Button
-					variant="contained"
+					variant="default"
 					startIcon={<PersonAddIcon />}
 				>
 					Invite

@@ -4,6 +4,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { ThemeProvider } from '@mui/material/styles';
 import { Auth0Provider } from '@auth0/auth0-react';
+import '@fontsource/inter';
 import './index.css';
 import theme from './theme';
 import { AppRouter } from './AppRouter';
