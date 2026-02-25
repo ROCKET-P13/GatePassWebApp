@@ -1,9 +1,10 @@
 import _ from 'lodash';
-import { Box, Card, CardContent, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
+import { Card, CardContent } from '../../UI/Card';
 
 export const WidgetCard = ({ title, action, children }) => {
 	return (
-		<Card sx={{ height: '100%', padding: 2 }}>
+		<Card className='h-full p-2'>
 			{
 				_.some(title)
 					? <Box sx={{
@@ -18,7 +19,7 @@ export const WidgetCard = ({ title, action, children }) => {
 					</Box>
 					: <></>
 			}
-			<CardContent sx={{ paddingX: 1 }}>
+			<CardContent>
 				{children}
 			</CardContent>
 		</Card>

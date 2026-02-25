@@ -2,7 +2,7 @@ import { Typography } from '@mui/material';
 
 export const Metric = ({ label, value }) => {
 	return (
-		<div style={{ flexDirection: 'column' }}>
+		<div className='flex flex-col'>
 			<Typography variant='caption' color='text.secondary'>
 				{label}
 			</Typography>

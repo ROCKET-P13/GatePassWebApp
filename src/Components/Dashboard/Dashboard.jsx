@@ -21,7 +21,6 @@ export const Dashboard = () => {
 					))
 					.value()
 			}
-
 		</Box>
 	);
 };

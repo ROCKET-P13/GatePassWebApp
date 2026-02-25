@@ -167,6 +167,5 @@ export const AppRouter = () => {
 				}}
 			/>
 		</QueryClientProvider>
-
 	);
 };
