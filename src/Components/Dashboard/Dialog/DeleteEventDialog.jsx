@@ -1,10 +1,6 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
-import { useMemo } from 'react';
-import { EventsAPI } from '../../../API/EventsAPI';
-import { useAuth0 } from '@auth0/auth0-react';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import _ from 'lodash';
 import { deleteEventStore } from '../../../Store/deleteEventStore';
+import { useDeleteEventMutation } from '../../../hooks/mutations/useDeleteEventMutation';
 
 export const DeleteEventDialog = ({ open, eventToDelete, queryKey }) => {
 	const {
@@ -12,39 +8,7 @@ export const DeleteEventDialog = ({ open, eventToDelete, queryKey }) => {
 		clearDialog,
 	} = deleteEventStore((state) => state);
 
-	const { getAccessTokenSilently } = useAuth0();
-	const eventsAPI = useMemo(
-		() => new EventsAPI({ getAccessToken: getAccessTokenSilently }),
-		[getAccessTokenSilently]
-	);
-
-	const queryClient = useQueryClient();
-
-	const deleteEventMutation = useMutation({
-		mutationFn: (eventId) => eventsAPI.delete({ eventId }),
-		onMutate: async (eventId) => {
-			await queryClient.cancelQueries({
-				queryKey: queryKey,
-			});
-
-			const previousEvents = queryClient.getQueryData(queryKey);
-
-			queryClient.setQueryData(queryKey, (old) => {
-				return _.filter(old, (event) => event.id !== eventId);
-			});
-
-			return { previousEvents };
-		},
-		onError: (_err, _eventId, context) => {
-			queryClient.setQueryData(
-				queryKey,
-				context.previousEvents
-			);
-		},
-		onSettled: () => {
-			queryClient.invalidateQueries({ queryKey: queryKey });
-		},
-	});
+	const deleteEventMutation = useDeleteEventMutation({ queryKey });
 
 	const handleSubmit = () => {
 		closeDialog();

@@ -1,29 +1,13 @@
 import { Button, Stack, Typography } from '@mui/material';
 import { onboardingStore } from '../../../store/onboardingStore';
-import { useMutation } from '@tanstack/react-query';
-import { useMemo } from 'react';
-import { VenuesAPI } from '../../../API/VenuesAPI';
-import { useAuth0 } from '@auth0/auth0-react';
+import { useCreateVenueMutation } from '../../../hooks/mutations/useCreateVenueMutation';
 
 export const WaiverStep = () => {
 	const next = onboardingStore((state) => state.next);
 	const back = onboardingStore((state) => state.back);
 	const venue = onboardingStore((state) => state.venue);
 
-	const { getAccessTokenSilently } = useAuth0();
-
-	const venuesAPI = useMemo(
-		() => new VenuesAPI({ getAccessToken: getAccessTokenSilently }),
-		[getAccessTokenSilently]
-	);
-
-	const createVenue = useMutation({
-		mutationFn: async (venueData) => await venuesAPI.create(venueData),
-		onSuccess: (response) => {
-			console.log('Venue Created:', response);
-			next();
-		},
-	});
+	const createVenue = useCreateVenueMutation({ next });
 
 	return (
 		<Stack spacing={3}>

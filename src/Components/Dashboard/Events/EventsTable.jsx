@@ -27,20 +27,11 @@ import { EditEventDialog } from '../Dialog/EditEventDialog';
 import { editEventStore } from '../../../Store/editEventStore';
 import { Link } from '@tanstack/react-router';
 import { Routes } from '../../../Common/routes';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { EventsAPI } from '../../../API/EventsAPI';
-import { useAuth0 } from '@auth0/auth0-react';
-import _ from 'lodash';
 import { deleteEventStore } from '../../../Store/deleteEventStore';
 import { EventStatusColorClass } from '../../../Common/eventStatus';
+import { useEditEventTableMutation } from '../../../hooks/mutations/useEditEventTableMutation';
 
 export const EventsTable = ({ events, sorting, onSortingChange }) => {
-	const { getAccessTokenSilently } = useAuth0();
-	const eventsAPI = useMemo(
-		() => new EventsAPI({ getAccessToken: getAccessTokenSilently }),
-		[getAccessTokenSilently]
-	);
-
 	const queryKey = ['events', sorting];
 
 	const {
@@ -57,40 +48,7 @@ export const EventsTable = ({ events, sorting, onSortingChange }) => {
 		eventToDelete,
 	} = deleteEventStore((state) => state);
 
-	const queryClient = useQueryClient();
-
-	const editEventMutation = useMutation({
-		mutationFn: (event) => eventsAPI.update(event),
-		onMutate: async (updatedEvent) => {
-			await queryClient.cancelQueries({ queryKey });
-
-			const previousEvents = queryClient.getQueryData(queryKey);
-
-			queryClient.setQueryData(
-				queryKey,
-				(oldEvents = []) => _.map(oldEvents, (event) => {
-					return event.id === updatedEvent.id
-						? {
-							...event,
-							...updatedEvent,
-							isOptimistic: true,
-						}
-						: event;
-				})
-			);
-			;
-			return { previousEvents };
-		},
-		onError: (_err, _vars, context) => {
-			queryClient.setQueryData(
-				queryKey,
-				context.previousEvents
-			);
-		},
-		onSettled: () => {
-			queryClient.invalidateQueries({ queryKey });
-		},
-	});
+	const editEventMutation = useEditEventTableMutation({ queryKey });
 
 	const columns = useMemo(() => [
 		{

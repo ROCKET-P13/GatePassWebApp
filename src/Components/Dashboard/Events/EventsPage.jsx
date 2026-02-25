@@ -1,33 +1,19 @@
 import { Box, Button, Paper, Stack, Typography } from '@mui/material';
 import { EventsTable } from './EventsTable';
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 import { AddEventDialog } from '../Dialog/AddEventDialog';
-import { EventsAPI } from '../../../API/EventsAPI';
-import { useAuth0 } from '@auth0/auth0-react';
-import { useQuery } from '@tanstack/react-query';
+import { useGetAllEventsQuery } from '../../../hooks/queries/useGetAllEventsQuery';
 
 export const EventsPage = () => {
 	const [isEventDialogOpen, setIsEventDialogOpen] = useState(false);
 	const [sorting, setSorting] = useState([]);
 	const queryKey = ['events', sorting];
 
-	const { isAuthenticated, getAccessTokenSilently } = useAuth0();
-
-	const eventsAPI = useMemo(
-		() => new EventsAPI({ getAccessToken: getAccessTokenSilently }),
-		[getAccessTokenSilently]
-	);
-
 	const {
 		data: events,
 		isLoading,
 		error,
-	} = useQuery({
-		queryKey: queryKey,
-		queryFn: () => eventsAPI.getAll({ sorting }),
-		enabled: isAuthenticated,
-		keepPreviousData: true,
-	});
+	} = useGetAllEventsQuery({ queryKey, sorting });
 
 	if (error) {
 		return <Typography color="error">Failed to load events</Typography>;

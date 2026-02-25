@@ -1,4 +1,3 @@
-import { useAuth0 } from '@auth0/auth0-react';
 import {
 	Button,
 	Dialog,
@@ -11,72 +10,17 @@ import {
 } from '@mui/material';
 import { DatePicker, TimePicker } from '@mui/x-date-pickers';
 import { useMemo } from 'react';
-import { EventsAPI } from '../../../API/EventsAPI';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { addEventStore } from '../../../Store/addEventStore';
 import dayjs from 'dayjs';
 import _ from 'lodash';
 import { EventStatus } from '../../../Common/eventStatus';
+import { useAddEventMutation } from '../../../hooks/mutations/useAddEventMutation';
 
 export const AddEventDialog = ({ open, onClose, queryKey }) => {
 	const eventData = addEventStore((state) => state.eventData);
 	const updateEventData = addEventStore((state) => state.updateEventData);
 
-	const { getAccessTokenSilently } = useAuth0();
-	const queryClient = useQueryClient();
-
-	const eventsAPI = useMemo(
-		() => new EventsAPI({ getAccessToken: getAccessTokenSilently }),
-		[getAccessTokenSilently]
-	);
-
-	const addEventMutation = useMutation({
-		mutationFn: (event) => eventsAPI.create(event),
-		onMutate: async (newEvent) => {
-			await queryClient.cancelQueries({ queryKey });
-
-			const previousEvents = queryClient.getQueryData(queryKey);
-
-			const temporaryId = Math.random().toString(32);
-
-			queryClient.setQueryData(
-				queryKey,
-				(old = []) => {
-					return [
-						...old,
-						{
-							...newEvent,
-							id: temporaryId,
-							isOptimistic: true,
-						},
-					];
-				});
-
-			return { previousEvents, temporaryId };
-		},
-		onError: (_err, _vars, context) => {
-			queryClient.setQueryData(
-				queryKey,
-				context.previousEvents
-			);
-		},
-		onSettled: () => {
-			queryClient.invalidateQueries({ queryKey: queryKey });
-		},
-		onSuccess: (createdEvent, _variables, context) => {
-			queryClient.setQueryData(
-				queryKey
-				, (old = []) => {
-					return _.map(old, (event) => {
-						if (event.id === context.temporaryId) {
-							return createdEvent;
-						}
-
-						return event;
-					});
-				});
-		},
-	});
+	const addEventMutation = useAddEventMutation({ queryKey });
 
 	const eventDateTime = useMemo(() => {
 		if (!eventData.startTime) {

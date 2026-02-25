@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { Box, Typography } from '@mui/material';
-import { Card, CardContent } from '../../UI/Card';
+import { Card, CardContent } from '../../ui/Card';
 
 export const WidgetCard = ({ title, action, children }) => {
 	return (
