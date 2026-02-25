@@ -31,7 +31,7 @@ export const EventsPage = () => {
 				<Typography variant="h4">Events</Typography>
 
 				<Button
-					variant="secondary"
+					variant="default"
 					onClick={() => setIsEventDialogOpen(true)}
 				>
                     Add Event

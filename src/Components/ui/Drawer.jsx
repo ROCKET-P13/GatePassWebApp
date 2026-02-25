@@ -1,19 +1,7 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { mergeTailwindClasses } from '../../utils/mergeTailwindClasses';
 
 const Drawer = ({ open, onClose, children }) => {
-	useEffect(() => {
-		if (open) {
-			document.body.style.overflow = 'hidden';
-		} else {
-			document.body.style.overflow = '';
-		}
-
-		return () => {
-			document.body.style.overflow = '';
-		};
-	}, [open]);
-
 	useEffect(() => {
 		function handleKey (e) {
 			if (e.key === 'Escape') {
@@ -32,13 +20,14 @@ const Drawer = ({ open, onClose, children }) => {
 
 	return (
 		<>
-			{/* Overlay */}
 			<div
 				onClick={onClose}
-				className={mergeTailwindClasses(
-					'fixed inset-0 z-40 bg-black/50 backdrop-blur-sm transition-opacity',
-					open ? 'opacity-100' : 'pointer-events-none opacity-0'
-				)}
+				className={
+					mergeTailwindClasses(
+						'fixed inset-0 z-40 bg-[rgb(var(--background))]80 backdrop-blur-sm transition-transform duration-300 ease-in-out',
+						open ? 'opacity-100' : 'pointer-events-none opacity-0 overflow-hidden'
+					)
+				}
 			/>
 
 			{children}
@@ -46,43 +35,38 @@ const Drawer = ({ open, onClose, children }) => {
 	);
 };
 
-const DrawerContent = React.forwardRef(
-	(
-		{ side = 'right', className, children, open },
-		ref
-	) => {
-		const sideStyles = {
-			right: 'right-0 top-0 h-full w-[400px] border-l',
-			left: 'left-0 top-0 h-full w-[400px] border-r',
-			bottom: 'bottom-0 left-0 w-full h-[400px] border-t',
-		};
+const DrawerContent = ({ side = 'right', className, children, open }, ref) => {
+	const sideStyles = {
+		right: 'right-0 top-0 h-full w-[400px] border-l',
+		left: 'left-0 top-0 h-full w-[400px] border-r',
+		bottomLeft: 'bottom-0 left-0 w-full h-[400px] border-t',
+	};
 
-		const slideStyles = {
-			right: open ? 'translate-x-0' : 'translate-x-full',
-			left: open ? 'translate-x-0' : '-translate-x-full',
-			bottom: open ? 'translate-y-0' : 'translate-y-full',
-		};
+	const slideStyles = {
+		right: open ? 'translate-x-0' : 'translate-x-full',
+		left: open ? 'translate-x-0' : '-translate-x-full',
+		bottomLeft: open ? 'translate-y-0' : 'translate-y-full',
+	};
 
-		return (
-			<div
-				ref={ref}
-				className={mergeTailwindClasses(
+	return (
+		<div
+			ref={ref}
+			className={
+				mergeTailwindClasses(
 					'fixed z-50 shadow-lg transition-transform duration-300 ease-in-out',
-					'bg-[rgb(var(--card))]',
-					'text-[rgb(var(--card-foreground))]',
+					'bg-[rgb(var(--background))]',
+					'text-[rgb(var(--foreground))]',
 					'border-[rgb(var(--border))]',
 					sideStyles[side],
 					slideStyles[side],
 					className
-				)}
-			>
-				{children}
-			</div>
-		);
-	}
-);
-
-DrawerContent.displayName = 'DrawerContent';
+				)
+			}
+		>
+			{children}
+		</div>
+	);
+};
 
 const DrawerHeader = ({ className, ...props }) => (
 	<div

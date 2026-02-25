@@ -1,13 +1,4 @@
-import {
-	Button,
-	Dialog,
-	DialogActions,
-	DialogContent,
-	DialogTitle,
-	MenuItem,
-	Stack,
-	TextField
-} from '@mui/material';
+import { MenuItem, Stack, TextField } from '@mui/material';
 import { DatePicker, TimePicker } from '@mui/x-date-pickers';
 import { useMemo } from 'react';
 import { addEventStore } from '../../../Store/addEventStore';
@@ -15,6 +6,9 @@ import dayjs from 'dayjs';
 import _ from 'lodash';
 import { EventStatus } from '../../../Common/eventStatus';
 import { useAddEventMutation } from '../../../hooks/mutations/useAddEventMutation';
+
+import { Dialog, DialogContent, DialogTitle, DialogFooter } from '../../ui/Dialog';
+import { Button } from '../../ui/Button';
 
 export const AddEventDialog = ({ open, onClose, queryKey }) => {
 	const eventData = addEventStore((state) => state.eventData);
@@ -52,15 +46,15 @@ export const AddEventDialog = ({ open, onClose, queryKey }) => {
 	};
 
 	return (
-		    <Dialog
+		<Dialog
 			open={open}
 			onClose={onClose}
 			fullWidth
 			maxWidth="sm"
 		>
-			<DialogTitle>Add Event</DialogTitle>
 
 			<DialogContent>
+				<DialogTitle>Add Event</DialogTitle>
 				<Stack
 					direction='row'
 					spacing={3}
@@ -105,18 +99,17 @@ export const AddEventDialog = ({ open, onClose, queryKey }) => {
 						onChange={(value) => updateEventData({ startTime: value })}
 					/>
 				</Stack>
-
-			</DialogContent>
-			<DialogActions sx={{ mt: 3 }}>
-				<Button variant='outlined' onClick={onClose}>Cancel</Button>
-				<Button
-					variant='contained'
-					onClick={handleSubmit}
-					disabled={!formIsValid}
-				>
+				<DialogFooter className="mt-2">
+					<Button variant='outline' onClick={onClose}>Cancel</Button>
+					<Button
+						variant='default'
+						onClick={handleSubmit}
+						disabled={!formIsValid}
+					>
 						Save
-				</Button>
-	 			</DialogActions>
+					</Button>
+				</DialogFooter>
+			</DialogContent>
 		</Dialog>
 	);
 };
