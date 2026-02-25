@@ -61,6 +61,7 @@ const protectedRoute = createRoute({
 const dashboardRoute = createRoute({
 	getParentRoute: () => protectedRoute,
 	path: Routes.DASHBOARD,
+	// component: DashboardDrawer,
 	component: DashboardDrawer,
 });
 

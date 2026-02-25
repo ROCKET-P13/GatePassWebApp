@@ -1,37 +1,36 @@
-import { AppBar, IconButton, Toolbar, Typography } from '@mui/material';
-import { dashboardStore } from '../../Store/dashboardStore';
+import {
+	AppBar,
+	AppBarLeft,
+	AppBarRight,
+	AppBarTitle
+} from '../ui/AppBar';
+
 import MenuIcon from '@mui/icons-material/Menu';
+import { dashboardStore } from '../../Store/dashboardStore';
 
 export const DashboardAppBar = () => {
 	const toggleDrawer = dashboardStore((state) => state.toggleDrawer);
-	const drawerOpen = dashboardStore((state) => state.drawerOpen);
-	return (
-		<>
-			<AppBar open={drawerOpen}>
-				<Toolbar variant='regular'>
-					<IconButton
-						color="inherit"
-						aria-label="open drawer"
-						onClick={(event) => {
-							event.currentTarget.blur();
-							toggleDrawer(!drawerOpen);
-						}}
-						edge="start"
-						sx={[
-							{
-								mr: 2,
-							},
-							drawerOpen && { display: 'none' },
-						]}
-					>
-						<MenuIcon />
-					</IconButton>
-					<Typography variant="h6" noWrap component="div">
-							GatePass
-					</Typography>
-				</Toolbar>
 
-			</AppBar>
-		</>
+	return (
+		<AppBar>
+			<AppBarLeft>
+				<button
+					onClick={() => toggleDrawer(true)}
+					className="p-2 rounded-md hover:bg-[rgb(var(--accent))]"
+				>
+					<MenuIcon fontSize="small" />
+				</button>
+
+				<AppBarTitle>
+					GatePass
+				</AppBarTitle>
+			</AppBarLeft>
+
+			<AppBarRight>
+				<span className="text-sm text-[rgb(var(--muted-foreground))]">
+					Welcome back
+				</span>
+			</AppBarRight>
+		</AppBar>
 	);
 };

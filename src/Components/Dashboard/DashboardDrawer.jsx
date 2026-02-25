@@ -1,145 +1,117 @@
-import _ from 'lodash';
 import {
-	Box,
-	List,
-	ListItem,
-	ListItemButton,
-	ListItemIcon,
-	ListItemText,
 	Drawer,
-	Divider
-} from '@mui/material';
+	DrawerContent
+} from '../ui/Drawer';
 
 import SpaceDashboardIcon from '@mui/icons-material/SpaceDashboard';
 import EventIcon from '@mui/icons-material/Event';
 import PeopleIcon from '@mui/icons-material/People';
 import EditDocumentIcon from '@mui/icons-material/EditDocument';
 import SettingsIcon from '@mui/icons-material/Settings';
-
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 
 import { dashboardStore } from '../../Store/dashboardStore';
 import { DashboardAppBar } from './DashboardAppBar';
-import {  Outlet, useNavigate } from '@tanstack/react-router';
+import { Outlet, useNavigate } from '@tanstack/react-router';
 import { Routes } from '../../Common/routes';
+import { NavigationItem } from '../ui/NavigationItem';
 
-const DrawerItems = Object.freeze({
-	DASHBOARD: {
+const DrawerItems = [
+	{
 		label: 'Dashboard',
-		icon: <SpaceDashboardIcon style={{ color: '#ffff' }} />,
+		icon: SpaceDashboardIcon,
 		route: Routes.DASHBOARD,
 	},
-	EVENTS: {
+	{
 		label: 'Events',
-		icon: <EventIcon style={{ color: '#ffff' }} />,
+		icon: EventIcon,
 		route: `${Routes.DASHBOARD}${Routes.EVENTS}`,
 	},
-	PEOPLE: {
+	{
 		label: 'People',
-		icon: <PeopleIcon style={{ color: '#ffff' }} />,
+		icon: PeopleIcon,
 		route: `${Routes.DASHBOARD}${Routes.PEOPLE}`,
 	},
-	WAIVERS: {
+	{
 		label: 'Waivers',
-		icon: <EditDocumentIcon style={{ color: '#ffff' }} />,
+		icon: EditDocumentIcon,
 		route: `${Routes.DASHBOARD}${Routes.WAIVERS}`,
 	},
-	VENUE_SETTINGS: {
+	{
 		label: 'Venue Settings',
-		icon: <SettingsIcon style={{ color: '#ffff' }} />,
+		icon: SettingsIcon,
 		route: `${Routes.DASHBOARD}${Routes.VENUE_SETTINGS}`,
 	},
-});
+];
 
-const AccountDrawerItems = Object.freeze({
-	ACCOUNT: {
+const AccountDrawerItems = [
+	{
 		label: 'Account',
-		icon: <AccountBoxIcon style={{ color: '#ffff' }} />,
+		icon: AccountBoxIcon,
 		route: `${Routes.DASHBOARD}${Routes.ACCOUNT}`,
 	},
-	SETTINGS: {
+	{
 		label: 'Settings',
-		icon: <ManageAccountsIcon style={{ color: '#ffff' }} />,
+		icon: ManageAccountsIcon,
 		route: `${Routes.DASHBOARD}${Routes.SETTINGS}`,
 	},
-});
+];
 
-export const DashboardDrawer = () =>  {
+export const DashboardDrawer = () => {
 	const toggleDrawer = dashboardStore((state) => state.toggleDrawer);
 	const drawerOpen = dashboardStore((state) => state.drawerOpen);
 
 	const navigate = useNavigate();
+
+	const handleNavigate = (route) => {
+		toggleDrawer(false);
+		navigate({ to: route });
+	};
+
 	return (
-		<Box sx={{ display: 'flex', width: '80vw' }}>
+		<div className="min-h-screen bg-[rgb(var(--background))] text-[rgb(var(--foreground))]">
 			<DashboardAppBar />
 
-			<Drawer open={drawerOpen} onClose={toggleDrawer}>
-				<Box
-					sx={{
-						width: 250,
-						height: '100%',
-						display: 'flex',
-						flexDirection: 'column',
-					}}
-					role="presentation"
+			<Drawer open={drawerOpen} onClose={() => toggleDrawer(false)}>
+				<DrawerContent
+					open={drawerOpen}
+					side="left"
+					className="w-64 flex flex-col"
 				>
-					<Box>
-						<List>
-							{_.chain(DrawerItems).keys().map((drawerItemKey) => (
-								<ListItem key={drawerItemKey} disablePadding>
-									<ListItemButton onClick={(event) => {
-										event.currentTarget.blur();
-										toggleDrawer(!drawerOpen);
-										navigate({ to: DrawerItems[drawerItemKey].route });
-									}}>
-										<ListItemIcon>
-											{DrawerItems[drawerItemKey].icon}
-										</ListItemIcon>
-										<ListItemText
-											primary={DrawerItems[drawerItemKey].label}
-										/>
-									</ListItemButton>
-								</ListItem>
-							)).value()}
-						</List>
-					</Box>
+					<div className="flex-1 p-4 space-y-1">
+						{
+							DrawerItems.map((item) => (
+								<NavigationItem
+									key={item.label}
+									icon={item.icon}
+									onClick={() => handleNavigate(item.route)}
+								>
+									{item.label}
+								</NavigationItem>
+							))
+						}
+					</div>
 
-					<Box sx={{ mt: 'auto' }}>
-						<Divider />
-						<Box>
-							<List>
-								{_.chain(AccountDrawerItems).keys().map((drawerItemKey) => (
-									<ListItem key={drawerItemKey} disablePadding>
-										<ListItemButton onClick={() => {
-											toggleDrawer(!drawerOpen);
-											navigate({ to: AccountDrawerItems[drawerItemKey].route });
-										}}>
-											<ListItemIcon>
-												{AccountDrawerItems[drawerItemKey].icon}
-											</ListItemIcon>
-											<ListItemText
-												primary={AccountDrawerItems[drawerItemKey].label}
-											/>
-										</ListItemButton>
-									</ListItem>
-								)).value()}
-							</List>
-						</Box>
-					</Box>
-				</Box>
+					<div className="border-t border-[rgb(var(--border))] p-4 space-y-1">
+						{
+							AccountDrawerItems.map((item) => (
+								<NavigationItem
+									key={item.label}
+									icon={item.icon}
+									onClick={() => handleNavigate(item.route)}
+								>
+									{item.label}
+								</NavigationItem>
+							))
+						}
+					</div>
+				</DrawerContent>
 			</Drawer>
 
-			<Box
-				component='main'
-				sx={{
-					flexGrow: 1,
-					p: 3,
-					mt: 8,
-				}}
-			>
+			<main className="pt-14 p-6">
 				<Outlet />
-			</Box>
-		</Box>
+			</main>
+		</div>
 	);
 };

@@ -1,0 +1,68 @@
+import React from 'react';
+import { mergeTailwindClasses } from '../../utils/mergeTailwindClasses';
+
+const AppBar = React.forwardRef(
+	({ className, children, ...props }, ref) => {
+		return (
+			<header
+				ref={ref}
+				className={mergeTailwindClasses(
+					'sticky top-0 z-40 w-full',
+					'border-b border-[rgb(var(--border))]',
+					'bg-[rgb(var(--background))]/80',
+					'backdrop-blur supports-backdrop-filter:bg-[rgb(var(--background))]/60',
+					className
+				)}
+				{...props}
+			>
+				<div className="flex h-14 items-center px-4 md:px-6">
+					{children}
+				</div>
+			</header>
+		);
+	}
+);
+
+AppBar.displayName = 'AppBar';
+
+const AppBarLeft = ({ className, ...props }) => (
+	<div className={mergeTailwindClasses('flex items-center gap-2', className)} {...props} />
+);
+
+const AppBarCenter = ({ className, ...props }) => (
+	<div
+		className={mergeTailwindClasses(
+			'flex flex-1 items-center justify-center',
+			className
+		)}
+		{...props}
+	/>
+);
+
+const AppBarRight = ({ className, ...props }) => (
+	<div
+		className={mergeTailwindClasses(
+			'flex flex-1 items-center justify-end gap-2',
+			className
+		)}
+		{...props}
+	/>
+);
+
+const AppBarTitle = ({ className, ...props }) => (
+	<h1
+		className={mergeTailwindClasses(
+			'text-sm font-semibold tracking-tight',
+			className
+		)}
+		{...props}
+	/>
+);
+
+export {
+	AppBar,
+	AppBarLeft,
+	AppBarCenter,
+	AppBarRight,
+	AppBarTitle
+};

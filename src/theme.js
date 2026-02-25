@@ -1,9 +1,6 @@
 import { createTheme, alpha } from '@mui/material/styles';
-
 import { inputsCustomizations } from './theme/customizations/inputs';
 import { stepperCustomizations } from './theme/customizations/stepper';
-import { appBarCustomizations } from './theme/customizations/appBar';
-import { drawerCustomizations } from './theme/customizations/drawer';
 
 export const brand = {
 	50: 'hsl(210, 100%, 95%)',
@@ -126,8 +123,6 @@ const theme = createTheme({
 	components: {
 		...inputsCustomizations,
 		...stepperCustomizations,
-		...appBarCustomizations,
-		...drawerCustomizations,
 	},
 });
 
