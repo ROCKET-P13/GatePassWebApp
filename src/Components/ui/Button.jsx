@@ -15,6 +15,7 @@ const baseStyles = `
   focus:ring-2
   focus:ring-[rgb(var(--ring))]
   focus:ring-offset-2
+  font-bold
 `;
 
 const Variants = Object.freeze({
@@ -22,7 +23,6 @@ const Variants = Object.freeze({
 		bg-[rgb(var(--primary))]
 		text-[rgb(var(--primary-foreground))]
 		hover:opacity-90
-		font-bold
   	`,
 	secondary: `
 		bg-[rgb(var(--secondary))]

@@ -109,7 +109,7 @@ export const DashboardDrawer = () => {
 				</DrawerContent>
 			</Drawer>
 
-			<main className="pt-14 p-6">
+			<main className="pt-14 p-10">
 				<Outlet />
 			</main>
 		</div>

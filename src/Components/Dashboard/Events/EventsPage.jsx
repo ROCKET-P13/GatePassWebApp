@@ -1,8 +1,9 @@
-import { Box, Button, Paper, Stack, Typography } from '@mui/material';
+import { Box, Paper, Stack, Typography } from '@mui/material';
 import { EventsTable } from './EventsTable';
 import { useState } from 'react';
 import { AddEventDialog } from '../Dialog/AddEventDialog';
 import { useGetAllEventsQuery } from '../../../hooks/queries/useGetAllEventsQuery';
+import { Button } from '../../ui/Button';
 
 export const EventsPage = () => {
 	const [isEventDialogOpen, setIsEventDialogOpen] = useState(false);
@@ -30,7 +31,7 @@ export const EventsPage = () => {
 				<Typography variant="h4">Events</Typography>
 
 				<Button
-					variant="contained"
+					variant="secondary"
 					onClick={() => setIsEventDialogOpen(true)}
 				>
                     Add Event
