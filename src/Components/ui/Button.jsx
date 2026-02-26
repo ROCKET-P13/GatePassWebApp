@@ -59,6 +59,7 @@ export const Button = (
 		size = 'md',
 		disabled = false,
 		children,
+		onClick,
 		...props
 	},
 	ref
@@ -66,7 +67,7 @@ export const Button = (
 	return (
 		<button
 			ref={ref}
-			  className={
+			className={
 				mergeTailwindClasses(
 					baseStyles,
 					Variants[variant],
@@ -77,6 +78,13 @@ export const Button = (
 					className
 				)
 			}
+			onClick={() => {
+				if (disabled) {
+					return;
+				}
+
+				onClick();
+			}}
 			{...props}
 		>
 			{children}
