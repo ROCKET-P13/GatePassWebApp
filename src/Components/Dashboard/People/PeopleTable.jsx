@@ -45,10 +45,10 @@ export const PeopleTable = ({ people }) => {
 					return (
 						<span
 							className={`px-2 py-1 text-xs rounded-md font-medium ${
-                isCheckedIn
-                  ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-400'
-                  : 'bg-muted text-muted-foreground'
-              }`}
+								isCheckedIn
+								? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-400'
+								: 'bg-muted text-muted-foreground'
+							}`}
 						>
 							{value}
 						</span>
@@ -65,10 +65,10 @@ export const PeopleTable = ({ people }) => {
 					return (
 						<span
 							className={`px-2 py-1 text-xs rounded-md font-medium ${
-                isComplete
-                  ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-400'
-                  : 'bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-400'
-              }`}
+							isComplete
+							? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-400'
+							: 'bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-400'
+						}`}
 						>
 							{value}
 						</span>
