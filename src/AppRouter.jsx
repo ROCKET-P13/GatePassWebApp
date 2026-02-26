@@ -6,7 +6,6 @@ import {
 	Outlet,
 	RouterProvider
 } from '@tanstack/react-router';
-import { CssBaseline } from '@mui/material';
 import { useAuth0 } from '@auth0/auth0-react';
 
 import { VenueOnboarding } from './Components/Onboarding/VenueOnboarding';
@@ -28,7 +27,6 @@ const queryClient = new QueryClient();
 const rootRoute = createRootRoute({
 	component: () => (
 		<>
-			<CssBaseline />
 			<Outlet />
 		</>
 	),

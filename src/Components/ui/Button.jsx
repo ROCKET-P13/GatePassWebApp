@@ -57,6 +57,7 @@ export const Button = (
 		className,
 		variant = 'default',
 		size = 'md',
+		disabled = false,
 		children,
 		...props
 	},
@@ -70,6 +71,9 @@ export const Button = (
 					baseStyles,
 					Variants[variant],
 					Sizes[size],
+					disabled
+						? 'opacity-50 cursor-not-allowed hover:opacity-50 hover:bg-none'
+						: '',
 					className
 				)
 			}

@@ -27,6 +27,9 @@ export const onboardingStore = create((set, get) => ({
 		checkIn: false,
 		payments: false,
 	},
+	setStep: (step) => {
+		set({ step: step });
+	},
 	next: () => {
 		const steps = _.values(Steps);
 		const currentStep = get().step;
