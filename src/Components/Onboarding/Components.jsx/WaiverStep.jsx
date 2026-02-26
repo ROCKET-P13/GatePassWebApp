@@ -1,6 +1,7 @@
-import { Button, Stack, Typography } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 import { onboardingStore } from '../../../store/onboardingStore';
 import { useCreateVenueMutation } from '../../../hooks/mutations/useCreateVenueMutation';
+import { Button } from '../../ui/Button';
 
 export const WaiverStep = () => {
 	const next = onboardingStore((state) => state.next);
@@ -15,14 +16,13 @@ export const WaiverStep = () => {
 				Upload your existing waiver or use our default template.
 			</Typography>
 
-			<Button variant='outlined'>
+			<Button variant='outline'>
 				Upload PDF
 			</Button>
 
-			<Stack direction='row' spacing={2}>
-				<Button variant='contained' onClick={back}>Back</Button>
+			<div className='flex justify-end gap-4'>
+				<Button variant='outline' onClick={back}>Back</Button>
 				<Button
-					variant='contained'
 					onClick={() => createVenue.mutate({
 						name: venue.name,
 						email: venue.email,
@@ -37,7 +37,7 @@ export const WaiverStep = () => {
 				>
 					{createVenue.isPending ? 'Creating...' : 'Go Live!'}
 				</Button>
-			</Stack>
+			</div>
 		</Stack>
 	);
 };

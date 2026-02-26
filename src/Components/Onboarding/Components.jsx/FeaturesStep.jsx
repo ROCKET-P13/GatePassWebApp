@@ -1,6 +1,7 @@
-import { Button, FormControlLabel, FormGroup, Stack, Switch } from '@mui/material';
+import { FormControlLabel, FormGroup, Stack, Switch } from '@mui/material';
 import { onboardingStore } from '../../../store/onboardingStore';
 import _ from 'lodash';
+import { Button } from '../../ui/Button';
 
 const FeatureLabels = Object.freeze({
 	WAIVERS: 'Waivers',
@@ -36,10 +37,10 @@ export const FeaturesStep = () => {
 						.value()
 				}
 			</FormGroup>
-			<Stack direction='row' spacing={2}>
-				<Button variant='outlined' color='secondary' onClick={back}>Back</Button>
-				<Button variant='contained' onClick={next}>Continue</Button>
-			</Stack>
+			<div className='flex justify-end gap-4'>
+				<Button variant='outline' color='secondary' onClick={back}>Back</Button>
+				<Button onClick={next}>Continue</Button>
+			</div>
 		</Stack>
 	);
 };
