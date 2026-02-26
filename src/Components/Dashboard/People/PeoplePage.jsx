@@ -1,4 +1,4 @@
-import { Box, Paper, Stack, Typography } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
 import { PeopleTable } from './PeopleTable';
 import { PeopleFilters } from './PeopleFilters';
 
@@ -15,9 +15,7 @@ export const PeoplePage = () => {
 				<PeopleFilters />
 			</Stack>
 
-			<Paper sx={{ p: 2 }}>
-				<PeopleTable people={[]} />
-			</Paper>
+			<PeopleTable people={[]} />
 		</Box>
 	);
 };

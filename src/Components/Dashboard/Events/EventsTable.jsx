@@ -5,30 +5,32 @@ import {
 	useReactTable
 } from '@tanstack/react-table';
 
-import {
-	Table,
-	TableBody,
-	TableCell,
-	TableContainer,
-	TableHead,
-	TableRow,
-	Paper,
-	Chip,
-	IconButton,
-	Stack,
-	TableSortLabel
-} from '@mui/material';
+import { useMemo } from 'react';
+import { Link } from '@tanstack/react-router';
+
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import UnfoldMoreIcon from '@mui/icons-material/UnfoldMore';
 
-import { useMemo } from 'react';
+import {
+	Table,
+	TableHeader,
+	TableBody,
+	TableRow,
+	TableHead,
+	TableCell,
+	TableContainer
+} from '../../ui/Table';
+
 import { DeleteEventDialog } from '../Dialog/DeleteEventDialog';
 import { EditEventDialog } from '../Dialog/EditEventDialog';
+
 import { editEventStore } from '../../../Store/editEventStore';
-import { Link } from '@tanstack/react-router';
-import { Routes } from '../../../Common/routes';
 import { deleteEventStore } from '../../../Store/deleteEventStore';
 import { EventStatusColorClass } from '../../../Common/eventStatus';
+import { Routes } from '../../../Common/routes';
 import { useEditEventTableMutation } from '../../../hooks/mutations/useEditEventTableMutation';
 
 export const EventsTable = ({ events, sorting, onSortingChange }) => {
@@ -50,79 +52,83 @@ export const EventsTable = ({ events, sorting, onSortingChange }) => {
 
 	const editEventMutation = useEditEventTableMutation({ queryKey });
 
-	const columns = useMemo(() => [
-		{
-			accessorKey: 'name',
-			header: 'Event',
-			cell: (info) => (
-				<Link
-					to={`${Routes.DASHBOARD}/${Routes.EVENTS}/$eventId`}
-					params={{ eventId: info.row.original.id }}
-				>
-					{info.getValue()}
-				</Link>
-			),
-		},
-		{
-			accessorKey: 'date',
-			header: 'Date',
-			cell: (info) => info.getValue(),
-		},
-		{
-			accessorKey: 'startTime',
-			header: 'Time',
-			cell: (info) => info.getValue(),
-		},
-		{
-			accessorKey: 'status',
-			header: 'Status',
-			cell: (info) => (
-				<Chip
-					label={info.getValue()}
-					color={EventStatusColorClass[info.getValue()]}
-					size="small"
-				/>
-			),
-		},
-		{
-			id: 'actions',
-			header: '',
-			cell: ({ row }) => (
-				<Stack direction="row" spacing={1}>
-					<IconButton
-						size="small"
-						onClick={() => {
-							openEditEventDialog();
-							setEventDraft({
-								id: row.original.id,
-								name: row.original.name,
-								status: row.original.status,
-								participantCapacity: row.original.participantCapacity,
-								startDateTime: row.original.startDateTime,
-								startTime: row.original.startDateTime,
-								date: row.original.startDateTime,
-							});
-						}}
+	const columns = useMemo(
+		() => [
+			{
+				accessorKey: 'name',
+				header: 'Event',
+				cell: (info) => (
+					<Link
+						to={`${Routes.DASHBOARD}/${Routes.EVENTS}/$eventId`}
+						params={{ eventId: info.row.original.id }}
+						className="font-medium text-primary hover:underline"
 					>
-						<EditIcon fontSize="small" />
-					</IconButton>
-					<IconButton
-						size="small"
-						color="error"
-						onClick={() => {
-							openDeleteEventDialog();
-							setEventToDelete({
-								id: row.original.id,
-								name: row.original.name,
-							});
-						}}
-					>
-						<DeleteIcon fontSize="small" />
-					</IconButton>
-				</Stack>
-			),
-		},
-	], [openEditEventDialog, setEventDraft, openDeleteEventDialog, setEventToDelete]);
+						{info.getValue()}
+					</Link>
+				),
+			},
+			{
+				accessorKey: 'date',
+				header: 'Date',
+			},
+			{
+				accessorKey: 'startTime',
+				header: 'Time',
+			},
+			{
+				accessorKey: 'status',
+				header: 'Status',
+				cell: (info) => {
+					const status = info.getValue();
+					return (
+						<span className={`px-2 py-1 text-xs rounded-md font-medium ${EventStatusColorClass[status]}`}>
+							{status}
+						</span>
+					);
+				},
+			},
+			{
+				id: 'actions',
+				header: '',
+				enableSorting: false,
+				cell: ({ row }) => (
+					<div className="flex gap-2">
+						<button
+							className="p-1 rounded-md hover:bg-muted"
+							onClick={() => {
+								openEditEventDialog();
+								setEventDraft({
+									id: row.original.id,
+									name: row.original.name,
+									status: row.original.status,
+									participantCapacity: row.original.participantCapacity,
+									startDateTime: row.original.startDateTime,
+									startTime: row.original.startDateTime,
+									date: row.original.startDateTime,
+								});
+							}}
+						>
+							<EditIcon fontSize="small" />
+						</button>
+
+						<button
+							className="p-1 rounded-md hover:bg-muted text-destructive"
+							onClick={() => {
+								openDeleteEventDialog();
+								setEventToDelete({
+									id: row.original.id,
+									name: row.original.name,
+								});
+							}}
+						>
+							<DeleteIcon fontSize="small" />
+						</button>
+					</div>
+				),
+			},
+		],
+		[openEditEventDialog, setEventDraft, openDeleteEventDialog, setEventToDelete]
+	);
 
 	// eslint-disable-next-line react-hooks/incompatible-library
 	const table = useReactTable({
@@ -136,80 +142,84 @@ export const EventsTable = ({ events, sorting, onSortingChange }) => {
 	});
 
 	return (
-		<TableContainer component={Paper}>
-			<Table size="small">
-				<TableHead>
-					{
-						table.getHeaderGroups().map((headerGroup) => (
-							<TableRow key={headerGroup.id}>
-								{
-									headerGroup.headers.map((header) => (
-										<TableCell key={header.id}>
-											{
-												header.isPlaceholder
-													? null
-													: (
-														<TableSortLabel
-															active={header.column.getIsSorted()}
-															direction={header.column.getIsSorted() || 'asc'}
-															onClick={header.column.getToggleSortingHandler()}
-														>
-															{
-																flexRender(
-																	header.column.columnDef.header,
-																	header.getContext()
-																)
-															}
-														</TableSortLabel>
-													)
-											}
-										</TableCell>
-									))
-								}
-							</TableRow>
-						))
-					}
-				</TableHead>
 
-				<TableBody>
-					{
-						table.getRowModel().rows.map((row) => (
-							<TableRow key={row.id} hover>
-								{
-									row.getVisibleCells().map((cell) => (
-										<TableCell key={cell.id}>
+		<TableContainer>
+			<Table>
+				<TableHeader>
+					{table.getHeaderGroups().map((headerGroup) => (
+						<TableRow key={headerGroup.id}>
+							{headerGroup.headers.map((header) => (
+								<TableHead key={header.id}>
+									{header.isPlaceholder ? null : (
+										<button
+											onClick={header.column.getToggleSortingHandler()}
+											className="flex items-center gap-2"
+										>
 											{
 												flexRender(
-													cell.column.columnDef.cell,
-													cell.getContext()
+													header.column.columnDef.header,
+													header.getContext()
 												)
 											}
-										</TableCell>
-									))
-								}
-							</TableRow>
-						))
-					}
+
+											{{
+												asc: <ArrowUpwardIcon fontSize="inherit" />,
+												desc: <ArrowDownwardIcon fontSize="inherit" />,
+											}[header.column.getIsSorted()] ?? (
+												header.column.getCanSort() && (
+													<UnfoldMoreIcon fontSize="inherit" />
+												)
+											)}
+										</button>
+									)}
+								</TableHead>
+							))}
+						</TableRow>
+					))}
+				</TableHeader>
+
+				<TableBody>
+					{table.getRowModel().rows.map((row) => (
+						<TableRow
+							key={row.id}
+							className="hover:bg-muted/50 transition-colors"
+						>
+							{
+								row.getVisibleCells().map((cell) => (
+									<TableCell key={cell.id}>
+										{
+											flexRender(
+												cell.column.columnDef.cell,
+												cell.getContext()
+											)
+										}
+									</TableCell>
+								))
+							}
+						</TableRow>
+					))}
 				</TableBody>
 			</Table>
 
 			{
-				isDeleteEventDialogOpen
-				&& <DeleteEventDialog
-					open={isDeleteEventDialogOpen}
-					eventToDelete={eventToDelete}
-					queryKey={queryKey}
-				/>
-			}
-			{
-				isEditEventDialogOpen
-				&& <EditEventDialog
-					open={isEditEventDialogOpen}
-					eventDraft={eventDraft}
-					editEventMutation={editEventMutation}
-				/>
+				isDeleteEventDialogOpen && (
+					<DeleteEventDialog
+						open={isDeleteEventDialogOpen}
+						eventToDelete={eventToDelete}
+						queryKey={queryKey}
+					/>
+				)
 			}
 
+			{
+				isEditEventDialogOpen && (
+					<EditEventDialog
+						open={isEditEventDialogOpen}
+						eventDraft={eventDraft}
+						editEventMutation={editEventMutation}
+					/>
+				)
+			}
 		</TableContainer>
 	);
 };

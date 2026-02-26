@@ -1,9 +1,9 @@
 import { useAuth0 } from '@auth0/auth0-react';
-import { Box, Typography } from '@mui/material';
 import { WidgetCard } from '../WidgetCard';
 import { UsersAPI } from '../../../../API/UsersAPI';
 import { useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { CardDescription, CardHeader, CardTitle } from '../../../ui/Card';
 
 export const StatusWidget = () => {
 	const { getAccessTokenSilently, isAuthenticated } = useAuth0();
@@ -21,24 +21,25 @@ export const StatusWidget = () => {
 
 	return (
 		<WidgetCard>
-			<Box>
-				<Typography variant='h5'>
+			<CardHeader>
+				<CardTitle>
 					{
 						isLoading
 							? 'Loading...'
 							: venue.name
 					}
-				</Typography>
+				</CardTitle>
 				{
 					isLoading
 						? <></>
 						: (
-							<Typography variant='subtitle2'>
+							<CardDescription variant='subtitle2'>
 								{`${venue.city}, ${venue.state} ${venue.country}`}
-							</Typography>
+							</CardDescription>
 						)
 				}
-			</Box>
+			</CardHeader>
+
 		</WidgetCard>
 	);
 };

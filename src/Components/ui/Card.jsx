@@ -36,7 +36,7 @@ const CardHeader = (
 		<div
 			ref={ref}
 			data-slot="card-header"
-			className={mergeTailwindClasses('flex flex-col space-y-1.5 p-6', className)}
+			className={mergeTailwindClasses('flex flex-col space-y-1.5 py-4', className)}
 			{...props}
 		/>
 	);

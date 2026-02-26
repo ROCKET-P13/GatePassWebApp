@@ -1,4 +1,4 @@
-import { Box, Paper, Stack, Typography } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
 import { EventsTable } from './EventsTable';
 import { useState } from 'react';
 import { AddEventDialog } from '../Dialog/AddEventDialog';
@@ -38,23 +38,21 @@ export const EventsPage = () => {
 				</Button>
 			</Stack>
 
-			<Paper sx={{ p: 2 }}>
-				{
-					isLoading
-						? (
-							<Typography>Loading Events...</Typography>
-						)
-						: (
-							<>
-								<EventsTable
-									events={events}
-									sorting={sorting}
-									onSortingChange={setSorting}
-								/>
-							</>
-						)
-				}
-			</Paper>
+			{
+				isLoading
+					? (
+						<Typography>Loading Events...</Typography>
+					)
+					: (
+						<>
+							<EventsTable
+								events={events}
+								sorting={sorting}
+								onSortingChange={setSorting}
+							/>
+						</>
+					)
+			}
 
 			<AddEventDialog
 				open={isEventDialogOpen}
