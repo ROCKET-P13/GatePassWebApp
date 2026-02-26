@@ -1,6 +1,7 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import { deleteEventStore } from '../../../Store/deleteEventStore';
 import { useDeleteEventMutation } from '../../../hooks/mutations/useDeleteEventMutation';
+import { Button } from '../../ui/Button';
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '../../ui/Dialog';
 
 export const DeleteEventDialog = ({ open, eventToDelete, queryKey }) => {
 	const {
@@ -25,27 +26,27 @@ export const DeleteEventDialog = ({ open, eventToDelete, queryKey }) => {
 				transition: { onExited: clearDialog },
 			}}
 		>
-			<DialogTitle>Delete Event?</DialogTitle>
 
 			<DialogContent>
-				This will permanently delete {`${eventToDelete?.name}`}
-			</DialogContent>
-
-			<DialogActions>
-				<Button
-					variant="outlined"
-					onClick={closeDialog}
-				>
+				<DialogHeader>
+					<DialogTitle>Delete Event?</DialogTitle>
+				</DialogHeader>
+				<p>This will permanently delete {`${eventToDelete?.name}`}</p>
+				<DialogFooter>
+					<Button
+						variant="outline"
+						onClick={closeDialog}
+					>
 					Cancel
-				</Button>
-				<Button
-					onClick={handleSubmit}
-					color="error"
-					variant="contained"
-				>
+					</Button>
+					<Button
+						onClick={handleSubmit}
+						variant="destructive"
+					>
 					Delete
-				</Button>
-			</DialogActions>
+					</Button>
+				</DialogFooter>
+			</DialogContent>
 		</Dialog>
 	);
 };

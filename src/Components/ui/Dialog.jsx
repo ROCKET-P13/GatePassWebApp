@@ -19,7 +19,7 @@ const DialogOverlay = ({ className, ...props }) => {
 	return (
 		<div
 			className={mergeTailwindClasses(
-				'fixed inset-0 z-50 bg-background50 backdrop-blur-sm',
+				'fixed inset-0 z-50 bg-background/50 backdrop-blur-sm',
 				className
 			)}
 			{...props}
@@ -36,15 +36,23 @@ const DialogContent = ({
 	const ref = useRef(null);
 
 	useEffect(() => {
-		function handleKey (e) {
-			if (e.key === 'Escape') onClose?.(false);
+		const handleKey = (event) => {
+			if (event.key !== 'Escape') {
+				return;
+			}
+
+			onClose?.(false);
+		};
+
+		if (open) {
+			document.addEventListener('keydown', handleKey);
 		}
-		if (open) document.addEventListener('keydown', handleKey);
-		return () =>
-			document.removeEventListener('keydown', handleKey);
+		return () => document.removeEventListener('keydown', handleKey);
 	}, [open, onClose]);
 
-	if (!open) return null;
+	if (!open) {
+		return null;
+	}
 
 	return (
 		<div className="fixed inset-0 z-50 flex items-center justify-center">
@@ -55,17 +63,23 @@ const DialogContent = ({
 				onClick={(e) => e.stopPropagation()}
 				className={
 					mergeTailwindClasses(
-						'relative z-50 w-full max-w-lg rounded-xl border border-border bg-card shadow-lg pt-4 px-4',
+						'relative z-50 w-full max-w-lg rounded-xl border border-border bg-card shadow-lg pt-5 px-5',
 						className
 					)
 				}
 			>
 				{children}
 				<button
+					className={
+						mergeTailwindClasses(
+							'ring-offset-background focus-visible:ring-ring',
+							'data-[state=open]:bg-accent absolute top-4 right-4',
+							'rounded-sm opacity-70 backdrop-blur-sm transition-opacity hover:opacity-100 focus:ring-offset-2',
+							'focus:outline-none focus-visible:ring-2 disabled:pointer-events-none data-[state=open]:text-white cursor-pointer'
+						)}
 					onClick={() => onClose?.(false)}
-					className="absolute right-4 top-4 rounded-md p-1 hover:bg-muted-foreground"
 				>
-          			✕
+					✕
 				</button>
 			</div>
 		</div>
@@ -84,10 +98,12 @@ const DialogHeader = ({ className, ...props }) => {
 const DialogTitle = ({ className, ...props }) => {
 	return (
 		<h2
-			className={mergeTailwindClasses(
-				'text-lg font-semibold tracking-tight mb-4',
-				className
-			)}
+			className={
+				mergeTailwindClasses(
+					'text-lg font-semibold tracking-tight mb-4',
+					className
+				)
+			}
 			{...props}
 		/>
 	);
@@ -96,10 +112,12 @@ const DialogTitle = ({ className, ...props }) => {
 const DialogDescription = ({ className, ...props }) => {
 	return (
 		<p
-			className={mergeTailwindClasses(
-				'text-sm text-muted-foreground',
-				className
-			)}
+			className={
+				mergeTailwindClasses(
+					'text-sm text-muted-foreground',
+					className
+				)
+			}
 			{...props}
 		/>
 	);
@@ -108,10 +126,12 @@ const DialogDescription = ({ className, ...props }) => {
 const DialogFooter = ({ className, children, ...props }) => {
 	return (
 		<div
-			className={mergeTailwindClasses(
-				'flex justify-end gap-2 pt-4 pb-4',
-				className
-			)}
+			className={
+				mergeTailwindClasses(
+					'flex justify-end gap-2 pt-4 pb-4',
+					className
+				)
+			}
 			{...props}
 		>
 			{children}

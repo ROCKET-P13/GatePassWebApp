@@ -16,6 +16,7 @@ const baseStyles = `
   focus:ring-ring
   focus:ring-offset-2
   font-bold
+  cursor-pointer
 `;
 
 const Variants = Object.freeze({

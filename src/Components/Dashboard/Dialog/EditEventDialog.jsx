@@ -1,9 +1,11 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, MenuItem, Stack, TextField } from '@mui/material';
+import { MenuItem, Stack, TextField } from '@mui/material';
 import { useMemo } from 'react';
 import { DatePicker, TimePicker } from '@mui/x-date-pickers';
 import { EventStatus } from '../../../Common/eventStatus';
 import _ from 'lodash';
 import { editEventStore } from '../../../Store/editEventStore';
+import { Dialog, DialogContent, DialogFooter, DialogTitle } from '../../ui/Dialog';
+import { Button } from '../../ui/Button';
 
 export const EditEventDialog = ({ open, eventDraft, editEventMutation }) => {
 	const {
@@ -38,7 +40,7 @@ export const EditEventDialog = ({ open, eventDraft, editEventMutation }) => {
 	};
 
 	return (
-		    <Dialog
+		<Dialog
 			open={open}
 			onClose={closeDialog}
 			fullWidth
@@ -47,9 +49,9 @@ export const EditEventDialog = ({ open, eventDraft, editEventMutation }) => {
 				transition: { onExited: clearDialog },
 			}}
 		>
-			<DialogTitle>Edit Event</DialogTitle>
 
 			<DialogContent>
+				<DialogTitle>Edit Event</DialogTitle>
 				<Stack
 					direction='row'
 					spacing={3}
@@ -93,18 +95,18 @@ export const EditEventDialog = ({ open, eventDraft, editEventMutation }) => {
 						onChange={(value) => updateEventDraft({ startTime: value })}
 					/>
 				</Stack>
-
-			</DialogContent>
-			<DialogActions sx={{ mt: 3 }}>
-				<Button variant='outlined' onClick={closeDialog}>Cancel</Button>
-				<Button
-					variant='contained'
-					onClick={handleSubmit}
-					disabled={_.isEqual(originalEvent, eventDraft)}
-				>
+				<DialogFooter sx={{ mt: 3 }}>
+					<Button variant='outline' onClick={closeDialog}>Cancel</Button>
+					<Button
+						variant='default'
+						onClick={handleSubmit}
+						disabled={_.isEqual(originalEvent, eventDraft)}
+					>
 					Save
-				</Button>
-	 			</DialogActions>
+					</Button>
+	 			</DialogFooter>
+			</DialogContent>
+
 		</Dialog>
 	);
 };

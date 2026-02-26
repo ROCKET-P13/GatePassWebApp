@@ -1,20 +1,19 @@
 import {
 	Box,
 	Typography,
-	Button,
 	Chip,
 	Tabs,
 	Tab,
 	Divider
 } from '@mui/material';
 import { useLoaderData } from '@tanstack/react-router';
-import EditIcon from '@mui/icons-material/Edit';
 import { useState } from 'react';
 import { EventStatusColorClass } from '../../../Common/eventStatus';
 import { editEventStore } from '../../../Store/editEventStore';
 import { EditEventDialog } from '../Dialog/EditEventDialog';
 import { Routes } from '../../../Common/routes';
 import { useEditEventDetailsMutation } from '../../../hooks/mutations/useEditEventDetailsMutation';
+import { Button } from '../../ui/Button';
 
 export const EventDetailsPage = () => {
 	const event = useLoaderData({ from: `/protected${Routes.DASHBOARD}${Routes.EVENTS}/$eventId` });
@@ -59,10 +58,7 @@ export const EventDetailsPage = () => {
 						sx={{ mt: 1 }}
 					/>
 				</Box>
-
 				<Button
-					variant="contained"
-					startIcon={<EditIcon />}
 					onClick={() => {
 						openEditEventDialog();
 						setEventDraft({

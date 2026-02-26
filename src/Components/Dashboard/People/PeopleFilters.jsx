@@ -1,7 +1,8 @@
-import { Stack, TextField } from '@mui/material';
+import { Stack } from '@mui/material';
+import { Input } from '../../ui/Input';
 
 export const PeopleFilters = () => (
 	<Stack direction="row" spacing={2}>
-		<TextField size="small" label="Search" />
+		<Input size="small" label="Search" />
 	</Stack>
 );

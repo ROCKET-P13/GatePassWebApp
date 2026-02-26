@@ -15,7 +15,7 @@ const Input = (
 			className={
 				mergeTailwindClasses(
 					'flex h-10 w-full px-3 py-2 text-sm',
-					'rounded-(--radius) border',
+					'rounded-(--radius) border-border',
 					'bg-background',
 					'text-foreground',
 					'border-input',
