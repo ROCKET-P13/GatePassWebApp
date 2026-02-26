@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { mergeTailwindClasses } from '../../utils/mergeTailwindClasses';
 
 const Dialog = ({ open, onClose, children }) => {
@@ -8,75 +8,76 @@ const Dialog = ({ open, onClose, children }) => {
 		)
 		: React.cloneElement(children, { open, onClose });
 };
-
-const DialogTrigger = ({ children, onClose }) => {
-	return React.cloneElement(children, {
-		onClick: () => onClose?.(true),
-	});
-};
-
-const DialogOverlay = ({ className, ...props }) => {
-	return (
-		<div
-			className={mergeTailwindClasses(
-				'fixed inset-0 z-50 bg-background/50 backdrop-blur-sm',
-				className
-			)}
-			{...props}
-		/>
-	);
-};
-
 const DialogContent = ({
 	open,
 	onClose,
 	className,
 	children,
 }) => {
+	const [isMounted, setIsMounted] = useState(false);
 	const ref = useRef(null);
 
+	if (open && !isMounted) {
+		setIsMounted(true);
+	}
+
+	// ESC handler
 	useEffect(() => {
 		const handleKey = (event) => {
-			if (event.key !== 'Escape') {
-				return;
+			if (event.key === 'Escape') {
+				onClose?.(false);
 			}
-
-			onClose?.(false);
 		};
 
-		if (open) {
+		if (isMounted) {
 			document.addEventListener('keydown', handleKey);
 		}
 		return () => document.removeEventListener('keydown', handleKey);
-	}, [open, onClose]);
+	}, [isMounted, onClose]);
 
-	if (!open) {
-		return null;
-	}
+	// Handle unmount after exit animation
+	const handleAnimationEnd = (e) => {
+		if (!open && e.target === ref.current) {
+			setIsMounted(false);
+		}
+	};
+
+	if (!isMounted) return null;
 
 	return (
 		<div className="fixed inset-0 z-50 flex items-center justify-center">
-			<DialogOverlay onClick={() => onClose?.(false)} />
+			{/* Overlay */}
+			<div
+				onClick={() => onClose?.(false)}
+				className={mergeTailwindClasses(
+					'fixed inset-0 bg-background/50 backdrop-blur-sm',
+					open
+						? 'animate-[dialog-overlay-in_150ms_ease-out]'
+						: 'animate-[dialog-overlay-out_150ms_ease-in_forwards]'
+				)}
+			/>
 
+			{/* Content */}
 			<div
 				ref={ref}
 				onClick={(e) => e.stopPropagation()}
-				className={
-					mergeTailwindClasses(
-						'relative z-50 w-full max-w-lg rounded-xl border border-border bg-card shadow-lg pt-5 px-5',
-						className
-					)
-				}
+				onAnimationEnd={handleAnimationEnd}
+				className={mergeTailwindClasses(
+					'relative z-50 w-full max-w-lg rounded-xl border border-border bg-card shadow-lg pt-5 px-5',
+					open
+						? 'animate-[dialog-content-in_200ms_ease-out]'
+						: 'animate-[dialog-content-out_200ms_ease-in_forwards]',
+					className
+				)}
 			>
 				{children}
+
 				<button
-					className={
-						mergeTailwindClasses(
-							'ring-offset-background focus-visible:ring-ring',
-							'data-[state=open]:bg-accent absolute top-4 right-4',
-							'rounded-sm opacity-70 backdrop-blur-sm transition-opacity hover:opacity-100 focus:ring-offset-2',
-							'focus:outline-none focus-visible:ring-2 disabled:pointer-events-none data-[state=open]:text-white cursor-pointer'
-						)}
+					className={mergeTailwindClasses(
+						'absolute top-4 right-4 rounded-sm opacity-70',
+						'transition-opacity hover:opacity-100 focus:outline-none',
+						'focus-visible:ring-2 focus-visible:ring-offset-2 cursor-pointer'
+					)}
 					onClick={() => onClose?.(false)}
 				>
 					✕
@@ -141,7 +142,6 @@ const DialogFooter = ({ className, children, ...props }) => {
 
 export {
 	Dialog,
-	DialogTrigger,
 	DialogContent,
 	DialogHeader,
 	DialogTitle,
