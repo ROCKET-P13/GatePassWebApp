@@ -112,7 +112,7 @@ export const EventsTable = ({ events, sorting, onSortingChange }) => {
 						</button>
 
 						<button
-							className="p-1 rounded-md hover:bg-muted text-destructive"
+							className="p-1 rounded-md hover:bg-muted"
 							onClick={() => {
 								openDeleteEventDialog();
 								setEventToDelete({

@@ -1,12 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, cloneElement, Children } from 'react';
 import { mergeTailwindClasses } from '../../utils/mergeTailwindClasses';
 
 const Dialog = ({ open, onClose, children }) => {
 	return children.map
-		? React.Children.map(children, (child) =>
-			React.cloneElement(child, { open, onClose })
+		? Children.map(children, (child) =>
+			cloneElement(child, { open, onClose })
 		)
-		: React.cloneElement(children, { open, onClose });
+		: cloneElement(children, { open, onClose });
 };
 const DialogContent = ({
 	open,
@@ -62,13 +62,15 @@ const DialogContent = ({
 				ref={ref}
 				onClick={(e) => e.stopPropagation()}
 				onAnimationEnd={handleAnimationEnd}
-				className={mergeTailwindClasses(
-					'relative z-50 w-full max-w-lg rounded-xl border border-border bg-card shadow-lg pt-5 px-5',
-					open
-						? 'animate-[dialog-content-in_200ms_ease-out]'
-						: 'animate-[dialog-content-out_200ms_ease-in_forwards]',
-					className
-				)}
+				className={
+					mergeTailwindClasses(
+						'relative z-50 w-full max-w-lg rounded-xl border border-border bg-card shadow-lg pt-5 px-5 mx-4',
+						open
+							? 'animate-[dialog-content-in_200ms_ease-out]'
+							: 'animate-[dialog-content-out_200ms_ease-in_forwards]',
+						className
+					)
+				}
 			>
 				{children}
 

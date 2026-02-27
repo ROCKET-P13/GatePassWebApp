@@ -94,7 +94,7 @@ Select.Trigger = function Trigger ({ placeholder = 'Select...', label, className
 				onClick={() => setOpen(!open)}
 				className={
 					mergeTailwindClasses(
-						'flex h-10 w-full items-center justify-between rounded-md border px-3 py-2 text-sm',
+						'flex h-10 w-full items-center justify-between rounded-md border px-3 py-2 mt-1 text-sm',
 						'bg-background border-input text-foreground',
 						'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background',
 						'disabled:cursor-not-allowed disabled:opacity-50',

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useMemo } from 'react';
+import { createContext, useContext, useMemo, Children, cloneElement } from 'react';
 import { mergeTailwindClasses } from '../../utils/mergeTailwindClasses';
 
 const StepperContext = createContext({
@@ -15,7 +15,7 @@ const Stepper = ({
 	orientation = 'horizontal',
 	className,
 }) => {
-	const steps = React.Children.toArray(children);
+	const steps = Children.toArray(children);
 
 	const value = useMemo(() => ({
 		currentStep,
@@ -37,7 +37,7 @@ const Stepper = ({
 					)
 				}>
 					{
-						steps.map((child, index) => React.cloneElement(child, { index }))
+						steps.map((child, index) => cloneElement(child, { index }))
 					}
 				</div>
 			</div>
