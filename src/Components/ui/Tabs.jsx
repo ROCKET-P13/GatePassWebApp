@@ -61,6 +61,6 @@ export const Tab = ({ value, children, isActive, onSelect }) => {
 	);
 };
 
-export const TabPanel = ({ value, children }) => {
+export const TabPanel = ({ children }) => {
 	return <div>{children}</div>;
 };
