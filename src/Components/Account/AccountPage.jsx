@@ -1,46 +1,35 @@
 import { useAuth0 } from '@auth0/auth0-react';
-import { Avatar, Box, Button, Paper, Stack, Typography } from '@mui/material';
+import { Avatar } from '../ui/Avatar';
+import { Button } from '../ui/Button';
 
 export const AccountPage = () => {
 	const { user, isLoading, logout } = useAuth0();
 
 	if (isLoading) {
-		return <Typography>Loading Account...</Typography>;
+		return <h2>Loading Account...</h2>;
 	}
 
 	if (!user) {
-		return <Typography>No user found.</Typography>;
+		return <h2>No user found.</h2>;
 	}
 
 	return (
-		<Box>
-			<Typography variant="h4" mb={3}>Account</Typography>
-			<Paper sx={{ p: 3 }}>
-				<Stack
-					direction="row"
-					spacing={2}
-					alignItems="center"
-					justifyContent="center"
-				>
-					<Avatar
-						src={user.picture}
-						alt={user.name}
-						sx={{ width: 64, height: 64 }}
-					/>
-					<Box>
-						<Typography variant="h6">{user.name}</Typography>
-						<Typography color="text.secondary">{user.email}</Typography>
-					</Box>
-					<Button
-						variant="outlined"
-						color="secondary"
-						onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}
-					>
-					Logout
-					</Button>
-				</Stack>
-
-			</Paper>
-		</Box>
+		<div className='flex flex-col items-center space-y-6 p-3'>
+			<Avatar
+				src={user.picture}
+				name={user.name}
+				size="lg"
+			/>
+			<div className='text-center'>
+				<h2 className='text-xl font-semibold'>{user.name}</h2>
+				<p className="text-sm text-muted-foreground">{user.email}</p>
+			</div>
+			<Button
+				variant='outline'
+				onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}
+			>
+				Logout
+			</Button>
+		</div>
 	);
 };
