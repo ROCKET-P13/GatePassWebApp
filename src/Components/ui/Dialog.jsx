@@ -3,9 +3,7 @@ import { mergeTailwindClasses } from '../../utils/mergeTailwindClasses';
 
 const Dialog = ({ open, onClose, children }) => {
 	return children.map
-		? Children.map(children, (child) =>
-			cloneElement(child, { open, onClose })
-		)
+		? Children.map(children, (child) => cloneElement(child, { open, onClose }))
 		: cloneElement(children, { open, onClose });
 };
 
@@ -72,12 +70,14 @@ const DialogContent = ({
 				{children}
 
 				<button
-					className={mergeTailwindClasses(
-						'absolute top-4 right-4 rounded-sm opacity-70',
-						'transition-opacity hover:opacity-100 focus:outline-none',
-						'focus-visible:ring-2 focus-visible:ring-offset-2 cursor-pointer'
-					)}
-					onClick={() => onClose?.(false)}
+					className={
+						mergeTailwindClasses(
+							'absolute top-4 right-4 rounded-sm opacity-70',
+							'transition-opacity hover:opacity-100 focus:outline-none',
+							'focus-visible:ring-2 focus-visible:ring-offset-2 cursor-pointer'
+						)
+					}
+					onClick={() => onClose?.()}
 				>
 					✕
 				</button>
