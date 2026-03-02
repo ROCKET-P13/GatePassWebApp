@@ -1,8 +1,9 @@
 import dayjs from 'dayjs';
 import { create } from 'zustand';
 import { EventStatus } from '../Common/eventStatus';
+import _ from 'lodash';
 
-export const addEventStore = create((set, get) => ({
+export const addEventStore = create((set) => ({
 	isOpen: false,
 	eventData: {
 		name: '',
@@ -13,8 +14,8 @@ export const addEventStore = create((set, get) => ({
 	},
 	openDialog: () => set({ isOpen: true }),
 	closeDialog: () => set({ isOpen: false }),
-	clearDialog: () => set({ eventData: null, eventDraft: null }),
+	clearDialog: () => set({ eventData: null }),
 	updateEventData: (data) => {
-		set(({ eventDraft }) => _.assign(eventDraft, data));
+		set(({ eventData }) => _.assign(eventData, data));
 	},
 }));

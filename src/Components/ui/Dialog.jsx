@@ -8,6 +8,7 @@ const Dialog = ({ open, onClose, children }) => {
 		)
 		: cloneElement(children, { open, onClose });
 };
+
 const DialogContent = ({
 	open,
 	onClose,
@@ -21,11 +22,10 @@ const DialogContent = ({
 		setIsMounted(true);
 	}
 
-	// ESC handler
 	useEffect(() => {
 		const handleKey = (event) => {
 			if (event.key === 'Escape') {
-				onClose?.(false);
+				onClose?.();
 			}
 		};
 
@@ -35,7 +35,6 @@ const DialogContent = ({
 		return () => document.removeEventListener('keydown', handleKey);
 	}, [isMounted, onClose]);
 
-	// Handle unmount after exit animation
 	const handleAnimationEnd = (e) => {
 		if (!open && e.target === ref.current) {
 			setIsMounted(false);
@@ -46,9 +45,8 @@ const DialogContent = ({
 
 	return (
 		<div className="fixed inset-0 z-50 flex items-center justify-center">
-			{/* Overlay */}
 			<div
-				onClick={() => onClose?.(false)}
+				onClick={() => onClose?.()}
 				className={mergeTailwindClasses(
 					'fixed inset-0 bg-background/50 backdrop-blur-sm',
 					open
@@ -57,7 +55,6 @@ const DialogContent = ({
 				)}
 			/>
 
-			{/* Content */}
 			<div
 				ref={ref}
 				onClick={(e) => e.stopPropagation()}

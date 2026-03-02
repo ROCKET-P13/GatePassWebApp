@@ -45,8 +45,6 @@ export const EditEventDialog = ({ open, eventDraft, editEventMutation }) => {
 		<Dialog
 			open={open}
 			onClose={closeDialog}
-			fullWidth
-			maxWidth="sm"
 			slotProps={{
 				transition: { onExited: clearDialog },
 			}}
@@ -92,11 +90,10 @@ export const EditEventDialog = ({ open, eventDraft, editEventMutation }) => {
 						onClick={handleSubmit}
 						disabled={_.isEqual(originalEvent, eventDraft)}
 					>
-					Save
+						Save
 					</Button>
 	 			</DialogFooter>
 			</DialogContent>
-
 		</Dialog>
 	);
 };

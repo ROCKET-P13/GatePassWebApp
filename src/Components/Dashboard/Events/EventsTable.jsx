@@ -201,25 +201,17 @@ export const EventsTable = ({ events, sorting, onSortingChange }) => {
 				</TableBody>
 			</Table>
 
-			{
-				isDeleteEventDialogOpen && (
-					<DeleteEventDialog
-						open={isDeleteEventDialogOpen}
-						eventToDelete={eventToDelete}
-						queryKey={queryKey}
-					/>
-				)
-			}
+			<DeleteEventDialog
+				open={isDeleteEventDialogOpen}
+				eventToDelete={eventToDelete}
+				queryKey={queryKey}
+			/>
 
-			{
-				isEditEventDialogOpen && (
-					<EditEventDialog
-						open={isEditEventDialogOpen}
-						eventDraft={eventDraft}
-						editEventMutation={editEventMutation}
-					/>
-				)
-			}
+			<EditEventDialog
+				open={isEditEventDialogOpen}
+				eventDraft={eventDraft}
+				editEventMutation={editEventMutation}
+			/>
 		</TableContainer>
 	);
 };

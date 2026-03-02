@@ -56,8 +56,6 @@ export const AddEventDialog = ({ open, queryKey }) => {
 		<Dialog
 			open={open}
 			onClose={closeDialog}
-			fullWidth
-			maxWidth="sm"
 			slotProps={{
 				transition: { onExited: clearDialog },
 			}}
