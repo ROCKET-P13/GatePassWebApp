@@ -73,7 +73,7 @@ export const DatePicker = ({ value, onChange }) => {
 				</Button>
 			</div>
 
-			<div className="h-67.5">
+			<div className="h-40">
 				{renderGrid(currentDays, currentMonth)}
 			</div>
 		</div>

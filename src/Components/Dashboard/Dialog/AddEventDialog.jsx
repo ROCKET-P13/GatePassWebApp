@@ -1,5 +1,3 @@
-import { MenuItem, Stack, TextField } from '@mui/material';
-import { DatePicker, TimePicker } from '@mui/x-date-pickers';
 import { useMemo } from 'react';
 import { addEventStore } from '../../../Store/addEventStore';
 import dayjs from 'dayjs';
@@ -9,10 +7,18 @@ import { useAddEventMutation } from '../../../hooks/mutations/useAddEventMutatio
 
 import { Dialog, DialogContent, DialogTitle, DialogFooter } from '../../ui/Dialog';
 import { Button } from '../../ui/Button';
+import { DatePicker } from '../../ui/DatePicker';
+import { TimePicker } from '../../ui/TimePicker';
+import { Input } from '../../ui/Input';
+import { Select } from '../../ui/Select';
 
-export const AddEventDialog = ({ open, onClose, queryKey }) => {
-	const eventData = addEventStore((state) => state.eventData);
-	const updateEventData = addEventStore((state) => state.updateEventData);
+export const AddEventDialog = ({ open, queryKey }) => {
+	const {
+		closeDialog,
+		clearDialog,
+		updateEventData,
+		eventData,
+	} = addEventStore((state) => state);
 
 	const addEventMutation = useAddEventMutation({ queryKey });
 
@@ -36,7 +42,8 @@ export const AddEventDialog = ({ open, onClose, queryKey }) => {
 	}, [eventData, eventDateTime]);
 
 	const handleSubmit = () => {
-		onClose();
+		closeDialog();
+
 		addEventMutation.mutate({
 			name: eventData.name,
 			startDateTime: eventDateTime.toISOString(),
@@ -48,59 +55,49 @@ export const AddEventDialog = ({ open, onClose, queryKey }) => {
 	return (
 		<Dialog
 			open={open}
-			onClose={onClose}
+			onClose={closeDialog}
 			fullWidth
 			maxWidth="sm"
+			slotProps={{
+				transition: { onExited: clearDialog },
+			}}
 		>
 
 			<DialogContent>
 				<DialogTitle>Add Event</DialogTitle>
-				<Stack
-					direction='row'
-					spacing={3}
-					sx={{
-						justifyContent: 'start',
-						marginTop: 3,
-					}}
-				>
-					<TextField
-						sx={{ maxWidth: '60%' }}
+				<div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+					<Input
 						label="Name"
 						value={eventData.name}
 						onChange={(e) => updateEventData({ name: e.target.value })}
-						fullWidth
 					/>
-					<TextField
-						select
-						label="Status"
-						sx={{ width: '25%' }}
+					<Select
 						value={eventData.status}
-						onChange={(e) => updateEventData({ status: e.target.value })}
+						onChange={(status) => updateEventData({ status })}
 					>
-						<MenuItem value={EventStatus.DRAFT}>{EventStatus.DRAFT}</MenuItem>
-						<MenuItem value={EventStatus.SCHEDULED}>{EventStatus.SCHEDULED}</MenuItem>
-						<MenuItem value={EventStatus.OPEN}>{EventStatus.OPEN}</MenuItem>
-					</TextField>
+						<Select.Trigger label="Status" placeholder={eventData.status} />
+						<Select.Content maxHeight={48}>
+							<Select.Item value={EventStatus.DRAFT}>{EventStatus.DRAFT}</Select.Item>
+							<Select.Item value={EventStatus.SCHEDULED}>{EventStatus.SCHEDULED}</Select.Item>
+							<Select.Item value={EventStatus.OPEN}>{EventStatus.OPEN}</Select.Item>
+						</Select.Content>
+					</Select>
+				</div>
 
-				</Stack>
-
-				<Stack spacing={3} mt={3} direction='row'>
+				<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 					<DatePicker
 						label="Date"
-						sx={{ width: '50%' }}
-						disablePast
-						defaultValue={eventData.date}
+						value={eventData.date}
 						onChange={(value) => updateEventData({ date: value })}
 					/>
 					<TimePicker
 						label="Start Time"
-						sx={{ width: '50%' }}
-						defaultValue={eventData.startTime}
+						value={eventData.startTime}
 						onChange={(value) => updateEventData({ startTime: value })}
 					/>
-				</Stack>
-				<DialogFooter className="mt-2">
-					<Button variant='outline' onClick={onClose}>Cancel</Button>
+				</div>
+				<DialogFooter>
+					<Button variant='outline' onClick={closeDialog}>Cancel</Button>
 					<Button
 						variant='default'
 						onClick={handleSubmit}

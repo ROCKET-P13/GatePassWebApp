@@ -4,11 +4,16 @@ import { useState } from 'react';
 import { AddEventDialog } from '../Dialog/AddEventDialog';
 import { useGetAllEventsQuery } from '../../../hooks/queries/useGetAllEventsQuery';
 import { Button } from '../../ui/Button';
+import { addEventStore } from '../../../Store/addEventStore';
 
 export const EventsPage = () => {
-	const [isEventDialogOpen, setIsEventDialogOpen] = useState(false);
 	const [sorting, setSorting] = useState([]);
 	const queryKey = ['events', sorting];
+
+	const {
+		openDialog: openAddEventDialog,
+		isOpen: isAddEventDialogOpen,
+	} = addEventStore((state) => state);
 
 	const {
 		data: events,
@@ -32,7 +37,7 @@ export const EventsPage = () => {
 
 				<Button
 					variant="default"
-					onClick={() => setIsEventDialogOpen(true)}
+					onClick={() => openAddEventDialog()}
 				>
                     Add Event
 				</Button>
@@ -55,8 +60,7 @@ export const EventsPage = () => {
 			}
 
 			<AddEventDialog
-				open={isEventDialogOpen}
-				onClose={() => setIsEventDialogOpen(false)}
+				open={isAddEventDialogOpen}
 				queryKey={queryKey}
 			/>
 		</Box>

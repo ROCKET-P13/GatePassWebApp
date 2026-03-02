@@ -164,7 +164,7 @@ Select.Item = function Item ({ value, children, className }) {
 			onClick={() => setValue(value)}
 			className={
 				mergeTailwindClasses(
-					'relative flex cursor-pointer select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none',
+					'relative flex cursor-pointer select-none items-center rounded-sm px-2 py-1.5 my-1 text-sm outline-none',
 					'hover:bg-accent hover:text-accent-foreground',
 					isSelected && 'bg-accent text-accent-foreground',
 					className

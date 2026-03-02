@@ -1,8 +1,10 @@
 import dayjs from 'dayjs';
 import { Select } from './Select';
 import _ from 'lodash';
+import { useId } from 'react';
+import { mergeTailwindClasses } from '../../utils/mergeTailwindClasses';
 
-export const TimePicker = ({ value, onChange }) => {
+export const TimePicker = ({ value, onChange, label, required }) => {
 	const time = value ? dayjs(value) : dayjs();
 
 	const hour = time.format('hh');
@@ -31,34 +33,63 @@ export const TimePicker = ({ value, onChange }) => {
 		const res = x * 5;
 		return res < 10 ? `0${res}` : res.toString();
 	});
+	const inputId = useId();
 
 	return (
-		<div className="flex gap-2">
-			<Select value={hour} onChange={(h) => updateTime(h)}>
-				<Select.Trigger />
-				<Select.Content maxHeight={48}>
-					{hours.map((h) => (
-						<Select.Item key={h} value={h}>{h}</Select.Item>
-					))}
-				</Select.Content>
-			</Select>
+		<div>
+			<div>
+				{
+					label && (
+						<label
+							htmlFor={inputId}
+							className={
+								mergeTailwindClasses(
+									'text-sm font-medium leading-none',
+									'text-foreground'
+								)
+							}
+						>
+							{label}
+							{
+								required && (
+									<span className="ml-1 text-destructive">*</span>
+								)
+							}
+						</label>
+					)
+				}
+			</div>
+			<div className="flex gap-2">
+				<Select value={hour} onChange={(h) => updateTime(h)}>
+					<Select.Trigger />
+					<Select.Content maxHeight={48}>
+						{
+							hours.map((h) => (
+								<Select.Item key={h} value={h}>{h}</Select.Item>
+							))
+						}
+					</Select.Content>
+				</Select>
 
-			<Select value={minute} onChange={(m) => updateTime(hour, m)}>
-				<Select.Trigger />
-				<Select.Content maxHeight={48}>
-					{minutes.map((m) => (
-						<Select.Item key={m} value={m}>{m}</Select.Item>
-					))}
-				</Select.Content>
-			</Select>
+				<Select value={minute} onChange={(m) => updateTime(hour, m)}>
+					<Select.Trigger />
+					<Select.Content maxHeight={48}>
+						{
+							minutes.map((m) => (
+								<Select.Item key={m} value={m}>{m}</Select.Item>
+							))
+						}
+					</Select.Content>
+				</Select>
 
-			<Select value={period} onChange={(p) => updateTime(hour, minute, p)}>
-				<Select.Trigger />
-				<Select.Content>
-					<Select.Item value="AM">AM</Select.Item>
-					<Select.Item value="PM">PM</Select.Item>
-				</Select.Content>
-			</Select>
+				<Select value={period} onChange={(p) => updateTime(hour, minute, p)}>
+					<Select.Trigger />
+					<Select.Content maxHeight={40}>
+						<Select.Item value="AM">AM</Select.Item>
+						<Select.Item value="PM">PM</Select.Item>
+					</Select.Content>
+				</Select>
+			</div>
 		</div>
 	);
 };

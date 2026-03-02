@@ -73,7 +73,7 @@ export const EditEventDialog = ({ open, eventDraft, editEventMutation }) => {
 					</Select>
 				</div>
 
-				<div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+				<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 					<DatePicker
 						label="Date"
 						value={eventDraft.date}
@@ -85,7 +85,7 @@ export const EditEventDialog = ({ open, eventDraft, editEventMutation }) => {
 						onChange={(value) => updateEventDraft({ startTime: value })}
 					/>
 				</div>
-				<DialogFooter sx={{ mt: 3 }}>
+				<DialogFooter>
 					<Button variant='outline' onClick={closeDialog}>Cancel</Button>
 					<Button
 						variant='default'
