@@ -1,5 +1,4 @@
 import { useMemo } from 'react';
-import { DatePicker, TimePicker } from '@mui/x-date-pickers';
 import { EventStatus } from '../../../Common/eventStatus';
 import _ from 'lodash';
 import { editEventStore } from '../../../Store/editEventStore';
@@ -7,6 +6,8 @@ import { Dialog, DialogContent, DialogFooter, DialogTitle } from '../../ui/Dialo
 import { Button } from '../../ui/Button';
 import { Input } from '../../ui/Input';
 import { Select } from '../../ui/Select';
+import { DatePicker } from '../../ui/DatePicker';
+import { TimePicker } from '../../ui/TimePicker';
 
 export const EditEventDialog = ({ open, eventDraft, editEventMutation }) => {
 	const {
@@ -75,12 +76,12 @@ export const EditEventDialog = ({ open, eventDraft, editEventMutation }) => {
 				<div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
 					<DatePicker
 						label="Date"
-						defaultValue={eventDraft.date}
+						value={eventDraft.date}
 						onChange={(value) => updateEventDraft({ date: value })}
 					/>
 					<TimePicker
 						label="Start Time"
-						defaultValue={eventDraft.startTime}
+						value={eventDraft.startTime}
 						onChange={(value) => updateEventDraft({ startTime: value })}
 					/>
 				</div>
