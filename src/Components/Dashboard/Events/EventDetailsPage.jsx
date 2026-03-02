@@ -1,24 +1,20 @@
-import {
-	Box,
-	Typography,
-	Chip,
-	Tabs,
-	Tab,
-	Divider
-} from '@mui/material';
 import { useLoaderData } from '@tanstack/react-router';
-import { useState } from 'react';
 import { EventStatusColorClass } from '../../../Common/eventStatus';
 import { editEventStore } from '../../../Store/editEventStore';
 import { EditEventDialog } from '../Dialog/EditEventDialog';
 import { Routes } from '../../../Common/routes';
 import { useEditEventDetailsMutation } from '../../../hooks/mutations/useEditEventDetailsMutation';
 import { Button } from '../../ui/Button';
+import { Tab, TabPanel, Tabs } from '../../ui/Tabs';
 
 export const EventDetailsPage = () => {
 	const event = useLoaderData({ from: `/protected${Routes.DASHBOARD}${Routes.EVENTS}/$eventId` });
-	const queryKey = ['events', event.id];
-	const [activeTab, setActiveTab] = useState(0);
+
+	const TabIds = Object.freeze({
+		REGISTRATIONS: 'registrations',
+		CHECK_INS: 'checkins',
+		SETTINGS: 'settings',
+	});
 
 	const {
 		openDialog: openEditEventDialog,
@@ -27,37 +23,25 @@ export const EventDetailsPage = () => {
 		setEventDraft,
 	} = editEventStore((state) => state);
 
-	const handleTabChange = (ignore, newValue) => {
-		setActiveTab(newValue);
-	};
-
-	const editEventMutation = useEditEventDetailsMutation({ queryKey });
+	const editEventMutation = useEditEventDetailsMutation({ queryKey: ['events', event.id] });
 
 	return (
-		<Box>
+		<div>
 
-			<Box
-				display="flex"
-				justifyContent="space-between"
-				alignItems="center"
-				mb={4}
-			>
-				<Box display="flex" flexDirection="column" alignItems="start">
-					<Typography variant="h4" fontWeight={600}>
+			<div className='flex justify-between items-center mb-4'>
+				<div className='flex flex-col items-start'>
+					<h1 className='text-4xl font-semibold'>
 						{event.name}
-					</Typography>
+					</h1>
 
-					<Typography variant="body1" color="text.secondary">
+					<p className='text-muted-foreground'>
 						{event.date} - {event.startTime}
-					</Typography>
+					</p>
 
-					<Chip
-						label={event.status}
-						color={EventStatusColorClass[event.status]}
-						size="small"
-						sx={{ mt: 1 }}
-					/>
-				</Box>
+					<span className={`px-2 py-1 text-xs rounded-md font-medium ${EventStatusColorClass[event.status]}`}>
+						{event.status}
+					</span>
+				</div>
 				<Button
 					onClick={() => {
 						openEditEventDialog();
@@ -74,27 +58,31 @@ export const EventDetailsPage = () => {
 				>
 					Edit Event
 				</Button>
-			</Box>
-			<Divider />
+			</div>
 
-			<Tabs
-				value={activeTab}
-				onChange={handleTabChange}
-				sx={{ mt: 2 }}
-			>
-				<Tab label="Registrations" />
-				<Tab label="Check-Ins" />
-				<Tab label="Settings" />
+			<Tabs defaultValue={TabIds.REGISTRATIONS}>
+				<Tab value={TabIds.REGISTRATIONS}>Registrations</Tab>
+				<Tab value={TabIds.CHECK_INS}>Check-Ins</Tab>
+				<Tab value={TabIds.SETTINGS}>Settings</Tab>
+
+				<TabPanel value={TabIds.REGISTRATIONS}>
+					<h2>Registrations</h2>
+				</TabPanel>
+
+				<TabPanel value={TabIds.CHECK_INS}>
+					<h2>Check-Ins</h2>
+				</TabPanel>
+
+				<TabPanel value={TabIds.SETTINGS}>
+					<h2>Settings</h2>
+				</TabPanel>
 			</Tabs>
-			{
-				isEditEventDialogOpen
-				&& <EditEventDialog
-					open={isEditEventDialogOpen}
-					eventDraft={eventDraft}
-					queryKey={['events', event.id]}
-					editEventMutation={editEventMutation}
-				/>
-			}
-		</Box>
+
+			<EditEventDialog
+				open={isEditEventDialogOpen}
+				eventDraft={eventDraft}
+				editEventMutation={editEventMutation}
+			/>
+		</div>
 	);
 };
