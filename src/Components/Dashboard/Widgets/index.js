@@ -7,22 +7,22 @@ import { WaiverHealthWidget } from './Waivers/WaiverHealth';
 export const widgetRegistry = {
 	status: {
 		component: StatusWidget,
-		w: 12,
+		className: 'col-span-12',
 	},
 	events: {
 		component: TodaysEventsWidget,
-		w: 6,
+		className: 'col-span-6',
 	},
 	checkins: {
 		component: CheckinsWidget,
-		w: 6,
+		className: 'col-span-6',
 	},
 	waivers: {
 		component: WaiverHealthWidget,
-		w: 6,
+		className: 'col-span-6',
 	},
 	revenue: {
 		component: RevenueWidget,
-		w: 6,
+		className: 'col-span-6',
 	},
 };
