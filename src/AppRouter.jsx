@@ -16,7 +16,7 @@ import { PeoplePage } from './Components/Dashboard/People/PeoplePage';
 import { LoginPage } from './Components/Login/LoginPage';
 import { RequireAuth } from './Auth/RequireAuth';
 import { Routes } from './Common/routes';
-import { AppLoadingScreen } from './Components/Common/LoadingScreen';
+import { LoadingScreen } from './Components/Common/LoadingScreen';
 import { AccountPage } from './Components/Account/AccountPage';
 import { EventDetailsPage } from './Components/Dashboard/Events/EventDetailsPage';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -151,7 +151,7 @@ export const AppRouter = () => {
 	const auth = useAuth0();
 
 	if (auth.isLoading) {
-		return <AppLoadingScreen message="Signing you in..." />;
+		return <LoadingScreen message="Signing you in..." />;
 	}
 
 	return (

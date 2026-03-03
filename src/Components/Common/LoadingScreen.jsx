@@ -1,25 +1,17 @@
-import { Box, CircularProgress, Typography } from '@mui/material';
-
-export const AppLoadingScreen = ({ message = 'Loading...' }) => {
+export const LoadingScreen = ({ message = 'Loading...' }) => {
 	return (
-		<Box
-			sx={{
-				minHeight: '100vh',
-				width: '100vw',
-				display: 'flex',
-				flexDirection: 'column',
-				alignItems: 'center',
-				justifyContent: 'center',
-				bgcolor: 'background.default',
-			}}
+		<div
+			className='fixed inset-0 z-9999 flex flex-col items-center justify-center bg-background'
 		>
-			<CircularProgress size={48} thickness={4} />
-			<Typography
-				variant="h6"
-				sx={{ mt: 2, color: 'text.secondary' }}
-			>
+
+			<div className="relative h-10 w-10">
+				<div className="absolute inset-0 rounded-full border-4 border-muted opacity-25" />
+				<div className="absolute inset-0 rounded-full border-4 border-primary border-t-transparent animate-spin" />
+			</div>
+
+			<p className="mt-6 text-sm text-muted-foreground tracking-wide">
 				{message}
-			</Typography>
-		</Box>
+			</p>
+		</div>
 	);
 };
