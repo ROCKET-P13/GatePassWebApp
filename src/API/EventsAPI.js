@@ -51,9 +51,19 @@ export class EventsAPI {
 	}
 
 	async getTodays () {
-		return await this.#apiClient.get({
+		const events = await this.#apiClient.get({
 			url: `${this.#url}/today`,
 		});
+
+		return _.map(events, (event) => ({
+			id: event.id,
+			name: event.name,
+			participantCapacity: event.participantCapacity,
+			status: event.status,
+			date: dayjs(event.startDateTime).format('MMM DD, YYYY'),
+			startTime: dayjs(event.startDateTime).format('hh:mm a'),
+			startDateTime: dayjs(event.startDateTime),
+		}));
 	}
 
 	async create ({ name, startDateTime, participantCapacity, status }) {

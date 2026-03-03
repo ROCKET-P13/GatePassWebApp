@@ -1,20 +1,26 @@
 import _ from 'lodash';
-import { List, ListItem, ListItemText, Chip, Typography } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import AddBoxIcon from '@mui/icons-material/AddBox';
-
 import { WidgetCard } from '../WidgetCard';
 import { AddEventDialog } from '../../Dialog/AddEventDialog';
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { EventsAPI } from '../../../../API/EventsAPI';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useQuery } from '@tanstack/react-query';
+import { List, ListItem } from '../../../ui/List';
+import { addEventStore } from '../../../../Store/addEventStore';
+import { Link } from '@tanstack/react-router';
+import { Routes } from '../../../../Common/routes';
 import { EventStatusColorClass } from '../../../../Common/eventStatus';
 
 export const TodaysEventsWidget = () => {
 	const queryKey = ['events', 'today'];
-	const [open, setOpen] = useState(false);
 	const { getAccessTokenSilently, isAuthenticated } = useAuth0();
+
+	const {
+		openDialog: openAddEventDialog,
+		isOpen: isAddEventDialogOpen,
+	} = addEventStore((state) => state);
 
 	const eventsAPI = useMemo(
 		() => new EventsAPI({ getAccessToken: getAccessTokenSilently }),
@@ -33,7 +39,7 @@ export const TodaysEventsWidget = () => {
 	});
 
 	if (error) {
-		return <Typography color="error">Failed to load events</Typography>;
+		return <h1>Failed to load events</h1>;
 	}
 
 	return (
@@ -43,7 +49,7 @@ export const TodaysEventsWidget = () => {
 				action={
 					<IconButton
 						color='inherit'
-						onClick={() => setOpen(true)}
+						onClick={openAddEventDialog}
 					>
 						<AddBoxIcon />
 					</IconButton>
@@ -51,21 +57,27 @@ export const TodaysEventsWidget = () => {
 			>
 				{
 					isLoading
-						? <Typography>Loading...</Typography>
+						? <h1>Loading...</h1>
 						: (
-							<List dense>
+							<List>
 								{
 									_.isEmpty(events)
-										? <Typography variant='subtitle2'>No Events</Typography>
+										? <h2 className='text-sm'>No Events</h2>
 										: _.map(events, (event) => (
-											<ListItem key={event.id} sx={{ paddingX: 0 }}>
-												<ListItemText primary={event.name} sx={{ margin: 1 }} />
-												<Chip
-													label={event.status}
-													color={EventStatusColorClass[event.status]}
-													size="small"
-													sx={{ margin: 1 }}
-												/>
+											<ListItem key={event.id}>
+												<div>
+													<Link
+														to={`${Routes.DASHBOARD}/${Routes.EVENTS}/$eventId`}
+														params={{ eventId: event.id }}
+														className="font-medium text-primary hover:underline font-bold"
+													>
+														{event.name}
+													</Link>
+													<p className="font-sm text-muted-foreground">{event.startTime}</p>
+												</div>
+												<span className={`px-2 py-1 text-xs rounded-md font-medium ${EventStatusColorClass[event.status]}`}>
+													{event.status}
+												</span>
 											</ListItem>
 										))
 								}
@@ -76,8 +88,7 @@ export const TodaysEventsWidget = () => {
 			</WidgetCard>
 
 			<AddEventDialog
-				open={open}
-				onClose={() => setOpen(false)}
+				open={isAddEventDialogOpen}
 				queryKey={queryKey}
 			/>
 		</>

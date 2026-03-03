@@ -39,7 +39,7 @@ export const AddEventDialog = ({ open, queryKey }) => {
 			eventData.name.length > 2 && eventData.name.length < 100,
 			eventDateTime.isAfter(dayjs()),
 		]);
-	}, [eventData, eventDateTime]);
+	}, [eventData.name, eventDateTime]);
 
 	const handleSubmit = () => {
 		closeDialog();
