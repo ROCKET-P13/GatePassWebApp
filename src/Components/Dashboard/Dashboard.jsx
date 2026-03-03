@@ -4,7 +4,7 @@ import { widgetRegistry } from './Widgets';
 export const Dashboard = () => {
 	return (
 		<div
-			className='grid grid-cols-12 gap-3'
+			className='grid grid-cols-12 gap-4'
 		>
 			{
 				_.chain(widgetRegistry)
