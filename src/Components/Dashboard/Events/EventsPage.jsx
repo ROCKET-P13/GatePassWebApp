@@ -1,6 +1,5 @@
-import { Box, Stack, Typography } from '@mui/material';
-import { EventsTable } from './EventsTable';
 import { useState } from 'react';
+import { EventsTable } from './EventsTable';
 import { AddEventDialog } from '../Dialog/AddEventDialog';
 import { useGetAllEventsQuery } from '../../../hooks/queries/useGetAllEventsQuery';
 import { Button } from '../../ui/Button';
@@ -22,47 +21,45 @@ export const EventsPage = () => {
 	} = useGetAllEventsQuery({ queryKey, sorting });
 
 	if (error) {
-		return <Typography color="error">Failed to load events</Typography>;
+		return (
+			<p className="text-sm font-medium text-red-500">
+				Failed to load events
+			</p>
+		);
 	}
 
 	return (
-		<Box>
-			<Stack
-				direction="row"
-				justifyContent="space-between"
-				alignItems="center"
-				mb={3}
-			>
-				<Typography variant="h4">Events</Typography>
+		<div className="p-6 space-y-6">
+			{/* Header */}
+			<div className="flex items-center justify-between">
+				<h1 className="text-2xl font-semibold tracking-tight">
+					Events
+				</h1>
 
 				<Button
 					variant="default"
 					onClick={() => openAddEventDialog()}
 				>
-                    Add Event
+					Add Event
 				</Button>
-			</Stack>
+			</div>
 
-			{
-				isLoading
-					? (
-						<Typography>Loading Events...</Typography>
-					)
-					: (
-						<>
-							<EventsTable
-								events={events}
-								sorting={sorting}
-								onSortingChange={setSorting}
-							/>
-						</>
-					)
-			}
+			{isLoading ? (
+				<p className="text-sm text-muted-foreground">
+					Loading events...
+				</p>
+			) : (
+				<EventsTable
+					events={events}
+					sorting={sorting}
+					onSortingChange={setSorting}
+				/>
+			)}
 
 			<AddEventDialog
 				open={isAddEventDialogOpen}
 				queryKey={queryKey}
 			/>
-		</Box>
+		</div>
 	);
 };
