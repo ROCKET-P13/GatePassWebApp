@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import IconButton from '@mui/material/IconButton';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import { WidgetCard } from '../WidgetCard';
 import { AddEventDialog } from '../../Dialog/AddEventDialog';
@@ -47,12 +46,13 @@ export const TodaysEventsWidget = () => {
 			<WidgetCard
 				title="Today's Events"
 				action={
-					<IconButton
-						color='inherit'
+					<button
+						className='p-1 rounded-md'
 						onClick={openAddEventDialog}
 					>
+
 						<AddBoxIcon />
-					</IconButton>
+					</button>
 				}
 			>
 				{

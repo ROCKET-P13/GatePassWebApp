@@ -22,7 +22,7 @@ export const StatusWidget = () => {
 	return (
 		<WidgetCard>
 			<CardHeader>
-				<CardTitle>
+				<CardTitle className="font-medium">
 					{
 						isLoading
 							? 'Loading...'
@@ -33,7 +33,7 @@ export const StatusWidget = () => {
 					isLoading
 						? <></>
 						: (
-							<CardDescription variant='subtitle2'>
+							<CardDescription>
 								{`${venue.city}, ${venue.state} ${venue.country}`}
 							</CardDescription>
 						)

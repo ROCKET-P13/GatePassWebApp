@@ -1,24 +1,21 @@
-import _ from 'lodash';
-import { Box, Typography } from '@mui/material';
 import { Card, CardContent } from '../../ui/Card';
 
 export const WidgetCard = ({ title, action, children }) => {
+	const hasTitle = !!title;
+
 	return (
-		<Card className='h-full p-2'>
+		<Card className="h-full p-2">
 			{
-				_.some(title)
-					? <Box sx={{
-						display: 'flex',
-						flexDirection: 'row',
-						justifyContent: 'space-between',
-						alignItems: 'center',
-						paddingX: 2,
-					}}>
-						<Typography variant='h6'>{title}</Typography>
+				hasTitle && (
+					<div className="flex items-center justify-between px-4 py-2">
+						<h3 className="text-lg tracking-tight">
+							{title}
+						</h3>
 						{action}
-					</Box>
-					: <></>
+					</div>
+				)
 			}
+
 			<CardContent>
 				{children}
 			</CardContent>

@@ -1,4 +1,3 @@
-import { Stack, Typography } from '@mui/material';
 import { onboardingStore } from '../../../store/onboardingStore';
 import { useCreateVenueMutation } from '../../../hooks/mutations/useCreateVenueMutation';
 import { Button } from '../../ui/Button';
@@ -10,34 +9,45 @@ export const WaiverStep = () => {
 
 	const createVenue = useCreateVenueMutation({ next });
 
-	return (
-		<Stack spacing={3}>
-			<Typography>
-				Upload your existing waiver or use our default template.
-			</Typography>
+	const handleCreateVenue = () => {
+		createVenue.mutate({
+			name: venue.name,
+			email: venue.email,
+			addressLine1: venue.addressLine1,
+			addressLine2: venue.addressLine2,
+			phoneNumber: venue.phoneNumber,
+			city: venue.city,
+			state: venue.state,
+			logoImageUrl: venue.logoImageUrl,
+			country: venue.country,
+		});
+	};
 
-			<Button variant='outline'>
-				Upload PDF
+	return (
+		<div className="flex flex-col space-y-6">
+			<h1 className="text-lg text-primary">
+        		Upload your existing waiver or use our default template.
+			</h1>
+
+			<Button variant="outline">
+        		Upload PDF
 			</Button>
 
-			<div className='flex justify-end gap-4'>
-				<Button variant='outline' onClick={back}>Back</Button>
+			<div className="flex justify-end gap-4 pt-4">
 				<Button
-					onClick={() => createVenue.mutate({
-						name: venue.name,
-						email: venue.email,
-						addressLine1: venue.addressLine1,
-						addressLine2: venue.addressLine2,
-						phoneNumber: venue.phoneNumber,
-						city: venue.city,
-						state: venue.state,
-						logoImageUrl: venue.logoImageUrl,
-						country: venue.country,
-					})}
+					variant="outline"
+					onClick={back}
+				>
+          			Back
+				</Button>
+
+				<Button
+					onClick={handleCreateVenue}
+					disabled={createVenue.isPending}
 				>
 					{createVenue.isPending ? 'Creating...' : 'Go Live!'}
 				</Button>
 			</div>
-		</Stack>
+		</div>
 	);
 };

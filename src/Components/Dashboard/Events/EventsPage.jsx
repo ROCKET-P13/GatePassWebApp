@@ -30,7 +30,6 @@ export const EventsPage = () => {
 
 	return (
 		<div className="p-6 space-y-6">
-			{/* Header */}
 			<div className="flex items-center justify-between">
 				<h1 className="text-2xl font-semibold tracking-tight">
 					Events
@@ -38,23 +37,26 @@ export const EventsPage = () => {
 
 				<Button
 					variant="default"
-					onClick={() => openAddEventDialog()}
+					onClick={openAddEventDialog}
 				>
 					Add Event
 				</Button>
 			</div>
 
-			{isLoading ? (
-				<p className="text-sm text-muted-foreground">
-					Loading events...
-				</p>
-			) : (
-				<EventsTable
-					events={events}
-					sorting={sorting}
-					onSortingChange={setSorting}
-				/>
-			)}
+			{
+				isLoading
+					? (
+						<p className="text-sm text-muted-foreground">
+							Loading events...
+						</p>
+					)
+					: (
+						<EventsTable
+							events={events}
+							sorting={sorting}
+							onSortingChange={setSorting}
+						/>
+					)}
 
 			<AddEventDialog
 				open={isAddEventDialogOpen}

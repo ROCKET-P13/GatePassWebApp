@@ -1,4 +1,4 @@
-import { List, ListItem, ListItemText } from '@mui/material';
+import { List, ListItem } from '../../../ui/List';
 import { WidgetCard } from '../WidgetCard';
 
 export const CheckinsWidget = () => {
@@ -9,14 +9,15 @@ export const CheckinsWidget = () => {
 
 	return (
 		<WidgetCard title="Live Check-ins">
-			<List dense>
+			<List className="divide-y-0 border-0 rounded-none bg-transparent">
 				{
 					checkins.map((data) => (
-						<ListItem key={data.id}>
-							<ListItemText
-								primary={data.name}
-								secondary={data.time}
-							/>
+						<ListItem
+							key={data.id}
+							className="px-0 py-2"
+						>
+							<h1 className='text-primary'>{data.name}</h1>
+							<p className="font-sm text-muted-foreground">{data.time}</p>
 						</ListItem>
 					))
 				}

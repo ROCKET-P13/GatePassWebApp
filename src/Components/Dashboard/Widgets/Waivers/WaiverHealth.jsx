@@ -1,4 +1,3 @@
-import { Stack, Typography, LinearProgress } from '@mui/material';
 import { WidgetCard } from '../WidgetCard';
 
 export const WaiverHealthWidget = () => {
@@ -8,18 +7,23 @@ export const WaiverHealthWidget = () => {
 
 	return (
 		<WidgetCard title="Waiver Health">
-			<Stack spacing={1}>
-				<Typography variant="h6">
+			<div className="space-y-3">
+				{/* Stats */}
+				<h3 className="text-lg font-semibold">
 					{signed} / {total} signed
-				</Typography>
-				<LinearProgress
-					variant="determinate"
-					value={percent}
-				/>
-				<Typography variant="caption" color="text.secondary">
+				</h3>
+
+				<div className="w-full h-3 bg-muted rounded-full overflow-hidden">
+					<div
+						className="h-full bg-primary transition-all duration-500"
+						style={{ width: `${percent}%` }}
+					/>
+				</div>
+
+				<p className="text-xs text-muted-foreground">
 					{percent}% complete
-				</Typography>
-			</Stack>
+				</p>
+			</div>
 		</WidgetCard>
 	);
 };

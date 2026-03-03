@@ -1,7 +1,7 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import { Navigate } from '@tanstack/react-router';
 import { Routes } from '../../Common/routes';
-import { Box, Button, Paper, Stack, Typography } from '@mui/material';
+import { Button } from '../ui/Button';
 
 export const LoginPage = () => {
 	const { loginWithRedirect, isAuthenticated } = useAuth0();
@@ -11,32 +11,28 @@ export const LoginPage = () => {
 	}
 
 	return (
-		    <Box
-			minHeight="100vh"
-			display="flex"
-			alignItems="center"
-			justifyContent="center"
-		>
-			<Paper elevation={3} sx={{ p: 4, width: 500 }}>
-				<Stack spacing={3} alignItems="center">
-					<Typography variant="h4" fontWeight={600}>
-						GatePass
-					</Typography>
+		<div className="min-h-screen flex items-center justify-center bg-background px-4">
+			<div className="w-full max-w-md rounded-2xl border border-border bg-card shadow-lg p-8">
+				<div className="flex flex-col items-center space-y-6 text-center">
 
-					<Typography variant="body1" color="text.secondary" align="center">
+					<h1 className="text-3xl font-semibold tracking-tight">
+						GatePass
+					</h1>
+
+					<p className="text-sm text-muted-foreground">
 						Sign in to manage events, people, and venues.
-					</Typography>
+					</p>
 
 					<Button
-						fullWidth
-						size="large"
-						variant="contained"
-						onClick={() => loginWithRedirect()}
+						className="w-full"
+						size="lg"
+						onClick={loginWithRedirect}
 					>
 						Log In
 					</Button>
-				</Stack>
-			</Paper>
-		</Box>
+
+				</div>
+			</div>
+		</div>
 	);
 };
