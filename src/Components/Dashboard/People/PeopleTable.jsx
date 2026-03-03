@@ -7,10 +7,6 @@ import {
 
 import { useMemo, useState } from 'react';
 
-import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
-import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
-import UnfoldMoreIcon from '@mui/icons-material/UnfoldMore';
-
 import {
 	Table,
 	TableHeader,
@@ -20,6 +16,7 @@ import {
 	TableCell,
 	TableContainer
 } from '../../ui/Table';
+import { ChevronDown, ChevronUp, ListChevronsUpDown } from 'lucide-react';
 
 export const PeopleTable = ({ people }) => {
 	const [sorting, setSorting] = useState([]);
@@ -112,11 +109,11 @@ export const PeopleTable = ({ people }) => {
 											)}
 
 											{{
-												asc: <ArrowUpwardIcon fontSize="inherit" />,
-												desc: <ArrowDownwardIcon fontSize="inherit" />,
+												asc: <ChevronUp fontSize="inherit" />,
+												desc: <ChevronDown fontSize="inherit" />,
 											}[header.column.getIsSorted()] ?? (
 												header.column.getCanSort() && (
-													<UnfoldMoreIcon fontSize="inherit" />
+													<ListChevronsUpDown fontSize="inherit" />
 												)
 											)}
 										</button>

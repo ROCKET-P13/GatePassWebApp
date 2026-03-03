@@ -3,44 +3,37 @@ import {
 	DrawerContent
 } from '../ui/Drawer';
 
-import SpaceDashboardIcon from '@mui/icons-material/SpaceDashboard';
-import EventIcon from '@mui/icons-material/Event';
-import PeopleIcon from '@mui/icons-material/People';
-import EditDocumentIcon from '@mui/icons-material/EditDocument';
-import SettingsIcon from '@mui/icons-material/Settings';
-import AccountBoxIcon from '@mui/icons-material/AccountBox';
-import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
-
 import { dashboardStore } from '../../Store/dashboardStore';
 import { DashboardAppBar } from './DashboardAppBar';
 import { Outlet, useNavigate } from '@tanstack/react-router';
 import { Routes } from '../../Common/routes';
 import { NavigationItem } from '../ui/NavigationItem';
+import { Calendar, FileCheckCorner, LayoutDashboard, Settings, SquareUser, UserCog, Users } from 'lucide-react';
 
 const DrawerItems = [
 	{
 		label: 'Dashboard',
-		icon: SpaceDashboardIcon,
+		icon: LayoutDashboard,
 		route: Routes.DASHBOARD,
 	},
 	{
 		label: 'Events',
-		icon: EventIcon,
+		icon: Calendar,
 		route: `${Routes.DASHBOARD}${Routes.EVENTS}`,
 	},
 	{
 		label: 'People',
-		icon: PeopleIcon,
+		icon: Users,
 		route: `${Routes.DASHBOARD}${Routes.PEOPLE}`,
 	},
 	{
 		label: 'Waivers',
-		icon: EditDocumentIcon,
+		icon: FileCheckCorner,
 		route: `${Routes.DASHBOARD}${Routes.WAIVERS}`,
 	},
 	{
 		label: 'Venue Settings',
-		icon: SettingsIcon,
+		icon: Settings,
 		route: `${Routes.DASHBOARD}${Routes.VENUE_SETTINGS}`,
 	},
 ];
@@ -48,12 +41,12 @@ const DrawerItems = [
 const AccountDrawerItems = [
 	{
 		label: 'Account',
-		icon: AccountBoxIcon,
+		icon: SquareUser,
 		route: `${Routes.DASHBOARD}${Routes.ACCOUNT}`,
 	},
 	{
 		label: 'Settings',
-		icon: ManageAccountsIcon,
+		icon: UserCog,
 		route: `${Routes.DASHBOARD}${Routes.SETTINGS}`,
 	},
 ];

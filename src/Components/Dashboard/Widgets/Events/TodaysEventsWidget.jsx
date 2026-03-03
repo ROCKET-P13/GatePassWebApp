@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import AddBoxIcon from '@mui/icons-material/AddBox';
 import { WidgetCard } from '../WidgetCard';
 import { AddEventDialog } from '../../Dialog/AddEventDialog';
 import { useMemo } from 'react';
@@ -11,6 +10,7 @@ import { addEventStore } from '../../../../Store/addEventStore';
 import { Link } from '@tanstack/react-router';
 import { Routes } from '../../../../Common/routes';
 import { EventStatusColorClass } from '../../../../Common/eventStatus';
+import { SquarePlus } from 'lucide-react';
 
 export const TodaysEventsWidget = () => {
 	const queryKey = ['events', 'today'];
@@ -51,7 +51,7 @@ export const TodaysEventsWidget = () => {
 						onClick={openAddEventDialog}
 					>
 
-						<AddBoxIcon />
+						<SquarePlus />
 					</button>
 				}
 			>

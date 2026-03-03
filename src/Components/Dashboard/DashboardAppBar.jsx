@@ -5,8 +5,8 @@ import {
 	AppBarTitle
 } from '../ui/AppBar';
 
-import MenuIcon from '@mui/icons-material/Menu';
 import { dashboardStore } from '../../Store/dashboardStore';
+import { MenuIcon } from 'lucide-react';
 
 export const DashboardAppBar = () => {
 	const toggleDrawer = dashboardStore((state) => state.toggleDrawer);

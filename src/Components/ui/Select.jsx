@@ -8,7 +8,7 @@ import {
 } from 'react';
 import { createPortal } from 'react-dom';
 import { mergeTailwindClasses } from '../../utils/mergeTailwindClasses';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import { ChevronDown } from 'lucide-react';
 
 const SelectContext = createContext(null);
 
@@ -106,7 +106,7 @@ Select.Trigger = function Trigger ({ placeholder = 'Select...', label, className
 					{value || <span className="text-muted-foreground">{placeholder}</span>}
 				</span>
 
-				<ArrowDropDownIcon
+				<ChevronDown
 					fontSize="small"
 					className={mergeTailwindClasses('transition-transform', open && 'rotate-180')}
 				/>

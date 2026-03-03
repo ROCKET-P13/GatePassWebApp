@@ -8,12 +8,6 @@ import {
 import { useMemo } from 'react';
 import { Link } from '@tanstack/react-router';
 
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
-import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
-import UnfoldMoreIcon from '@mui/icons-material/UnfoldMore';
-
 import {
 	Table,
 	TableHeader,
@@ -32,6 +26,7 @@ import { deleteEventStore } from '../../../Store/deleteEventStore';
 import { EventStatusColorClass } from '../../../Common/eventStatus';
 import { Routes } from '../../../Common/routes';
 import { useEditEventTableMutation } from '../../../hooks/mutations/useEditEventTableMutation';
+import { ChevronDown, ChevronUp, ListChevronsUpDown, Pencil, Trash } from 'lucide-react';
 
 export const EventsTable = ({ events, sorting, onSortingChange }) => {
 	const queryKey = ['events', sorting];
@@ -108,7 +103,7 @@ export const EventsTable = ({ events, sorting, onSortingChange }) => {
 								});
 							}}
 						>
-							<EditIcon fontSize="small" />
+							<Pencil fontSize="small" />
 						</button>
 
 						<button
@@ -121,7 +116,7 @@ export const EventsTable = ({ events, sorting, onSortingChange }) => {
 								});
 							}}
 						>
-							<DeleteIcon fontSize="small" />
+							<Trash fontSize="small" />
 						</button>
 					</div>
 				),
@@ -163,11 +158,11 @@ export const EventsTable = ({ events, sorting, onSortingChange }) => {
 											}
 
 											{{
-												asc: <ArrowUpwardIcon fontSize="inherit" />,
-												desc: <ArrowDownwardIcon fontSize="inherit" />,
+												asc: <ChevronUp fontSize="inherit" />,
+												desc: <ChevronDown fontSize="inherit" />,
 											}[header.column.getIsSorted()] ?? (
 												header.column.getCanSort() && (
-													<UnfoldMoreIcon fontSize="inherit" />
+													<ListChevronsUpDown />
 												)
 											)}
 										</button>
