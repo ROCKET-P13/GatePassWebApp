@@ -10,10 +10,11 @@ import { createPortal } from 'react-dom';
 import { mergeTailwindClasses } from '../../utils/mergeTailwindClasses';
 import { ChevronDown } from 'lucide-react';
 import { Icon } from './Icon';
+import _ from 'lodash';
 
 const SelectContext = createContext(null);
 
-function useSelectContext () {
+const useSelectContext = () => {
 	const context = useContext(SelectContext);
 	if (!context) {
 		throw new Error(
@@ -21,9 +22,9 @@ function useSelectContext () {
 		);
 	}
 	return context;
-}
+};
 
-export function Select ({ value: controlledValue, defaultValue, onChange, children }) {
+export const Select = ({ value: controlledValue, defaultValue, onChange, children }) => {
 	const [open, setOpen] = useState(false);
 	const [internalValue, setInternalValue] = useState(defaultValue);
 
@@ -39,16 +40,18 @@ export function Select ({ value: controlledValue, defaultValue, onChange, childr
 	};
 
 	useEffect(() => {
-		function handleClick (e) {
-			if (
-				contentRef.current
-        && !contentRef.current.contains(e.target)
-        && triggerRef.current
-        && !triggerRef.current.contains(e.target)
-			) {
+		const handleClick = (e) => {
+			const isCloseEvent = _.every([
+				contentRef.current,
+				!contentRef.current.contains(e.target),
+				triggerRef.current,
+				!triggerRef.current.contains(e.target),
+			]);
+
+			if (isCloseEvent) {
 				setOpen(false);
 			}
-		}
+		};
 
 		if (open) document.addEventListener('mousedown', handleClick);
 		return () => document.removeEventListener('mousedown', handleClick);
@@ -61,9 +64,9 @@ export function Select ({ value: controlledValue, defaultValue, onChange, childr
 			<div className="relative inline-block w-full">{children}</div>
 		</SelectContext.Provider>
 	);
-}
+};
 
-Select.Trigger = function Trigger ({ placeholder = 'Select...', label, className, required = false }) {
+const Trigger = ({ placeholder = 'Select...', label, className, required = false }) => {
 	const { open, setOpen, value, triggerRef } = useSelectContext();
 	const inputId = useId();
 	return (
@@ -116,7 +119,10 @@ Select.Trigger = function Trigger ({ placeholder = 'Select...', label, className
 
 	);
 };
-Select.Content = function Content ({ children, maxHeight = 25 }) {
+
+Select.Trigger = Trigger;
+
+const Content = ({ children, maxHeight = 25 }) => {
 	const { open, triggerRef, contentRef } = useContext(SelectContext);
 	const [position, setPosition] = useState(null);
 
@@ -156,7 +162,9 @@ Select.Content = function Content ({ children, maxHeight = 25 }) {
 	);
 };
 
-Select.Item = function Item ({ value, children, className }) {
+Select.Content = Content;
+
+const Item = ({ value, children, className }) => {
 	const { value: selected, setValue } = useSelectContext();
 	const isSelected = selected === value;
 
@@ -176,3 +184,5 @@ Select.Item = function Item ({ value, children, className }) {
 		</div>
 	);
 };
+
+Select.Item = Item;
