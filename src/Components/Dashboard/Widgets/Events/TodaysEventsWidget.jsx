@@ -11,6 +11,7 @@ import { Link } from '@tanstack/react-router';
 import { Routes } from '../../../../Common/routes';
 import { EventStatusColorClass } from '../../../../Common/eventStatus';
 import { SquarePlus } from 'lucide-react';
+import { Icon } from '../../../ui/Icon';
 
 export const TodaysEventsWidget = () => {
 	const queryKey = ['events', 'today'];
@@ -51,7 +52,7 @@ export const TodaysEventsWidget = () => {
 						onClick={openAddEventDialog}
 					>
 
-						<SquarePlus />
+						<Icon as={SquarePlus} />
 					</button>
 				}
 			>

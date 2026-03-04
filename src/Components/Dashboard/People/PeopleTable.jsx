@@ -16,7 +16,8 @@ import {
 	TableCell,
 	TableContainer
 } from '../../ui/Table';
-import { ChevronDown, ChevronUp, ListChevronsUpDown } from 'lucide-react';
+import { ChevronDown, ChevronsUpDown, ChevronUp } from 'lucide-react';
+import { Icon } from '../../ui/Icon';
 
 export const PeopleTable = ({ people }) => {
 	const [sorting, setSorting] = useState([]);
@@ -109,11 +110,11 @@ export const PeopleTable = ({ people }) => {
 											)}
 
 											{{
-												asc: <ChevronUp fontSize="inherit" />,
-												desc: <ChevronDown fontSize="inherit" />,
+												asc: <Icon as={ChevronUp} />,
+												desc: <Icon  as={ChevronDown} />,
 											}[header.column.getIsSorted()] ?? (
 												header.column.getCanSort() && (
-													<ListChevronsUpDown fontSize="inherit" />
+													<Icon as={ChevronsUpDown} />
 												)
 											)}
 										</button>
@@ -125,21 +126,23 @@ export const PeopleTable = ({ people }) => {
 				</TableHeader>
 
 				<TableBody>
-					{table.getRowModel().rows.map((row) => (
-						<TableRow
-							key={row.id}
-							className="hover:bg-muted/50 transition-colors"
-						>
-							{row.getVisibleCells().map((cell) => (
-								<TableCell key={cell.id}>
-									{flexRender(
-										cell.column.columnDef.cell,
-										cell.getContext()
-									)}
-								</TableCell>
-							))}
-						</TableRow>
-					))}
+					{
+						table.getRowModel().rows.map((row) => (
+							<TableRow
+								key={row.id}
+								className="hover:bg-muted/50 transition-colors"
+							>
+								{row.getVisibleCells().map((cell) => (
+									<TableCell key={cell.id}>
+										{flexRender(
+											cell.column.columnDef.cell,
+											cell.getContext()
+										)}
+									</TableCell>
+								))}
+							</TableRow>
+						))
+					}
 				</TableBody>
 			</Table>
 		</TableContainer>

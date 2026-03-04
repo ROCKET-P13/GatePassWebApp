@@ -7,6 +7,7 @@ import {
 
 import { dashboardStore } from '../../Store/dashboardStore';
 import { MenuIcon } from 'lucide-react';
+import { Icon } from '../ui/Icon';
 
 export const DashboardAppBar = () => {
 	const toggleDrawer = dashboardStore((state) => state.toggleDrawer);
@@ -18,7 +19,7 @@ export const DashboardAppBar = () => {
 					onClick={() => toggleDrawer(true)}
 					className="p-2 rounded-md hover:bg-accent"
 				>
-					<MenuIcon fontSize="small" />
+					<Icon as={MenuIcon} />
 				</button>
 
 				<AppBarTitle>

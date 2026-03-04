@@ -9,6 +9,7 @@ import {
 import { createPortal } from 'react-dom';
 import { mergeTailwindClasses } from '../../utils/mergeTailwindClasses';
 import { ChevronDown } from 'lucide-react';
+import { Icon } from './Icon';
 
 const SelectContext = createContext(null);
 
@@ -106,8 +107,8 @@ Select.Trigger = function Trigger ({ placeholder = 'Select...', label, className
 					{value || <span className="text-muted-foreground">{placeholder}</span>}
 				</span>
 
-				<ChevronDown
-					fontSize="small"
+				<Icon
+					as={ChevronDown}
 					className={mergeTailwindClasses('transition-transform', open && 'rotate-180')}
 				/>
 			</button>

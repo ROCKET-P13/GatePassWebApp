@@ -1,8 +1,9 @@
 import { mergeTailwindClasses } from '../../utils/mergeTailwindClasses';
+import { Icon } from './Icon';
 
 export const NavigationItem = (
 	{
-		icon: Icon,
+		icon: NavigationItemIcon,
 		children,
 		active = false,
 		disabled = false,
@@ -32,8 +33,8 @@ export const NavigationItem = (
 			{...props}
 		>
 			{
-				Icon && (
-					<Icon className="text-muted-foreground" fontSize="small" />
+				NavigationItemIcon && (
+					<Icon as={NavigationItemIcon} className="text-muted-foreground" />
 				)
 			}
 			<span className="truncate">{children}</span>

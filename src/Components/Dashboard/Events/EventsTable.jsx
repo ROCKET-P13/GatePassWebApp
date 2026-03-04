@@ -26,7 +26,8 @@ import { deleteEventStore } from '../../../Store/deleteEventStore';
 import { EventStatusColorClass } from '../../../Common/eventStatus';
 import { Routes } from '../../../Common/routes';
 import { useEditEventTableMutation } from '../../../hooks/mutations/useEditEventTableMutation';
-import { ChevronDown, ChevronUp, ListChevronsUpDown, Pencil, Trash } from 'lucide-react';
+import { ChevronDown, ChevronsUpDown, ChevronUp, Pencil, Trash } from 'lucide-react';
+import { Icon } from '../../ui/Icon';
 
 export const EventsTable = ({ events, sorting, onSortingChange }) => {
 	const queryKey = ['events', sorting];
@@ -103,7 +104,7 @@ export const EventsTable = ({ events, sorting, onSortingChange }) => {
 								});
 							}}
 						>
-							<Pencil fontSize="small" />
+							<Icon as={Pencil} />
 						</button>
 
 						<button
@@ -116,7 +117,7 @@ export const EventsTable = ({ events, sorting, onSortingChange }) => {
 								});
 							}}
 						>
-							<Trash fontSize="small" />
+							<Icon as={Trash} />
 						</button>
 					</div>
 				),
@@ -158,11 +159,11 @@ export const EventsTable = ({ events, sorting, onSortingChange }) => {
 											}
 
 											{{
-												asc: <ChevronUp fontSize="inherit" />,
-												desc: <ChevronDown fontSize="inherit" />,
+												asc: <Icon as={ChevronUp} />,
+												desc: <Icon as={ChevronDown} />,
 											}[header.column.getIsSorted()] ?? (
 												header.column.getCanSort() && (
-													<ListChevronsUpDown />
+													<Icon as={ChevronsUpDown} />
 												)
 											)}
 										</button>
@@ -174,25 +175,27 @@ export const EventsTable = ({ events, sorting, onSortingChange }) => {
 				</TableHeader>
 
 				<TableBody>
-					{table.getRowModel().rows.map((row) => (
-						<TableRow
-							key={row.id}
-							className="hover:bg-muted/50 transition-colors"
-						>
-							{
-								row.getVisibleCells().map((cell) => (
-									<TableCell key={cell.id}>
-										{
-											flexRender(
-												cell.column.columnDef.cell,
-												cell.getContext()
-											)
-										}
-									</TableCell>
-								))
-							}
-						</TableRow>
-					))}
+					{
+						table.getRowModel().rows.map((row) => (
+							<TableRow
+								key={row.id}
+								className="hover:bg-muted/50 transition-colors"
+							>
+								{
+									row.getVisibleCells().map((cell) => (
+										<TableCell key={cell.id}>
+											{
+												flexRender(
+													cell.column.columnDef.cell,
+													cell.getContext()
+												)
+											}
+										</TableCell>
+									))
+								}
+							</TableRow>
+						))
+					}
 				</TableBody>
 			</Table>
 
