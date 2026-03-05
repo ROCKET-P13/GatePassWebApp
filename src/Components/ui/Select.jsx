@@ -31,10 +31,12 @@ export const Select = ({ value: controlledValue, defaultValue, onChange, childre
 	const triggerRef = useRef(null);
 	const contentRef = useRef(null);
 
-	const value = controlledValue !== undefined ? controlledValue : internalValue;
+	const value = controlledValue || internalValue;
 
 	const setValue = (val) => {
-		if (controlledValue === undefined) setInternalValue(val);
+		if (!controlledValue) {
+			setInternalValue(val);
+		}
 		onChange?.(val);
 		setOpen(false);
 	};
