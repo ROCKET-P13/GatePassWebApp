@@ -56,7 +56,8 @@ export const EventsPage = () => {
 							sorting={sorting}
 							onSortingChange={setSorting}
 						/>
-					)}
+					)
+			}
 
 			<AddEventDialog
 				open={isAddEventDialogOpen}

@@ -95,34 +95,40 @@ export const PeopleTable = ({ people }) => {
 		<TableContainer>
 			<Table>
 				<TableHeader>
-					{table.getHeaderGroups().map((headerGroup) => (
-						<TableRow key={headerGroup.id}>
-							{headerGroup.headers.map((header) => (
-								<TableHead key={header.id}>
-									{header.isPlaceholder ? null : (
-										<button
-											onClick={header.column.getToggleSortingHandler()}
-											className="flex items-center gap-2"
-										>
-											{flexRender(
-												header.column.columnDef.header,
-												header.getContext()
-											)}
+					{
+						table.getHeaderGroups().map((headerGroup) => (
+							<TableRow key={headerGroup.id}>
+								{
+									headerGroup.headers.map((header) => (
+										<TableHead key={header.id}>
+											{header.isPlaceholder ? null : (
+												<button
+													onClick={header.column.getToggleSortingHandler()}
+													className="flex items-center gap-2"
+												>
+													{
+														flexRender(
+															header.column.columnDef.header,
+															header.getContext()
+														)
+													}
 
-											{{
-												asc: <Icon as={ChevronUp} />,
-												desc: <Icon  as={ChevronDown} />,
-											}[header.column.getIsSorted()] ?? (
-												header.column.getCanSort() && (
-													<Icon as={ChevronsUpDown} />
-												)
+													{{
+														asc: <Icon as={ChevronUp} />,
+														desc: <Icon  as={ChevronDown} />,
+													}[header.column.getIsSorted()] ?? (
+														header.column.getCanSort() && (
+															<Icon as={ChevronsUpDown} />
+														)
+													)}
+												</button>
 											)}
-										</button>
-									)}
-								</TableHead>
-							))}
-						</TableRow>
-					))}
+										</TableHead>
+									))
+								}
+							</TableRow>
+						))
+					}
 				</TableHeader>
 
 				<TableBody>
@@ -132,14 +138,18 @@ export const PeopleTable = ({ people }) => {
 								key={row.id}
 								className="hover:bg-muted/50 transition-colors"
 							>
-								{row.getVisibleCells().map((cell) => (
-									<TableCell key={cell.id}>
-										{flexRender(
-											cell.column.columnDef.cell,
-											cell.getContext()
-										)}
-									</TableCell>
-								))}
+								{
+									row.getVisibleCells().map((cell) => (
+										<TableCell key={cell.id}>
+											{
+												flexRender(
+													cell.column.columnDef.cell,
+													cell.getContext()
+												)
+											}
+										</TableCell>
+									))
+								}
 							</TableRow>
 						))
 					}

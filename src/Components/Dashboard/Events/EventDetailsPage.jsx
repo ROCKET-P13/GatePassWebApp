@@ -6,6 +6,7 @@ import { Routes } from '../../../Common/routes';
 import { useEditEventDetailsMutation } from '../../../hooks/mutations/useEditEventDetailsMutation';
 import { Button } from '../../ui/Button';
 import { Tab, TabPanel, Tabs } from '../../ui/Tabs';
+import { RegistrationTab } from './Tabs/Registrations/RegistrationsTab';
 
 export const EventDetailsPage = () => {
 	const event = useLoaderData({ from: `/protected${Routes.DASHBOARD}${Routes.EVENTS}/$eventId` });
@@ -66,7 +67,7 @@ export const EventDetailsPage = () => {
 				<Tab value={TabIds.SETTINGS}>Settings</Tab>
 
 				<TabPanel value={TabIds.REGISTRATIONS}>
-					<h2>Registrations</h2>
+					<RegistrationTab eventId={event.id} />
 				</TabPanel>
 
 				<TabPanel value={TabIds.CHECK_INS}>

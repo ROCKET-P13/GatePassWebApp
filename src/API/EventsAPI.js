@@ -66,6 +66,14 @@ export class EventsAPI {
 		}));
 	}
 
+	async getRegistrations ({ eventId }) {
+		const registrations = await this.#apiClient.get({
+			url: `${this.#url}/${eventId}/registrations`,
+		});
+
+		return registrations;
+	}
+
 	async create ({ name, startDateTime, participantCapacity, status }) {
 		return await this.#apiClient.post({
 			url: this.#url,
