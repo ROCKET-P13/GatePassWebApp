@@ -56,9 +56,7 @@ export const AddEventDialog = ({ open, queryKey }) => {
 		<Dialog
 			open={open}
 			onClose={closeDialog}
-			slotProps={{
-				transition: { onExited: clearDialog },
-			}}
+			onExited={clearDialog}
 		>
 
 			<DialogContent>
@@ -101,7 +99,7 @@ export const AddEventDialog = ({ open, queryKey }) => {
 						onClick={handleSubmit}
 						disabled={!formIsValid}
 					>
-						Save
+						Create
 					</Button>
 				</DialogFooter>
 			</DialogContent>

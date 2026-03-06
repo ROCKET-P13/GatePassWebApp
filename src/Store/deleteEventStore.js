@@ -8,7 +8,14 @@ export const deleteEventStore = create((set, get) => ({
 	},
 	openDialog: () => set({ isOpen: true }),
 	closeDialog: () => set({ isOpen: false }),
-	clearDialog: () => set({ eventToDelete: null }),
+	clearDialog: () => {
+		set({
+			eventToDelete: {
+				id: '',
+				name: '',
+			},
+		});
+	},
 	setEventToDelete: (event) => {
 		set({
 			eventToDelete: event,

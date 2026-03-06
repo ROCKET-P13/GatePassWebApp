@@ -34,9 +34,7 @@ export const RegisterParticipantDialog = ({ open, queryKey }) => {
 		<Dialog
 			open={open}
 			onClose={closeDialog}
-			slotProps={{
-				transition: { onExited: clearDialog },
-			}}
+			onExited={clearDialog}
 		>
 			<DialogContent>
 				<DialogTitle>Register Participant</DialogTitle>

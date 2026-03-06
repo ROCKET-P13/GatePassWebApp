@@ -20,11 +20,7 @@ export const DeleteEventDialog = ({ open, eventToDelete, queryKey }) => {
 		<Dialog
 			open={open}
 			onClose={closeDialog}
-			fullWidth
-			maxWidth="sm"
-			slotProps={{
-				transition: { onExited: clearDialog },
-			}}
+			onExited={clearDialog}
 		>
 
 			<DialogContent>

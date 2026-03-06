@@ -19,7 +19,23 @@ export const editEventStore = create((set) => ({
 	},
 	openDialog: () => set({ isOpen: true }),
 	closeDialog: () => set({ isOpen: false }),
-	clearDialog: () => set({ originalEvent: null, eventDraft: null }),
+	clearDialog: () => {
+		set({
+			originalEvent: {
+				name: '',
+				date: '',
+				startTime: '',
+				status: '',
+				participantCapacity: null,
+			},
+			eventDraft: {
+				date: '',
+				startTime: '',
+				status: '',
+				participantCapacity: null,
+			},
+		});
+	},
 	setEventDraft: (event) => {
 		set({
 			originalEvent: event,

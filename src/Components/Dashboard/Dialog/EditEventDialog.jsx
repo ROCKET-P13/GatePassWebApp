@@ -45,9 +45,7 @@ export const EditEventDialog = ({ open, eventDraft, editEventMutation }) => {
 		<Dialog
 			open={open}
 			onClose={closeDialog}
-			slotProps={{
-				transition: { onExited: clearDialog },
-			}}
+			onExited={clearDialog}
 		>
 
 			<DialogContent>

@@ -13,7 +13,7 @@ export const useAddEventMutation = ({ queryKey }) => {
 	);
 
 	return useMutation({
-		mutationFn: (event) => eventsAPI.create(event),
+		mutationFn: async (event) => await eventsAPI.create(event),
 		onMutate: async (newEvent) => {
 			await queryClient.cancelQueries({ queryKey });
 
@@ -47,8 +47,8 @@ export const useAddEventMutation = ({ queryKey }) => {
 		},
 		onSuccess: (createdEvent, _variables, context) => {
 			queryClient.setQueryData(
-				queryKey
-				, (old = []) => {
+				queryKey,
+				(old = []) => {
 					return _.map(old, (event) => {
 						if (event.id === context.temporaryId) {
 							return createdEvent;
@@ -56,7 +56,8 @@ export const useAddEventMutation = ({ queryKey }) => {
 
 						return event;
 					});
-				});
+				}
+			);
 		},
 	});
 };

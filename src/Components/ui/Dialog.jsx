@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState, cloneElement, Children } from 'react';
 import { mergeTailwindClasses } from '../../utils/mergeTailwindClasses';
 
-const Dialog = ({ open, onClose, children }) => {
+const Dialog = ({ open, onClose, onExited, children }) => {
 	return children.map
-		? Children.map(children, (child) => cloneElement(child, { open, onClose }))
-		: cloneElement(children, { open, onClose });
+		? Children.map(children, (child) => cloneElement(child, { open, onClose, onExited }))
+		: cloneElement(children, { open, onClose, onExited });
 };
 
 const DialogContent = ({
@@ -12,6 +12,7 @@ const DialogContent = ({
 	onClose,
 	className,
 	children,
+	onExited,
 }) => {
 	const [isMounted, setIsMounted] = useState(false);
 	const ref = useRef(null);
@@ -36,6 +37,7 @@ const DialogContent = ({
 	const handleAnimationEnd = (e) => {
 		if (!open && e.target === ref.current) {
 			setIsMounted(false);
+			onExited?.();
 		}
 	};
 

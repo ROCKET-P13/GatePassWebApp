@@ -5,7 +5,7 @@ import {
 	getSortedRowModel
 } from '@tanstack/react-table';
 
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 
 import {
 	Table,
@@ -19,63 +19,16 @@ import {
 import { ChevronDown, ChevronsUpDown, ChevronUp } from 'lucide-react';
 import { Icon } from '../../ui/Icon';
 
-export const ParticipantsTable = ({ participants }) => {
-	const [sorting, setSorting] = useState([]);
-
+export const ParticipantsTable = ({ participants, sorting, onSortingChange }) => {
 	const columns = useMemo(
 		() => [
 			{
-				accessorFn: (row) => `${row.firstName} ${row.lastName}`,
-				id: 'name',
-				header: 'Name',
+				accessorKey: 'firstName',
+				header: 'First Name',
 			},
 			{
-				accessorKey: 'role',
-				header: 'Role',
-			},
-			{
-				accessorKey: 'status',
-				header: 'Status',
-				cell: (info) => {
-					const value = info.getValue();
-					const isCheckedIn = value === 'Checked In';
-
-					return (
-						<span
-							className={`px-2 py-1 text-xs rounded-md font-medium ${
-								isCheckedIn
-								? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-400'
-								: 'bg-muted text-muted-foreground'
-							}`}
-						>
-							{value}
-						</span>
-					);
-				},
-			},
-			{
-				accessorKey: 'waiverStatus',
-				header: 'Waiver',
-				cell: (info) => {
-					const value = info.getValue();
-					const isComplete = value === 'Complete';
-
-					return (
-						<span
-							className={`px-2 py-1 text-xs rounded-md font-medium ${
-							isComplete
-							? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-400'
-							: 'bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-400'
-						}`}
-						>
-							{value}
-						</span>
-					);
-				},
-			},
-			{
-				accessorKey: 'lastEvent',
-				header: 'Last Event',
+				accessorKey: 'lastName',
+				header: 'Last Name',
 			},
 		],
 		[]
@@ -86,7 +39,7 @@ export const ParticipantsTable = ({ participants }) => {
 		data: participants,
 		columns,
 		state: { sorting },
-		onSortingChange: setSorting,
+		onSortingChange,
 		getCoreRowModel: getCoreRowModel(),
 		getSortedRowModel: getSortedRowModel(),
 	});

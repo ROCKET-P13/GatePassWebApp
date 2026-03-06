@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Button } from '../../../../ui/Button';
-import { useGetRegistrationsQuery } from '../../../../../hooks/queries/userGetRegistrationsQuery';
+import { useGetRegistrationsQuery } from '../../../../../hooks/queries/useGetRegistrationsQuery';
 import { RegistrationsTable } from './RegistrationsTable';
 import { registerParticipantStore } from '../../../../../Store/registerParticipantStore';
 import { RegisterParticipantDialog } from '../../../Dialog/RegisterParticipantDialog';

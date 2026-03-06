@@ -1,7 +1,34 @@
 import { ParticipantsTable } from './ParticipantsTable';
 import { ParticipantsFilter } from './ParticipantsFilters';
+import { useGetAllParticipantsQuery } from '../../../hooks/queries/userGetAllParticipantsQuery';
+import { addParticipantStore } from '../../../Store/addParticipantStore';
+import { Button } from '../../ui/Button';
+import { useState } from 'react';
+import { AddParticipantDialog } from '../Dialog/AddParticipantDialog';
 
 export const ParticipantsPage = () => {
+	const [sorting, setSorting] = useState([]);
+	const queryKey = ['participants', sorting];
+
+	const {
+		openDialog: openAddParticipantDialog,
+		isOpen: isAddParticipantDialogOpen,
+	} = addParticipantStore((state) => state);
+
+	const {
+		data: participants,
+		isLoading,
+		error,
+	} = useGetAllParticipantsQuery({ queryKey, sorting });
+
+	if (error) {
+		return (
+			<p className="text-sm font-medium text-red-500">
+				Failed to load events
+			</p>
+		);
+	}
+
 	return (
 		<div className="p-6 space-y-6">
 			<div className="flex items-center justify-between">
@@ -9,9 +36,36 @@ export const ParticipantsPage = () => {
 					Participants
 				</h1>
 
-				<ParticipantsFilter />
+				<div className="flex flex-row items-end space-x-4">
+					<ParticipantsFilter />
+					<Button
+						variant="default"
+						onClick={openAddParticipantDialog}
+					>
+						Add Participant
+					</Button>
+				</div>
+
 			</div>
-			<ParticipantsTable participants={[]} />
+			{
+				isLoading
+					? (
+						<p className="text-sm text-muted-foreground">
+							Loading events...
+						</p>
+					)
+					: (
+						<ParticipantsTable
+							participants={participants}
+							sorting={sorting}
+							onSortingChange={setSorting}
+						/>
+					)
+			}
+			<AddParticipantDialog
+				open={isAddParticipantDialogOpen}
+				queryKey={queryKey}
+			/>
 		</div>
 	);
 };

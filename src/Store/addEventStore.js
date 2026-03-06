@@ -14,7 +14,17 @@ export const addEventStore = create((set) => ({
 	},
 	openDialog: () => set({ isOpen: true }),
 	closeDialog: () => set({ isOpen: false }),
-	clearDialog: () => set({ eventData: null }),
+	clearDialog: () => {
+		set({
+			eventData: {
+				name: '',
+				date: dayjs(),
+				startTime: dayjs().hour(8).minute(0),
+				status: EventStatus.DRAFT,
+				participantCapacity: null,
+			},
+		});
+	},
 	updateEventData: (data) => {
 		set(({ eventData }) => _.assign(eventData, data));
 	},
