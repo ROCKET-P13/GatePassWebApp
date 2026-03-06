@@ -142,38 +142,40 @@ export const EventsTable = ({ events, sorting, onSortingChange }) => {
 		<TableContainer>
 			<Table>
 				<TableHeader>
-					{table.getHeaderGroups().map((headerGroup) => (
-						<TableRow key={headerGroup.id}>
-							{
-								headerGroup.headers.map((header) => (
-									<TableHead key={header.id}>
-										{header.isPlaceholder ? null : (
-											<button
-												onClick={header.column.getToggleSortingHandler()}
-												className="flex items-center gap-2"
-											>
-												{
-													flexRender(
-														header.column.columnDef.header,
-														header.getContext()
-													)
-												}
+					{
+						table.getHeaderGroups().map((headerGroup) => (
+							<TableRow key={headerGroup.id}>
+								{
+									headerGroup.headers.map((header) => (
+										<TableHead key={header.id}>
+											{header.isPlaceholder ? null : (
+												<button
+													onClick={header.column.getToggleSortingHandler()}
+													className="flex items-center gap-2"
+												>
+													{
+														flexRender(
+															header.column.columnDef.header,
+															header.getContext()
+														)
+													}
 
-												{{
-													asc: <Icon as={ChevronUp} />,
-													desc: <Icon as={ChevronDown} />,
-												}[header.column.getIsSorted()] ?? (
-													header.column.getCanSort() && (
-														<Icon as={ChevronsUpDown} />
-													)
-												)}
-											</button>
-										)}
-									</TableHead>
-								))
-							}
-						</TableRow>
-					))}
+													{{
+														asc: <Icon as={ChevronUp} />,
+														desc: <Icon as={ChevronDown} />,
+													}[header.column.getIsSorted()] ?? (
+														header.column.getCanSort() && (
+															<Icon as={ChevronsUpDown} />
+														)
+													)}
+												</button>
+											)}
+										</TableHead>
+									))
+								}
+							</TableRow>
+						))
+					}
 				</TableHeader>
 
 				<TableBody>

@@ -16,7 +16,7 @@ import {
 	TableCell,
 	TableContainer
 } from '../../ui/Table';
-import { ChevronDown, ChevronsUpDown, ChevronUp } from 'lucide-react';
+import { ChevronDown, ChevronsUpDown, ChevronUp, Pencil, Trash } from 'lucide-react';
 import { Icon } from '../../ui/Icon';
 
 export const ParticipantsTable = ({ participants, sorting, onSortingChange }) => {
@@ -29,6 +29,32 @@ export const ParticipantsTable = ({ participants, sorting, onSortingChange }) =>
 			{
 				accessorKey: 'lastName',
 				header: 'Last Name',
+			},
+			{
+				accessorKey: 'createdAt',
+				header: 'Participant Since',
+			},
+			{
+				id: 'actions',
+				header: '',
+				enableSorting: false,
+				cell: ({ row }) => (
+					<div className="flex gap-2">
+						<button
+							className="p-1 rounded-md hover:bg-muted"
+							onClick={() => console.log(row.original)}
+						>
+							<Icon as={Pencil} />
+						</button>
+
+						<button
+							className="p-1 rounded-md hover:bg-muted"
+							onClick={() => console.log(row.original)}
+						>
+							<Icon as={Trash} />
+						</button>
+					</div>
+				),
 			},
 		],
 		[]

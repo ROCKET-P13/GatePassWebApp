@@ -1,4 +1,6 @@
+import _ from 'lodash';
 import { APIClient } from './APIClient';
+import dayjs from 'dayjs';
 
 export class ParticipantsAPI {
 	#url = '/participants';
@@ -15,7 +17,12 @@ export class ParticipantsAPI {
 			url: `${this.#url}`,
 		});
 
-		return participants;
+		return _.map(participants, (participant) => ({
+			id: participant.id,
+			firstName: participant.firstName,
+			lastName: participant.lastName,
+			createdAt: dayjs(participant.createdAt).format('MMM DD, YYYY'),
+		}));
 	}
 
 	async create ({ firstName, lastName }) {

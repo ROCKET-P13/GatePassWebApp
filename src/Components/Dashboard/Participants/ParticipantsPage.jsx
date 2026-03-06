@@ -24,7 +24,7 @@ export const ParticipantsPage = () => {
 	if (error) {
 		return (
 			<p className="text-sm font-medium text-red-500">
-				Failed to load events
+				Failed to load participants
 			</p>
 		);
 	}
@@ -51,7 +51,7 @@ export const ParticipantsPage = () => {
 				isLoading
 					? (
 						<p className="text-sm text-muted-foreground">
-							Loading events...
+							Loading participants...
 						</p>
 					)
 					: (
