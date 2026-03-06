@@ -22,9 +22,9 @@ const DrawerItems = [
 		route: `${Routes.DASHBOARD}${Routes.EVENTS}`,
 	},
 	{
-		label: 'People',
+		label: 'Participants',
 		icon: Users,
-		route: `${Routes.DASHBOARD}${Routes.PEOPLE}`,
+		route: `${Routes.DASHBOARD}${Routes.PARTICIPANTS}`,
 	},
 	{
 		label: 'Waivers',

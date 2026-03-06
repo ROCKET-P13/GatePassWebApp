@@ -19,7 +19,7 @@ import {
 import { ChevronDown, ChevronsUpDown, ChevronUp } from 'lucide-react';
 import { Icon } from '../../ui/Icon';
 
-export const PeopleTable = ({ people }) => {
+export const ParticipantsTable = ({ participants }) => {
 	const [sorting, setSorting] = useState([]);
 
 	const columns = useMemo(
@@ -83,7 +83,7 @@ export const PeopleTable = ({ people }) => {
 
 	// eslint-disable-next-line react-hooks/incompatible-library
 	const table = useReactTable({
-		data: people,
+		data: participants,
 		columns,
 		state: { sorting },
 		onSortingChange: setSorting,

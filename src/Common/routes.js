@@ -2,7 +2,7 @@ export const Routes = Object.freeze({
 	ONBOARDING: '/onboarding',
 	DASHBOARD: '/dashboard',
 	EVENTS: '/events',
-	PEOPLE: '/people',
+	PARTICIPANTS: '/participants',
 	WAIVERS: '/waivers',
 	VENUE_SETTINGS: '/venue_settings',
 	ACCOUNT: '/account',

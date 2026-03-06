@@ -1,6 +1,6 @@
 import { Input } from '../../ui/Input';
 
-export const PeopleFilters = () => (
+export const ParticipantsFilter = () => (
 	<div className='flex flex-row gap-2'>
 		<Input size="small" label="Search" />
 	</div>

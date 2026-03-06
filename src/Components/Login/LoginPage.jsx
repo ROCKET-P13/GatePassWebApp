@@ -20,7 +20,7 @@ export const LoginPage = () => {
 					</h1>
 
 					<p className="text-sm text-muted-foreground">
-						Sign in to manage events, people, and venues.
+						Sign in to manage events, participants, and venues.
 					</p>
 
 					<Button

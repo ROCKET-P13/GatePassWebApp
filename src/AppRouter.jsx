@@ -12,7 +12,7 @@ import { VenueOnboarding } from './Components/Onboarding/VenueOnboarding';
 import { DashboardDrawer } from './Components/Dashboard/DashboardDrawer';
 import { Dashboard } from './Components/Dashboard/Dashboard';
 import { EventsPage } from './Components/Dashboard/Events/EventsPage';
-import { PeoplePage } from './Components/Dashboard/People/PeoplePage';
+import { ParticipantsPage } from './Components/Dashboard/Participants/ParticipantsPage';
 import { LoginPage } from './Components/Login/LoginPage';
 import { RequireAuth } from './Auth/RequireAuth';
 import { Routes } from './Common/routes';
@@ -87,10 +87,10 @@ const eventDetailsRoute = createRoute({
 	},
 });
 
-const peopleRoute = createRoute({
+const participantsRoute = createRoute({
 	getParentRoute: () => dashboardRoute,
-	path: Routes.PEOPLE,
-	component: PeoplePage,
+	path: Routes.PARTICIPANTS,
+	component: ParticipantsPage,
 });
 
 const waiversRoute = createRoute({
@@ -121,7 +121,7 @@ dashboardRoute.addChildren([
 	dashboardIndexRoute,
 	eventsRoute,
 	eventDetailsRoute,
-	peopleRoute,
+	participantsRoute,
 	waiversRoute,
 	venueSettingsRoute,
 	accountRoute,
