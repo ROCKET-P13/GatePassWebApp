@@ -74,6 +74,19 @@ export class EventsAPI {
 		return registrations;
 	}
 
+	async registerParticipant ({ eventId, participantId }) {
+		const registration = await this.#apiClient.post({
+			url: `${this.#url}/${eventId}/registrations`,
+			body: {
+				participantId,
+			},
+		});
+
+		console.log({ registration });
+
+		return registration;
+	}
+
 	async create ({ name, startDateTime, participantCapacity, status }) {
 		return await this.#apiClient.post({
 			url: this.#url,

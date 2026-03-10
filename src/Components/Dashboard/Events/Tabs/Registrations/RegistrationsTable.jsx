@@ -8,10 +8,6 @@ export const RegistrationsTable = ({ registrations, sorting, onSortingChange }) 
 	const columns = useMemo(
 		() => [
 			{
-				accessorKey: 'id',
-				header: 'Id',
-			},
-			{
 				accessorKey: 'fistName',
 				header: 'First Name',
 			},

@@ -4,6 +4,7 @@ import { useGetRegistrationsQuery } from '../../../../../hooks/queries/useGetReg
 import { RegistrationsTable } from './RegistrationsTable';
 import { registerParticipantStore } from '../../../../../Store/registerParticipantStore';
 import { RegisterParticipantDialog } from '../../../Dialog/RegisterParticipantDialog';
+import { useGetAllParticipantsQuery } from '../../../../../hooks/queries/userGetAllParticipantsQuery';
 
 export const RegistrationTab = ({ eventId }) => {
 	const [sorting, setSorting] = useState([]);
@@ -19,10 +20,12 @@ export const RegistrationTab = ({ eventId }) => {
 		error,
 	} = useGetRegistrationsQuery({ eventId });
 
+	const { data: participants = [], isLoading: isParticipantsLoading } = useGetAllParticipantsQuery();
+
 	if (error) {
 		return (
 			<p className="text-sm font-medium text-red-500">
-				Failed to load events
+				Failed to load participants
 			</p>
 		);
 	}
@@ -53,9 +56,13 @@ export const RegistrationTab = ({ eventId }) => {
 					)
 			}
 
-			<RegisterParticipantDialog
-				open={isRegisterParticipantDialogOpen}
-			/>
+			{!isParticipantsLoading && (
+				<RegisterParticipantDialog
+					open={isRegisterParticipantDialogOpen}
+					eventId={eventId}
+					participants={participants}
+				/>
+			)}
 
 		</div>
 	);

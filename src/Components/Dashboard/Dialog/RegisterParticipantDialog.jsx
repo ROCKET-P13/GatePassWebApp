@@ -4,8 +4,10 @@ import { Dialog, DialogContent, DialogFooter, DialogTitle } from '../../ui/Dialo
 import _ from 'lodash';
 import { Button } from '../../ui/Button';
 import { Input } from '../../ui/Input';
+import { useRegisterParticipantMutation } from '../../../hooks/mutations/useRegisterParticipantMutation';
+import { Autocomplete } from '../../ui/AutoComplete';
 
-export const RegisterParticipantDialog = ({ open, queryKey }) => {
+export const RegisterParticipantDialog = ({ open, eventId, participants }) => {
 	const {
 		closeDialog,
 		clearDialog,
@@ -15,20 +17,21 @@ export const RegisterParticipantDialog = ({ open, queryKey }) => {
 
 	const formIsValid = useMemo(() => {
 		return _.every([
-			registration.firstName.length > 2 && registration.firstName.length < 100,
-			registration.lastName.length > 2 && registration.lastName.length < 100,
+			_.some(registration.participantId),
 			_.some(registration.class),
 			_.some(registration.eventNumber),
 		]);
 	}, [
-		registration.firstName,
-		registration.lastName,
+		registration.participantId,
 		registration.class,
 		registration.eventNumber,
 	]);
 
+	const registerParticipantMutation = useRegisterParticipantMutation({ eventId });
+
 	const handleSubmit = () => {
-		console.log({ registration });
+		closeDialog();
+		registerParticipantMutation.mutate(registration);
 	};
 	return (
 		<Dialog
@@ -40,15 +43,12 @@ export const RegisterParticipantDialog = ({ open, queryKey }) => {
 				<DialogTitle>Register Participant</DialogTitle>
 
 				<div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-					<Input
-						label="First Name"
-						value={registration.firstName}
-						onChange={(e) => updateRegistrationData({ firstName: e.target.value })}
-					/>
-					<Input
-						label="Last Name"
-						value={registration.lastName}
-						onChange={(e) => updateRegistrationData({ lastName: e.target.value })}
+					<Autocomplete
+						options={participants}
+						getOptionLabel={(p) => `${p.firstName} ${p.lastName}`}
+						placeholder='Search Participants...'
+						label="Participant"
+						onChange={(participant) => updateRegistrationData({ participantId: participant.id })}
 					/>
 					<Input
 						label="Class"

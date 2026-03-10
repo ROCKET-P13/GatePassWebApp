@@ -55,7 +55,9 @@ export const Select = ({ value: controlledValue, defaultValue, onChange, childre
 			}
 		};
 
-		if (open) document.addEventListener('mousedown', handleClick);
+		if (open) {
+			document.addEventListener('mousedown', handleClick);
+		};
 		return () => document.removeEventListener('mousedown', handleClick);
 	}, [open]);
 

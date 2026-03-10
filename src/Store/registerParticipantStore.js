@@ -4,8 +4,7 @@ import { create } from 'zustand';
 export const registerParticipantStore = create((set) => ({
 	isOpen: false,
 	registration: {
-		firstName: '',
-		lastName: '',
+		participantId: '',
 		class: '',
 		eventNumber: '',
 		checkedIn: false,
@@ -15,8 +14,7 @@ export const registerParticipantStore = create((set) => ({
 	clearDialog: () => {
 		set({
 			registration: {
-				firstName: '',
-				lastName: '',
+				participantId: '',
 				class: '',
 				eventNumber: '',
 				checkedIn: false,
