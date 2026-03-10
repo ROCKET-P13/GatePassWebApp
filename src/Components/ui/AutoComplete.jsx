@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { mergeTailwindClasses } from '../../utils/mergeTailwindClasses';
+import { Input } from './Input';
 
 export const Autocomplete = ({
 	options = [],
@@ -8,6 +9,7 @@ export const Autocomplete = ({
 	getOptionLabel = (option) => option?.label ?? '',
 	placeholder = 'Search...',
 	className,
+	label,
 }) => {
 	const [query, setQuery] = useState('');
 	const [isOpen, setIsOpen] = useState(false);
@@ -94,7 +96,7 @@ export const Autocomplete = ({
 			ref={containerRef}
 			className={mergeTailwindClasses('relative w-full', className)}
 		>
-			<input
+			{/* <input
 				type="text"
 				value={query}
 				placeholder={placeholder}
@@ -106,6 +108,19 @@ export const Autocomplete = ({
 				onBlur={resetIfInvalid}
 				onKeyDown={handleKeyDown}
 				className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+			/> */}
+			<Input
+				type="text"
+				label={label}
+				value={query}
+				placeholder={placeholder}
+				onFocus={() => setIsOpen(true)}
+				onChange={(e) => {
+					setQuery(e.target.value);
+					setIsOpen(true);
+				}}
+				onBlur={resetIfInvalid}
+				onKeyDown={handleKeyDown}
 			/>
 
 			{isOpen && filteredOptions.length > 0 && (
