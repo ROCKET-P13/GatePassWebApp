@@ -48,7 +48,10 @@ export const RegisterParticipantDialog = ({ open, eventId, participants }) => {
 						getOptionLabel={(p) => `${p.firstName} ${p.lastName}`}
 						placeholder='Search Participants...'
 						label="Participant"
-						onChange={(participant) => updateRegistrationData({ participantId: participant.id })}
+						value={registration.participantId}
+						onChange={(participant) => {
+							console.log(participant);
+						}}
 					/>
 					<Input
 						label="Class"
