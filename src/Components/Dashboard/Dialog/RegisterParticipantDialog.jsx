@@ -31,7 +31,13 @@ export const RegisterParticipantDialog = ({ open, eventId, participants }) => {
 
 	const handleSubmit = () => {
 		closeDialog();
-		registerParticipantMutation.mutate(registration);
+		registerParticipantMutation.mutate({
+			eventId,
+			participantId: registration.participantId,
+			eventNumber: registration.eventNumber,
+			class: registration.class,
+			checkedIn: registration.checkedIn,
+		});
 	};
 	return (
 		<Dialog
@@ -60,7 +66,9 @@ export const RegisterParticipantDialog = ({ open, eventId, participants }) => {
 					/>
 					<Input
 						label="Event Number"
+						className="w-25"
 						value={registration.eventNumber}
+						alphanumeric
 						onChange={(e) => updateRegistrationData({ eventNumber: e.target.value })}
 					/>
 				</div>

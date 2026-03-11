@@ -96,19 +96,6 @@ export const Autocomplete = ({
 			ref={containerRef}
 			className={mergeTailwindClasses('relative w-full', className)}
 		>
-			{/* <input
-				type="text"
-				value={query}
-				placeholder={placeholder}
-				onFocus={() => setIsOpen(true)}
-				onChange={(e) => {
-					setQuery(e.target.value);
-					setIsOpen(true);
-				}}
-				onBlur={resetIfInvalid}
-				onKeyDown={handleKeyDown}
-				className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
-			/> */}
 			<Input
 				type="text"
 				label={label}

@@ -9,12 +9,31 @@ export const Input = (
 		error,
 		required,
 		id,
+		value = '',
+		alphanumeric = false,
+		onChange,
 		...props
 	},
 	ref
 ) => {
 	const generatedId = useId();
 	const inputId = id ?? generatedId;
+
+	const handleChange = (e) => {
+		let newValue = e.target.value;
+
+		if (alphanumeric) {
+			newValue = newValue.replace(/[^a-zA-Z0-9]/g, '');
+		}
+
+		onChange?.({
+			...e,
+			target: {
+				...e.target,
+				value: newValue,
+			},
+		});
+	};
 
 	return (
 		<div className="space-y-4">
@@ -46,6 +65,8 @@ export const Input = (
 				type={type}
 				aria-invalid={!!error}
 				aria-required={required}
+				value={value}
+				onChange={handleChange}
 				className={
 					mergeTailwindClasses(
 						'flex h-10 w-full rounded-md border px-3 py-2 mt-1 text-sm',
