@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { mergeTailwindClasses } from '../../utils/mergeTailwindClasses';
 import { Input } from './Input';
+import _ from 'lodash';
 
 export const Autocomplete = ({
 	options = [],
@@ -24,12 +25,19 @@ export const Autocomplete = ({
 	});
 
 	useEffect(() => {
-		if (value) {
-			setQuery(getOptionLabel(value));
-		} else {
+		if (!value) {
 			setQuery('');
+			return;
 		}
-	}, [value, getOptionLabel]);
+		const selectedOption = _.find(options, (option) => option.id === value);
+
+		if (selectedOption) {
+			setQuery(getOptionLabel(selectedOption));
+			return;
+		}
+
+		return setQuery(getOptionLabel(value));
+	}, [value, getOptionLabel, options]);
 
 	const filteredOptions = options.filter((option) =>
 		getOptionLabel(option)
@@ -117,12 +125,14 @@ export const Autocomplete = ({
 							<li
 								key={index}
 								onMouseDown={() => selectOption(option)}
-								className={mergeTailwindClasses(
-									'cursor-pointer px-3 py-2 text-sm',
-									index === activeIndex
-										? 'bg-accent text-accent-foreground'
-										: 'hover:bg-accent'
-								)}
+								className={
+									mergeTailwindClasses(
+										'cursor-pointer px-3 py-2 text-sm',
+										index === activeIndex
+											? 'bg-accent text-accent-foreground'
+											: 'hover:bg-accent'
+									)
+								}
 							>
 								{getOptionLabel(option)}
 							</li>

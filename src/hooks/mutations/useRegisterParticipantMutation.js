@@ -15,8 +15,14 @@ export const useRegisterParticipantMutation = ({ eventId }) => {
 
 	const queryClient = useQueryClient();
 	return useMutation({
-		mutationFn: async ({ participantId }) => {
-			await eventsAPI.registerParticipant({ eventId, participantId });
+		mutationFn: async (registration) => {
+			await eventsAPI.registerParticipant({
+				eventId,
+				participantId: registration.participantId,
+				eventNumber: registration.eventNumber,
+				eventClass: registration.class,
+				checkedIn: registration.checkedIn,
+			});
 		},
 		onMutate: async (newRegistration) => {
 			await queryClient.cancelQueries(queryKey);

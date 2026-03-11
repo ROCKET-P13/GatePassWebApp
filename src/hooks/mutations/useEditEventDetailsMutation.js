@@ -32,7 +32,6 @@ export const useEditEventDetailsMutation = ({ queryKey }) => {
 			return { previousEventData };
 		},
 		onError: (_err, _vars, context) => {
-			console.log({ context });
 			queryClient.setQueryData(
 				queryKey,
 				context.previousEventData

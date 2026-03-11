@@ -8,11 +8,11 @@ export const RegistrationsTable = ({ registrations, sorting, onSortingChange }) 
 	const columns = useMemo(
 		() => [
 			{
-				accessorKey: 'fistName',
+				accessorKey: 'participantFirstName',
 				header: 'First Name',
 			},
 			{
-				accessorKey: 'lastName',
+				accessorKey: 'participantLastName',
 				header: 'Last Name',
 			},
 			{
@@ -44,31 +44,35 @@ export const RegistrationsTable = ({ registrations, sorting, onSortingChange }) 
 					{
 						table.getHeaderGroups().map((headerGroup) => (
 							<TableRow key={headerGroup.id}>
-								{headerGroup.headers.map((header) => (
-									<TableHead key={header.id}>
-										{header.isPlaceholder ? null : (
-											<button
-												onClick={header.column.getToggleSortingHandler()}
-												className="flex items-center gap-2"
-											>
-												{
-													flexRender(
-														header.column.columnDef.header,
-														header.getContext()
-													)
-												}
-												{{
-													asc: <Icon as={ChevronUp} />,
-													desc: <Icon  as={ChevronDown} />,
-												}[header.column.getIsSorted()] ?? (
-													header.column.getCanSort() && (
-														<Icon as={ChevronsUpDown} />
-													)
-												)}
-											</button>
-										)}
-									</TableHead>
-								))}
+								{
+									headerGroup.headers.map((header) => (
+										<TableHead key={header.id}>
+											{
+												header.isPlaceholder ? null : (
+													<button
+														onClick={header.column.getToggleSortingHandler()}
+														className="flex items-center gap-2"
+													>
+														{
+															flexRender(
+																header.column.columnDef.header,
+																header.getContext()
+															)
+														}
+														{{
+															asc: <Icon as={ChevronUp} />,
+															desc: <Icon  as={ChevronDown} />,
+														}[header.column.getIsSorted()] ?? (
+															header.column.getCanSort() && (
+																<Icon as={ChevronsUpDown} />
+															)
+														)}
+													</button>
+												)
+											}
+										</TableHead>
+									))
+								}
 							</TableRow>
 						))
 					}

@@ -6,6 +6,7 @@ import { Button } from '../../ui/Button';
 import { Input } from '../../ui/Input';
 import { useRegisterParticipantMutation } from '../../../hooks/mutations/useRegisterParticipantMutation';
 import { Autocomplete } from '../../ui/AutoComplete';
+import { Checkbox } from '../../ui/Checkbox';
 
 export const RegisterParticipantDialog = ({ open, eventId, participants }) => {
 	const {
@@ -32,13 +33,13 @@ export const RegisterParticipantDialog = ({ open, eventId, participants }) => {
 	const handleSubmit = () => {
 		closeDialog();
 		registerParticipantMutation.mutate({
-			eventId,
 			participantId: registration.participantId,
 			eventNumber: registration.eventNumber,
 			class: registration.class,
 			checkedIn: registration.checkedIn,
 		});
 	};
+
 	return (
 		<Dialog
 			open={open}
@@ -51,17 +52,18 @@ export const RegisterParticipantDialog = ({ open, eventId, participants }) => {
 				<div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
 					<Autocomplete
 						options={participants}
-						getOptionLabel={(p) => `${p.firstName} ${p.lastName}`}
+						getOptionLabel={(participant) => `${participant.firstName} ${participant.lastName}`}
 						placeholder='Search Participants...'
 						label="Participant"
 						value={registration.participantId}
 						onChange={(participant) => {
-							console.log(participant);
+							updateRegistrationData({ participantId: participant.id });
 						}}
 					/>
 					<Input
 						label="Class"
 						value={registration.class}
+						alphanumeric
 						onChange={(e) => updateRegistrationData({ class: e.target.value })}
 					/>
 					<Input
@@ -70,6 +72,11 @@ export const RegisterParticipantDialog = ({ open, eventId, participants }) => {
 						value={registration.eventNumber}
 						alphanumeric
 						onChange={(e) => updateRegistrationData({ eventNumber: e.target.value })}
+					/>
+					<Checkbox
+						label="Checked In"
+						checked={registration.checkedIn}
+						onChange={(e) => updateRegistrationData({ checkedIn: e.target.checked })}
 					/>
 				</div>
 

@@ -56,13 +56,15 @@ export const RegistrationTab = ({ eventId }) => {
 					)
 			}
 
-			{!isParticipantsLoading && (
-				<RegisterParticipantDialog
-					open={isRegisterParticipantDialogOpen}
-					eventId={eventId}
-					participants={participants}
-				/>
-			)}
+			{
+				!isParticipantsLoading && (
+					<RegisterParticipantDialog
+						open={isRegisterParticipantDialogOpen}
+						eventId={eventId}
+						participants={participants}
+					/>
+				)
+			}
 
 		</div>
 	);
