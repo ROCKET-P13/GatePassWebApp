@@ -4,7 +4,7 @@ import { useGetAllParticipantsQuery } from '../../../hooks/queries/userGetAllPar
 import { addParticipantStore } from '../../../Store/addParticipantStore';
 import { Button } from '../../ui/Button';
 import { useState } from 'react';
-import { AddParticipantDialog } from '../Dialog/AddParticipantDialog';
+import { AddParticipantDialog } from '../../Dialogs/AddParticipantDialog';
 
 export const ParticipantsPage = () => {
 	const [sorting, setSorting] = useState([]);

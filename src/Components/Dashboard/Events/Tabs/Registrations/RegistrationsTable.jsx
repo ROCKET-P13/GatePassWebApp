@@ -16,6 +16,10 @@ export const RegistrationsTable = ({ registrations, sorting, onSortingChange }) 
 				header: 'Last Name',
 			},
 			{
+				accessorKey: 'eventNumber',
+				header: 'Event Number',
+			},
+			{
 				accessorKey: 'class',
 				header: 'Class',
 			},

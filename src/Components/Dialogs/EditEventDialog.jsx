@@ -1,13 +1,13 @@
 import { useMemo } from 'react';
-import { EventStatus } from '../../../Common/eventStatus';
+import { EventStatus } from '../../Common/eventStatus';
 import _ from 'lodash';
-import { editEventStore } from '../../../Store/editEventStore';
-import { Dialog, DialogContent, DialogFooter, DialogTitle } from '../../ui/Dialog';
-import { Button } from '../../ui/Button';
-import { Input } from '../../ui/Input';
-import { Select } from '../../ui/Select';
-import { DatePicker } from '../../ui/DatePicker';
-import { TimePicker } from '../../ui/TimePicker';
+import { editEventStore } from '../../Store/editEventStore';
+import { Dialog, DialogContent, DialogFooter, DialogTitle } from '../ui/Dialog';
+import { Button } from '../ui/Button';
+import { Input } from '../ui/Input';
+import { Select } from '../ui/Select';
+import { DatePicker } from '../ui/DatePicker';
+import { TimePicker } from '../ui/TimePicker';
 
 export const EditEventDialog = ({ open, eventDraft, editEventMutation }) => {
 	const {

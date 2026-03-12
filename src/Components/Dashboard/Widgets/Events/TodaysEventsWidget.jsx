@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { WidgetCard } from '../WidgetCard';
-import { AddEventDialog } from '../../Dialog/AddEventDialog';
+import { AddEventDialog } from '../../../Dialogs/AddEventDialog';
 import { useMemo } from 'react';
 import { EventsAPI } from '../../../../API/EventsAPI';
 import { useAuth0 } from '@auth0/auth0-react';

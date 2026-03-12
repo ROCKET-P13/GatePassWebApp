@@ -1,7 +1,7 @@
 import { useLoaderData } from '@tanstack/react-router';
 import { EventStatusColorClass } from '../../../Common/eventStatus';
 import { editEventStore } from '../../../Store/editEventStore';
-import { EditEventDialog } from '../Dialog/EditEventDialog';
+import { EditEventDialog } from '../../Dialogs/EditEventDialog';
 import { Routes } from '../../../Common/routes';
 import { useEditEventDetailsMutation } from '../../../hooks/mutations/useEditEventDetailsMutation';
 import { Button } from '../../ui/Button';

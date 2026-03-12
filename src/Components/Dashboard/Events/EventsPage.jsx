@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { EventsTable } from './EventsTable';
-import { AddEventDialog } from '../Dialog/AddEventDialog';
+import { AddEventDialog } from '../../Dialogs/AddEventDialog';
 import { useGetAllEventsQuery } from '../../../hooks/queries/useGetAllEventsQuery';
 import { Button } from '../../ui/Button';
 import { addEventStore } from '../../../Store/addEventStore';

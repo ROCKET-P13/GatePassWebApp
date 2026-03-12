@@ -3,7 +3,7 @@ import { Button } from '../../../../ui/Button';
 import { useGetRegistrationsQuery } from '../../../../../hooks/queries/useGetRegistrationsQuery';
 import { RegistrationsTable } from './RegistrationsTable';
 import { registerParticipantStore } from '../../../../../Store/registerParticipantStore';
-import { RegisterParticipantDialog } from '../../../Dialog/RegisterParticipantDialog';
+import { RegisterParticipantDialog } from '../../../../Dialogs/RegisterParticipantDialog';
 import { useGetAllParticipantsQuery } from '../../../../../hooks/queries/userGetAllParticipantsQuery';
 
 export const RegistrationTab = ({ eventId }) => {
@@ -32,12 +32,18 @@ export const RegistrationTab = ({ eventId }) => {
 
 	return (
 		<div className="space-y-6">
-			<div>
+			<div className='flex flex-row gap-4'>
 				<Button
 					variant="default"
 					onClick={openRegisterParticipantDialog}
 				>
 					Register Participant
+				</Button>
+				<Button
+					variant="default"
+					onClick={() => console.log('clicked add class')}
+				>
+					Add Class
 				</Button>
 			</div>
 			{

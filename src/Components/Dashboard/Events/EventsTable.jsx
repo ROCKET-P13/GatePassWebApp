@@ -18,8 +18,8 @@ import {
 	TableContainer
 } from '../../ui/Table';
 
-import { DeleteEventDialog } from '../Dialog/DeleteEventDialog';
-import { EditEventDialog } from '../Dialog/EditEventDialog';
+import { DeleteEventDialog } from '../../Dialogs/DeleteEventDialog';
+import { EditEventDialog } from '../../Dialogs/EditEventDialog';
 
 import { editEventStore } from '../../../Store/editEventStore';
 import { deleteEventStore } from '../../../Store/deleteEventStore';
