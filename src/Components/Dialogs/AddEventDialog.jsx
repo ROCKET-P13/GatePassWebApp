@@ -34,7 +34,7 @@ export const AddEventDialog = ({ open, queryKey }) => {
 			.millisecond(0);
 	}, [eventData.date, eventData.startTime]);
 
-	const formIsValid = useMemo(() => {
+	const createButtonIsDisabled = useMemo(() => {
 		return _.every([
 			eventData.name.length > 2 && eventData.name.length < 100,
 			eventDateTime.isAfter(dayjs()),
@@ -97,7 +97,7 @@ export const AddEventDialog = ({ open, queryKey }) => {
 					<Button
 						variant='default'
 						onClick={handleSubmit}
-						disabled={!formIsValid}
+						disabled={createButtonIsDisabled}
 					>
 						Create
 					</Button>

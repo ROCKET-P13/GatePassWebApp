@@ -5,6 +5,8 @@ import { RegistrationsTable } from './RegistrationsTable';
 import { registerParticipantStore } from '../../../../../Store/registerParticipantStore';
 import { RegisterParticipantDialog } from '../../../../Dialogs/RegisterParticipantDialog';
 import { useGetAllParticipantsQuery } from '../../../../../hooks/queries/userGetAllParticipantsQuery';
+import { addEventClassStore } from '../../../../../Store/addEventClassStore';
+import { AddEventClassDialog } from '../../../../Dialogs/AddEventClassDialog';
 
 export const RegistrationTab = ({ eventId }) => {
 	const [sorting, setSorting] = useState([]);
@@ -13,6 +15,11 @@ export const RegistrationTab = ({ eventId }) => {
 		openDialog: openRegisterParticipantDialog,
 		isOpen: isRegisterParticipantDialogOpen,
 	} = registerParticipantStore((state) => state);
+
+	const {
+		openDialog: openCreateEventClassDialog,
+		isOpen: isCreateEventClassDialogOpen,
+	} = addEventClassStore((state) => state);
 
 	const {
 		data: registrations,
@@ -41,7 +48,7 @@ export const RegistrationTab = ({ eventId }) => {
 				</Button>
 				<Button
 					variant="default"
-					onClick={() => console.log('clicked add class')}
+					onClick={openCreateEventClassDialog}
 				>
 					Add Class
 				</Button>
@@ -71,6 +78,10 @@ export const RegistrationTab = ({ eventId }) => {
 					/>
 				)
 			}
+			<AddEventClassDialog
+				open={isCreateEventClassDialogOpen}
+				eventId={eventId}
+			/>
 
 		</div>
 	);
