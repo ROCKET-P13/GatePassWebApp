@@ -1,6 +1,11 @@
 import { useId } from 'react';
 import { mergeTailwindClasses } from '../../utils/mergeTailwindClasses';
 
+const InputTypes = Object.freeze({
+	TEXT: 'text',
+	NUMBER: 'number',
+});
+
 export const Input = (
 	{
 		className,
@@ -21,6 +26,10 @@ export const Input = (
 
 	const handleChange = (e) => {
 		let newValue = e.target.value;
+
+		if (type === InputTypes.NUMBER) {
+			newValue = newValue.replace(/[^\d]/g, '');
+		}
 
 		if (alphanumeric) {
 			newValue = newValue.replace(/[^a-zA-Z0-9]/g, '');
@@ -62,10 +71,11 @@ export const Input = (
 			<input
 				id={inputId}
 				ref={ref}
-				type={type}
+				type={type === InputTypes.NUMBER ? InputTypes.TEXT : type}
+				inputMode={type === InputTypes.NUMBER ? 'numeric' : undefined}
 				aria-invalid={!!error}
 				aria-required={required}
-				value={value}
+				value={value || ''}
 				onChange={handleChange}
 				className={
 					mergeTailwindClasses(
