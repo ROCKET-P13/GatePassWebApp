@@ -6,6 +6,7 @@ import { Select } from '../ui/Select';
 import { Gender } from '../../Common/Gender';
 import { Button } from '../ui/Button';
 import _ from 'lodash';
+import { useAddEventClassMutation } from '../../hooks/mutations/useAddEventClassMutation';
 
 export const AddEventClassDialog = ({ open, eventId }) => {
 	const {
@@ -22,9 +23,18 @@ export const AddEventClassDialog = ({ open, eventId }) => {
 		]);
 	}, [eventClass.name]);
 
+	const addEventClassMutation = useAddEventClassMutation({ eventId });
+
 	const handleSubmit = () => {
 		closeDialog();
-		console.log({ eventClass });
+		addEventClassMutation.mutate({
+			name: eventClass.name,
+			gender: eventClass.gender,
+			skillLevel: eventClass.skillLevel,
+			maximumAge: eventClass.maximumAge,
+			minimumAge: eventClass.minimumAge,
+			participantCapacity: eventClass.participantCapacity,
+		});
 	};
 
 	return (

@@ -28,11 +28,10 @@ export const useRegisterParticipantMutation = ({ eventId }) => {
 			await queryClient.cancelQueries(queryKey);
 
 			const previousRegistrations = queryClient.getQueryData(queryKey);
-
 			const temporaryId = Math.random().toString(32);
 
 			queryClient.setQueryData(
-				queryClient,
+				queryKey,
 				(old = []) => {
 					return [
 						...old,
@@ -53,7 +52,7 @@ export const useRegisterParticipantMutation = ({ eventId }) => {
 				context.previousRegistrations
 			);
 		},
-		onSettled: (createdRegistration, _vars, context) => {
+		onSuccess: (createdRegistration, _vars, context) => {
 			queryClient.setQueryData(
 				queryKey,
 				(old = []) => {

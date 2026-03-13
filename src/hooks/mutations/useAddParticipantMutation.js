@@ -44,7 +44,7 @@ export const useAddParticipantMutation = ({ queryKey }) => {
 				context.previousParticipants
 			);
 		},
-		onSettled: (createdParticipant, _vars, context) => {
+		onSuccess: (createdParticipant, _vars, context) => {
 			queryClient.setQueryData(
 				queryKey,
 				(old = []) => {

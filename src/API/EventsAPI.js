@@ -89,6 +89,20 @@ export class EventsAPI {
 		return registration;
 	}
 
+	async addClass ({ eventId, name, gender, skillLevel, maximumAge, minimumAge, participantCapacity }) {
+		return await this.#apiClient.post({
+			url: `${this.#url}/${eventId}/classes`,
+			body: {
+				name,
+				gender,
+				skillLevel,
+				maximumAge,
+				minimumAge,
+				participantCapacity,
+			},
+		});
+	}
+
 	async create ({ name, startDateTime, participantCapacity, status }) {
 		return await this.#apiClient.post({
 			url: this.#url,

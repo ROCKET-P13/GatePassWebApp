@@ -6,12 +6,11 @@ export const addEventClassStore = create((set) => ({
 	isOpen: false,
 	eventClass: {
 		name: '',
-		mininumAge: '',
-		maximumAge: '',
-		skillLevel: '',
-		capacity: '',
-		startTime: '',
 		gender: Gender.MALE,
+		skillLevel: '',
+		maximumAge: undefined,
+		minimumAge: undefined,
+		participantCapacity: '',
 	},
 	openDialog: () => set({ isOpen: true }),
 	closeDialog: () => set({ isOpen: false }),
@@ -19,12 +18,11 @@ export const addEventClassStore = create((set) => ({
 		set({
 			eventClass: {
 				name: '',
-				mininumAge: '',
-				maximumAge: '',
-				skillLevel: '',
-				capacity: '',
-				startTime: '',
 				gender: Gender.MALE,
+				skillLevel: '',
+				maximumAge: undefined,
+				minimumAge: undefined,
+				participantCapacity: '',
 			},
 		});
 	},
