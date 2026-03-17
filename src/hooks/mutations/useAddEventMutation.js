@@ -2,6 +2,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useMemo } from 'react';
 import { EventsAPI } from '../../API/EventsAPI';
+import _ from 'lodash';
 
 export const useAddEventMutation = ({ queryKey }) => {
 	const { getAccessTokenSilently } = useAuth0();
@@ -45,15 +46,13 @@ export const useAddEventMutation = ({ queryKey }) => {
 		onSuccess: (createdEvent, _variables, context) => {
 			queryClient.setQueryData(
 				queryKey,
-				(old = []) => {
-					return _.map(old, (event) => {
-						if (event.id === context.temporaryId) {
-							return createdEvent;
-						}
+				(old = []) => _.map(old, (event) => {
+					if (event.id === context.temporaryId) {
+						return createdEvent;
+					}
 
-						return event;
-					});
-				}
+					return event;
+				})
 			);
 		},
 	});

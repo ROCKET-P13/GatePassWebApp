@@ -44,7 +44,7 @@ export const AddEventDialog = ({ open, queryKey }) => {
 
 		addEventMutation.mutate({
 			name: eventData.name,
-			startDateTime: eventDateTime.toISOString(),
+			startDateTime: eventDateTime,
 			status: eventData.status,
 			participantCapacity: eventData.participantCapacity,
 		});

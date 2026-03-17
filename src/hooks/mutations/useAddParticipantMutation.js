@@ -46,15 +46,13 @@ export const useAddParticipantMutation = ({ queryKey }) => {
 		onSuccess: (createdParticipant, _vars, context) => {
 			queryClient.setQueryData(
 				queryKey,
-				(old = []) => {
-					return _.map(old, (participant) => {
-						if (participant.id === context.temporaryId) {
-							return createdParticipant;
-						}
+				(old = []) => _.map(old, (participant) => {
+					if (participant.id === context.temporaryId) {
+						return createdParticipant;
+					}
 
-						return participant;
-					});
-				}
+					return participant;
+				})
 			);
 		},
 	});
