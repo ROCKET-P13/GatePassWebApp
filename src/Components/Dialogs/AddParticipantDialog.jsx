@@ -16,12 +16,12 @@ export const AddParticipantDialog = ({ open, queryKey }) => {
 
 	const addParticipantMutation = useAddParticipantMutation({ queryKey });
 
-	const formIsValid = useMemo(() => {
+	const createButtonIsDisabled = useMemo(() => {
 		if (_.isEmpty(participantData?.firstName) || _.isEmpty(participantData?.lastName)) {
-			return false;
+			return true;
 		}
 
-		return _.every([
+		return !_.every([
 			participantData.firstName.length > 2,
 			participantData.firstName.length < 100,
 			participantData.lastName.length > 2,
@@ -65,7 +65,7 @@ export const AddParticipantDialog = ({ open, queryKey }) => {
 					<Button
 						variant='default'
 						onClick={handleSubmit}
-						disabled={!formIsValid}
+						disabled={createButtonIsDisabled}
 					>
 						Create
 					</Button>

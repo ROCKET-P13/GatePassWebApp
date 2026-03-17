@@ -104,7 +104,7 @@ export class EventsAPI {
 	}
 
 	async create ({ name, startDateTime, participantCapacity, status }) {
-		return await this.#apiClient.post({
+		const event = await this.#apiClient.post({
 			url: this.#url,
 			body: {
 				name,
@@ -113,6 +113,16 @@ export class EventsAPI {
 				status,
 			},
 		});
+
+		return {
+			id: event.id,
+			name: event.name,
+			participantCapacity: event.participantCapacity,
+			status: event.status,
+			date: dayjs(event.startDateTime).format('MMM DD, YYYY'),
+			startTime: dayjs(event.startDateTime).format('hh:mm a'),
+			startDateTime: dayjs(event.startDateTime),
+		};
 	}
 
 	async delete ({ eventId }) {

@@ -13,12 +13,10 @@ import { Input } from '../ui/Input';
 import { Select } from '../ui/Select';
 
 export const AddEventDialog = ({ open, queryKey }) => {
-	const {
-		closeDialog,
-		clearDialog,
-		updateEventData,
-		eventData,
-	} = addEventStore((state) => state);
+	const closeDialog = addEventStore((state) => state.closeDialog);
+	const clearDialog = addEventStore((state) => state.clearDialog);
+	const updateEventData = addEventStore((state) => state.updateEventData);
+	const eventData = addEventStore((state) => state.eventData);
 
 	const addEventMutation = useAddEventMutation({ queryKey });
 
@@ -35,7 +33,7 @@ export const AddEventDialog = ({ open, queryKey }) => {
 	}, [eventData.date, eventData.startTime]);
 
 	const createButtonIsDisabled = useMemo(() => {
-		return _.every([
+		return !_.every([
 			eventData.name.length > 2 && eventData.name.length < 100,
 			eventDateTime.isAfter(dayjs()),
 		]);

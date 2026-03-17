@@ -4,7 +4,7 @@ import { useGetRegistrationsQuery } from '../../../../../hooks/queries/useGetReg
 import { RegistrationsTable } from './RegistrationsTable';
 import { registerParticipantStore } from '../../../../../Store/registerParticipantStore';
 import { RegisterParticipantDialog } from '../../../../Dialogs/RegisterParticipantDialog';
-import { useGetAllParticipantsQuery } from '../../../../../hooks/queries/userGetAllParticipantsQuery';
+import { useGetAllParticipantsQuery } from '../../../../../hooks/queries/useGetAllParticipantsQuery';
 import { addEventClassStore } from '../../../../../Store/addEventClassStore';
 import { AddEventClassDialog } from '../../../../Dialogs/AddEventClassDialog';
 

@@ -26,12 +26,19 @@ export class ParticipantsAPI {
 	}
 
 	async create ({ firstName, lastName }) {
-		return await this.#apiClient.post({
+		const participant = await this.#apiClient.post({
 			url: this.#url,
 			body: {
 				firstName,
 				lastName,
 			},
 		});
+
+		return {
+			id: participant.id,
+			firstName: participant.firstName,
+			lastName: participant.lastName,
+			createdAt: dayjs(participant.createdAt).format('MMM DD, YYYY'),
+		};
 	}
 }

@@ -43,6 +43,11 @@ export const editEventStore = create((set) => ({
 		});
 	},
 	updateEventDraft: (data) => {
-		set(({ eventDraft }) => _.assign(eventDraft, data));
+		set((state) => ({
+			eventDraft: {
+				...state.eventDraft,
+				...data,
+			},
+		}));
 	},
 }));

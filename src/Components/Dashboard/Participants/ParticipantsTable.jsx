@@ -66,6 +66,7 @@ export const ParticipantsTable = ({ participants, sorting, onSortingChange }) =>
 		columns,
 		state: { sorting },
 		onSortingChange,
+		manualSorting: true,
 		getCoreRowModel: getCoreRowModel(),
 		getSortedRowModel: getSortedRowModel(),
 	});

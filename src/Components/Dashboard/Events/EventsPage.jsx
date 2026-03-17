@@ -9,10 +9,8 @@ export const EventsPage = () => {
 	const [sorting, setSorting] = useState([]);
 	const queryKey = ['events', sorting];
 
-	const {
-		openDialog: openAddEventDialog,
-		isOpen: isAddEventDialogOpen,
-	} = addEventStore((state) => state);
+	const openAddEventDialog = addEventStore((state) => state.openDialog);
+	const isAddEventDialogOpen = addEventStore((state) => state.isOpen);
 
 	const {
 		data: events,
@@ -59,10 +57,11 @@ export const EventsPage = () => {
 					)
 			}
 
-			<AddEventDialog
+			{isAddEventDialogOpen && 	<AddEventDialog
 				open={isAddEventDialogOpen}
 				queryKey={queryKey}
-			/>
+			/>}
+
 		</div>
 	);
 };

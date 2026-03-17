@@ -32,7 +32,8 @@ export const useAddEventMutation = ({ queryKey }) => {
 							isOptimistic: true,
 						},
 					];
-				});
+				}
+			);
 
 			return { previousEvents, temporaryId };
 		},
@@ -41,9 +42,6 @@ export const useAddEventMutation = ({ queryKey }) => {
 				queryKey,
 				context.previousEvents
 			);
-		},
-		onSettled: () => {
-			queryClient.invalidateQueries({ queryKey: queryKey });
 		},
 		onSuccess: (createdEvent, _variables, context) => {
 			queryClient.setQueryData(

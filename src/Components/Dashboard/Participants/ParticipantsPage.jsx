@@ -1,6 +1,6 @@
 import { ParticipantsTable } from './ParticipantsTable';
 import { ParticipantsFilter } from './ParticipantsFilters';
-import { useGetAllParticipantsQuery } from '../../../hooks/queries/userGetAllParticipantsQuery';
+import { useGetAllParticipantsQuery } from '../../../hooks/queries/useGetAllParticipantsQuery';
 import { addParticipantStore } from '../../../Store/addParticipantStore';
 import { Button } from '../../ui/Button';
 import { useState } from 'react';
@@ -10,10 +10,8 @@ export const ParticipantsPage = () => {
 	const [sorting, setSorting] = useState([]);
 	const queryKey = ['participants', sorting];
 
-	const {
-		openDialog: openAddParticipantDialog,
-		isOpen: isAddParticipantDialogOpen,
-	} = addParticipantStore((state) => state);
+	const openAddParticipantDialog = addParticipantStore((state) => state.openDialog);
+	const isAddParticipantDialogOpen = addParticipantStore((state) => state.isOpen);
 
 	const {
 		data: participants,
@@ -62,6 +60,7 @@ export const ParticipantsPage = () => {
 						/>
 					)
 			}
+
 			<AddParticipantDialog
 				open={isAddParticipantDialogOpen}
 				queryKey={queryKey}

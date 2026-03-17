@@ -16,7 +16,7 @@ export const useAddParticipantMutation = ({ queryKey }) => {
 	return useMutation({
 		mutationFn: async (participant) => await participantsAPI.create(participant),
 		onMutate: async (newParticipant) => {
-			await queryClient.cancelQueries(queryKey);
+			await queryClient.cancelQueries({ queryKey });
 
 			const previousParticipants = queryClient.getQueryData(queryKey);
 

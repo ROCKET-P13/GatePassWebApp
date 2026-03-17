@@ -1,7 +1,6 @@
 import dayjs from 'dayjs';
 import { create } from 'zustand';
 import { EventStatus } from '../Common/eventStatus';
-import _ from 'lodash';
 
 export const addEventStore = create((set) => ({
 	isOpen: false,
@@ -26,6 +25,11 @@ export const addEventStore = create((set) => ({
 		});
 	},
 	updateEventData: (data) => {
-		set(({ eventData }) => _.assign(eventData, data));
+		set((state) => ({
+			eventData: {
+				...state.eventData,
+				...data,
+			},
+		}));
 	},
 }));

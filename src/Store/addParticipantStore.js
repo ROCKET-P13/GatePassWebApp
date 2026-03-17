@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import { create } from 'zustand';
 
 export const addParticipantStore = create((set) => ({
@@ -18,6 +17,11 @@ export const addParticipantStore = create((set) => ({
 		});
 	},
 	updateParticipantData: (data) => {
-		set(({ participantData }) => _.assign(participantData, data));
+		set((state) => ({
+			participantData: {
+				...state.participantData,
+				...data,
+			},
+		}));
 	},
 }));
