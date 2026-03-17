@@ -21,6 +21,8 @@ import { AccountPage } from './Components/Account/AccountPage';
 import { EventDetailsPage } from './Components/Dashboard/Events/EventDetailsPage';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { EventsAPI } from './API/EventsAPI';
+import { ParticipantDetailsPage } from './Components/Dashboard/Participants/ParticipantDetailsPage';
+import { ParticipantsAPI } from './API/ParticipantsAPI';
 
 const queryClient = new QueryClient();
 
@@ -93,6 +95,19 @@ const participantsRoute = createRoute({
 	component: ParticipantsPage,
 });
 
+const participantDetailsRoute = createRoute({
+	getParentRoute: () => dashboardRoute,
+	path: `${Routes.PARTICIPANTS}/$participantId`,
+	component: ParticipantDetailsPage,
+	loader: ({ params, context }) => {
+		const participantsAPI = new ParticipantsAPI({ getAccessToken: context.getAccessTokenSilently });
+		return queryClient.ensureQueryData({
+			queryKey: ['participants', params.participantId],
+			queryFn: async () => await participantsAPI.getById(params.participantId),
+		});
+	},
+});
+
 const waiversRoute = createRoute({
 	getParentRoute: () => dashboardRoute,
 	path: Routes.WAIVERS,
@@ -122,6 +137,7 @@ dashboardRoute.addChildren([
 	eventsRoute,
 	eventDetailsRoute,
 	participantsRoute,
+	participantDetailsRoute,
 	waiversRoute,
 	venueSettingsRoute,
 	accountRoute,

@@ -25,6 +25,19 @@ export class ParticipantsAPI {
 		}));
 	}
 
+	async getById (participantId) {
+		const participant = await this.#apiClient.get({
+			url: `${this.#url}/${participantId}`,
+		});
+
+		return {
+			id: participant.id,
+			firstName: participant.firstName,
+			lastName: participant.lastName,
+			createdAt: dayjs(participant.createdAt).format('MMM DD, YYYY'),
+		};
+	}
+
 	async create ({ firstName, lastName }) {
 		const participant = await this.#apiClient.post({
 			url: this.#url,

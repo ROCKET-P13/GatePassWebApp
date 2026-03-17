@@ -17,7 +17,7 @@ export const ParticipantsPage = () => {
 		data: participants,
 		isLoading,
 		error,
-	} = useGetAllParticipantsQuery({ queryKey, sorting });
+	} = useGetAllParticipantsQuery({ queryKey });
 
 	if (error) {
 		return (

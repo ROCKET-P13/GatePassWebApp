@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Button } from '../../../../ui/Button';
-import { useGetRegistrationsQuery } from '../../../../../hooks/queries/useGetRegistrationsQuery';
+import { useGetEventRegistrationsQuery } from '../../../../../hooks/queries/useGetEventRegistrationsQuery';
 import { RegistrationsTable } from './RegistrationsTable';
 import { registerParticipantStore } from '../../../../../Store/registerParticipantStore';
 import { RegisterParticipantDialog } from '../../../../Dialogs/RegisterParticipantDialog';
@@ -25,9 +25,12 @@ export const RegistrationTab = ({ eventId }) => {
 		data: registrations,
 		isLoading,
 		error,
-	} = useGetRegistrationsQuery({ eventId });
+	} = useGetEventRegistrationsQuery({ eventId });
 
-	const { data: participants = [], isLoading: isParticipantsLoading } = useGetAllParticipantsQuery();
+	const {
+		data: participants = [],
+		isLoading: isParticipantsLoading,
+	} = useGetAllParticipantsQuery({ queryKey: ['participants', sorting] });
 
 	if (error) {
 		return (

@@ -18,6 +18,8 @@ import {
 } from '../../ui/Table';
 import { ChevronDown, ChevronsUpDown, ChevronUp, Pencil, Trash } from 'lucide-react';
 import { Icon } from '../../ui/Icon';
+import { Link } from '@tanstack/react-router';
+import { Routes } from '../../../Common/routes';
 
 export const ParticipantsTable = ({ participants, sorting, onSortingChange }) => {
 	const columns = useMemo(
@@ -25,6 +27,13 @@ export const ParticipantsTable = ({ participants, sorting, onSortingChange }) =>
 			{
 				accessorKey: 'firstName',
 				header: 'First Name',
+				cell: (info) => (
+					<Link
+						to={`${Routes.DASHBOARD}/${Routes.PARTICIPANTS}/$participantId`}
+						params={{ participantId: info.row.original.id }}
+						className="font-medium text-primary hover:underline"
+					>{info.getValue()}</Link>
+				),
 			},
 			{
 				accessorKey: 'lastName',

@@ -10,19 +10,16 @@ import { RegistrationTab } from './Tabs/Registrations/RegistrationsTab';
 
 export const EventDetailsPage = () => {
 	const event = useLoaderData({ from: `/protected${Routes.DASHBOARD}${Routes.EVENTS}/$eventId` });
-
 	const TabIds = Object.freeze({
 		REGISTRATIONS: 'registrations',
 		CHECK_INS: 'checkins',
 		SETTINGS: 'settings',
 	});
 
-	const {
-		openDialog: openEditEventDialog,
-		isOpen: isEditEventDialogOpen,
-		eventDraft,
-		setEventDraft,
-	} = editEventStore((state) => state);
+	const openEditEventDialog = editEventStore((state) => state.openEditEventDialog);
+	const isEditEventDialogOpen = editEventStore((state) => state.isEditEventDialogOpen);
+	const eventDraft = editEventStore((state) => state.eventDraft);
+	const setEventDraft = editEventStore((state) => state.setEventDraft);
 
 	const editEventMutation = useEditEventDetailsMutation({ queryKey: ['events', event.id] });
 
@@ -30,7 +27,7 @@ export const EventDetailsPage = () => {
 		<div>
 
 			<div className='flex justify-between items-center mb-4'>
-				<div className='flex flex-col items-start'>
+				<div className='flex flex-col items-start gap-2'>
 					<h1 className='text-4xl font-semibold'>
 						{event.name}
 					</h1>

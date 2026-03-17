@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import { EventsAPI } from '../../API/EventsAPI';
 import { useQuery } from '@tanstack/react-query';
 
-export const useGetRegistrationsQuery = ({ eventId }) => {
+export const useGetParticipantRegistrationsQuery = ({ participantId }) => {
 	const { isAuthenticated, getAccessTokenSilently } = useAuth0();
 
 	const eventsAPI = useMemo(
@@ -12,7 +12,7 @@ export const useGetRegistrationsQuery = ({ eventId }) => {
 	);
 
 	return useQuery({
-		queryKey: ['registrations', eventId],
+		queryKey: ['registrations', participantId],
 		queryFn: () => eventsAPI.getRegistrations({ eventId }),
 		enabled: isAuthenticated,
 		keepPreviousData: true,
