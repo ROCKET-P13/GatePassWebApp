@@ -61,10 +61,14 @@ export const ParticipantsPage = () => {
 					)
 			}
 
-			<AddParticipantDialog
-				open={isAddParticipantDialogOpen}
-				queryKey={queryKey}
-			/>
+			{
+				isAddParticipantDialogOpen
+				&& <AddParticipantDialog
+					open={isAddParticipantDialogOpen}
+					queryKey={queryKey}
+				/>
+			}
+
 		</div>
 	);
 };

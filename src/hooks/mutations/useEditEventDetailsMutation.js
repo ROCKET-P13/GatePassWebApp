@@ -25,7 +25,6 @@ export const useEditEventDetailsMutation = ({ queryKey }) => {
 				(oldEventData) => ({
 					...oldEventData,
 					...updatedEvent,
-					isOptimistic: true,
 				})
 			);
 

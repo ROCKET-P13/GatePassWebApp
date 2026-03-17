@@ -57,10 +57,13 @@ export const EventsPage = () => {
 					)
 			}
 
-			{isAddEventDialogOpen && 	<AddEventDialog
-				open={isAddEventDialogOpen}
-				queryKey={queryKey}
-			/>}
+			{
+				isAddEventDialogOpen
+				&& <AddEventDialog
+					open={isAddEventDialogOpen}
+					queryKey={queryKey}
+				/>
+			}
 
 		</div>
 	);

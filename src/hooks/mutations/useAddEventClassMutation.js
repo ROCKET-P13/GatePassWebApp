@@ -41,7 +41,6 @@ export const useAddEventClassMutation = ({ eventId }) => {
 						{
 							...newEventClass,
 							id: temporaryId,
-							isOptimistic: true,
 						},
 					];
 				}

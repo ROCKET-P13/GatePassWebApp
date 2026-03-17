@@ -38,7 +38,6 @@ export const useRegisterParticipantMutation = ({ eventId }) => {
 						{
 							...newRegistration,
 							id: temporaryId,
-							isOptimistic: true,
 						},
 					];
 				}

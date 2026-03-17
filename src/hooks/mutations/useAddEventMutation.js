@@ -15,7 +15,7 @@ export const useAddEventMutation = ({ queryKey }) => {
 	return useMutation({
 		mutationFn: async (event) => await eventsAPI.create(event),
 		onMutate: async (newEvent) => {
-			await queryClient.cancelQueries({ queryKey });
+			await queryClient.cancelQueries(queryKey);
 
 			const previousEvents = queryClient.getQueryData(queryKey);
 
@@ -29,7 +29,6 @@ export const useAddEventMutation = ({ queryKey }) => {
 						{
 							...newEvent,
 							id: temporaryId,
-							isOptimistic: true,
 						},
 					];
 				}

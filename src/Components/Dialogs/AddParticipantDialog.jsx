@@ -7,12 +7,10 @@ import { Button } from '../ui/Button';
 import { Input } from '../ui/Input';
 
 export const AddParticipantDialog = ({ open, queryKey }) => {
-	const {
-		closeDialog,
-		clearDialog,
-		updateParticipantData,
-		participantData,
-	} = addParticipantStore((state) => state);
+	const closeDialog = addParticipantStore((state) => state.closeDialog);
+	const clearDialog = addParticipantStore((state) => state.clearDialog);
+	const updateParticipantData = addParticipantStore((state) => state.updateParticipantData);
+	const participantData = addParticipantStore((state) => state.participantData);
 
 	const addParticipantMutation = useAddParticipantMutation({ queryKey });
 

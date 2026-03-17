@@ -27,7 +27,6 @@ export const useEditEventTableMutation = ({ queryKey }) => {
 						? {
 							...event,
 							...updatedEvent,
-							isOptimistic: true,
 						}
 						: event;
 				})

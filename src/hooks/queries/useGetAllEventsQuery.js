@@ -12,7 +12,7 @@ export const useGetAllEventsQuery = ({ queryKey, sorting }) => {
 	);
 
 	return useQuery({
-		queryKey: queryKey,
+		queryKey,
 		queryFn: () => eventsAPI.getAll({ sorting }),
 		enabled: isAuthenticated,
 		keepPreviousData: true,
