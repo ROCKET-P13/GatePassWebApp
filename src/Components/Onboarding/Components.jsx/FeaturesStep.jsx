@@ -1,7 +1,9 @@
-import { onboardingStore } from '../../../store/onboardingStore';
 import _ from 'lodash';
-import { Button } from '../../ui/Button';
-import { Switch } from '../../ui/Switch';
+
+import { onboardingStore } from '@/store/onboardingStore';
+
+import { Button } from '@ui/Button';
+import { Switch } from '@ui/Switch';
 
 const FeatureLabels = Object.freeze({
 	WAIVERS: 'Waivers',

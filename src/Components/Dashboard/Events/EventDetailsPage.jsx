@@ -1,12 +1,13 @@
 import { useLoaderData } from '@tanstack/react-router';
-import { EventStatusColorClass } from '../../../Common/eventStatus';
-import { editEventStore } from '../../../Store/editEventStore';
-import { EditEventDialog } from '../../Dialogs/EditEventDialog';
-import { Routes } from '../../../Common/routes';
-import { useEditEventDetailsMutation } from '../../../hooks/mutations/useEditEventDetailsMutation';
-import { Button } from '../../ui/Button';
-import { Tab, TabPanel, Tabs } from '../../ui/Tabs';
-import { RegistrationTab } from './Tabs/Registrations/RegistrationsTab';
+import { Button } from '@ui/Button';
+import { Tab, TabPanel, Tabs } from '@ui/Tabs';
+
+import { EventStatusColorClass } from '@/Common/eventStatus';
+import { Routes } from '@/Common/routes';
+import { RegistrationTab } from '@/Components/Dashboard/Events/Tabs/Registrations/RegistrationsTab';
+import { EditEventDialog } from '@/Components/Dialogs/EditEventDialog';
+import { useEditEventDetailsMutation } from '@/hooks/mutations/useEditEventDetailsMutation';
+import { editEventStore } from '@/Store/editEventStore';
 
 export const EventDetailsPage = () => {
 	const event = useLoaderData({ from: `/protected${Routes.DASHBOARD}${Routes.EVENTS}/$eventId` });
@@ -16,8 +17,8 @@ export const EventDetailsPage = () => {
 		SETTINGS: 'settings',
 	});
 
-	const openEditEventDialog = editEventStore((state) => state.openEditEventDialog);
-	const isEditEventDialogOpen = editEventStore((state) => state.isEditEventDialogOpen);
+	const openEditEventDialog = editEventStore((state) => state.openDialog);
+	const isEditEventDialogOpen = editEventStore((state) => state.isOpen);
 	const eventDraft = editEventStore((state) => state.eventDraft);
 	const setEventDraft = editEventStore((state) => state.setEventDraft);
 

@@ -1,9 +1,10 @@
 import { useAuth0 } from '@auth0/auth0-react';
-import { WidgetCard } from '../WidgetCard';
-import { UsersAPI } from '../../../../API/UsersAPI';
-import { useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { CardDescription, CardHeader, CardTitle } from '../../../ui/Card';
+import { CardDescription, CardHeader, CardTitle } from '@ui/Card';
+import { useMemo } from 'react';
+
+import { UsersAPI } from '@/API/UsersAPI';
+import { WidgetCard } from '@/Components/Dashboard/Widgets/WidgetCard';
 
 export const StatusWidget = () => {
 	const { getAccessTokenSilently, isAuthenticated } = useAuth0();

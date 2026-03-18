@@ -1,7 +1,9 @@
-import { useState, useRef, useEffect, useCallback } from 'react';
-import { mergeTailwindClasses } from '../../utils/mergeTailwindClasses';
-import { Input } from './Input';
 import _ from 'lodash';
+import { useState, useRef, useEffect, useCallback } from 'react';
+
+import { mergeTailwindClasses } from '@/utils/mergeTailwindClasses';
+
+import { Input } from './Input';
 
 export const Autocomplete = ({
 	options = [],

@@ -1,6 +1,7 @@
+import { Auth0Provider } from '@auth0/auth0-react';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { Auth0Provider } from '@auth0/auth0-react';
+
 import '@fontsource/inter';
 import './index.css';
 import { AppRouter } from './AppRouter';

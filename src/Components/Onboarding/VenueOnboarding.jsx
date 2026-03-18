@@ -1,11 +1,12 @@
-import { Stepper } from '../ui/Stepper';
-import { onboardingStore } from '../../store/onboardingStore';
-import { Steps } from '../../store/onboardingStore';
+import { Stepper } from '@ui/Stepper';
 
-import { VenueStep } from './Components.jsx/VenueStep';
-import { FeaturesStep } from './Components.jsx/FeaturesStep';
-import { WaiverStep } from './Components.jsx/WaiverStep';
+import { WaiverStep } from '@/Components/Onboarding/Components.jsx/WaiverStep';
+import { onboardingStore } from '@/store/onboardingStore';
+import { Steps } from '@/store/onboardingStore';
+
 import { CompleteStep } from './Components.jsx/CompleteStep';
+import { FeaturesStep } from './Components.jsx/FeaturesStep';
+import { VenueStep } from './Components.jsx/VenueStep';
 
 const stepOrder = [
 	Steps.VENUE,

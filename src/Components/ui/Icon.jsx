@@ -1,4 +1,4 @@
-import { mergeTailwindClasses } from '../../utils/mergeTailwindClasses';
+import { mergeTailwindClasses } from '@/utils/mergeTailwindClasses';
 
 export const Icon = ({ as: Component, size = 16, className, ...props }) => {
 	return (

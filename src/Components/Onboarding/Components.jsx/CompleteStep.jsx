@@ -1,6 +1,8 @@
 import { useNavigate } from '@tanstack/react-router';
-import { Routes } from '../../../Common/routes';
-import { Button } from '../../ui/Button';
+
+import { Routes } from '@/Common/routes';
+
+import { Button } from '@ui/Button';
 
 export const CompleteStep = () => {
 	const navigate = useNavigate();

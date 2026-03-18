@@ -1,5 +1,5 @@
-import { create } from 'zustand';
 import _ from 'lodash';
+import { create } from 'zustand';
 
 export const Steps = Object.freeze({
 	VENUE: 'VENUE',

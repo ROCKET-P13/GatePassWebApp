@@ -1,12 +1,14 @@
-import { useMemo } from 'react';
-import { addEventClassStore } from '../../Store/addEventClassStore';
-import { Dialog, DialogContent, DialogFooter, DialogTitle } from '../ui/Dialog';
-import { Input } from '../ui/Input';
-import { Select } from '../ui/Select';
-import { Gender } from '../../Common/Gender';
-import { Button } from '../ui/Button';
 import _ from 'lodash';
-import { useAddEventClassMutation } from '../../hooks/mutations/useAddEventClassMutation';
+import { useMemo } from 'react';
+
+import { Gender } from '@/Common/Gender';
+import { useAddEventClassMutation } from '@/hooks/mutations/useAddEventClassMutation';
+import { addEventClassStore } from '@/Store/addEventClassStore';
+
+import { Button } from '@ui/Button';
+import { Dialog, DialogContent, DialogFooter, DialogTitle } from '@ui/Dialog';
+import { Input } from '@ui/Input';
+import { Select } from '@ui/Select';
 
 export const AddEventClassDialog = ({ open, eventId }) => {
 	const {

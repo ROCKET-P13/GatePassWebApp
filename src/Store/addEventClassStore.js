@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import { create } from 'zustand';
-import { Gender } from '../Common/Gender';
+
+import { Gender } from '@/Common/Gender';
 
 export const addEventClassStore = create((set) => ({
 	isOpen: false,

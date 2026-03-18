@@ -1,12 +1,14 @@
 import { useState } from 'react';
-import { Button } from '../../../../ui/Button';
-import { useGetEventRegistrationsQuery } from '../../../../../hooks/queries/useGetEventRegistrationsQuery';
+
+import { useGetAllParticipantsQuery } from '@/hooks/queries/useGetAllParticipantsQuery';
+import { useGetEventRegistrationsQuery } from '@/hooks/queries/useGetEventRegistrationsQuery';
+import { addEventClassStore } from '@/Store/addEventClassStore';
+import { registerParticipantStore } from '@/Store/registerParticipantStore';
+
 import { RegistrationsTable } from './RegistrationsTable';
-import { registerParticipantStore } from '../../../../../Store/registerParticipantStore';
-import { RegisterParticipantDialog } from '../../../../Dialogs/RegisterParticipantDialog';
-import { useGetAllParticipantsQuery } from '../../../../../hooks/queries/useGetAllParticipantsQuery';
-import { addEventClassStore } from '../../../../../Store/addEventClassStore';
 import { AddEventClassDialog } from '../../../../Dialogs/AddEventClassDialog';
+import { RegisterParticipantDialog } from '../../../../Dialogs/RegisterParticipantDialog';
+import { Button } from '@ui/Button';
 
 export const RegistrationTab = ({ eventId }) => {
 	const [sorting, setSorting] = useState([]);

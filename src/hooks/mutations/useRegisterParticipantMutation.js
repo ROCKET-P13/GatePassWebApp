@@ -1,8 +1,9 @@
 import { useAuth0 } from '@auth0/auth0-react';
-import { useMemo } from 'react';
-import { EventsAPI } from '../../API/EventsAPI';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import _ from 'lodash';
+import { useMemo } from 'react';
+
+import { EventsAPI } from '@/API/EventsAPI';
 
 export const useRegisterParticipantMutation = ({ eventId }) => {
 	const { getAccessTokenSilently } = useAuth0();

@@ -1,4 +1,5 @@
-import { mergeTailwindClasses } from '../../utils/mergeTailwindClasses';
+import { mergeTailwindClasses } from '@/utils/mergeTailwindClasses';
+
 import { Icon } from './Icon';
 
 export const NavigationItem = (

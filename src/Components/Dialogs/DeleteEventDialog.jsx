@@ -1,7 +1,8 @@
-import { deleteEventStore } from '../../Store/deleteEventStore';
-import { useDeleteEventMutation } from '../../hooks/mutations/useDeleteEventMutation';
-import { Button } from '../ui/Button';
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '../ui/Dialog';
+import { useDeleteEventMutation } from '@/hooks/mutations/useDeleteEventMutation';
+import { deleteEventStore } from '@/Store/deleteEventStore';
+
+import { Button } from '@ui/Button';
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@ui/Dialog';
 
 export const DeleteEventDialog = ({ open, eventToDelete, queryKey }) => {
 	const {

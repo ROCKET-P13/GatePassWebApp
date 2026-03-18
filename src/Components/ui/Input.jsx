@@ -1,5 +1,6 @@
 import { useId } from 'react';
-import { mergeTailwindClasses } from '../../utils/mergeTailwindClasses';
+
+import { mergeTailwindClasses } from '@/utils/mergeTailwindClasses';
 
 const InputTypes = Object.freeze({
 	TEXT: 'text',

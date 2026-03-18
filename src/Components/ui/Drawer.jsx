@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
-import { mergeTailwindClasses } from '../../utils/mergeTailwindClasses';
+
+import { mergeTailwindClasses } from '@/utils/mergeTailwindClasses';
 
 const Drawer = ({ open, onClose, children }) => {
 	useEffect(() => {

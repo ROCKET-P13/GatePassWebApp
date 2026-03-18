@@ -1,10 +1,12 @@
-import { ParticipantsTable } from './ParticipantsTable';
-import { ParticipantsFilter } from './ParticipantsFilters';
-import { useGetAllParticipantsQuery } from '../../../hooks/queries/useGetAllParticipantsQuery';
-import { addParticipantStore } from '../../../Store/addParticipantStore';
-import { Button } from '../../ui/Button';
 import { useState } from 'react';
+
+import { useGetAllParticipantsQuery } from '@/hooks/queries/useGetAllParticipantsQuery';
+import { addParticipantStore } from '@/Store/addParticipantStore';
+
+import { ParticipantsFilter } from './ParticipantsFilters';
+import { ParticipantsTable } from './ParticipantsTable';
 import { AddParticipantDialog } from '../../Dialogs/AddParticipantDialog';
+import { Button } from '@ui/Button';
 
 export const ParticipantsPage = () => {
 	const [sorting, setSorting] = useState([]);

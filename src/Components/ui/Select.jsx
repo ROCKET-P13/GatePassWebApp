@@ -1,3 +1,5 @@
+import _ from 'lodash';
+import { ChevronDown } from 'lucide-react';
 import {
 	createContext,
 	useContext,
@@ -7,10 +9,10 @@ import {
 	useId
 } from 'react';
 import { createPortal } from 'react-dom';
-import { mergeTailwindClasses } from '../../utils/mergeTailwindClasses';
-import { ChevronDown } from 'lucide-react';
+
+import { mergeTailwindClasses } from '@/utils/mergeTailwindClasses';
+
 import { Icon } from './Icon';
-import _ from 'lodash';
 
 const SelectContext = createContext(null);
 

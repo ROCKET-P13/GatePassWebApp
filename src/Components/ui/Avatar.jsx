@@ -1,6 +1,7 @@
-import { useState } from 'react';
-import { mergeTailwindClasses } from '../../utils/mergeTailwindClasses';
 import _ from 'lodash';
+import { useState } from 'react';
+
+import { mergeTailwindClasses } from '@/utils/mergeTailwindClasses';
 
 const Sizes = {
 	sm: 'h-8 w-8 text-xs',

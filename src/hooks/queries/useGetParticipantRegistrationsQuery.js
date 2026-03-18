@@ -1,7 +1,8 @@
 import { useAuth0 } from '@auth0/auth0-react';
-import { useMemo } from 'react';
-import { EventsAPI } from '../../API/EventsAPI';
 import { useQuery } from '@tanstack/react-query';
+import { useMemo } from 'react';
+
+import { EventsAPI } from '@/API/EventsAPI';
 
 export const useGetParticipantRegistrationsQuery = ({ participantId }) => {
 	const { isAuthenticated, getAccessTokenSilently } = useAuth0();

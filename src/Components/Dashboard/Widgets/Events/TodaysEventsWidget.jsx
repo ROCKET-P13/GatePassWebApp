@@ -1,17 +1,19 @@
-import _ from 'lodash';
-import { WidgetCard } from '../WidgetCard';
-import { AddEventDialog } from '../../../Dialogs/AddEventDialog';
-import { useMemo } from 'react';
-import { EventsAPI } from '../../../../API/EventsAPI';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useQuery } from '@tanstack/react-query';
-import { List, ListItem } from '../../../ui/List';
-import { addEventStore } from '../../../../Store/addEventStore';
 import { Link } from '@tanstack/react-router';
-import { Routes } from '../../../../Common/routes';
-import { EventStatusColorClass } from '../../../../Common/eventStatus';
+import { List, ListItem } from '@ui/List';
+import _ from 'lodash';
 import { SquarePlus } from 'lucide-react';
-import { Icon } from '../../../ui/Icon';
+import { Icon } from 'lucide-react';
+import { useMemo } from 'react';
+
+import { EventsAPI } from '@/API/EventsAPI';
+import { EventStatusColorClass } from '@/Common/eventStatus';
+import { Routes } from '@/Common/routes';
+import { AddEventDialog } from '@/Components/Dialogs/AddEventDialog';
+import { addEventStore } from '@/Store/addEventStore';
+
+import { WidgetCard } from '../WidgetCard';
 
 export const TodaysEventsWidget = () => {
 	const queryKey = ['events', 'today'];

@@ -1,6 +1,8 @@
-import { useState, useMemo } from 'react';
 import dayjs from 'dayjs';
-import { mergeTailwindClasses } from '../../utils/mergeTailwindClasses';
+import { useState, useMemo } from 'react';
+
+import { mergeTailwindClasses } from '@/utils/mergeTailwindClasses';
+
 import { Button } from './Button';
 
 export const DatePicker = ({ value, onChange }) => {

@@ -1,8 +1,9 @@
 import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
-import { useMemo } from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableHeader, TableRow } from '../../../../ui/Table';
-import { Icon } from '../../../../ui/Icon';
 import { ChevronDown, ChevronsUpDown, ChevronUp } from 'lucide-react';
+import { useMemo } from 'react';
+
+import { Icon } from '@ui/Icon';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableHeader, TableRow } from '@ui/Table';
 
 export const RegistrationsTable = ({ registrations, sorting, onSortingChange }) => {
 	const columns = useMemo(

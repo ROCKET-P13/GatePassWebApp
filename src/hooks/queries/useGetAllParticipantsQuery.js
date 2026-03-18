@@ -1,7 +1,8 @@
 import { useAuth0 } from '@auth0/auth0-react';
-import { ParticipantsAPI } from '../../API/ParticipantsAPI';
-import { useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { useMemo } from 'react';
+
+import { ParticipantsAPI } from '@/API/ParticipantsAPI';
 
 export const useGetAllParticipantsQuery = ({ queryKey }) => {
 	const { isAuthenticated, getAccessTokenSilently } = useAuth0();

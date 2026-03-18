@@ -1,7 +1,8 @@
 import { useAuth0 } from '@auth0/auth0-react';
-import { useMemo } from 'react';
-import { VenuesAPI } from '../../API/VenuesAPI';
 import { useMutation } from '@tanstack/react-query';
+import { useMemo } from 'react';
+
+import { VenuesAPI } from '@/API/VenuesAPI';
 
 export const useCreateVenueMutation = ({ next }) => {
 	const { getAccessTokenSilently } = useAuth0();

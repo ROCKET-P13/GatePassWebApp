@@ -3,11 +3,11 @@ import {
 	AppBarLeft,
 	AppBarRight,
 	AppBarTitle
-} from '../ui/AppBar';
-
-import { dashboardStore } from '../../Store/dashboardStore';
+} from '@ui/AppBar';
+import { Icon } from '@ui/Icon';
 import { MenuIcon } from 'lucide-react';
-import { Icon } from '../ui/Icon';
+
+import { dashboardStore } from '@/Store/dashboardStore';
 
 export const DashboardAppBar = () => {
 	const toggleDrawer = dashboardStore((state) => state.toggleDrawer);

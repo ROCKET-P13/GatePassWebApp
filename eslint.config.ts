@@ -1,55 +1,99 @@
 import js from '@eslint/js';
-import globals from 'globals';
+import { defineConfig, globalIgnores } from 'eslint/config';
+import importPlugin from 'eslint-plugin-import';
+import pluginReact from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
-import { defineConfig, globalIgnores } from 'eslint/config';
-import pluginReact from 'eslint-plugin-react';
+import globals from 'globals';
+import tseslint from 'typescript-eslint';
 
 export default defineConfig([
 	globalIgnores(['dist']),
+
 	{
-		files: ['**/*.{js,jsx}'],
+		files: ['**/*.{js,jsx,ts,tsx}'],
 		extends: [
 			js.configs.recommended,
+			...tseslint.configs.recommended,
 			reactHooks.configs.flat.recommended,
 			reactRefresh.configs.vite,
 			pluginReact.configs.flat.recommended,
 		],
+		plugins: {
+			import: importPlugin,
+		},
+		languageOptions: {
+			parser: tseslint.parser,
+			ecmaVersion: 2020,
+			sourceType: 'module',
+			globals: globals.browser,
+			parserOptions: {
+				ecmaFeatures: { jsx: true },
+			},
+		},
 		settings: {
 			react: {
 				version: 'detect',
 				jsxRuntime: 'automatic',
 			},
 		},
-		languageOptions: {
-			ecmaVersion: 2020,
-			globals: globals.browser,
-			parserOptions: {
-				ecmaVersion: 'latest',
-				ecmaFeatures: { jsx: true },
-				sourceType: 'module',
-			},
-		},
 		rules: {
+
+			'import/order': [
+				'error',
+				{
+					groups: [
+						'builtin',
+						'external',
+						'internal',
+						['parent', 'sibling', 'index'],
+					],
+					pathGroups: [
+						{
+							pattern: '@ui/**',
+							group: 'internal',
+							position: 'before',
+						},
+						{
+							pattern: '@/**',
+							group: 'internal',
+							position: 'after',
+						},
+					],
+					pathGroupsExcludedImportTypes: ['builtin', 'external'],
+					'newlines-between': 'always',
+					alphabetize: { order: 'asc', caseInsensitive: true },
+				},
+			],
+
 			'react/react-in-jsx-scope': 'off',
+			'react/prop-types': 'off',
+
+			'no-unused-vars': 'off',
+			'@typescript-eslint/no-unused-vars': ['error', {
+				args: 'none',
+				caughtErrors: 'all',
+				caughtErrorsIgnorePattern: '^ignore',
+			}],
+
+			'no-redeclare': 'off',
+			'@typescript-eslint/no-redeclare': ['error'],
+
+			'no-undef': 'off',
+
 			'no-trailing-spaces': ['error'],
 			'brace-style': ['error', '1tbs'],
-			'no-inner-declarations': ['off'],
 			'linebreak-style': ['error', 'unix'],
 			'operator-linebreak': ['error', 'before'],
 			'space-before-function-paren': ['error', 'always'],
-			'no-extra-parens': ['off'],
 			'space-infix-ops': ['error'],
 			'object-curly-spacing': ['error', 'always'],
 			'quote-props': ['error', 'as-needed'],
 			'padded-blocks': ['error', 'never'],
 			'space-before-blocks': ['error', 'always'],
-			'react/prop-types': 'off',
 			semi: ['error', 'always'],
-			'comma-spacing': ['error', {
-				before: false,
-				after: true,
-			}],
+
+			'comma-spacing': ['error', { before: false, after: true }],
 
 			'no-multiple-empty-lines': ['error', {
 				max: 1,
@@ -67,19 +111,11 @@ export default defineConfig([
 				allowTemplateLiterals: true,
 			}],
 
-			'semi-spacing': ['error', {
-				before: false,
-				after: true,
-			}],
+			'semi-spacing': ['error', { before: false, after: true }],
 
-			'max-len': ['error', {
-				code: 180,
-			}],
+			'max-len': ['error', { code: 180 }],
 
-			'keyword-spacing': ['error', {
-				before: true,
-				after: true,
-			}],
+			'keyword-spacing': ['error', { before: true, after: true }],
 
 			'comma-dangle': ['error', {
 				arrays: 'always-multiline',
@@ -94,13 +130,6 @@ export default defineConfig([
 				afterColon: true,
 			}],
 
-			'no-unused-vars': ['error', {
-				args: 'none',
-				caughtErrors: 'all',
-				caughtErrorsIgnorePattern: '^ignore',
-			}],
-
-			'no-redeclare': ['error'],
 			'no-empty': ['off'],
 			'no-nested-ternary': ['error'],
 			'no-case-declarations': ['off'],
@@ -111,7 +140,8 @@ export default defineConfig([
 			'no-self-assign': ['off'],
 			'no-useless-catch': ['off'],
 			'no-func-assign': ['off'],
-			'no-undef': ['off'],
+			'no-inner-declarations': ['off'],
+			'no-extra-parens': ['off'],
 		},
 	},
 ]);

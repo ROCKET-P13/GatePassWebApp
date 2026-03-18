@@ -1,4 +1,4 @@
-import { List, ListItem } from '../../../ui/List';
+import { List, ListItem } from '@ui/List';
 import { WidgetCard } from '../WidgetCard';
 
 export const CheckinsWidget = () => {

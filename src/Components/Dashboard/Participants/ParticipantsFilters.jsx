@@ -1,4 +1,4 @@
-import { Input } from '../../ui/Input';
+import { Input } from '@ui/Input';
 
 export const ParticipantsFilter = () => (
 	<div className='flex flex-row gap-2'>

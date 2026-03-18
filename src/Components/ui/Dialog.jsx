@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, cloneElement, Children } from 'react';
-import { mergeTailwindClasses } from '../../utils/mergeTailwindClasses';
+
+import { mergeTailwindClasses } from '@/utils/mergeTailwindClasses';
 
 const Dialog = ({ open, onClose, onExited, children }) => {
 	return children.map

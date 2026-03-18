@@ -1,14 +1,15 @@
+import { Outlet, useNavigate } from '@tanstack/react-router';
 import {
 	Drawer,
 	DrawerContent
-} from '../ui/Drawer';
-
-import { dashboardStore } from '../../Store/dashboardStore';
-import { DashboardAppBar } from './DashboardAppBar';
-import { Outlet, useNavigate } from '@tanstack/react-router';
-import { Routes } from '../../Common/routes';
-import { NavigationItem } from '../ui/NavigationItem';
+} from '@ui/Drawer';
+import { NavigationItem } from '@ui/NavigationItem';
 import { Calendar, FileCheckCorner, LayoutDashboard, Settings, SquareUser, UserCog, Users } from 'lucide-react';
+
+import { Routes } from '@/Common/routes';
+import { dashboardStore } from '@/Store/dashboardStore';
+
+import { DashboardAppBar } from './DashboardAppBar';
 
 const DrawerItems = [
 	{

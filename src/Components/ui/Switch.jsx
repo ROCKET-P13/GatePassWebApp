@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { mergeTailwindClasses } from '../../utils/mergeTailwindClasses';
+
+import { mergeTailwindClasses } from '@/utils/mergeTailwindClasses';
 
 export const Switch = (
 	{ checked: controlledChecked, defaultChecked, onChange, disabled = false, className, label },

@@ -1,11 +1,11 @@
-import { useMemo } from 'react';
+import { Button } from '@ui/Button';
+import { Input } from '@ui/Input';
+import { Select } from '@ui/Select';
 import _ from 'lodash';
-import { onboardingStore } from '../../../store/onboardingStore';
-import { States } from '../Common/states';
+import { useMemo } from 'react';
 
-import { Input } from '../../ui/Input';
-import { Select } from '../../ui/Select';
-import { Button } from '../../ui/Button';
+import { States } from '@/Components/Onboarding/Common/states';
+import { onboardingStore } from '@/store/onboardingStore';
 
 export const VenueStep = () => {
 	const venue = onboardingStore((state) => state.venue);

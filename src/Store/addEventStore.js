@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 import { create } from 'zustand';
-import { EventStatus } from '../Common/eventStatus';
+
+import { EventStatus } from '@/Common/eventStatus';
 
 export const addEventStore = create((set) => ({
 	isOpen: false,

@@ -1,5 +1,6 @@
 import { createContext, useContext, useMemo, Children, cloneElement } from 'react';
-import { mergeTailwindClasses } from '../../utils/mergeTailwindClasses';
+
+import { mergeTailwindClasses } from '@/utils/mergeTailwindClasses';
 
 const StepperContext = createContext({
 	currentStep: 0,

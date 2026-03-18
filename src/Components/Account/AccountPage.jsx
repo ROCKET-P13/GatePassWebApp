@@ -1,6 +1,7 @@
 import { useAuth0 } from '@auth0/auth0-react';
-import { Avatar } from '../ui/Avatar';
-import { Button } from '../ui/Button';
+import { Button } from '@ui/Button';
+
+import { Avatar } from '@ui/Avatar';
 
 export const AccountPage = () => {
 	const { user, isLoading, logout } = useAuth0();

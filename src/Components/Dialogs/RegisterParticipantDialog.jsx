@@ -1,12 +1,14 @@
-import { useMemo } from 'react';
-import { registerParticipantStore } from '../../Store/registerParticipantStore';
-import { Dialog, DialogContent, DialogFooter, DialogTitle } from '../ui/Dialog';
 import _ from 'lodash';
-import { Button } from '../ui/Button';
-import { Input } from '../ui/Input';
-import { useRegisterParticipantMutation } from '../../hooks/mutations/useRegisterParticipantMutation';
-import { Autocomplete } from '../ui/AutoComplete';
-import { Checkbox } from '../ui/Checkbox';
+import { useMemo } from 'react';
+
+import { useRegisterParticipantMutation } from '@/hooks/mutations/useRegisterParticipantMutation';
+import { registerParticipantStore } from '@/Store/registerParticipantStore';
+
+import { Autocomplete } from '@ui/AutoComplete';
+import { Button } from '@ui/Button';
+import { Checkbox } from '@ui/Checkbox';
+import { Dialog, DialogContent, DialogFooter, DialogTitle } from '@ui/Dialog';
+import { Input } from '@ui/Input';
 
 export const RegisterParticipantDialog = ({ open, eventId, participants }) => {
 	const {

@@ -1,13 +1,22 @@
+import { Link } from '@tanstack/react-router';
 import {
 	flexRender,
 	getCoreRowModel,
 	getSortedRowModel,
 	useReactTable
 } from '@tanstack/react-table';
-
+import { ChevronDown, ChevronsUpDown, ChevronUp, Pencil, Trash } from 'lucide-react';
 import { useMemo } from 'react';
-import { Link } from '@tanstack/react-router';
 
+import { EventStatusColorClass } from '@/Common/eventStatus';
+import { Routes } from '@/Common/routes';
+import { useEditEventTableMutation } from '@/hooks/mutations/useEditEventTableMutation';
+import { deleteEventStore } from '@/Store/deleteEventStore';
+import { editEventStore } from '@/Store/editEventStore';
+
+import { DeleteEventDialog } from '../../Dialogs/DeleteEventDialog';
+import { EditEventDialog } from '../../Dialogs/EditEventDialog';
+import { Icon } from '@ui/Icon';
 import {
 	Table,
 	TableHeader,
@@ -16,18 +25,7 @@ import {
 	TableHead,
 	TableCell,
 	TableContainer
-} from '../../ui/Table';
-
-import { DeleteEventDialog } from '../../Dialogs/DeleteEventDialog';
-import { EditEventDialog } from '../../Dialogs/EditEventDialog';
-
-import { editEventStore } from '../../../Store/editEventStore';
-import { deleteEventStore } from '../../../Store/deleteEventStore';
-import { EventStatusColorClass } from '../../../Common/eventStatus';
-import { Routes } from '../../../Common/routes';
-import { useEditEventTableMutation } from '../../../hooks/mutations/useEditEventTableMutation';
-import { ChevronDown, ChevronsUpDown, ChevronUp, Pencil, Trash } from 'lucide-react';
-import { Icon } from '../../ui/Icon';
+} from '@ui/Table';
 
 export const EventsTable = ({ events, sorting, onSortingChange }) => {
 	const queryKey = ['events', sorting];

@@ -1,8 +1,10 @@
 import dayjs from 'dayjs';
-import { Select } from './Select';
 import _ from 'lodash';
 import { useId } from 'react';
-import { mergeTailwindClasses } from '../../utils/mergeTailwindClasses';
+
+import { mergeTailwindClasses } from '@/utils/mergeTailwindClasses';
+
+import { Select } from './Select';
 
 export const TimePicker = ({ value, onChange, label, required }) => {
 	const time = value ? dayjs(value) : dayjs();

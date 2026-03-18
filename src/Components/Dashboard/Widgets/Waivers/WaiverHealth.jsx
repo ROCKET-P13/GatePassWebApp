@@ -1,4 +1,4 @@
-import { WidgetCard } from '../WidgetCard';
+import { WidgetCard } from '@/Components/Dashboard/Widgets/WidgetCard';
 
 export const WaiverHealthWidget = () => {
 	const signed = 124;

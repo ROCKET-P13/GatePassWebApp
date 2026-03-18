@@ -1,4 +1,4 @@
-import { mergeTailwindClasses } from '../../utils/mergeTailwindClasses';
+import { mergeTailwindClasses } from '@/utils/mergeTailwindClasses';
 
 const Card = (
 	{ className, ...props },

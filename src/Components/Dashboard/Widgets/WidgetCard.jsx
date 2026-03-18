@@ -1,4 +1,4 @@
-import { Card, CardContent } from '../../ui/Card';
+import { Card, CardContent } from '@ui/Card';
 
 export const WidgetCard = ({ title, action, children }) => {
 	const hasTitle = !!title;

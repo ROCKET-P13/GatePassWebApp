@@ -1,4 +1,5 @@
 import _ from 'lodash';
+
 import { widgetRegistry } from './Widgets';
 
 export const Dashboard = () => {

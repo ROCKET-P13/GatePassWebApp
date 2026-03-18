@@ -1,10 +1,12 @@
-import { useMemo } from 'react';
-import { useAddParticipantMutation } from '../../hooks/mutations/useAddParticipantMutation';
-import { addParticipantStore } from '../../Store/addParticipantStore';
+import { Button } from '@ui/Button';
 import _ from 'lodash';
-import { Dialog, DialogContent, DialogFooter, DialogTitle } from '../ui/Dialog';
-import { Button } from '../ui/Button';
-import { Input } from '../ui/Input';
+import { useMemo } from 'react';
+
+import { useAddParticipantMutation } from '@/hooks/mutations/useAddParticipantMutation';
+import { addParticipantStore } from '@/Store/addParticipantStore';
+
+import { Dialog, DialogContent, DialogFooter, DialogTitle } from '@ui/Dialog';
+import { Input } from '@ui/Input';
 
 export const AddParticipantDialog = ({ open, queryKey }) => {
 	const closeDialog = addParticipantStore((state) => state.closeDialog);

@@ -1,6 +1,7 @@
-import _ from 'lodash';
-import { APIClient } from './APIClient';
 import dayjs from 'dayjs';
+import _ from 'lodash';
+
+import { APIClient } from './APIClient';
 
 export class ParticipantsAPI {
 	#url = '/participants';

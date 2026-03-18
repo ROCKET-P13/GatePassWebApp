@@ -1,16 +1,17 @@
-import { useMemo } from 'react';
-import { addEventStore } from '../../Store/addEventStore';
 import dayjs from 'dayjs';
 import _ from 'lodash';
-import { EventStatus } from '../../Common/eventStatus';
-import { useAddEventMutation } from '../../hooks/mutations/useAddEventMutation';
+import { useMemo } from 'react';
 
-import { Dialog, DialogContent, DialogTitle, DialogFooter } from '../ui/Dialog';
-import { Button } from '../ui/Button';
-import { DatePicker } from '../ui/DatePicker';
-import { TimePicker } from '../ui/TimePicker';
-import { Input } from '../ui/Input';
-import { Select } from '../ui/Select';
+import { EventStatus } from '@/Common/eventStatus';
+import { useAddEventMutation } from '@/hooks/mutations/useAddEventMutation';
+import { addEventStore } from '@/Store/addEventStore';
+
+import { Button } from '@ui/Button';
+import { DatePicker } from '@ui/DatePicker';
+import { Dialog, DialogContent, DialogTitle, DialogFooter } from '@ui/Dialog';
+import { Input } from '@ui/Input';
+import { Select } from '@ui/Select';
+import { TimePicker } from '@ui/TimePicker';
 
 export const AddEventDialog = ({ open, queryKey }) => {
 	const closeDialog = addEventStore((state) => state.closeDialog);

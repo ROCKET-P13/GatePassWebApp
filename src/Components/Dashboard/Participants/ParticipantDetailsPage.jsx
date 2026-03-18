@@ -1,6 +1,7 @@
 import { useLoaderData } from '@tanstack/react-router';
-import { Routes } from '../../../Common/routes';
-import { Tab, TabPanel, Tabs } from '../../ui/Tabs';
+import { Tab, TabPanel, Tabs } from '@ui/Tabs';
+
+import { Routes } from '@/Common/routes';
 
 export const ParticipantDetailsPage = () => {
 	const participant = useLoaderData({

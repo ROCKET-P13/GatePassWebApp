@@ -1,9 +1,10 @@
+import { Button } from '@ui/Button';
 import { useState } from 'react';
-import { EventsTable } from './EventsTable';
-import { AddEventDialog } from '../../Dialogs/AddEventDialog';
-import { useGetAllEventsQuery } from '../../../hooks/queries/useGetAllEventsQuery';
-import { Button } from '../../ui/Button';
-import { addEventStore } from '../../../Store/addEventStore';
+
+import { EventsTable } from '@/Components/Dashboard/Events/EventsTable';
+import { AddEventDialog } from '@/Components/Dialogs/AddEventDialog';
+import { useGetAllEventsQuery } from '@/hooks/queries/useGetAllEventsQuery';
+import { addEventStore } from '@/Store/addEventStore';
 
 export const EventsPage = () => {
 	const [sorting, setSorting] = useState([]);

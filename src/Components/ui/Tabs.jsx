@@ -1,5 +1,6 @@
 import { useState, Children, cloneElement } from 'react';
-import { mergeTailwindClasses } from '../../utils/mergeTailwindClasses';
+
+import { mergeTailwindClasses } from '@/utils/mergeTailwindClasses';
 
 export const Tabs = ({ defaultValue, value: controlledValue, onChange, children }) => {
 	const [activeTab, setActiveTab] = useState(defaultValue || null);

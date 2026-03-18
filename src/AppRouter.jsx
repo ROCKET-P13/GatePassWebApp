@@ -1,3 +1,5 @@
+import { useAuth0 } from '@auth0/auth0-react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import {
 	createRouter,
 	createRootRoute,
@@ -6,23 +8,21 @@ import {
 	Outlet,
 	RouterProvider
 } from '@tanstack/react-router';
-import { useAuth0 } from '@auth0/auth0-react';
 
-import { VenueOnboarding } from './Components/Onboarding/VenueOnboarding';
-import { DashboardDrawer } from './Components/Dashboard/DashboardDrawer';
-import { Dashboard } from './Components/Dashboard/Dashboard';
-import { EventsPage } from './Components/Dashboard/Events/EventsPage';
-import { ParticipantsPage } from './Components/Dashboard/Participants/ParticipantsPage';
-import { LoginPage } from './Components/Login/LoginPage';
+import { EventsAPI } from './API/EventsAPI';
+import { ParticipantsAPI } from './API/ParticipantsAPI';
 import { RequireAuth } from './Auth/RequireAuth';
 import { Routes } from './Common/routes';
-import { LoadingScreen } from './Components/Common/LoadingScreen';
 import { AccountPage } from './Components/Account/AccountPage';
+import { LoadingScreen } from './Components/Common/LoadingScreen';
+import { Dashboard } from './Components/Dashboard/Dashboard';
+import { DashboardDrawer } from './Components/Dashboard/DashboardDrawer';
 import { EventDetailsPage } from './Components/Dashboard/Events/EventDetailsPage';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { EventsAPI } from './API/EventsAPI';
+import { EventsPage } from './Components/Dashboard/Events/EventsPage';
 import { ParticipantDetailsPage } from './Components/Dashboard/Participants/ParticipantDetailsPage';
-import { ParticipantsAPI } from './API/ParticipantsAPI';
+import { ParticipantsPage } from './Components/Dashboard/Participants/ParticipantsPage';
+import { LoginPage } from './Components/Login/LoginPage';
+import { VenueOnboarding } from './Components/Onboarding/VenueOnboarding';
 
 const queryClient = new QueryClient();
 
