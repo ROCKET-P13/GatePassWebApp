@@ -1,14 +1,14 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import { useQuery } from '@tanstack/react-query';
 import { Link } from '@tanstack/react-router';
+import { Icon } from '@ui/Icon';
 import { List, ListItem } from '@ui/List';
 import _ from 'lodash';
 import { SquarePlus } from 'lucide-react';
-import { Icon } from 'lucide-react';
 import { useMemo } from 'react';
 
 import { EventsAPI } from '@/API/EventsAPI';
-import { EventStatusColorClass } from '@/Common/eventStatus';
+import { EventStatusColorClass } from '@/Common/EventStatus';
 import { Routes } from '@/Common/routes';
 import { AddEventDialog } from '@/Components/Dialogs/AddEventDialog';
 import { addEventStore } from '@/Store/addEventStore';
@@ -19,10 +19,8 @@ export const TodaysEventsWidget = () => {
 	const queryKey = ['events', 'today'];
 	const { getAccessTokenSilently, isAuthenticated } = useAuth0();
 
-	const {
-		openDialog: openAddEventDialog,
-		isOpen: isAddEventDialogOpen,
-	} = addEventStore((state) => state);
+	const openAddEventDialog = addEventStore((state) => state.openDialog);
+	const isAddEventDialogOpen = addEventStore((state) => state.isOpen);
 
 	const eventsAPI = useMemo(
 		() => new EventsAPI({ getAccessToken: getAccessTokenSilently }),
@@ -53,7 +51,6 @@ export const TodaysEventsWidget = () => {
 						className='p-1 rounded-md'
 						onClick={openAddEventDialog}
 					>
-
 						<Icon as={SquarePlus} />
 					</button>
 				}

@@ -1,15 +1,21 @@
+import { forwardRef } from 'react';
+
 import { mergeTailwindClasses } from '@/utils/mergeTailwindClasses';
 
-const Card = (
-	{ className, ...props },
-	ref
-) => {
-	return (
-		<div
-			ref={ref}
-			data-slot="card"
-			className={
-				mergeTailwindClasses(
+const Card = forwardRef(
+	(
+		{
+			className,
+			...props
+		},
+		ref
+	) => {
+		return (
+			<div
+				ref={ref}
+				data-slot="card"
+				className={
+					mergeTailwindClasses(
 					`w-full
 					rounded-xl
 					border
@@ -21,87 +27,124 @@ const Card = (
 					hover:shadow-md
 					`,
 					className
-				)
-			}
-			{...props}
-		/>
-	);
-};
+					)
+				}
+				{...props}
+			/>
+		);
+	}
+);
 
-const CardHeader = (
-	{ className, ...props },
-	ref
-) => {
-	return (
-		<div
-			ref={ref}
-			data-slot="card-header"
-			className={mergeTailwindClasses('flex flex-col space-y-1.5 py-4', className)}
-			{...props}
-		/>
-	);
-};
+Card.displayName = 'Card';
 
-const CardTitle = (
-	{ className, ...props },
-	ref
-) => {
-	return (
-		<h3
-			ref={ref}
-			data-slot="card-title"
-			className={
-				mergeTailwindClasses(
-					'text-lg font-semibold leading-none tracking-tight',
-					className
-				)
-			}
-			{...props}
-		/>
-	);
-};
+const CardHeader = forwardRef(
+	(
+		{
+			className,
+			...props
+		},
+		ref
+	) => {
+		return (
+			<div
+				ref={ref}
+				data-slot="card-header"
+				className={mergeTailwindClasses('flex flex-col space-y-1.5 py-4', className)}
+				{...props}
+			/>
+		);
+	}
+);
 
-const CardDescription = (
-	{ className, ...props },
-	ref
-) => {
-	return (
-		<p
-			ref={ref}
-			data-slot="card-description"
-			className={mergeTailwindClasses('text-sm text-[rbg(var(--muted-foreground))]', className)}
-			{...props}
-		/>
-	);
-};
+CardHeader.displayName = 'CardHeader';
 
-const CardContent = (
-	{ className, ...props },
-	ref
-) => {
-	return (
-		<div
-			ref={ref}
-			data-slot="card-content"
-			className={mergeTailwindClasses('p-6 pt-0', className)}
-			{...props}
-		/>
-	);
-};
+const CardTitle = forwardRef(
+	(
+		{
+			className,
+			...props
+		},
+		ref
+	) => {
+		return (
+			<h3
+				ref={ref}
+				data-slot="card-title"
+				className={
+					mergeTailwindClasses(
+						'text-lg font-semibold leading-none tracking-tight',
+						className
+					)
+				}
+				{...props}
+			/>
+		);
+	}
+);
 
-const CardFooter = (
-	{ className, ...props },
-	ref
-) => {
-	return (
-		<div
-			ref={ref}
-			data-slot="card-footer"
-			className={mergeTailwindClasses('flex items-center border-border bg-muted/40 p-6 pt-4', className)}
-			{...props}
-		/>
-	);
-};
+CardTitle.displayName = 'CardTitle';
+
+const CardDescription = forwardRef(
+	(
+		{
+			className,
+			...props
+		},
+		ref
+	) => {
+		return (
+			<p
+				ref={ref}
+				data-slot="card-description"
+				className={mergeTailwindClasses('text-sm text-[rbg(var(--muted-foreground))]', className)}
+				{...props}
+			/>
+		);
+	}
+);
+
+CardDescription.displayName = 'CardDescription';
+
+const CardContent = forwardRef(
+	(
+		{
+			className,
+			...props
+		},
+		ref
+	) => {
+		return (
+			<div
+				ref={ref}
+				data-slot="card-content"
+				className={mergeTailwindClasses('p-6 pt-0', className)}
+				{...props}
+			/>
+		);
+	}
+);
+
+CardContent.displayName = 'CardContent';
+
+const CardFooter = forwardRef(
+	(
+		{
+			className,
+			...props
+		},
+		ref
+	) => {
+		return (
+			<div
+				ref={ref}
+				data-slot="card-footer"
+				className={mergeTailwindClasses('flex items-center border-border bg-muted/40 p-6 pt-4', className)}
+				{...props}
+			/>
+		);
+	});
+
+CardFooter.displayName = 'CardFooter';
 
 export {
 	Card,

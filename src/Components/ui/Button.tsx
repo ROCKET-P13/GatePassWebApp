@@ -57,10 +57,11 @@ const Sizes = {
 type Variant = keyof typeof Variants
 type Size = keyof typeof Sizes
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLElement> {
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 	variant?: Variant,
 	size?: Size,
 }
+
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 	(
 		{
@@ -85,7 +86,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 						disabled
 							? 'opacity-50 cursor-not-allowed hover:opacity-50 hover:bg-none'
 							: '',
-						className
+						className || ''
 					)
 				}
 				onClick={(e) => {

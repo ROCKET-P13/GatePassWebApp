@@ -14,7 +14,6 @@ export const Dashboard = () => {
 						<div key={key} className={className}>
 							<Widget />
 						</div>
-
 					))
 					.value()
 			}

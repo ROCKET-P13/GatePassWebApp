@@ -50,7 +50,6 @@ export default defineConfig([
 			},
 		},
 		rules: {
-
 			'import/order': [
 				'error',
 				{
@@ -72,7 +71,7 @@ export default defineConfig([
 							position: 'after',
 						},
 					],
-					pathGroupsExcludedImportTypes: ['builtin', 'external'],
+					// pathGroupsExcludedImportTypes: ['builtin', 'external'],
 					'newlines-between': 'always',
 					alphabetize: { order: 'asc', caseInsensitive: true },
 				},
