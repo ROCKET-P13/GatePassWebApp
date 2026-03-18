@@ -16,18 +16,30 @@
     "noEmit": true,
     "isolatedModules": true,
 
+	// TODO: Remove below lines when done with jsx => tsx conversion
     "allowJs": true,
-    "checkJs": false,
+	"checkJs": false,
+
+	// TODO: Uncomment below lines when done with jsx => tsx conversion
+	// "allowJs": false,
+    // "checkJs": false,
 
     "skipLibCheck": true,
 
     "baseUrl": ".",
     "paths": {
-	  "@ui/*": ["src/Components/ui/*"],
-      "@/*": ["src/*"],
+      "@ui/*": ["src/Components/ui/*"],
+      "@/*": ["src/*"]
     },
-	"types": ["vite/client", "node"]
+    "types": ["vite/client", "node"]
   },
-  "include": ["src"],
-  "exclude": ["node_modules", "dist", "eslint.config.ts"]
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "eslint.config.ts"
+  ]
 }

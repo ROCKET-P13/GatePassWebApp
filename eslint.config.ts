@@ -9,7 +9,19 @@ import tseslint from 'typescript-eslint';
 
 export default defineConfig([
 	globalIgnores(['dist']),
-
+	//  TODO: Uncomment below lines when done with jsx => tsx conversion
+	// {
+	// 	files: ['**/*.js', '**/*.jsx'],
+	// 	rules: {
+	// 		'no-restricted-syntax': [
+	// 			'error',
+	// 			{
+	// 				selector: 'Program',
+	// 				message: 'JS/JSX files are not allowed. Use .ts/.tsx instead.',
+	// 			},
+	// 		],
+	// 	},
+	// },
 	{
 		files: ['**/*.{js,jsx,ts,tsx}'],
 		extends: [
