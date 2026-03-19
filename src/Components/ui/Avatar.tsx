@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { useState } from 'react';
+import { HTMLAttributes, useState } from 'react';
 
 import { mergeTailwindClasses } from '@/utils/mergeTailwindClasses';
 
@@ -26,11 +26,10 @@ const getInitialsFromName = (fullName: string) => {
 	return initials.toUpperCase();
 };
 
-interface AvatarProps {
+interface AvatarProps extends HTMLAttributes<HTMLDivElement> {
 	src?: string,
 	name: string,
 	size?: Size,
-	className?: string
 }
 
 export const Avatar = (
@@ -39,6 +38,7 @@ export const Avatar = (
 		name = 'Avatar',
 		size = 'md',
 		className = '',
+		...props
 	} : AvatarProps
 ) => {
 	const [imageError, setImageError] = useState(false);
@@ -52,6 +52,7 @@ export const Avatar = (
 					className
 				)
 			}
+			{...props}
 		>
 			{
 				src && !imageError

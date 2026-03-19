@@ -1,4 +1,8 @@
-export const LoadingScreen = ({ message = 'Loading...' }) => {
+interface LoadingScreenProps {
+	message?: string
+}
+
+export const LoadingScreen = ({ message = 'Loading...' } : LoadingScreenProps) => {
 	return (
 		<div
 			className='fixed inset-0 z-9999 flex flex-col items-center justify-center bg-background'
