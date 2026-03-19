@@ -1,11 +1,11 @@
-import { forwardRef } from 'react';
+import { forwardRef, HTMLAttributes } from 'react';
 
 import { mergeTailwindClasses } from '@/utils/mergeTailwindClasses';
 
-const Card = forwardRef(
+const Card = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
 	(
 		{
-			className,
+			className = '',
 			...props
 		},
 		ref
@@ -37,10 +37,10 @@ const Card = forwardRef(
 
 Card.displayName = 'Card';
 
-const CardHeader = forwardRef(
+const CardHeader = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
 	(
 		{
-			className,
+			className = '',
 			...props
 		},
 		ref
@@ -58,10 +58,10 @@ const CardHeader = forwardRef(
 
 CardHeader.displayName = 'CardHeader';
 
-const CardTitle = forwardRef(
+const CardTitle = forwardRef<HTMLHeadingElement, HTMLAttributes<HTMLHeadingElement>>(
 	(
 		{
-			className,
+			className = '',
 			...props
 		},
 		ref
@@ -84,10 +84,10 @@ const CardTitle = forwardRef(
 
 CardTitle.displayName = 'CardTitle';
 
-const CardDescription = forwardRef(
+const CardDescription = forwardRef<HTMLParagraphElement, HTMLAttributes<HTMLParagraphElement>>(
 	(
 		{
-			className,
+			className = '',
 			...props
 		},
 		ref
@@ -105,10 +105,10 @@ const CardDescription = forwardRef(
 
 CardDescription.displayName = 'CardDescription';
 
-const CardContent = forwardRef(
+const CardContent = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
 	(
 		{
-			className,
+			className = '',
 			...props
 		},
 		ref
@@ -126,10 +126,10 @@ const CardContent = forwardRef(
 
 CardContent.displayName = 'CardContent';
 
-const CardFooter = forwardRef(
+const CardFooter = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
 	(
 		{
-			className,
+			className = '',
 			...props
 		},
 		ref
@@ -142,7 +142,8 @@ const CardFooter = forwardRef(
 				{...props}
 			/>
 		);
-	});
+	}
+);
 
 CardFooter.displayName = 'CardFooter';
 

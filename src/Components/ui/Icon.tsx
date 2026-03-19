@@ -9,7 +9,15 @@ interface IconProps extends SVGProps<SVGSVGElement> {
 }
 
 export const Icon = forwardRef<SVGSVGElement, IconProps>(
-	({ as: Component, size = 16, className, ...props }, ref) => {
+	(
+		{
+			as: Component,
+			size = 16,
+			className = '',
+			...props
+		},
+		ref
+	) => {
 		if (!Component) return null;
 
 		return (
@@ -20,7 +28,7 @@ export const Icon = forwardRef<SVGSVGElement, IconProps>(
 				className={
 					mergeTailwindClasses(
 						'text-primary transition-colors',
-						className || ''
+						className
 					)
 				}
 				{...props}

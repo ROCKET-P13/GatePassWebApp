@@ -65,7 +65,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 	(
 		{
-			className,
+			className = '',
 			variant = 'default',
 			size = 'md',
 			disabled = false,
@@ -86,7 +86,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 						disabled
 							? 'opacity-50 cursor-not-allowed hover:opacity-50 hover:bg-none'
 							: '',
-						className || ''
+						className
 					)
 				}
 				onClick={(e) => {
