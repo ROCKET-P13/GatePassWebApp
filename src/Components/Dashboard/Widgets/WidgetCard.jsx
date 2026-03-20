@@ -1,5 +1,4 @@
 import { Card, CardContent } from '@ui/Card';
-import React from 'react';
 
 export const WidgetCard = ({ title, action, children }) => {
 	const hasTitle = !!title;

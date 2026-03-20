@@ -5,11 +5,6 @@ import {
 	flexRender,
 	getSortedRowModel
 } from '@tanstack/react-table';
-import { ChevronDown, ChevronsUpDown, ChevronUp, Pencil, Trash } from 'lucide-react';
-import { useMemo } from 'react';
-
-import { Routes } from '@/Common/routes';
-
 import { Icon } from '@ui/Icon';
 import {
 	Table,
@@ -20,6 +15,10 @@ import {
 	TableCell,
 	TableContainer
 } from '@ui/Table';
+import { ChevronDown, ChevronsUpDown, ChevronUp, Pencil, Trash } from 'lucide-react';
+import { useMemo } from 'react';
+
+import { Routes } from '@/Common/routes';
 
 export const ParticipantsTable = ({ participants, sorting, onSortingChange }) => {
 	const columns = useMemo(

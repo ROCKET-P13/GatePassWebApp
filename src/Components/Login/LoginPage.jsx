@@ -1,9 +1,8 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import { Navigate } from '@tanstack/react-router';
+import { Button } from '@ui/Button';
 
 import { Routes } from '@/Common/routes';
-
-import { Button } from '@ui/Button';
 
 export const LoginPage = () => {
 	const { loginWithRedirect, isAuthenticated } = useAuth0();

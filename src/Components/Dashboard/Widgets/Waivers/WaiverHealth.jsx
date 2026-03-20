@@ -8,7 +8,6 @@ export const WaiverHealthWidget = () => {
 	return (
 		<WidgetCard title="Waiver Health">
 			<div className="space-y-3">
-				{/* Stats */}
 				<h3 className="text-lg font-semibold">
 					{signed} / {total} signed
 				</h3>
