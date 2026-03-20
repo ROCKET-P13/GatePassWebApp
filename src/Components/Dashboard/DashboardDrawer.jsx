@@ -1,8 +1,5 @@
 import { Outlet, useNavigate } from '@tanstack/react-router';
-import {
-	Drawer,
-	DrawerContent
-} from '@ui/Drawer';
+import { Drawer } from '@ui/Drawer';
 import { NavigationItem } from '@ui/NavigationItem';
 import { Calendar, FileCheckCorner, LayoutDashboard, Settings, SquareUser, UserCog, Users } from 'lucide-react';
 
@@ -68,7 +65,7 @@ export const DashboardDrawer = () => {
 			<DashboardAppBar />
 
 			<Drawer open={drawerOpen} onClose={() => toggleDrawer(false)}>
-				<DrawerContent
+				<Drawer.Content
 					open={drawerOpen}
 					side="left"
 					className="w-64 flex flex-col"
@@ -87,7 +84,7 @@ export const DashboardDrawer = () => {
 						}
 					</div>
 
-					<div className="border-t border-border p-4 space-y-1">
+					<Drawer.Footer className='flex flex-col'>
 						{
 							AccountDrawerItems.map((item) => (
 								<NavigationItem
@@ -99,8 +96,8 @@ export const DashboardDrawer = () => {
 								</NavigationItem>
 							))
 						}
-					</div>
-				</DrawerContent>
+					</Drawer.Footer>
+				</Drawer.Content>
 			</Drawer>
 
 			<main className="pt-14 p-10">
