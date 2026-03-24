@@ -5,7 +5,27 @@ import { useMemo } from 'react';
 
 import { EventsAPI } from '@/API/EventsAPI';
 
-export const useAddEventClassMutation = ({ eventId }) => {
+interface EventClass {
+	id: string;
+	name: string;
+	gender?: string;
+	skillLevel?: string;
+	maximumAge?: number;
+	minimumAge?: number;
+	participantCapacity?: number;
+}
+
+type NewEventClass = Omit<EventClass, 'id'>
+
+interface MutationContext {
+	previousEventClasses?: EventClass[];
+	temporaryId: string;
+}
+interface UseAddEventClassMutationProps {
+	eventId: string;
+}
+
+export const useAddEventClassMutation = ({ eventId } : UseAddEventClassMutationProps) => {
 	const { getAccessTokenSilently } = useAuth0();
 	const queryKey = ['classes', eventId];
 
@@ -16,9 +36,9 @@ export const useAddEventClassMutation = ({ eventId }) => {
 
 	const queryClient = useQueryClient();
 
-	return useMutation({
+	return useMutation<EventClass, Error, NewEventClass, MutationContext>({
 		mutationFn: async (eventClass) => {
-			await eventsAPI.addClass({
+			return await eventsAPI.addClass({
 				eventId,
 				name: eventClass.name,
 				gender: eventClass.gender,
@@ -29,12 +49,12 @@ export const useAddEventClassMutation = ({ eventId }) => {
 			});
 		},
 		onMutate: async (newEventClass) => {
-			await queryClient.cancelQueries(queryKey);
+			await queryClient.cancelQueries({ queryKey });
 
-			const previousEventClasses = queryClient.getQueryData(queryKey);
-			const temporaryId = Math.random.toString(32);
+			const previousEventClasses = queryClient.getQueryData<EventClass[]>(queryKey);
+			const temporaryId = Math.random().toString(32);
 
-			queryClient.setQueryData(
+			queryClient.setQueryData<EventClass[]>(
 				queryKey,
 				(old = []) => {
 					return [
@@ -50,13 +70,17 @@ export const useAddEventClassMutation = ({ eventId }) => {
 			return { previousEventClasses, temporaryId };
 		},
 		onError: (_error, _vars, context) => {
+			if (!context) {
+				return;
+			}
+
 			queryClient.setQueryData(
 				queryKey,
 				context.previousEventClasses
 			);
 		},
 		onSuccess: (createdEventClass, _vars, context) => {
-			queryClient.setQueryData(
+			queryClient.setQueryData<EventClass[]>(
 				queryKey,
 				(old = []) => {
 					return _.map(old, (eventClass) => {
