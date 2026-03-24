@@ -1,0 +1,43 @@
+import { ComponentType } from 'react';
+
+import { CheckinsWidget } from './Checkins/CheckinsWidget';
+import { TodaysEventsWidget } from './Events/TodaysEventsWidget';
+import { RevenueWidget } from './Revenue/RevenueWidget';
+import { StatusWidget } from './Status/StatusWidget';
+import { WaiverHealthWidget } from './Waivers/WaiverHealth';
+
+interface WidgetConfig {
+	component: ComponentType;
+	className: string;
+}
+
+interface WidgetRegistry {
+	status: WidgetConfig;
+	events: WidgetConfig;
+	checkins: WidgetConfig;
+	waivers: WidgetConfig;
+	revenue: WidgetConfig;
+}
+
+export const widgetRegistry: WidgetRegistry = {
+	status: {
+		component: StatusWidget,
+		className: 'col-span-12',
+	},
+	events: {
+		component: TodaysEventsWidget,
+		className: 'col-span-6',
+	},
+	checkins: {
+		component: CheckinsWidget,
+		className: 'col-span-6',
+	},
+	waivers: {
+		component: WaiverHealthWidget,
+		className: 'col-span-6',
+	},
+	revenue: {
+		component: RevenueWidget,
+		className: 'col-span-6',
+	},
+};

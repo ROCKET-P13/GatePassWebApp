@@ -1,0 +1,215 @@
+import dayjs, { Dayjs } from 'dayjs';
+import _ from 'lodash';
+
+import { APIClient } from './APIClient';
+
+interface EventsAPIConstructorParams {
+	getAccessToken?: () => Promise<string>;
+	apiClient?: APIClient;
+}
+
+interface RawEvent {
+	id: string;
+	name: string;
+	participantCapacity?: number;
+	status: string;
+	startDateTime: string;
+}
+
+interface Event {
+	id: string;
+	name: string;
+	participantCapacity?: number;
+	status: string;
+	date: string;
+	startTime: string;
+	startDateTime: Dayjs;
+}
+
+interface GetAllParams {
+	sorting?: Array<{ id: string; desc: boolean }>;
+}
+
+interface GetRegistrationsParams {
+	eventId: string;
+}
+
+interface RegisterParticipantParams {
+	eventId: string;
+	participantId: string;
+	eventNumber: string;
+	eventClass: string;
+	checkedIn: boolean;
+}
+
+interface AddClassParams {
+	eventId: string;
+	name: string;
+	gender: string;
+	skillLevel: string;
+	maximumAge?: number;
+	minimumAge?: number;
+	participantCapacity?: number;
+}
+
+interface CreateEventParams {
+	name: string;
+	startDateTime: Dayjs;
+	participantCapacity?: number;
+	status: string;
+}
+
+interface DeleteEventParams {
+	eventId: string;
+}
+
+interface UpdateEventParams {
+	id: string;
+	name: string;
+	startDateTime: Dayjs;
+	participantCapacity?: number;
+	status: string;
+}
+
+export class EventsAPI {
+	#url = '/events';
+	#apiClient: APIClient;
+	
+	constructor (params: EventsAPIConstructorParams = {}) {
+		this.#apiClient = params.apiClient ?? new APIClient({
+			getAccessToken: params.getAccessToken!,
+		});
+	}
+
+	async getById (eventId: string): Promise<Event> {
+		const event = await this.#apiClient.get({
+			url: `${this.#url}/${eventId}`,
+		}) as RawEvent;
+
+		return {
+			id: event.id,
+			name: event.name,
+			participantCapacity: event.participantCapacity,
+			status: event.status,
+			date: dayjs(event.startDateTime).format('MMM DD, YYYY'),
+			startTime: dayjs(event.startDateTime).format('hh:mm a'),
+			startDateTime: dayjs(event.startDateTime),
+		};
+	}
+
+	async getAll ({ sorting = [] }: GetAllParams): Promise<Event[]> {
+		const params = new URLSearchParams();
+
+		if (_.some(sorting)) {
+			params.set('sortBy', sorting[0].id);
+			params.set('sortDir', sorting[0].desc ? 'desc' : 'asc');
+		}
+
+		const events = await this.#apiClient.get({
+			url: `${this.#url}?${params.toString()}`,
+		}) as RawEvent[];
+
+		return _.map(events, (event) => ({
+			id: event.id,
+			name: event.name,
+			participantCapacity: event.participantCapacity,
+			status: event.status,
+			date: dayjs(event.startDateTime).format('MMM DD, YYYY'),
+			startTime: dayjs(event.startDateTime).format('hh:mm a'),
+			startDateTime: dayjs(event.startDateTime),
+		}));
+	}
+
+	async getTodays (): Promise<Event[]> {
+		const events = await this.#apiClient.get({
+			url: `${this.#url}/today`,
+		}) as RawEvent[];
+
+		return _.map(events, (event) => ({
+			id: event.id,
+			name: event.name,
+			participantCapacity: event.participantCapacity,
+			status: event.status,
+			date: dayjs(event.startDateTime).format('MMM DD, YYYY'),
+			startTime: dayjs(event.startDateTime).format('hh:mm a'),
+			startDateTime: dayjs(event.startDateTime),
+		}));
+	}
+
+	async getRegistrations ({ eventId }: GetRegistrationsParams): Promise<unknown> {
+		const registrations = await this.#apiClient.get({
+			url: `${this.#url}/${eventId}/registrations`,
+		});
+
+		return registrations;
+	}
+
+	async registerParticipant ({ eventId, participantId, eventNumber, eventClass, checkedIn }: RegisterParticipantParams): Promise<unknown> {
+		const registration = await this.#apiClient.post({
+			url: `${this.#url}/${eventId}/registrations`,
+			body: {
+				class: eventClass,
+				eventId,
+				participantId,
+				eventNumber,
+				checkedIn,
+			},
+		});
+
+		return registration;
+	}
+
+	async addClass ({ eventId, name, gender, skillLevel, maximumAge, minimumAge, participantCapacity }: AddClassParams): Promise<unknown> {
+		return await this.#apiClient.post({
+			url: `${this.#url}/${eventId}/classes`,
+			body: {
+				name,
+				gender,
+				skillLevel,
+				maximumAge,
+				minimumAge,
+				participantCapacity,
+			},
+		});
+	}
+
+	async create ({ name, startDateTime, participantCapacity, status }: CreateEventParams): Promise<Event> {
+		const event = await this.#apiClient.post({
+			url: this.#url,
+			body: {
+				name,
+				startDateTime,
+				participantCapacity,
+				status,
+			},
+		}) as RawEvent;
+
+		return {
+			id: event.id,
+			name: event.name,
+			participantCapacity: event.participantCapacity,
+			status: event.status,
+			date: dayjs(event.startDateTime).format('MMM DD, YYYY'),
+			startTime: dayjs(event.startDateTime).format('hh:mm a'),
+			startDateTime: dayjs(event.startDateTime),
+		};
+	}
+
+	async delete ({ eventId }: DeleteEventParams): Promise<void> {
+		await this.#apiClient.delete({
+			url: `${this.#url}/${eventId}`,
+		});
+	}
+
+	async update ({ id, name, startDateTime, participantCapacity, status }: UpdateEventParams): Promise<unknown> {
+		return await this.#apiClient.patch({
+			url: `${this.#url}/${id}`,
+			body: {
+				name,
+				startDateTime,
+				participantCapacity,
+				status,
+			},
+		});
+	}
+}

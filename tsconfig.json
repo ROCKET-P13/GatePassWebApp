@@ -16,13 +16,8 @@
     "noEmit": true,
     "isolatedModules": true,
 
-	// TODO: Remove below lines when done with jsx => tsx conversion
-    "allowJs": true,
-	"checkJs": false,
-
-	// TODO: Uncomment below lines when done with jsx => tsx conversion
-	// "allowJs": false,
-    // "checkJs": false,
+    "allowJs": false,
+    "checkJs": false,
 
     "skipLibCheck": true,
 
