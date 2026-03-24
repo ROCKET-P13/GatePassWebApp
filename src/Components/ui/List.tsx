@@ -1,6 +1,13 @@
+import { HTMLAttributes } from 'react';
+
 import { mergeTailwindClasses } from '@/utils/mergeTailwindClasses';
 
-export const List = ({ className, ...props }) => {
+export const List = (
+	{
+		className = '',
+		...props
+	} : HTMLAttributes<HTMLUListElement>
+) => {
 	return (
 		<ul
 			className={
@@ -14,7 +21,14 @@ export const List = ({ className, ...props }) => {
 	);
 };
 
-export const ListItem = ({ className, children, onClick, ...props }) => {
+export const ListItem = (
+	{
+		className = '',
+		children,
+		onClick,
+		...props
+	} : HTMLAttributes<HTMLLIElement>
+) => {
 	const isClickable = !!onClick;
 
 	return (
@@ -23,7 +37,7 @@ export const ListItem = ({ className, children, onClick, ...props }) => {
 			className={
 				mergeTailwindClasses(
 					'flex items-center justify-between px-4 py-3 transition-colors',
-					isClickable && 'cursor-pointer hover:bg-muted/50',
+					isClickable ? 'cursor-pointer hover:bg-muted/50' : '',
 					className
 				)
 			}
@@ -34,7 +48,17 @@ export const ListItem = ({ className, children, onClick, ...props }) => {
 	);
 };
 
-export const ListItemIcon = ({ title, description, className }) => {
+interface ListItemIconProps extends HTMLAttributes<HTMLDivElement> {
+	description?: string;
+}
+
+export const ListItemIcon = (
+	{
+		title,
+		description,
+		className = '',
+	} : ListItemIconProps
+) => {
 	return (
 		<div className={mergeTailwindClasses('flex flex-col', className)}>
 			<span className='font-medium'>{title}</span>
@@ -49,7 +73,12 @@ export const ListItemIcon = ({ title, description, className }) => {
 	);
 };
 
-export const ListItemAction = ({ className, ...props }) => {
+export const ListItemAction = (
+	{
+		className = '',
+		...props
+	} : HTMLAttributes<HTMLDivElement>
+) => {
 	return (
 		<div
 			className={
