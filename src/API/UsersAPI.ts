@@ -17,12 +17,6 @@ export class UsersAPI {
 		});
 	}
 
-	async getCurrent (): Promise<unknown> {
-		return await this.#apiClient.get({
-			url: `${this.#url}/me`,
-		});
-	}
-
 	async getVenue (): Promise<{ name: string; city: string; state: string; country: string }> {
 		return await this.#apiClient.get({
 			url: `${this.#url}/venue`,
