@@ -41,13 +41,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 				newValue = newValue.replace(/[^a-zA-Z0-9]/g, '');
 			}
 
-			onChange?.({
-				...e,
-				target: {
-					...e.target,
-					value: newValue,
-				},
-			});
+			e.target.value = newValue;
+			onChange?.(e);
 		};
 
 		return (
