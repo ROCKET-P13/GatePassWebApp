@@ -4,12 +4,11 @@ import { useMemo } from 'react';
 
 import { EventsAPI } from '@/API/EventsAPI';
 
-interface UseGetAllEventsQueryProps {
-	queryKey: string[];
-	sorting: Array<{ id: string; desc: boolean }>;
+interface UseGetTodaysEventsQueryProps {
+	queryKey: string[]
 }
 
-export const useGetAllEventsQuery = ({ queryKey, sorting }: UseGetAllEventsQueryProps) => {
+export const useGetTodaysEventsQuery = ({ queryKey }: UseGetTodaysEventsQueryProps) => {
 	const { isAuthenticated, getAccessTokenSilently } = useAuth0();
 
 	const eventsAPI = useMemo(
@@ -19,7 +18,7 @@ export const useGetAllEventsQuery = ({ queryKey, sorting }: UseGetAllEventsQuery
 
 	return useQuery({
 		queryKey,
-		queryFn: () => eventsAPI.getAll({ sorting }),
+		queryFn: () => eventsAPI.getTodays(),
 		enabled: isAuthenticated,
 		placeholderData: (previousData) => previousData,
 	});
