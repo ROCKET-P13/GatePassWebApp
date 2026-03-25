@@ -17,7 +17,7 @@ export class UsersAPI {
 		});
 	}
 
-	async getVenue (): Promise<{ name: string; city: string; state: string; country: string }> {
+	async getVenue (): Promise<Venue> {
 		return await this.#apiClient.get({
 			url: `${this.#url}/venue`,
 		}) as Venue;
