@@ -33,7 +33,7 @@ export const TodaysEventsWidget = () => {
 				title="Today's Events"
 				action={
 					<button
-						className='p-1 rounded-md'
+						className='p-1 rounded-md cursor-pointer'
 						onClick={openAddEventDialog}
 					>
 						<Icon as={SquarePlus} />
