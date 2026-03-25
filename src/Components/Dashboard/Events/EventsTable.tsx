@@ -145,7 +145,6 @@ export const EventsTable = ({ events, sorting, onSortingChange }: EventsTablePro
 	});
 
 	return (
-
 		<TableContainer>
 			<Table>
 				<TableHeader>

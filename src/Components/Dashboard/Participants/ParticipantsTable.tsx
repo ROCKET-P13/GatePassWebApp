@@ -97,28 +97,30 @@ export const ParticipantsTable = ({ participants, sorting, onSortingChange }: Pa
 								{
 									headerGroup.headers.map((header) => (
 										<TableHead key={header.id}>
-											{header.isPlaceholder ? null : (
-												<button
-													onClick={header.column.getToggleSortingHandler()}
-													className="flex items-center gap-2"
-												>
-													{
-														flexRender(
-															header.column.columnDef.header,
-															header.getContext()
-														)
-													}
+											{
+												header.isPlaceholder ? null : (
+													<button
+														onClick={header.column.getToggleSortingHandler()}
+														className="flex items-center gap-2"
+													>
+														{
+															flexRender(
+																header.column.columnDef.header,
+																header.getContext()
+															)
+														}
 
-													{{
-														asc: <Icon as={ChevronUp} />,
-														desc: <Icon  as={ChevronDown} />,
-													}[header.column.getIsSorted() as string] ?? (
-														header.column.getCanSort() && (
-															<Icon as={ChevronsUpDown} />
-														)
-													)}
-												</button>
-											)}
+														{{
+															asc: <Icon as={ChevronUp} />,
+															desc: <Icon  as={ChevronDown} />,
+														}[header.column.getIsSorted() as string] ?? (
+															header.column.getCanSort() && (
+																<Icon as={ChevronsUpDown} />
+															)
+														)}
+													</button>
+												)
+											}
 										</TableHead>
 									))
 								}
