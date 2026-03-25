@@ -75,7 +75,14 @@ interface StepProps {
 	error?: boolean;
 }
 
-const Step = ({ title, description, index = 0, error = false }: StepProps) => {
+const Step = (
+	{
+		title,
+		description,
+		index = 0,
+		error = false,
+	}: StepProps
+) => {
 	const { currentStep, onStepChange, orientation } = useContext(StepperContext);
 
 	const isCompleted = index < currentStep;
