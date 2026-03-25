@@ -4,13 +4,7 @@ import _ from 'lodash';
 import { useMemo } from 'react';
 
 import { ParticipantsAPI } from '@/API/ParticipantsAPI';
-
-interface Participant {
-	id: string;
-	firstName: string;
-	lastName: string;
-	createdAt: string;
-}
+import { Participant } from '@/types/Participant';
 
 interface NewParticipant {
 	firstName: string;

@@ -21,13 +21,7 @@ import { ChevronDown, ChevronsUpDown, ChevronUp, Pencil, Trash } from 'lucide-re
 import { useMemo } from 'react';
 
 import { Routes } from '@/Common/routes';
-
-interface Participant {
-	id: string;
-	firstName: string;
-	lastName: string;
-	createdAt: string;
-}
+import { Participant } from '@/types/Participant';
 
 interface ParticipantsTableProps {
 	participants: Participant[];

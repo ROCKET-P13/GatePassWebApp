@@ -2,13 +2,7 @@ import { useLoaderData } from '@tanstack/react-router';
 import { Tab, TabPanel, Tabs } from '@ui/Tabs';
 
 import { Routes } from '@/Common/routes';
-
-interface Participant {
-	id: string;
-	firstName: string;
-	lastName: string;
-	createdAt: string;
-}
+import { Participant } from '@/types/Participant';
 
 const TabIds = Object.freeze({
 	REGISTRATIONS: 'registrations',

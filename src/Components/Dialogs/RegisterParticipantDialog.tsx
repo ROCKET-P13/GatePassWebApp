@@ -8,13 +8,7 @@ import { ChangeEvent, useMemo } from 'react';
 
 import { useRegisterParticipantMutation } from '@/hooks/mutations/useRegisterParticipantMutation';
 import { registerParticipantStore } from '@/Store/registerParticipantStore';
-
-interface Participant {
-	id: string;
-	firstName: string;
-	lastName: string;
-	[key: string]: unknown;
-}
+import { Participant } from '@/types/Participant';
 
 interface RegisterParticipantDialogProps {
 	open: boolean;

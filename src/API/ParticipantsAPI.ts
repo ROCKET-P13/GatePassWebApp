@@ -1,6 +1,8 @@
 import dayjs from 'dayjs';
 import _ from 'lodash';
 
+import { Participant } from '@/types/Participant';
+
 import { APIClient } from './APIClient';
 
 interface ParticipantsAPIConstructorParams {
@@ -9,13 +11,6 @@ interface ParticipantsAPIConstructorParams {
 }
 
 interface RawParticipant {
-	id: string;
-	firstName: string;
-	lastName: string;
-	createdAt: string;
-}
-
-interface Participant {
 	id: string;
 	firstName: string;
 	lastName: string;

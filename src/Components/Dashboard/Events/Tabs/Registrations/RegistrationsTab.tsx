@@ -5,6 +5,7 @@ import { useGetAllParticipantsQuery } from '@/hooks/queries/useGetAllParticipant
 import { useGetEventRegistrationsQuery } from '@/hooks/queries/useGetEventRegistrationsQuery';
 import { addEventClassStore } from '@/Store/addEventClassStore';
 import { registerParticipantStore } from '@/Store/registerParticipantStore';
+import { Participant } from '@/types/Participant';
 
 import { RegistrationsTable } from './RegistrationsTable';
 import { AddEventClassDialog } from '../../../../Dialogs/AddEventClassDialog';
@@ -27,14 +28,6 @@ interface Registration {
 	eventNumber: string;
 	class: string;
 	checkedIn: boolean;
-}
-
-interface Participant {
-	id: string;
-	firstName: string;
-	lastName: string;
-	createdAt: string;
-	[key: string]: unknown;
 }
 
 export const RegistrationTab = ({ eventId }: RegistrationTabProps) => {
