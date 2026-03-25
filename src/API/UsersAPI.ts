@@ -1,3 +1,5 @@
+import { Venue } from '@/types/Venue';
+
 import { APIClient } from './APIClient';
 
 interface UsersAPIConstructorParams {
@@ -8,7 +10,7 @@ interface UsersAPIConstructorParams {
 export class UsersAPI {
 	#url = '/users';
 	#apiClient: APIClient;
-	
+
 	constructor (params: UsersAPIConstructorParams = {}) {
 		this.#apiClient = params.apiClient ?? new APIClient({
 			getAccessToken: params.getAccessToken!,
@@ -24,6 +26,6 @@ export class UsersAPI {
 	async getVenue (): Promise<{ name: string; city: string; state: string; country: string }> {
 		return await this.#apiClient.get({
 			url: `${this.#url}/venue`,
-		}) as { name: string; city: string; state: string; country: string };
+		}) as Venue;
 	}
 }

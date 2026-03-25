@@ -16,8 +16,8 @@ export const AccountPage = () => {
 	return (
 		<div className='flex flex-col items-center space-y-6 p-3'>
 			<Avatar
-				src={user.picture || undefined}
-				name={user.name || undefined}
+				src={user.picture || ''}
+				name={user.name || ''}
 				size="lg"
 			/>
 			<div className='text-center'>

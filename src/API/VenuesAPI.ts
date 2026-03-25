@@ -1,3 +1,5 @@
+import { Venue } from '@/types/Venue';
+
 import { APIClient } from './APIClient';
 
 interface VenuesAPIConstructorParams {
@@ -20,14 +22,14 @@ interface CreateVenueParams {
 export class VenuesAPI {
 	#url = '/venues';
 	#apiClient: APIClient;
-	
+
 	constructor (params: VenuesAPIConstructorParams = {}) {
 		this.#apiClient = params.apiClient ?? new APIClient({
 			getAccessToken: params.getAccessToken!,
 		});
 	}
 
-	async create ({ name, email, addressLine1, addressLine2, phoneNumber, city, state, logoImageUrl, country }: CreateVenueParams): Promise<unknown> {
+	async create ({ name, email, addressLine1, addressLine2, phoneNumber, city, state, logoImageUrl, country }: CreateVenueParams): Promise<Venue> {
 		return await this.#apiClient.post({
 			url: this.#url,
 			body: {
@@ -41,6 +43,6 @@ export class VenuesAPI {
 				logoImageUrl,
 				country,
 			},
-		});
+		}) as Venue;
 	}
 }

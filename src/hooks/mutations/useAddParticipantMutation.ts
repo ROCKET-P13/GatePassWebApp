@@ -64,7 +64,7 @@ export const useAddParticipantMutation = ({ queryKey }: UseAddParticipantMutatio
 			if (!context) {
 				return;
 			}
-			
+
 			queryClient.setQueryData(
 				queryKey,
 				context.previousParticipants

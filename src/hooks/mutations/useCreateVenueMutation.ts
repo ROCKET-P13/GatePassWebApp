@@ -3,18 +3,7 @@ import { useMutation } from '@tanstack/react-query';
 import { useMemo } from 'react';
 
 import { VenuesAPI } from '@/API/VenuesAPI';
-
-interface VenueData {
-	name: string;
-	email: string;
-	addressLine1: string;
-	addressLine2?: string;
-	phoneNumber: string;
-	city: string;
-	state: string;
-	logoImageUrl?: string;
-	country: string;
-}
+import { Venue } from '@/types/Venue';
 
 interface UseCreateVenueMutationProps {
 	next: () => void;
@@ -29,7 +18,7 @@ export const useCreateVenueMutation = ({ next }: UseCreateVenueMutationProps) =>
 	);
 
 	return useMutation({
-		mutationFn: async (venueData: VenueData) => await venuesAPI.create(venueData),
+		mutationFn: async (venueData: Venue) => await venuesAPI.create(venueData),
 		onSuccess: (response) => {
 			console.log('Venue Created:', response);
 			next();

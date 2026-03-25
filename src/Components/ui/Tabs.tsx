@@ -1,4 +1,4 @@
-import { HTMLAttributes, ReactElement, ReactNode, useState, Children, cloneElement } from 'react';
+import { ReactElement, ReactNode, useState, Children, cloneElement } from 'react';
 
 import { mergeTailwindClasses } from '@/utils/mergeTailwindClasses';
 

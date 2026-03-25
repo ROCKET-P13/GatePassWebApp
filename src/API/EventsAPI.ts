@@ -1,6 +1,8 @@
 import dayjs, { Dayjs } from 'dayjs';
 import _ from 'lodash';
 
+import { Event } from '@/types/Event';
+
 import { APIClient } from './APIClient';
 
 interface EventsAPIConstructorParams {
@@ -13,19 +15,28 @@ interface RawEvent {
 	name: string;
 	participantCapacity?: number;
 	status: string;
-	startDateTime: string;
-}
-
-interface Event {
-	id: string;
-	name: string;
-	participantCapacity?: number;
-	status: string;
-	date: string;
-	startTime: string;
 	startDateTime: Dayjs;
 }
 
+interface EventClass {
+	id: string;
+	name: string;
+	gender?: string;
+	skillLevel?: string;
+	maximumAge?: number;
+	minimumAge?: number;
+	participantCapacity?: number;
+}
+
+interface Registration {
+	id?: string;
+	participantFirstName: string;
+	participantLastName: string;
+	participantId: string;
+	class: string;
+	eventNumber: string;
+	checkedIn: boolean;
+}
 interface GetAllParams {
 	sorting?: Array<{ id: string; desc: boolean }>;
 }
@@ -45,8 +56,8 @@ interface RegisterParticipantParams {
 interface AddClassParams {
 	eventId: string;
 	name: string;
-	gender: string;
-	skillLevel: string;
+	gender?: string;
+	skillLevel?: string;
 	maximumAge?: number;
 	minimumAge?: number;
 	participantCapacity?: number;
@@ -55,7 +66,7 @@ interface AddClassParams {
 interface CreateEventParams {
 	name: string;
 	startDateTime: Dayjs;
-	participantCapacity?: number;
+	participantCapacity?: number | null;
 	status: string;
 }
 
@@ -74,7 +85,7 @@ interface UpdateEventParams {
 export class EventsAPI {
 	#url = '/events';
 	#apiClient: APIClient;
-	
+
 	constructor (params: EventsAPIConstructorParams = {}) {
 		this.#apiClient = params.apiClient ?? new APIClient({
 			getAccessToken: params.getAccessToken!,
@@ -136,15 +147,15 @@ export class EventsAPI {
 		}));
 	}
 
-	async getRegistrations ({ eventId }: GetRegistrationsParams): Promise<unknown> {
+	async getRegistrations ({ eventId }: GetRegistrationsParams): Promise<Registration[]> {
 		const registrations = await this.#apiClient.get({
 			url: `${this.#url}/${eventId}/registrations`,
-		});
+		}) as Registration[];
 
 		return registrations;
 	}
 
-	async registerParticipant ({ eventId, participantId, eventNumber, eventClass, checkedIn }: RegisterParticipantParams): Promise<unknown> {
+	async registerParticipant ({ eventId, participantId, eventNumber, eventClass, checkedIn }: RegisterParticipantParams): Promise<Registration> {
 		const registration = await this.#apiClient.post({
 			url: `${this.#url}/${eventId}/registrations`,
 			body: {
@@ -154,12 +165,12 @@ export class EventsAPI {
 				eventNumber,
 				checkedIn,
 			},
-		});
+		}) as Registration;
 
 		return registration;
 	}
 
-	async addClass ({ eventId, name, gender, skillLevel, maximumAge, minimumAge, participantCapacity }: AddClassParams): Promise<unknown> {
+	async addClass ({ eventId, name, gender, skillLevel, maximumAge, minimumAge, participantCapacity }: AddClassParams): Promise<EventClass> {
 		return await this.#apiClient.post({
 			url: `${this.#url}/${eventId}/classes`,
 			body: {
@@ -170,7 +181,7 @@ export class EventsAPI {
 				minimumAge,
 				participantCapacity,
 			},
-		});
+		}) as EventClass;
 	}
 
 	async create ({ name, startDateTime, participantCapacity, status }: CreateEventParams): Promise<Event> {
@@ -201,7 +212,7 @@ export class EventsAPI {
 		});
 	}
 
-	async update ({ id, name, startDateTime, participantCapacity, status }: UpdateEventParams): Promise<unknown> {
+	async update ({ id, name, startDateTime, participantCapacity, status }: UpdateEventParams): Promise<Event> {
 		return await this.#apiClient.patch({
 			url: `${this.#url}/${id}`,
 			body: {
@@ -210,6 +221,6 @@ export class EventsAPI {
 				participantCapacity,
 				status,
 			},
-		});
+		}) as Event;
 	}
 }

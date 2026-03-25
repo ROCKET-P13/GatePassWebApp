@@ -7,7 +7,7 @@ interface DashboardState {
 
 export const dashboardStore = create<DashboardState>((set) => ({
 	drawerOpen: false,
-	toggleDrawer: (open) => set((state) => ({ 
-		drawerOpen: open !== undefined ? open : !state.drawerOpen 
+	toggleDrawer: (open) => set((state) => ({
+		drawerOpen: open !== undefined ? open : !state.drawerOpen,
 	})),
 }));

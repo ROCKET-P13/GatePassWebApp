@@ -1,9 +1,8 @@
 import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable, SortingState, OnChangeFn } from '@tanstack/react-table';
-import { ChevronDown, ChevronsUpDown, ChevronUp } from 'lucide-react';
-import { Dispatch, SetStateAction, useMemo } from 'react';
-
 import { Icon } from '@ui/Icon';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableHeader, TableRow } from '@ui/Table';
+import { ChevronDown, ChevronsUpDown, ChevronUp } from 'lucide-react';
+import { useMemo } from 'react';
 
 interface Registration {
 	participantFirstName: string;
@@ -46,6 +45,7 @@ export const RegistrationsTable = ({ registrations, sorting, onSortingChange }: 
 		[]
 	);
 
+	// eslint-disable-next-line react-hooks/incompatible-library
 	const table = useReactTable({
 		data: registrations,
 		columns,

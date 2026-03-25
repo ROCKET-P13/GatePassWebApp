@@ -1,5 +1,5 @@
-import _ from 'lodash';
 import { Dayjs } from 'dayjs';
+import _ from 'lodash';
 import { create } from 'zustand';
 
 interface EventDraft {
@@ -7,6 +7,7 @@ interface EventDraft {
 	name: string;
 	date: Dayjs | string;
 	startTime: Dayjs | string;
+	startDateTime?: Dayjs;
 	status: string;
 	participantCapacity: number | null;
 }

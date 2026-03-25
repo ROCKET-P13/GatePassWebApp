@@ -1,20 +1,12 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { SortingState } from '@tanstack/react-table';
 import { Dayjs } from 'dayjs';
 import _ from 'lodash';
 import { useMemo } from 'react';
 
 import { EventsAPI } from '@/API/EventsAPI';
-
-interface Event {
-	id: string;
-	name: string;
-	participantCapacity?: number;
-	status: string;
-	date: string;
-	startTime: string;
-	startDateTime: Dayjs;
-}
+import { Event } from '@/types/Event';
 
 interface UpdateEventParams {
 	id: string;
@@ -29,7 +21,7 @@ interface MutationContext {
 }
 
 interface UseEditEventTableMutationProps {
-	queryKey: string[];
+	queryKey: (string | SortingState)[];
 }
 
 export const useEditEventTableMutation = ({ queryKey }: UseEditEventTableMutationProps) => {
@@ -41,8 +33,14 @@ export const useEditEventTableMutation = ({ queryKey }: UseEditEventTableMutatio
 		[getAccessTokenSilently]
 	);
 
-	return useMutation<unknown, Error, UpdateEventParams, MutationContext>({
-		mutationFn: (event) => eventsAPI.update(event),
+	return useMutation<Event, Error, UpdateEventParams, MutationContext>({
+		mutationFn: async (event) => await eventsAPI.update({
+			id: event.id,
+			name: event.name,
+			startDateTime: event.startDateTime,
+			participantCapacity: event.participantCapacity,
+			status: event.status,
+		}),
 		onMutate: async (updatedEvent) => {
 			await queryClient.cancelQueries({ queryKey });
 
@@ -59,14 +57,14 @@ export const useEditEventTableMutation = ({ queryKey }: UseEditEventTableMutatio
 						: event;
 				})
 			);
-			
+
 			return { previousEvents };
 		},
 		onError: (_err, _vars, context) => {
 			if (!context) {
 				return;
 			}
-			
+
 			queryClient.setQueryData(
 				queryKey,
 				context.previousEvents

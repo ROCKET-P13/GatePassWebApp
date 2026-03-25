@@ -1,3 +1,4 @@
+import { UseMutationResult } from '@tanstack/react-query';
 import { Link } from '@tanstack/react-router';
 import {
 	flexRender,
@@ -7,18 +8,6 @@ import {
 	SortingState,
 	OnChangeFn
 } from '@tanstack/react-table';
-import { ChevronDown, ChevronsUpDown, ChevronUp, Pencil, Trash } from 'lucide-react';
-import { Dayjs } from 'dayjs';
-import { useMemo } from 'react';
-
-import { EventStatusColorClass } from '@/Common/EventStatus';
-import { Routes } from '@/Common/routes';
-import { useEditEventTableMutation } from '@/hooks/mutations/useEditEventTableMutation';
-import { deleteEventStore } from '@/Store/deleteEventStore';
-import { editEventStore } from '@/Store/editEventStore';
-
-import { DeleteEventDialog } from '../../Dialogs/DeleteEventDialog';
-import { EditEventDialog } from '../../Dialogs/EditEventDialog';
 import { Icon } from '@ui/Icon';
 import {
 	Table,
@@ -29,16 +18,18 @@ import {
 	TableCell,
 	TableContainer
 } from '@ui/Table';
+import { ChevronDown, ChevronsUpDown, ChevronUp, Pencil, Trash } from 'lucide-react';
+import { useMemo } from 'react';
 
-interface Event {
-	id: string;
-	name: string;
-	date: string;
-	startTime: string;
-	startDateTime: Dayjs;
-	status: string;
-	participantCapacity?: number;
-}
+import { EventStatusColorClass } from '@/Common/EventStatus';
+import { Routes } from '@/Common/routes';
+import { useEditEventTableMutation } from '@/hooks/mutations/useEditEventTableMutation';
+import { deleteEventStore } from '@/Store/deleteEventStore';
+import { editEventStore } from '@/Store/editEventStore';
+import { Event } from '@/types/Event';
+
+import { DeleteEventDialog } from '../../Dialogs/DeleteEventDialog';
+import { EditEventDialog } from '../../Dialogs/EditEventDialog';
 
 interface EventsTableProps {
 	events: Event[];
@@ -70,7 +61,7 @@ export const EventsTable = ({ events, sorting, onSortingChange }: EventsTablePro
 			{
 				accessorKey: 'name',
 				header: 'Event',
-				cell: (info: any) => (
+				cell: (info) => (
 					<Link
 						to={`${Routes.DASHBOARD}/${Routes.EVENTS}/$eventId`}
 						params={{ eventId: info.row.original.id }}
@@ -91,7 +82,7 @@ export const EventsTable = ({ events, sorting, onSortingChange }: EventsTablePro
 			{
 				accessorKey: 'status',
 				header: 'Status',
-				cell: (info: any) => {
+				cell: (info) => {
 					const status = info.getValue();
 					return (
 						<span className={`px-2 py-1 text-xs rounded-md font-medium ${EventStatusColorClass[status]}`}>
@@ -104,7 +95,7 @@ export const EventsTable = ({ events, sorting, onSortingChange }: EventsTablePro
 				id: 'actions',
 				header: '',
 				enableSorting: false,
-				cell: ({ row }: any) => (
+				cell: ({ row }) => (
 					<div className="flex gap-2">
 						<button
 							className="p-1 rounded-md hover:bg-muted"
@@ -143,6 +134,7 @@ export const EventsTable = ({ events, sorting, onSortingChange }: EventsTablePro
 		[openEditEventDialog, setEventDraft, openDeleteEventDialog, setEventToDelete]
 	);
 
+	// eslint-disable-next-line react-hooks/incompatible-library
 	const table = useReactTable({
 		data: events,
 		columns,
@@ -228,7 +220,7 @@ export const EventsTable = ({ events, sorting, onSortingChange }: EventsTablePro
 			<EditEventDialog
 				open={isEditEventDialogOpen}
 				eventDraft={eventDraft}
-				editEventMutation={editEventMutation}
+				editEventMutation={editEventMutation as UseMutationResult }
 			/>
 		</TableContainer>
 	);

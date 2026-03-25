@@ -1,8 +1,9 @@
-import { useDeleteEventMutation } from '@/hooks/mutations/useDeleteEventMutation';
-import { deleteEventStore } from '@/Store/deleteEventStore';
-
+import { SortingState } from '@tanstack/react-table';
 import { Button } from '@ui/Button';
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@ui/Dialog';
+
+import { useDeleteEventMutation } from '@/hooks/mutations/useDeleteEventMutation';
+import { deleteEventStore } from '@/Store/deleteEventStore';
 
 interface EventToDelete {
 	id: string;
@@ -12,7 +13,7 @@ interface EventToDelete {
 interface DeleteEventDialogProps {
 	open: boolean;
 	eventToDelete: EventToDelete;
-	queryKey: string[];
+	queryKey: (string | SortingState)[];
 }
 
 export const DeleteEventDialog = ({ open, eventToDelete, queryKey }: DeleteEventDialogProps) => {

@@ -20,6 +20,6 @@ export const useGetParticipantRegistrationsQuery = ({ participantId }: UseGetPar
 		queryKey: ['registrations', participantId],
 		queryFn: () => eventsAPI.getRegistrations({ eventId: participantId }),
 		enabled: isAuthenticated,
-		keepPreviousData: true,
+		placeholderData: (previousData) => previousData,
 	});
 };

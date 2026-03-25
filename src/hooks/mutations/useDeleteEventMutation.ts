@@ -1,21 +1,18 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { SortingState } from '@tanstack/react-table';
 import _ from 'lodash';
 import { useMemo } from 'react';
 
 import { EventsAPI } from '@/API/EventsAPI';
-
-interface Event {
-	id: string;
-	[key: string]: unknown;
-}
+import { Event } from '@/types/Event';
 
 interface MutationContext {
 	previousEvents?: Event[];
 }
 
 interface UseDeleteEventMutationProps {
-	queryKey: string[];
+	queryKey: (string | SortingState)[];
 }
 
 export const useDeleteEventMutation = ({ queryKey }: UseDeleteEventMutationProps) => {
@@ -46,7 +43,7 @@ export const useDeleteEventMutation = ({ queryKey }: UseDeleteEventMutationProps
 			if (!context) {
 				return;
 			}
-			
+
 			queryClient.setQueryData(
 				queryKey,
 				context.previousEvents

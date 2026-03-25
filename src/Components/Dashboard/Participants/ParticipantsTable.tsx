@@ -41,7 +41,7 @@ export const ParticipantsTable = ({ participants, sorting, onSortingChange }: Pa
 			{
 				accessorKey: 'firstName',
 				header: 'First Name',
-				cell: (info: any) => (
+				cell: (info) => (
 					<Link
 						to={`${Routes.DASHBOARD}/${Routes.PARTICIPANTS}/$participantId`}
 						params={{ participantId: info.row.original.id }}
@@ -61,7 +61,7 @@ export const ParticipantsTable = ({ participants, sorting, onSortingChange }: Pa
 				id: 'actions',
 				header: '',
 				enableSorting: false,
-				cell: ({ row }: any) => (
+				cell: ({ row }) => (
 					<div className="flex gap-2">
 						<button
 							className="p-1 rounded-md hover:bg-muted"
@@ -83,6 +83,7 @@ export const ParticipantsTable = ({ participants, sorting, onSortingChange }: Pa
 		[]
 	);
 
+	// eslint-disable-next-line react-hooks/incompatible-library
 	const table = useReactTable({
 		data: participants,
 		columns,

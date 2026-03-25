@@ -5,6 +5,7 @@ import { Dayjs } from 'dayjs';
 import { useMemo } from 'react';
 
 import { EventsAPI } from '@/API/EventsAPI';
+import { Event } from '@/types/Event';
 
 interface UpdateEventParams {
 	id: string;
@@ -15,7 +16,7 @@ interface UpdateEventParams {
 }
 
 interface MutationContext {
-	previousEventData?: unknown;
+	previousEventData?: Event;
 }
 
 interface UseEditEventDetailsMutationProps {
@@ -31,16 +32,22 @@ export const useEditEventDetailsMutation = ({ queryKey }: UseEditEventDetailsMut
 	const queryClient = useQueryClient();
 	const router = useRouter();
 
-	return useMutation<unknown, Error, UpdateEventParams, MutationContext>({
-		mutationFn: (event) => eventsAPI.update(event),
+	return useMutation<Event, Error, UpdateEventParams, MutationContext>({
+		mutationFn: async (event) => await eventsAPI.update({
+			id: event.id,
+			name: event.name,
+			startDateTime: event.startDateTime,
+			participantCapacity: event.participantCapacity,
+			status: event.status,
+		}),
 		onMutate: async (updatedEvent) => {
 			await queryClient.cancelQueries({ queryKey });
 
-			const previousEventData = queryClient.getQueryData(queryKey);
+			const previousEventData = queryClient.getQueryData<Event>(queryKey);
 
 			queryClient.setQueryData(
 				queryKey,
-				(oldEventData: Record<string, unknown> = {}) => ({
+				(oldEventData: Record<string, Event> = {}) => ({
 					...oldEventData,
 					...updatedEvent,
 				})
@@ -52,7 +59,7 @@ export const useEditEventDetailsMutation = ({ queryKey }: UseEditEventDetailsMut
 			if (!context) {
 				return;
 			}
-			
+
 			queryClient.setQueryData(
 				queryKey,
 				context.previousEventData
@@ -60,7 +67,7 @@ export const useEditEventDetailsMutation = ({ queryKey }: UseEditEventDetailsMut
 		},
 		onSettled: () => {
 			queryClient.invalidateQueries({ queryKey });
-			router.invalidate({ to: '$eventId' });
+			router.invalidate();
 		},
 	});
 };

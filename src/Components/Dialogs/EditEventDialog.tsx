@@ -1,22 +1,23 @@
-import _ from 'lodash';
-import { Dayjs } from 'dayjs';
-import { useMemo } from 'react';
-
-import { EventStatus } from '@/Common/EventStatus';
-import { editEventStore } from '@/Store/editEventStore';
-
+import { UseMutationResult } from '@tanstack/react-query';
 import { Button } from '@ui/Button';
 import { DatePicker } from '@ui/DatePicker';
 import { Dialog, DialogContent, DialogFooter, DialogTitle } from '@ui/Dialog';
 import { Input } from '@ui/Input';
 import { Select } from '@ui/Select';
 import { TimePicker } from '@ui/TimePicker';
+import { Dayjs } from 'dayjs';
+import _ from 'lodash';
+import { useMemo } from 'react';
+
+import { EventStatus } from '@/Common/EventStatus';
+import { editEventStore } from '@/Store/editEventStore';
 
 interface EventDraft {
-	id: string;
+	id?: string;
 	name: string;
 	date: Dayjs | string;
 	startTime: Dayjs | string;
+	startDateTime?: Dayjs | string;
 	status: string;
 	participantCapacity: number | null;
 }
@@ -24,9 +25,7 @@ interface EventDraft {
 interface EditEventDialogProps {
 	open: boolean;
 	eventDraft: EventDraft;
-	editEventMutation: {
-		mutate: (data: unknown) => void;
-	};
+	editEventMutation: UseMutationResult
 }
 
 export const EditEventDialog = ({ open, eventDraft, editEventMutation }: EditEventDialogProps) => {
@@ -61,6 +60,8 @@ export const EditEventDialog = ({ open, eventDraft, editEventMutation }: EditEve
 			startDateTime: eventDateTime?.toISOString(),
 			status: eventDraft.status,
 			participantCapacity: eventDraft.participantCapacity,
+			date: '',
+			startTime: '',
 		});
 	};
 

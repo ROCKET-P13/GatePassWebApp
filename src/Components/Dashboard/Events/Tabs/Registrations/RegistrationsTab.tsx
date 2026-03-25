@@ -1,4 +1,5 @@
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Button } from '@ui/Button';
+import { useState } from 'react';
 
 import { useGetAllParticipantsQuery } from '@/hooks/queries/useGetAllParticipantsQuery';
 import { useGetEventRegistrationsQuery } from '@/hooks/queries/useGetEventRegistrationsQuery';
@@ -8,7 +9,6 @@ import { registerParticipantStore } from '@/Store/registerParticipantStore';
 import { RegistrationsTable } from './RegistrationsTable';
 import { AddEventClassDialog } from '../../../../Dialogs/AddEventClassDialog';
 import { RegisterParticipantDialog } from '../../../../Dialogs/RegisterParticipantDialog';
-import { Button } from '@ui/Button';
 
 interface SortingState {
 	id: string;
@@ -17,6 +17,24 @@ interface SortingState {
 
 interface RegistrationTabProps {
 	eventId: string;
+}
+
+interface Registration {
+	id?: string;
+	participantFirstName: string;
+	participantLastName: string;
+	participantId: string;
+	eventNumber: string;
+	class: string;
+	checkedIn: boolean;
+}
+
+interface Participant {
+	id: string;
+	firstName: string;
+	lastName: string;
+	createdAt: string;
+	[key: string]: unknown;
 }
 
 export const RegistrationTab = ({ eventId }: RegistrationTabProps) => {
@@ -76,7 +94,7 @@ export const RegistrationTab = ({ eventId }: RegistrationTabProps) => {
 					)
 					: (
 						<RegistrationsTable
-							registrations={registrations}
+							registrations={registrations as Registration[]}
 							sorting={sorting}
 							onSortingChange={setSorting}
 						/>
@@ -88,7 +106,7 @@ export const RegistrationTab = ({ eventId }: RegistrationTabProps) => {
 					<RegisterParticipantDialog
 						open={isRegisterParticipantDialogOpen}
 						eventId={eventId}
-						participants={participants as any[]}
+						participants={participants as Participant[]}
 					/>
 				)
 			}

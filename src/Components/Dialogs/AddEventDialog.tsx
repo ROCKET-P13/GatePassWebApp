@@ -1,4 +1,11 @@
-import dayjs, { Dayjs } from 'dayjs';
+import { SortingState } from '@tanstack/react-table';
+import { Button } from '@ui/Button';
+import { DatePicker } from '@ui/DatePicker';
+import { Dialog, DialogContent, DialogTitle, DialogFooter } from '@ui/Dialog';
+import { Input } from '@ui/Input';
+import { Select } from '@ui/Select';
+import { TimePicker } from '@ui/TimePicker';
+import dayjs from 'dayjs';
 import _ from 'lodash';
 import { useMemo } from 'react';
 
@@ -6,16 +13,9 @@ import { EventStatus } from '@/Common/EventStatus';
 import { useAddEventMutation } from '@/hooks/mutations/useAddEventMutation';
 import { addEventStore } from '@/Store/addEventStore';
 
-import { Button } from '@ui/Button';
-import { DatePicker } from '@ui/DatePicker';
-import { Dialog, DialogContent, DialogTitle, DialogFooter } from '@ui/Dialog';
-import { Input } from '@ui/Input';
-import { Select } from '@ui/Select';
-import { TimePicker } from '@ui/TimePicker';
-
 interface AddEventDialogProps {
 	open: boolean;
-	queryKey: unknown[];
+	queryKey: (string | SortingState)[];
 }
 
 export const AddEventDialog = ({ open, queryKey }: AddEventDialogProps) => {
@@ -42,7 +42,7 @@ export const AddEventDialog = ({ open, queryKey }: AddEventDialogProps) => {
 		if (!eventDateTime) {
 			return true;
 		}
-		
+
 		return !_.every([
 			eventData.name.length > 2 && eventData.name.length < 100,
 			eventDateTime.isAfter(dayjs()),
@@ -53,7 +53,7 @@ export const AddEventDialog = ({ open, queryKey }: AddEventDialogProps) => {
 		if (!eventDateTime) {
 			return;
 		}
-		
+
 		closeDialog();
 
 		addEventMutation.mutate({
@@ -61,6 +61,8 @@ export const AddEventDialog = ({ open, queryKey }: AddEventDialogProps) => {
 			startDateTime: eventDateTime,
 			status: eventData.status,
 			participantCapacity: eventData.participantCapacity,
+			date: '',
+			startTime: '',
 		});
 	};
 

@@ -1,14 +1,13 @@
+import { Button } from '@ui/Button';
+import { Dialog, DialogContent, DialogFooter, DialogTitle } from '@ui/Dialog';
+import { Input } from '@ui/Input';
+import { Select } from '@ui/Select';
 import _ from 'lodash';
 import { useMemo } from 'react';
 
 import { Gender } from '@/Common/Gender';
 import { useAddEventClassMutation } from '@/hooks/mutations/useAddEventClassMutation';
 import { addEventClassStore } from '@/Store/addEventClassStore';
-
-import { Button } from '@ui/Button';
-import { Dialog, DialogContent, DialogFooter, DialogTitle } from '@ui/Dialog';
-import { Input } from '@ui/Input';
-import { Select } from '@ui/Select';
 
 interface AddEventClassDialogProps {
 	open: boolean;
@@ -40,7 +39,7 @@ export const AddEventClassDialog = ({ open, eventId }: AddEventClassDialogProps)
 			skillLevel: eventClass.skillLevel,
 			maximumAge: eventClass.maximumAge,
 			minimumAge: eventClass.minimumAge,
-			participantCapacity: typeof eventClass.participantCapacity === 'string' 
+			participantCapacity: typeof eventClass.participantCapacity === 'string'
 				? parseInt(eventClass.participantCapacity) || undefined
 				: eventClass.participantCapacity,
 		});

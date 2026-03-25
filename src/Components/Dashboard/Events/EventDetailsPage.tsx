@@ -1,7 +1,7 @@
+import { UseMutationResult } from '@tanstack/react-query';
 import { useLoaderData } from '@tanstack/react-router';
 import { Button } from '@ui/Button';
 import { Tab, TabPanel, Tabs } from '@ui/Tabs';
-import { Dayjs } from 'dayjs';
 
 import { EventStatusColorClass } from '@/Common/EventStatus';
 import { Routes } from '@/Common/routes';
@@ -9,16 +9,7 @@ import { RegistrationTab } from '@/Components/Dashboard/Events/Tabs/Registration
 import { EditEventDialog } from '@/Components/Dialogs/EditEventDialog';
 import { useEditEventDetailsMutation } from '@/hooks/mutations/useEditEventDetailsMutation';
 import { editEventStore } from '@/Store/editEventStore';
-
-interface Event {
-	id: string;
-	name: string;
-	date: string;
-	startTime: string;
-	startDateTime: Dayjs;
-	status: string;
-	participantCapacity?: number;
-}
+import { Event } from '@/types/Event';
 
 const TabIds = Object.freeze({
 	REGISTRATIONS: 'registrations',
@@ -92,7 +83,7 @@ export const EventDetailsPage = () => {
 			<EditEventDialog
 				open={isEditEventDialogOpen}
 				eventDraft={eventDraft}
-				editEventMutation={editEventMutation}
+				editEventMutation={editEventMutation as UseMutationResult}
 			/>
 		</div>
 	);

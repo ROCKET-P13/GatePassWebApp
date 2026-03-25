@@ -7,7 +7,7 @@ interface APIClientConstructorParams {
 interface RequestParams {
 	method: string;
 	url: string;
-	body?: unknown;
+	body?: object;
 	headers?: Record<string, string>;
 }
 
@@ -17,7 +17,7 @@ interface GetParams {
 
 interface PostParams {
 	url: string;
-	body: unknown;
+	body: object;
 }
 
 interface DeleteParams {
@@ -26,7 +26,7 @@ interface DeleteParams {
 
 interface PatchParams {
 	url: string;
-	body: unknown;
+	body: object;
 }
 
 interface APIError {
@@ -42,7 +42,7 @@ export class APIClient {
 		this.#getAccessToken = params.getAccessToken;
 	}
 
-	async #request (params: RequestParams): Promise<unknown> {
+	async #request (params: RequestParams): Promise<object> {
 		try {
 			const token = await this.#getAccessToken();
 			const response = await axios.request({
@@ -60,7 +60,7 @@ export class APIClient {
 			return response.data;
 		} catch (error) {
 			const axiosError = error as AxiosError<{ message?: string }>;
-			
+
 			if (axiosError.response) {
 				const apiError: APIError = {
 					status: axiosError.response.status,
@@ -77,14 +77,14 @@ export class APIClient {
 		}
 	}
 
-	async get ({ url }: GetParams): Promise<unknown> {
+	async get ({ url }: GetParams): Promise<object> {
 		return await this.#request({
 			method: 'GET',
 			url,
 		});
 	}
 
-	async post ({ url, body }: PostParams): Promise<unknown> {
+	async post ({ url, body }: PostParams): Promise<object> {
 		return await this.#request({
 			method: 'POST',
 			url,
@@ -92,14 +92,14 @@ export class APIClient {
 		});
 	}
 
-	async delete ({ url }: DeleteParams): Promise<unknown> {
+	async delete ({ url }: DeleteParams): Promise<object> {
 		return await this.#request({
 			method: 'DELETE',
 			url,
 		});
 	}
 
-	async patch ({ url, body }: PatchParams): Promise<unknown> {
+	async patch ({ url, body }: PatchParams): Promise<object> {
 		return await this.#request({
 			method: 'PATCH',
 			url,

@@ -27,7 +27,7 @@ export const Autocomplete = ({
 	onChange,
 	getOptionLabel = (option) => option?.label ?? '',
 	placeholder = 'Search...',
-	className,
+	className = '',
 	label,
 }: AutocompleteProps) => {
 	const [query, setQuery] = useState('');

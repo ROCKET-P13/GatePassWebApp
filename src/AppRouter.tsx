@@ -76,11 +76,19 @@ const eventsRoute = createRoute({
 	component: EventsPage,
 });
 
+interface EventDetailsLoaderContextProps {
+	params: {
+		eventId: string;
+	};
+	context: {
+		getAccessTokenSilently?: () => Promise<string>;
+	};
+}
 const eventDetailsRoute = createRoute({
 	getParentRoute: () => dashboardRoute,
 	path: `${Routes.EVENTS}/$eventId`,
 	component: EventDetailsPage,
-	loader: ({ params, context }: any) => {
+	loader: ({ params, context }: EventDetailsLoaderContextProps) => {
 		const eventsAPI = new EventsAPI({ getAccessToken: context.getAccessTokenSilently });
 		return queryClient.ensureQueryData({
 			queryKey: ['events', params.eventId],
@@ -95,11 +103,19 @@ const participantsRoute = createRoute({
 	component: ParticipantsPage,
 });
 
+interface ParticipantDetailsLoaderContextProps {
+	params: {
+		participantId: string;
+	},
+	context: {
+		getAccessTokenSilently?: () => Promise<string>;
+	}
+}
 const participantDetailsRoute = createRoute({
 	getParentRoute: () => dashboardRoute,
 	path: `${Routes.PARTICIPANTS}/$participantId`,
 	component: ParticipantDetailsPage,
-	loader: ({ params, context }: any) => {
+	loader: ({ params, context }: ParticipantDetailsLoaderContextProps) => {
 		const participantsAPI = new ParticipantsAPI({ getAccessToken: context.getAccessTokenSilently });
 		return queryClient.ensureQueryData({
 			queryKey: ['participants', params.participantId],

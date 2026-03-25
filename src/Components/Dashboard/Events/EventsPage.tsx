@@ -1,5 +1,5 @@
 import { Button } from '@ui/Button';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { useState } from 'react';
 
 import { EventsTable } from '@/Components/Dashboard/Events/EventsTable';
 import { AddEventDialog } from '@/Components/Dialogs/AddEventDialog';

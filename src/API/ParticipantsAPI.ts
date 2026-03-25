@@ -1,4 +1,4 @@
-import dayjs, { Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
 import _ from 'lodash';
 
 import { APIClient } from './APIClient';

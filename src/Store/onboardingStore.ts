@@ -1,6 +1,8 @@
 import _ from 'lodash';
 import { create } from 'zustand';
 
+import { Venue } from '@/types/Venue';
+
 export const Steps = Object.freeze({
 	VENUE: 'VENUE',
 	FEATURES: 'FEATURES',
@@ -9,18 +11,6 @@ export const Steps = Object.freeze({
 });
 
 type StepType = typeof Steps[keyof typeof Steps];
-
-interface VenueData {
-	name: string;
-	phoneNumber: string;
-	addressLine1: string;
-	addressLine2: string;
-	city: string;
-	state: string;
-	email: string;
-	country: string;
-	logoImageUrl: string;
-}
 
 interface Features {
 	waivers: boolean;
@@ -31,12 +21,12 @@ interface Features {
 
 interface OnboardingState {
 	step: StepType;
-	venue: VenueData;
+	venue: Venue;
 	features: Features;
 	setStep: (step: StepType) => void;
 	next: () => void;
 	back: () => void;
-	updateVenue: (data: Partial<VenueData>) => void;
+	updateVenue: (data: Partial<Venue>) => void;
 	toggleFeature: (key: keyof Features) => void;
 }
 

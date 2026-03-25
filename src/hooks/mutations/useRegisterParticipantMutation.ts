@@ -32,9 +32,9 @@ export const useRegisterParticipantMutation = ({ eventId }: UseRegisterParticipa
 	);
 
 	const queryClient = useQueryClient();
-	return useMutation<unknown, Error, Registration, MutationContext>({
+	return useMutation<Registration, Error, Registration, MutationContext>({
 		mutationFn: async (registration) => {
-			await eventsAPI.registerParticipant({
+			return await eventsAPI.registerParticipant({
 				eventId,
 				participantId: registration.participantId,
 				eventNumber: registration.eventNumber,
@@ -67,7 +67,7 @@ export const useRegisterParticipantMutation = ({ eventId }: UseRegisterParticipa
 			if (!context) {
 				return;
 			}
-			
+
 			queryClient.setQueryData(
 				queryKey,
 				context.previousRegistrations

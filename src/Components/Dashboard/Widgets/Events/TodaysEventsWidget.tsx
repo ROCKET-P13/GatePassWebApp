@@ -15,13 +15,6 @@ import { addEventStore } from '@/Store/addEventStore';
 
 import { WidgetCard } from '../WidgetCard';
 
-interface Event {
-	id: string;
-	name: string;
-	startTime: string;
-	status: string;
-}
-
 export const TodaysEventsWidget = () => {
 	const queryKey = ['events', 'today'];
 	const { getAccessTokenSilently, isAuthenticated } = useAuth0();

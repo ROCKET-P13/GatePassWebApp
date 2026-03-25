@@ -1,20 +1,11 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { Dayjs } from 'dayjs';
+import { SortingState } from '@tanstack/react-table';
 import _ from 'lodash';
 import { useMemo } from 'react';
 
 import { EventsAPI } from '@/API/EventsAPI';
-
-interface Event {
-	id: string;
-	name: string;
-	participantCapacity?: number;
-	status: string;
-	date: string;
-	startTime: string;
-	startDateTime: Dayjs
-}
+import { Event } from '@/types/Event';
 
 type NewEvent = Omit<Event, 'id'>
 
@@ -24,7 +15,7 @@ interface MutationContext {
 }
 
 interface UseAddeventMutationProps {
-	queryKey: string[];
+	queryKey: (string | SortingState)[];
 }
 
 export const useAddEventMutation = ({ queryKey } : UseAddeventMutationProps) => {

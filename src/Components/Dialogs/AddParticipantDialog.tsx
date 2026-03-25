@@ -1,12 +1,11 @@
 import { Button } from '@ui/Button';
+import { Dialog, DialogContent, DialogFooter, DialogTitle } from '@ui/Dialog';
+import { Input } from '@ui/Input';
 import _ from 'lodash';
 import { useMemo } from 'react';
 
 import { useAddParticipantMutation } from '@/hooks/mutations/useAddParticipantMutation';
 import { addParticipantStore } from '@/Store/addParticipantStore';
-
-import { Dialog, DialogContent, DialogFooter, DialogTitle } from '@ui/Dialog';
-import { Input } from '@ui/Input';
 
 interface AddParticipantDialogProps {
 	open: boolean;
