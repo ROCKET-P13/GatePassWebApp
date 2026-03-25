@@ -2,16 +2,15 @@ import { forwardRef, InputHTMLAttributes, ChangeEvent } from 'react';
 
 import { mergeTailwindClasses } from '@/utils/mergeTailwindClasses';
 
-const InputTypes = Object.freeze({
+const InputTypes = {
 	TEXT: 'text',
 	NUMBER: 'number',
-});
+} as const;
 
-interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 	label?: string;
 	error?: string;
 	alphanumeric?: boolean;
-	onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
