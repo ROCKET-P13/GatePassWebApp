@@ -1,5 +1,6 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { SortingState } from '@tanstack/react-table';
 import _ from 'lodash';
 import { useMemo } from 'react';
 
@@ -17,7 +18,7 @@ interface MutationContext {
 }
 
 interface UseAddParticipantMutationProps {
-	queryKey: string[];
+	queryKey: (string | SortingState)[];
 }
 
 export const useAddParticipantMutation = ({ queryKey }: UseAddParticipantMutationProps) => {

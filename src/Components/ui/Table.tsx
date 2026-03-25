@@ -2,7 +2,7 @@ import { HTMLAttributes } from 'react';
 
 import { mergeTailwindClasses } from '@/utils/mergeTailwindClasses';
 
-const TableContainer = ({ className, ...props }: HTMLAttributes<HTMLDivElement>) => {
+const TableContainer = ({ className = '', ...props }: HTMLAttributes<HTMLDivElement>) => {
 	return (
 		<div className={
 			mergeTailwindClasses(
@@ -15,7 +15,7 @@ const TableContainer = ({ className, ...props }: HTMLAttributes<HTMLDivElement>)
 	);
 };
 
-const Table = ({ className, ...props }: HTMLAttributes<HTMLTableElement>) => {
+const Table = ({ className = '', ...props }: HTMLAttributes<HTMLTableElement>) => {
 	return (
 		<div className="relative w-full overflow-auto">
 			<table
@@ -31,7 +31,7 @@ const Table = ({ className, ...props }: HTMLAttributes<HTMLTableElement>) => {
 	);
 };
 
-const TableHeader = ({ className, ...props }: HTMLAttributes<HTMLTableSectionElement>) => {
+const TableHeader = ({ className = '', ...props }: HTMLAttributes<HTMLTableSectionElement>) => {
 	return (
 		<thead
 			className={mergeTailwindClasses(
@@ -43,7 +43,7 @@ const TableHeader = ({ className, ...props }: HTMLAttributes<HTMLTableSectionEle
 	);
 };
 
-const TableBody = ({ className, ...props }: HTMLAttributes<HTMLTableSectionElement>) => {
+const TableBody = ({ className = '', ...props }: HTMLAttributes<HTMLTableSectionElement>) => {
 	return (
 		<tbody
 			className={mergeTailwindClasses(
@@ -55,7 +55,7 @@ const TableBody = ({ className, ...props }: HTMLAttributes<HTMLTableSectionEleme
 	);
 };
 
-const TableFooter = ({ className, ...props }: HTMLAttributes<HTMLTableSectionElement>) => {
+const TableFooter = ({ className = '', ...props }: HTMLAttributes<HTMLTableSectionElement>) => {
 	return (
 		<tfoot
 			className={mergeTailwindClasses(
@@ -67,7 +67,7 @@ const TableFooter = ({ className, ...props }: HTMLAttributes<HTMLTableSectionEle
 	);
 };
 
-const TableRow = ({ className, ...props }: HTMLAttributes<HTMLTableRowElement>) => {
+const TableRow = ({ className = '', ...props }: HTMLAttributes<HTMLTableRowElement>) => {
 	return (
 		<tr
 			className={mergeTailwindClasses(
@@ -79,7 +79,7 @@ const TableRow = ({ className, ...props }: HTMLAttributes<HTMLTableRowElement>) 
 	);
 };
 
-const TableHead = ({ className, ...props }: HTMLAttributes<HTMLTableCellElement>) => {
+const TableHead = ({ className = '', ...props }: HTMLAttributes<HTMLTableCellElement>) => {
 	return (
 		<th
 			className={mergeTailwindClasses(
@@ -92,7 +92,7 @@ const TableHead = ({ className, ...props }: HTMLAttributes<HTMLTableCellElement>
 	);
 };
 
-const TableCell = ({ className, ...props }: HTMLAttributes<HTMLTableCellElement>) => {
+const TableCell = ({ className = '', ...props }: HTMLAttributes<HTMLTableCellElement>) => {
 	return (
 		<td
 			className={mergeTailwindClasses(
@@ -104,7 +104,7 @@ const TableCell = ({ className, ...props }: HTMLAttributes<HTMLTableCellElement>
 	);
 };
 
-const TableCaption = ({ className, ...props }: HTMLAttributes<HTMLTableCaptionElement>) => {
+const TableCaption = ({ className = '', ...props }: HTMLAttributes<HTMLTableCaptionElement>) => {
 	return (
 		<caption
 			className={mergeTailwindClasses(

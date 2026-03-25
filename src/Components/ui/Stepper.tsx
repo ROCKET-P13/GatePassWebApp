@@ -29,8 +29,9 @@ const Stepper = ({
 	currentStep = 0,
 	onStepChange,
 	orientation = 'horizontal',
-	className,
-}: StepperProps) => {
+	className = '',
+}: StepperProps
+) => {
 	const steps = Children.toArray(children);
 
 	const value = useMemo(() => ({
@@ -44,7 +45,13 @@ const Stepper = ({
 
 	return (
 		<StepperContext.Provider value={value}>
-			<div className={mergeTailwindClasses('relative w-full', isHorizontal && 'flex flex-col gap-4', className)}>
+			<div className={
+				mergeTailwindClasses(
+					'relative w-full',
+					isHorizontal ? 'flex flex-col gap-4' : '',
+					className
+				)
+			}>
 				<div className={
 					mergeTailwindClasses(
 						isHorizontal
@@ -53,7 +60,7 @@ const Stepper = ({
 					)
 				}>
 					{
-						steps.map((child, index) => cloneElement(child as ReactElement, { index }))
+						steps.map((child, index) => cloneElement(child as ReactElement<StepProps>, { index }))
 					}
 				</div>
 			</div>
@@ -78,10 +85,10 @@ const Step = ({ title, description, index = 0, error = false }: StepProps) => {
 	const baseCircle = `relative z-10 flex h-8 w-8 items-center justify-center rounded-full border text-sm font-medium transition-all`;
 
 	const stateClasses = mergeTailwindClasses(
-		isCompleted && 'bg-primary text-primary-foreground border-primary',
-		isActive && !error && 'border-primary text-primary ring-2 ring-primary/30',
-		!isCompleted && !isActive && !error && 'border-border bg-background text-muted-foreground',
-		error && 'border-destructive text-destructive ring-2 ring-destructive/30'
+		isCompleted ? 'bg-primary text-primary-foreground border-primary' : '',
+		(isActive && !error) ? 'border-primary text-primary ring-2 ring-primary/30' : '',
+		(!isCompleted && !isActive && !error) ? 'border-border bg-background text-muted-foreground' : '',
+		error ? 'border-destructive text-destructive ring-2 ring-destructive/30' : ''
 	);
 
 	return (
@@ -97,14 +104,14 @@ const Step = ({ title, description, index = 0, error = false }: StepProps) => {
 					mergeTailwindClasses(
 						baseCircle,
 						stateClasses,
-						isClickable && 'focus-visible:outline-none'
+						isClickable ? 'focus-visible:outline-none' : ''
 					)
 				}
 			>
 				{isCompleted ? '✓' : index + 1}
 			</span>
 
-			<div className={mergeTailwindClasses('mt-2 space-y-1', orientation === 'vertical' && 'mt-0')}>
+			<div className={mergeTailwindClasses('mt-2 space-y-1', (orientation === 'vertical') ? 'mt-0' : '')}>
 				<div className={mergeTailwindClasses(
 					'text-sm font-medium transition-colors',
 					isActive ? 'text-foreground' : 'text-muted-foreground'

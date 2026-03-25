@@ -80,7 +80,7 @@ export const DatePicker = ({ value, onChange }: DatePickerProps) => {
 										mergeTailwindClasses(
 											'h-8 w-8 rounded-md text-sm transition-colors',
 											isCurrentMonth ? 'hover:bg-accent' : 'opacity-30',
-											isSelected && 'bg-primary text-primary-foreground'
+											isSelected ? 'bg-primary text-primary-foreground' : ''
 										)
 									}
 								>

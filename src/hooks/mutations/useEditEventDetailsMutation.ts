@@ -1,6 +1,7 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from '@tanstack/react-router';
+import { SortingState } from '@tanstack/react-table';
 import { Dayjs } from 'dayjs';
 import { useMemo } from 'react';
 
@@ -20,7 +21,7 @@ interface MutationContext {
 }
 
 interface UseEditEventDetailsMutationProps {
-	queryKey: string[];
+	queryKey: (string | SortingState[])[];
 }
 
 export const useEditEventDetailsMutation = ({ queryKey }: UseEditEventDetailsMutationProps) => {

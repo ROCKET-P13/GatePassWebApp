@@ -17,7 +17,7 @@ interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChan
 export const Input = forwardRef<HTMLInputElement, InputProps>(
 	(
 		{
-			className,
+			className = '',
 			type = 'text',
 			label,
 			error,
@@ -60,7 +60,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 								mergeTailwindClasses(
 									'text-sm font-medium leading-none',
 									'text-foreground',
-									error && 'text-destructive'
+									error ? 'text-destructive' : ''
 								)
 							}
 						>
@@ -96,7 +96,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 							'focus-visible:ring-offset-background',
 							'disabled:cursor-not-allowed disabled:opacity-50',
 							'file:border-0 file:bg-transparent file:text-sm file:font-medium',
-							error && 'border-destructive focus-visible:ring-destructive',
+							error ? 'border-destructive focus-visible:ring-destructive' : '',
 							className
 						)
 					}

@@ -25,7 +25,7 @@ export const Tabs = ({ defaultValue, value: controlledValue, onChange, children 
 			<div className="flex border-b border-border">
 				{
 					Children.map(children, (child) => {
-						const element = child as ReactElement;
+						const element = child as ReactElement<TabProps>;
 						if (element.type !== Tab) {
 							return null;
 						}
@@ -42,7 +42,7 @@ export const Tabs = ({ defaultValue, value: controlledValue, onChange, children 
 			<div className="mt-4">
 				{
 					Children.map(children, (child) => {
-						const element = child as ReactElement;
+						const element = child as ReactElement<TabPanelProps>;
 						if (element.type !== TabPanel) {
 							return null;
 						}

@@ -21,8 +21,8 @@ interface SelectContextType {
 	setValue: (value: string) => void;
 	open: boolean;
 	setOpen: (open: boolean) => void;
-	triggerRef: RefObject<HTMLButtonElement>;
-	contentRef: RefObject<HTMLDivElement>;
+	triggerRef: RefObject<HTMLButtonElement | null>;
+	contentRef: RefObject<HTMLDivElement | null>;
 }
 
 const SelectContext = createContext<SelectContextType | null>(null);
@@ -97,7 +97,14 @@ interface TriggerProps {
 	required?: boolean;
 }
 
-const Trigger = ({ placeholder = 'Select...', label, className, required = false }: TriggerProps) => {
+const Trigger = (
+	{
+		placeholder = 'Select...',
+		label,
+		className = '',
+		required = false,
+	}: TriggerProps
+) => {
 	const { open, setOpen, value, triggerRef } = useSelectContext();
 	const inputId = useId();
 	return (
@@ -143,7 +150,12 @@ const Trigger = ({ placeholder = 'Select...', label, className, required = false
 
 				<Icon
 					as={ChevronDown}
-					className={mergeTailwindClasses('transition-transform', open && 'rotate-180')}
+					className={
+						mergeTailwindClasses(
+							'transition-transform',
+							open ? 'rotate-180' : ''
+						)
+					}
 				/>
 			</button>
 		</div>
@@ -212,7 +224,7 @@ interface ItemProps {
 	className?: string;
 }
 
-const Item = ({ value, children, className }: ItemProps) => {
+const Item = ({ value, children, className = '' }: ItemProps) => {
 	const { value: selected, setValue } = useSelectContext();
 	const isSelected = selected === value;
 
@@ -223,7 +235,7 @@ const Item = ({ value, children, className }: ItemProps) => {
 				mergeTailwindClasses(
 					'relative flex cursor-pointer select-none items-center rounded-sm px-2 py-1.5 my-1 text-sm outline-none',
 					'hover:bg-accent hover:text-accent-foreground',
-					isSelected && 'bg-accent text-accent-foreground',
+					isSelected ? 'bg-accent text-accent-foreground' : '',
 					className
 				)
 			}

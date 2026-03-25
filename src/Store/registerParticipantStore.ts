@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import { create } from 'zustand';
 
 interface RegistrationData {
@@ -38,6 +37,11 @@ export const registerParticipantStore = create<RegisterParticipantState>((set) =
 		});
 	},
 	updateRegistrationData: (data) => {
-		set(({ registration }) => _.assign(registration, data));
+		set((state) => ({
+			registration: {
+				...state.registration,
+				...data,
+			},
+		}));
 	},
 }));

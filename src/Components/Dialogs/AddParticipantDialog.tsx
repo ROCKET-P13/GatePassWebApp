@@ -1,3 +1,4 @@
+import { SortingState } from '@tanstack/react-table';
 import { Button } from '@ui/Button';
 import { Dialog, DialogContent, DialogFooter, DialogTitle } from '@ui/Dialog';
 import { Input } from '@ui/Input';
@@ -9,7 +10,7 @@ import { addParticipantStore } from '@/Store/addParticipantStore';
 
 interface AddParticipantDialogProps {
 	open: boolean;
-	queryKey: string[];
+	queryKey: (string | SortingState)[];
 }
 
 export const AddParticipantDialog = ({ open, queryKey }: AddParticipantDialogProps) => {

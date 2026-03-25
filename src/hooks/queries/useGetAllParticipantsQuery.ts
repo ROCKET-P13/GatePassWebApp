@@ -1,11 +1,12 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import { useQuery } from '@tanstack/react-query';
+import { SortingState } from '@tanstack/react-table';
 import { useMemo } from 'react';
 
 import { ParticipantsAPI } from '@/API/ParticipantsAPI';
 
 interface UseGetAllParticipantsQueryProps {
-	queryKey: unknown[];
+	queryKey: (string | SortingState)[];
 }
 
 export const useGetAllParticipantsQuery = ({ queryKey }: UseGetAllParticipantsQueryProps) => {
