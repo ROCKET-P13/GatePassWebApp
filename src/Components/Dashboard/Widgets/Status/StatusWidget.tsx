@@ -1,24 +1,13 @@
-import { useAuth0 } from '@auth0/auth0-react';
-import { useQuery } from '@tanstack/react-query';
 import { CardDescription, CardHeader, CardTitle } from '@ui/Card';
-import { useMemo } from 'react';
 
-import { UsersAPI } from '@/API/UsersAPI';
 import { WidgetCard } from '@/Components/Dashboard/Widgets/WidgetCard';
+import { useGetUserVenueQuery } from '@/hooks/queries/useGetUserVenueQuery';
 
 export const StatusWidget = () => {
-	const { getAccessTokenSilently, isAuthenticated } = useAuth0();
-	const usersAPI = useMemo(
-		() => new UsersAPI({ getAccessToken: getAccessTokenSilently }),
-		[getAccessTokenSilently]
-	);
-
-	const { data: venue, isLoading } = useQuery({
-		queryKey: ['currentUser'],
-		queryFn: () => usersAPI.getVenue(),
-		enabled: isAuthenticated,
-		placeholderData: (previousData) => previousData,
-	});
+	const {
+		data: venue,
+		isLoading,
+	} = useGetUserVenueQuery({ queryKey: ['currentUser'] });
 
 	return (
 		<WidgetCard>
