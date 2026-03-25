@@ -134,7 +134,6 @@ export const EventsTable = ({ events, sorting, onSortingChange }: EventsTablePro
 		[openEditEventDialog, setEventDraft, openDeleteEventDialog, setEventToDelete]
 	);
 
-	// eslint-disable-next-line react-hooks/incompatible-library
 	const table = useReactTable({
 		data: events,
 		columns,

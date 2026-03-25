@@ -70,12 +70,11 @@ export default defineConfig([
 							position: 'after',
 						},
 					],
-					// pathGroupsExcludedImportTypes: ['builtin', 'external'],
 					'newlines-between': 'always',
 					alphabetize: { order: 'asc', caseInsensitive: true },
 				},
 			],
-
+			'react-hooks/incompatible-library': 'off',
 			'react/react-in-jsx-scope': 'off',
 			'react/prop-types': 'off',
 

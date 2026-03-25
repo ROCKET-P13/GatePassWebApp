@@ -77,7 +77,6 @@ export const ParticipantsTable = ({ participants, sorting, onSortingChange }: Pa
 		[]
 	);
 
-	// eslint-disable-next-line react-hooks/incompatible-library
 	const table = useReactTable({
 		data: participants,
 		columns,

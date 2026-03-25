@@ -5,7 +5,6 @@ import { useGetAllParticipantsQuery } from '@/hooks/queries/useGetAllParticipant
 import { useGetEventRegistrationsQuery } from '@/hooks/queries/useGetEventRegistrationsQuery';
 import { addEventClassStore } from '@/Store/addEventClassStore';
 import { registerParticipantStore } from '@/Store/registerParticipantStore';
-import { Participant } from '@/types/Participant';
 
 import { RegistrationsTable } from './RegistrationsTable';
 import { AddEventClassDialog } from '../../../../Dialogs/AddEventClassDialog';
@@ -18,16 +17,6 @@ interface SortingState {
 
 interface RegistrationTabProps {
 	eventId: string;
-}
-
-interface Registration {
-	id?: string;
-	participantFirstName: string;
-	participantLastName: string;
-	participantId: string;
-	eventNumber: string;
-	class: string;
-	checkedIn: boolean;
 }
 
 export const RegistrationTab = ({ eventId }: RegistrationTabProps) => {
@@ -87,7 +76,7 @@ export const RegistrationTab = ({ eventId }: RegistrationTabProps) => {
 					)
 					: (
 						<RegistrationsTable
-							registrations={registrations as Registration[]}
+							registrations={registrations}
 							sorting={sorting}
 							onSortingChange={setSorting}
 						/>
@@ -99,7 +88,7 @@ export const RegistrationTab = ({ eventId }: RegistrationTabProps) => {
 					<RegisterParticipantDialog
 						open={isRegisterParticipantDialogOpen}
 						eventId={eventId}
-						participants={participants as Participant[]}
+						participants={participants}
 					/>
 				)
 			}

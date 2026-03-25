@@ -4,14 +4,7 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableHeader, Ta
 import { ChevronDown, ChevronsUpDown, ChevronUp } from 'lucide-react';
 import { useMemo } from 'react';
 
-interface Registration {
-	participantFirstName: string;
-	participantLastName: string;
-	eventNumber: string;
-	class: string;
-	checkedIn: boolean;
-}
-
+import { Registration } from '@/types/Registration';
 interface RegistrationsTableProps {
 	registrations: Registration[];
 	sorting: SortingState;
@@ -45,7 +38,6 @@ export const RegistrationsTable = ({ registrations, sorting, onSortingChange }: 
 		[]
 	);
 
-	// eslint-disable-next-line react-hooks/incompatible-library
 	const table = useReactTable({
 		data: registrations,
 		columns,
