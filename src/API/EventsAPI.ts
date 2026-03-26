@@ -2,6 +2,7 @@ import dayjs, { Dayjs } from 'dayjs';
 import _ from 'lodash';
 
 import { Event } from '@/types/Event';
+import { EventRegistration } from '@/types/EventRegistration';
 
 import { APIClient } from './APIClient';
 
@@ -28,15 +29,6 @@ interface EventClass {
 	participantCapacity?: number;
 }
 
-interface Registration {
-	id?: string;
-	participantFirstName: string;
-	participantLastName: string;
-	participantId: string;
-	class: string;
-	eventNumber: string;
-	checkedIn: boolean;
-}
 interface GetAllParams {
 	sorting?: Array<{ id: string; desc: boolean }>;
 }
@@ -147,15 +139,15 @@ export class EventsAPI {
 		}));
 	}
 
-	async getRegistrations ({ eventId }: GetRegistrationsParams): Promise<Registration[]> {
+	async getRegistrations ({ eventId }: GetRegistrationsParams): Promise<EventRegistration[]> {
 		const registrations = await this.#apiClient.get({
 			url: `${this.#url}/${eventId}/registrations`,
-		}) as Registration[];
+		}) as EventRegistration[];
 
 		return registrations;
 	}
 
-	async registerParticipant ({ eventId, participantId, eventNumber, eventClass, checkedIn }: RegisterParticipantParams): Promise<Registration> {
+	async registerParticipant ({ eventId, participantId, eventNumber, eventClass, checkedIn }: RegisterParticipantParams): Promise<EventRegistration> {
 		const registration = await this.#apiClient.post({
 			url: `${this.#url}/${eventId}/registrations`,
 			body: {
@@ -165,7 +157,7 @@ export class EventsAPI {
 				eventNumber,
 				checkedIn,
 			},
-		}) as Registration;
+		}) as EventRegistration;
 
 		return registration;
 	}

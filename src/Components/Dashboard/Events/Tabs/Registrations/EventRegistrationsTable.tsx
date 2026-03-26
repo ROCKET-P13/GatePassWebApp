@@ -4,9 +4,9 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableHeader, Ta
 import { ChevronDown, ChevronsUpDown, ChevronUp } from 'lucide-react';
 import { useMemo } from 'react';
 
-import { Registration } from '@/types/Registration';
+import { EventRegistration } from '@/types/EventRegistration';
 interface EventRegistrationsTableProps {
-	registrations: Registration[];
+	registrations: EventRegistration[];
 	sorting: SortingState;
 	onSortingChange: OnChangeFn<SortingState>;
 }

@@ -2,6 +2,7 @@ import { useLoaderData } from '@tanstack/react-router';
 import { Tab, TabPanel, Tabs } from '@ui/Tabs';
 
 import { Routes } from '@/Common/routes';
+import { ParticipantRegistrationsTable } from '@/Components/Dashboard/Participants/Tabs/Registrations/ParticipantRegistrationsTab';
 import { Participant } from '@/types/Participant';
 
 const TabIds = Object.freeze({
@@ -12,8 +13,6 @@ export const ParticipantDetailsPage = () => {
 	const participant = useLoaderData({
 		from: Routes.PARTICIPANT_DETAILS,
 	}) as Participant;
-
-	console.log({ participant });
 
 	return (
 		<div>
@@ -34,7 +33,7 @@ export const ParticipantDetailsPage = () => {
 				<Tab value={TabIds.REGISTRATIONS}>Registrations</Tab>
 
 				<TabPanel value={TabIds.REGISTRATIONS}>
-					<div>{participant.id}</div>
+					<ParticipantRegistrationsTable participantId={participant.id} />
 				</TabPanel>
 			</Tabs>
 

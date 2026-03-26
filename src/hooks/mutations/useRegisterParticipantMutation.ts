@@ -4,17 +4,11 @@ import _ from 'lodash';
 import { useMemo } from 'react';
 
 import { EventsAPI } from '@/API/EventsAPI';
-
-interface Registration {
-	id?: string;
-	participantId: string;
-	class: string;
-	eventNumber: string;
-	checkedIn: boolean;
-}
+import { EventRegistration } from '@/types/EventRegistration';
+import { EventRegistrationDraft } from '@/types/EventRegistrationDraft';
 
 interface MutationContext {
-	previousRegistrations?: Registration[];
+	previousRegistrations?: EventRegistration[];
 	temporaryId: string;
 }
 
@@ -32,7 +26,8 @@ export const useRegisterParticipantMutation = ({ eventId }: UseRegisterParticipa
 	);
 
 	const queryClient = useQueryClient();
-	return useMutation<Registration, Error, Registration, MutationContext>({
+
+	return useMutation<EventRegistration, Error, EventRegistrationDraft, MutationContext>({
 		mutationFn: async (registration) => {
 			return await eventsAPI.registerParticipant({
 				eventId,
@@ -45,10 +40,10 @@ export const useRegisterParticipantMutation = ({ eventId }: UseRegisterParticipa
 		onMutate: async (newRegistration) => {
 			await queryClient.cancelQueries({ queryKey });
 
-			const previousRegistrations = queryClient.getQueryData<Registration[]>(queryKey);
+			const previousRegistrations = queryClient.getQueryData<EventRegistration[]>(queryKey);
 			const temporaryId = Math.random().toString(32);
 
-			queryClient.setQueryData<Registration[]>(
+			queryClient.setQueryData<EventRegistration[]>(
 				queryKey,
 				(old = []) => {
 					return [
@@ -56,7 +51,7 @@ export const useRegisterParticipantMutation = ({ eventId }: UseRegisterParticipa
 						{
 							...newRegistration,
 							id: temporaryId,
-						},
+						} as EventRegistration,
 					];
 				}
 			);
@@ -74,7 +69,7 @@ export const useRegisterParticipantMutation = ({ eventId }: UseRegisterParticipa
 			);
 		},
 		onSuccess: (createdRegistration, _vars, context) => {
-			queryClient.setQueryData<Registration[]>(
+			queryClient.setQueryData<EventRegistration[]>(
 				queryKey,
 				(old = []) => {
 					return _.map(old, (registration) => {

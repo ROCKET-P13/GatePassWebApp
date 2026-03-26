@@ -1,19 +1,14 @@
 import { create } from 'zustand';
 
-interface RegistrationData {
-	participantId: string;
-	class: string;
-	eventNumber: string;
-	checkedIn: boolean;
-}
+import { EventRegistrationDraft } from '@/types/EventRegistrationDraft';
 
 interface RegisterParticipantState {
 	isOpen: boolean;
-	registration: RegistrationData;
+	registration: EventRegistrationDraft;
 	openDialog: () => void;
 	closeDialog: () => void;
 	clearDialog: () => void;
-	updateRegistrationData: (data: Partial<RegistrationData>) => void;
+	updateRegistrationData: (data: Partial<EventRegistrationDraft>) => void;
 }
 
 export const registerParticipantStore = create<RegisterParticipantState>((set) => ({

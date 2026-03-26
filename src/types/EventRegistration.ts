@@ -1,7 +1,9 @@
-export interface Registration {
+export interface EventRegistration {
+	id?: string;
 	participantFirstName: string;
 	participantLastName: string;
-	eventNumber: string;
+	participantId: string;
 	class: string;
+	eventNumber: string;
 	checkedIn: boolean;
 }
