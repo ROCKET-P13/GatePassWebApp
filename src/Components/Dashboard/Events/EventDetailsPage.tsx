@@ -18,7 +18,7 @@ const TabIds = Object.freeze({
 });
 
 export const EventDetailsPage = () => {
-	const event = useLoaderData({ from: `/protected${Routes.DASHBOARD}${Routes.EVENTS}/$eventId` }) as Event;
+	const event = useLoaderData({ from: Routes.EVENT_DETAILS }) as Event;
 
 	const openEditEventDialog = editEventStore((state) => state.openDialog);
 	const isEditEventDialogOpen = editEventStore((state) => state.isOpen);

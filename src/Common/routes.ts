@@ -8,4 +8,6 @@ export const Routes = Object.freeze({
 	ACCOUNT: '/account',
 	SETTINGS: '/settings',
 	LOGIN: '/login',
+	PARTICIPANT_DETAILS: '/protected/dashboard/participants/$participantId',
+	EVENT_DETAILS: '/protected/dashboard/events/$eventId',
 });

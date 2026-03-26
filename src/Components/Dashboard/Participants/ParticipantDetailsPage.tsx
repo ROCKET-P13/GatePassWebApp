@@ -10,8 +10,10 @@ const TabIds = Object.freeze({
 
 export const ParticipantDetailsPage = () => {
 	const participant = useLoaderData({
-		from: `/protected${Routes.DASHBOARD}${Routes.PARTICIPANTS}/$participantId`,
+		from: Routes.PARTICIPANT_DETAILS,
 	}) as Participant;
+
+	console.log({ participant });
 
 	return (
 		<div>
