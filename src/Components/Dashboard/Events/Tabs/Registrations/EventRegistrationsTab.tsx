@@ -22,10 +22,8 @@ interface EventRegistrationsTabProps {
 export const EventRegistrationsTab = ({ eventId }: EventRegistrationsTabProps) => {
 	const [sorting, setSorting] = useState<SortingState[]>([]);
 
-	const {
-		openDialog: openRegisterParticipantDialog,
-		isOpen: isRegisterParticipantDialogOpen,
-	} = registerParticipantStore((state) => state);
+	const openRegisterParticipantDialog = registerParticipantStore((state) => state.openDialog);
+	const isRegisterParticipantDialogOpen = registerParticipantStore((state) => state.isOpen);
 
 	const {
 		openDialog: openCreateEventClassDialog,
@@ -34,7 +32,7 @@ export const EventRegistrationsTab = ({ eventId }: EventRegistrationsTabProps) =
 
 	const {
 		data: registrations = [],
-		isLoading,
+		isLoading: isParticipantRegistrationsLoading,
 		error,
 	} = useGetEventRegistrationsQuery({ eventId });
 
@@ -68,10 +66,10 @@ export const EventRegistrationsTab = ({ eventId }: EventRegistrationsTabProps) =
 				</Button>
 			</div>
 			{
-				isLoading
+				isParticipantRegistrationsLoading
 					? (
 						<p className="text-sm text-muted-foreground">
-						Loading Registrations...
+							Loading Registrations...
 						</p>
 					)
 					: (

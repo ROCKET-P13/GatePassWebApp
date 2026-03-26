@@ -2,6 +2,7 @@ import dayjs from 'dayjs';
 import _ from 'lodash';
 
 import { Participant } from '@/types/Participant';
+import { ParticipantRegistration } from '@/types/ParticipantRegistration';
 
 import { APIClient } from './APIClient';
 
@@ -22,6 +23,19 @@ interface CreateParticipantParams {
 	lastName: string;
 }
 
+interface ParticipantRegistrationViewModelProps {
+	id: string;
+	type: string;
+	eventNumber: number;
+	eventName: string;
+	eventId: string;
+	eventDate: string;
+	createdAt: string;
+	checkedInAt: string | null;
+	checkedIn: boolean;
+	date: string;
+}
+
 export class ParticipantsAPI {
 	#url = '/participants';
 	#apiClient: APIClient;
@@ -30,6 +44,24 @@ export class ParticipantsAPI {
 		this.#apiClient = params.apiClient ?? new APIClient({
 			getAccessToken: params.getAccessToken!,
 		});
+	}
+
+	async getRegistrations ({ participantId } : { participantId: string }) : Promise<ParticipantRegistration[]> {
+		const registrations = await this.#apiClient.get({
+			url: `${this.#url}/${participantId}/registrations`,
+		}) as ParticipantRegistrationViewModelProps[];
+
+		return _.map(registrations, (registration) => ({
+			id: registration.id,
+			eventId: registration.eventId,
+			eventName: registration.eventName,
+			eventDate: dayjs(registration.eventDate).format('MMM DD, YYYY'),
+			eventNumber: registration.eventNumber,
+			checkedIn: registration.checkedIn,
+			checkedInAt: dayjs(registration.checkedInAt).format('MMM DD, YYYY'),
+			type: registration.type,
+			date: dayjs(registration.date).format('MMM DD, YYYY'),
+		}));
 	}
 
 	async getAll (): Promise<Participant[]> {
