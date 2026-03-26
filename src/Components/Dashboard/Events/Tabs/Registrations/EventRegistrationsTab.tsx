@@ -6,7 +6,7 @@ import { useGetEventRegistrationsQuery } from '@/hooks/queries/useGetEventRegist
 import { addEventClassStore } from '@/Store/addEventClassStore';
 import { registerParticipantStore } from '@/Store/registerParticipantStore';
 
-import { RegistrationsTable } from './RegistrationsTable';
+import { EventRegistrationsTable } from './EventRegistrationsTable';
 import { AddEventClassDialog } from '../../../../Dialogs/AddEventClassDialog';
 import { RegisterParticipantDialog } from '../../../../Dialogs/RegisterParticipantDialog';
 
@@ -75,7 +75,7 @@ export const EventRegistrationsTab = ({ eventId }: EventRegistrationsTabProps) =
 						</p>
 					)
 					: (
-						<RegistrationsTable
+						<EventRegistrationsTable
 							registrations={registrations}
 							sorting={sorting}
 							onSortingChange={setSorting}

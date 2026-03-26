@@ -5,13 +5,13 @@ import { ChevronDown, ChevronsUpDown, ChevronUp } from 'lucide-react';
 import { useMemo } from 'react';
 
 import { Registration } from '@/types/Registration';
-interface RegistrationsTableProps {
+interface EventRegistrationsTableProps {
 	registrations: Registration[];
 	sorting: SortingState;
 	onSortingChange: OnChangeFn<SortingState>;
 }
 
-export const RegistrationsTable = ({ registrations, sorting, onSortingChange }: RegistrationsTableProps) => {
+export const EventRegistrationsTable = ({ registrations, sorting, onSortingChange }: EventRegistrationsTableProps) => {
 	const columns = useMemo(
 		() => [
 			{
