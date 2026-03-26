@@ -15,11 +15,11 @@ interface SortingState {
 	desc: boolean;
 }
 
-interface RegistrationTabProps {
+interface EventRegistrationsTabProps {
 	eventId: string;
 }
 
-export const RegistrationTab = ({ eventId }: RegistrationTabProps) => {
+export const EventRegistrationsTab = ({ eventId }: EventRegistrationsTabProps) => {
 	const [sorting, setSorting] = useState<SortingState[]>([]);
 
 	const {

@@ -5,7 +5,7 @@ import { Tab, TabPanel, Tabs } from '@ui/Tabs';
 
 import { EventStatusColorClass } from '@/Common/EventStatus';
 import { Routes } from '@/Common/routes';
-import { RegistrationTab } from '@/Components/Dashboard/Events/Tabs/Registrations/RegistrationsTab';
+import { EventRegistrationsTab } from '@/Components/Dashboard/Events/Tabs/Registrations/EventRegistrationsTab';
 import { EditEventDialog } from '@/Components/Dialogs/EditEventDialog';
 import { useEditEventDetailsMutation } from '@/hooks/mutations/useEditEventDetailsMutation';
 import { editEventStore } from '@/Store/editEventStore';
@@ -68,7 +68,7 @@ export const EventDetailsPage = () => {
 				<Tab value={TabIds.SETTINGS}>Settings</Tab>
 
 				<TabPanel value={TabIds.REGISTRATIONS}>
-					<RegistrationTab eventId={event.id} />
+					<EventRegistrationsTab eventId={event.id} />
 				</TabPanel>
 
 				<TabPanel value={TabIds.CHECK_INS}>
