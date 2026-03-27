@@ -65,7 +65,7 @@ export const EventsTable = ({ events, sorting, onSortingChange }: EventsTablePro
 					<Link
 						to={`${Routes.DASHBOARD}/${Routes.EVENTS}/$eventId`}
 						params={{ eventId: info.row.original.id }}
-						className="font-medium text-primary hover:underline"
+						className="font-medium hover:underline"
 					>
 						{info.getValue()}
 					</Link>

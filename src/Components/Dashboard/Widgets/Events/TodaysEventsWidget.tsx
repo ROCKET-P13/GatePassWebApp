@@ -54,7 +54,7 @@ export const TodaysEventsWidget = () => {
 													<Link
 														to={`${Routes.DASHBOARD}/${Routes.EVENTS}/$eventId`}
 														params={{ eventId: event.id }}
-														className="text-primary hover:underline"
+														className="hover:underline"
 													>
 														{event.name}
 													</Link>

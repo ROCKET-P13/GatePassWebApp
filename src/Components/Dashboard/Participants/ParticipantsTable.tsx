@@ -39,7 +39,7 @@ export const ParticipantsTable = ({ participants, sorting, onSortingChange }: Pa
 					<Link
 						to={`${Routes.DASHBOARD}/${Routes.PARTICIPANTS}/$participantId`}
 						params={{ participantId: info.row.original.id }}
-						className="font-medium text-primary hover:underline"
+						className="font-medium hover:underline"
 					>{info.getValue()}</Link>
 				),
 			},

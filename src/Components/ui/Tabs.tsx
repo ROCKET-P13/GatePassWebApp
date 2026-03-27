@@ -69,7 +69,7 @@ export const Tab = ({ value, children, isActive, onSelect }: TabProps) => {
 			className={mergeTailwindClasses(
 				'px-4 py-2 font-medium transition-colors',
 				isActive
-					? 'border-b-2 border-primary text-primary'
+					? 'border-b-2 border-primary'
 					: 'text-muted-foreground hover:text-foreground'
 			)}
 		>

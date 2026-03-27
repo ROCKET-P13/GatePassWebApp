@@ -23,7 +23,7 @@ export const CheckinsWidget = () => {
 							key={data.id}
 							className="px-0 py-2"
 						>
-							<h1 className='text-primary'>{data.name}</h1>
+							<h1>{data.name}</h1>
 							<p className="font-sm text-muted-foreground">{data.time}</p>
 						</ListItem>
 					))

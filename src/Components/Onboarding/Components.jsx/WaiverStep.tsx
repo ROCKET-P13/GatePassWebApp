@@ -26,7 +26,7 @@ export const WaiverStep = () => {
 
 	return (
 		<div className="flex flex-col space-y-6">
-			<h1 className="text-lg text-primary">
+			<h1 className="text-lg">
         		Upload your existing waiver or use our default template.
 			</h1>
 

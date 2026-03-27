@@ -27,7 +27,7 @@ export const Icon = forwardRef<SVGSVGElement, IconProps>(
 				height={size}
 				className={
 					mergeTailwindClasses(
-						'text-primary transition-colors',
+						'transition-colors',
 						className
 					)
 				}
