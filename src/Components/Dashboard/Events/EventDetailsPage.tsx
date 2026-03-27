@@ -29,7 +29,6 @@ export const EventDetailsPage = () => {
 
 	return (
 		<div>
-
 			<div className='flex justify-between items-center mb-4'>
 				<div className='flex flex-col items-start gap-2'>
 					<h1 className='text-4xl font-semibold'>

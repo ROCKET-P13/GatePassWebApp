@@ -84,10 +84,10 @@ export const EventsTable = ({ events, sorting, onSortingChange }: EventsTablePro
 				accessorKey: 'status',
 				header: 'Status',
 				cell: (info) => {
-					const status = info.getValue();
+					const status = info.getValue() as Event['status'];
 					return (
-						<span className={`px-2 py-1 text-xs rounded-md font-medium ${EventStatusColorClass[status as string]}`}>
-							{status as string}
+						<span className={`px-2 py-1 text-xs rounded-md font-medium ${EventStatusColorClass[status]}`}>
+							{status}
 						</span>
 					);
 				},
