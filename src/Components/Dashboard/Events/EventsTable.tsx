@@ -6,7 +6,8 @@ import {
 	getSortedRowModel,
 	useReactTable,
 	SortingState,
-	OnChangeFn
+	OnChangeFn,
+	ColumnDef
 } from '@tanstack/react-table';
 import { Icon } from '@ui/Icon';
 import {
@@ -56,7 +57,7 @@ export const EventsTable = ({ events, sorting, onSortingChange }: EventsTablePro
 
 	const editEventMutation = useEditEventTableMutation({ queryKey });
 
-	const columns = useMemo(
+	const columns = useMemo<ColumnDef<Event>[]>(
 		() => [
 			{
 				accessorKey: 'name',
@@ -67,7 +68,7 @@ export const EventsTable = ({ events, sorting, onSortingChange }: EventsTablePro
 						params={{ eventId: info.row.original.id }}
 						className="font-medium hover:underline"
 					>
-						{info.getValue()}
+						{info.getValue() as string}
 					</Link>
 				),
 			},
@@ -85,8 +86,8 @@ export const EventsTable = ({ events, sorting, onSortingChange }: EventsTablePro
 				cell: (info) => {
 					const status = info.getValue();
 					return (
-						<span className={`px-2 py-1 text-xs rounded-md font-medium ${EventStatusColorClass[status]}`}>
-							{status}
+						<span className={`px-2 py-1 text-xs rounded-md font-medium ${EventStatusColorClass[status as string]}`}>
+							{status as string}
 						</span>
 					);
 				},
@@ -105,7 +106,7 @@ export const EventsTable = ({ events, sorting, onSortingChange }: EventsTablePro
 									id: row.original.id,
 									name: row.original.name,
 									status: row.original.status,
-									participantCapacity: row.original.participantCapacity,
+									participantCapacity: row.original.participantCapacity || null,
 									startDateTime: row.original.startDateTime,
 									startTime: row.original.startDateTime,
 									date: row.original.startDateTime,

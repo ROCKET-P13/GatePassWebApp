@@ -5,7 +5,8 @@ import {
 	flexRender,
 	getSortedRowModel,
 	SortingState,
-	OnChangeFn
+	OnChangeFn,
+	ColumnDef
 } from '@tanstack/react-table';
 import { Icon } from '@ui/Icon';
 import {
@@ -30,7 +31,7 @@ interface ParticipantsTableProps {
 }
 
 export const ParticipantsTable = ({ participants, sorting, onSortingChange }: ParticipantsTableProps) => {
-	const columns = useMemo(
+	const columns = useMemo<ColumnDef<Participant>[]>(
 		() => [
 			{
 				accessorKey: 'firstName',
@@ -40,7 +41,9 @@ export const ParticipantsTable = ({ participants, sorting, onSortingChange }: Pa
 						to={`${Routes.DASHBOARD}/${Routes.PARTICIPANTS}/$participantId`}
 						params={{ participantId: info.row.original.id }}
 						className="font-medium hover:underline"
-					>{info.getValue()}</Link>
+					>
+						{info.getValue() as string}
+					</Link>
 				),
 			},
 			{
