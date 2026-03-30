@@ -32,7 +32,7 @@ const applyTheme = (theme: Theme) => {
 	}
 };
 
-export const useThemeStore = create<ThemeState>((set, get) => ({
+export const themeStore = create<ThemeState>((set, get) => ({
 	theme: getInitialTheme(),
 
 	setTheme: (theme) => {

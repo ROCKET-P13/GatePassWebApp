@@ -1,15 +1,17 @@
-import { useThemeStore } from '@/Store/themeStore';
+import { Moon, Sun } from 'lucide-react';
+
+import { themeStore } from '@/Store/themeStore';
 
 export const ThemeToggle = () => {
-	const theme = useThemeStore((state) => state.theme);
-	const toggleTheme = useThemeStore((state) => state.toggleTheme);
+	const theme = themeStore((state) => state.theme);
+	const toggleTheme = themeStore((state) => state.toggleTheme);
 
 	return (
 		<button
 			onClick={toggleTheme}
 			className="px-3 py-2 rounded-md border"
 		>
-			{theme === 'dark' ? '🌙' : '☀️'}
+			{theme === 'dark' ? <Moon /> : <Sun />}
 		</button>
 	);
 };
