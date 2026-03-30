@@ -1,17 +1,41 @@
+import { Icon } from '@ui/Icon';
 import { Moon, Sun } from 'lucide-react';
 
 import { themeStore } from '@/Store/themeStore';
+import { mergeTailwindClasses } from '@/utils/mergeTailwindClasses';
 
 export const ThemeToggle = () => {
 	const theme = themeStore((state) => state.theme);
 	const toggleTheme = themeStore((state) => state.toggleTheme);
 
+	const isChecked = (theme === 'dark');
+
 	return (
 		<button
 			onClick={toggleTheme}
-			className="px-3 py-2 rounded-md border"
+			role="switch"
+			aria-checked={isChecked}
+			className={
+				mergeTailwindClasses(
+					'relative inline-flex shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors focus:outline-none',
+					isChecked ? 'bg-primary' : 'bg-muted'
+				)
+			}
 		>
-			{theme === 'dark' ? <Moon /> : <Sun />}
+			<span
+				className={
+					mergeTailwindClasses(
+						'flex justify-center items-center h-5 w-5 rounded-full bg-background shadow transform ring-0 transition-transform',
+						isChecked ? 'translate-x-5' : 'translate-x-0'
+					)
+				}>
+				{
+					isChecked
+						? <Icon as={Moon} />
+						: <Icon as={Sun} />
+				}
+			</span>
+
 		</button>
 	);
 };

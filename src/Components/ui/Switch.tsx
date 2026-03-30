@@ -43,13 +43,14 @@ export const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
 					aria-checked={checked}
 					disabled={disabled}
 					onClick={toggle}
-					className={mergeTailwindClasses(
-
-						'relative inline-flex shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors focus:outline-none',
-						checked ? 'bg-primary' : 'bg-muted',
-						disabled ? 'opacity-50 cursor-not-allowed' : '',
-						className
-					)}
+					className={
+						mergeTailwindClasses(
+							'relative inline-flex shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors focus:outline-none',
+							checked ? 'bg-primary' : 'bg-muted',
+							disabled ? 'opacity-50 cursor-not-allowed' : '',
+							className
+						)
+					}
 					{...props}
 				>
 					<span

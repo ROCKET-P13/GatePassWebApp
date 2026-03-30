@@ -29,9 +29,6 @@ export const DashboardAppBar = () => {
 			</AppBarLeft>
 
 			<AppBarRight>
-				<span className="text-sm text-muted-foreground">
-					Welcome back
-				</span>
 				<ThemeToggle />
 			</AppBarRight>
 		</AppBar>
