@@ -5,6 +5,7 @@ import {
 	AppBarTitle
 } from '@ui/AppBar';
 import { Icon } from '@ui/Icon';
+import { ThemeToggle } from '@ui/ThemeToggle';
 import { MenuIcon } from 'lucide-react';
 
 import { dashboardStore } from '@/Store/dashboardStore';
@@ -31,6 +32,7 @@ export const DashboardAppBar = () => {
 				<span className="text-sm text-muted-foreground">
 					Welcome back
 				</span>
+				<ThemeToggle />
 			</AppBarRight>
 		</AppBar>
 	);
