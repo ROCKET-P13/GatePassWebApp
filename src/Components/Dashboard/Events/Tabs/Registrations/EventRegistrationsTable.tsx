@@ -1,10 +1,12 @@
-import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable, SortingState, OnChangeFn } from '@tanstack/react-table';
+import { Link } from '@tanstack/react-router';
+import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable, SortingState, OnChangeFn, ColumnDef } from '@tanstack/react-table';
 import { Checkbox } from '@ui/Checkbox';
 import { Icon } from '@ui/Icon';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableHeader, TableRow } from '@ui/Table';
 import { ChevronDown, ChevronsUpDown, ChevronUp } from 'lucide-react';
 import { useMemo } from 'react';
 
+import { Routes } from '@/Common/routes';
 import { EventRegistration } from '@/types/EventRegistration';
 interface EventRegistrationsTableProps {
 	registrations: EventRegistration[];
@@ -13,11 +15,21 @@ interface EventRegistrationsTableProps {
 }
 
 export const EventRegistrationsTable = ({ registrations, sorting, onSortingChange } : EventRegistrationsTableProps) => {
-	const columns = useMemo(
+	console.log({ registrations });
+	const columns = useMemo<ColumnDef<EventRegistration>[]>(
 		() => [
 			{
 				accessorKey: 'participantFirstName',
 				header: 'First Name',
+				cell: (info) => (
+					<Link
+						to={`${Routes.DASHBOARD}/${Routes.PARTICIPANTS}/$participantId`}
+						params={{ participantId: info.row.original.participantId }}
+						className="font-medium hover:underline"
+					>
+						{info.getValue() as string}
+					</Link>
+				),
 			},
 			{
 				accessorKey: 'participantLastName',
@@ -34,11 +46,11 @@ export const EventRegistrationsTable = ({ registrations, sorting, onSortingChang
 			{
 				accessorKey: 'checkedIn',
 				header: 'Checked In',
-				cell: (info: { getValue: () => boolean }) => {
+				cell: (info) => {
 					return (
 						<Checkbox
 							disabled
-							checked={info.getValue()}
+							checked={info.getValue() as boolean}
 						/>
 					);
 				},
