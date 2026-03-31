@@ -14,7 +14,6 @@ import { Event } from '@/types/Event';
 const TabIds = Object.freeze({
 	REGISTRATIONS: 'registrations',
 	CHECK_INS: 'checkins',
-	SETTINGS: 'settings',
 });
 
 export const EventDetailsPage = () => {
@@ -64,7 +63,6 @@ export const EventDetailsPage = () => {
 			<Tabs defaultValue={TabIds.REGISTRATIONS}>
 				<Tab value={TabIds.REGISTRATIONS}>Registrations</Tab>
 				<Tab value={TabIds.CHECK_INS}>Check-Ins</Tab>
-				<Tab value={TabIds.SETTINGS}>Settings</Tab>
 
 				<TabPanel value={TabIds.REGISTRATIONS}>
 					<EventRegistrationsTab eventId={event.id} />
@@ -72,10 +70,6 @@ export const EventDetailsPage = () => {
 
 				<TabPanel value={TabIds.CHECK_INS}>
 					<h2>Check-Ins</h2>
-				</TabPanel>
-
-				<TabPanel value={TabIds.SETTINGS}>
-					<h2>Settings</h2>
 				</TabPanel>
 			</Tabs>
 
