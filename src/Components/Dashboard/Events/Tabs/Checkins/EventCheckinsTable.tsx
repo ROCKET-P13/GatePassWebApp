@@ -1,4 +1,4 @@
-import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable, SortingState, OnChangeFn } from '@tanstack/react-table';
+import { flexRender, getCoreRowModel, getSortedRowModel, OnChangeFn, SortingState, useReactTable } from '@tanstack/react-table';
 import { Checkbox } from '@ui/Checkbox';
 import { Icon } from '@ui/Icon';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableHeader, TableRow } from '@ui/Table';
@@ -6,13 +6,14 @@ import { ChevronDown, ChevronsUpDown, ChevronUp } from 'lucide-react';
 import { useMemo } from 'react';
 
 import { EventRegistration } from '@/types/EventRegistration';
-interface EventRegistrationsTableProps {
-	registrations: EventRegistration[];
+
+interface EventCheckinsTableProps {
+	checkIns: EventRegistration[];
 	sorting: SortingState;
 	onSortingChange: OnChangeFn<SortingState>;
 }
 
-export const EventRegistrationsTable = ({ registrations, sorting, onSortingChange } : EventRegistrationsTableProps) => {
+export const EventCheckinsTable = ({ checkIns, sorting, onSortingChange } : EventCheckinsTableProps) => {
 	const columns = useMemo(
 		() => [
 			{
@@ -48,7 +49,7 @@ export const EventRegistrationsTable = ({ registrations, sorting, onSortingChang
 	);
 
 	const table = useReactTable({
-		data: registrations,
+		data: checkIns,
 		columns,
 		state: { sorting },
 		onSortingChange,

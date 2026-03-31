@@ -5,6 +5,7 @@ import { Tab, TabPanel, Tabs } from '@ui/Tabs';
 
 import { EventStatusColorClass } from '@/Common/EventStatus';
 import { Routes } from '@/Common/routes';
+import { EventCheckinsTab } from '@/Components/Dashboard/Events/Tabs/Checkins/EventCheckinsTab';
 import { EventRegistrationsTab } from '@/Components/Dashboard/Events/Tabs/Registrations/EventRegistrationsTab';
 import { EditEventDialog } from '@/Components/Dialogs/EditEventDialog';
 import { useEditEventDetailsMutation } from '@/hooks/mutations/useEditEventDetailsMutation';
@@ -69,7 +70,7 @@ export const EventDetailsPage = () => {
 				</TabPanel>
 
 				<TabPanel value={TabIds.CHECK_INS}>
-					<h2>Check-Ins</h2>
+					<EventCheckinsTab eventId={event.id} />
 				</TabPanel>
 			</Tabs>
 
