@@ -37,6 +37,10 @@ interface GetRegistrationsParams {
 	eventId: string;
 }
 
+interface GetCheckinsParams {
+	eventId: string;
+}
+
 interface RegisterParticipantParams {
 	eventId: string;
 	participantId: string;
@@ -145,6 +149,14 @@ export class EventsAPI {
 		}) as EventRegistration[];
 
 		return registrations;
+	}
+
+	async getCheckins ({ eventId }: GetCheckinsParams): Promise<EventRegistration[]> {
+		const checkins = await this.#apiClient.get({
+			url: `${this.#url}/${eventId}/checkins`,
+		}) as EventRegistration[];
+
+		return checkins;
 	}
 
 	async registerParticipant ({ eventId, participantId, eventNumber, eventClass, checkedIn }: RegisterParticipantParams): Promise<EventRegistration> {

@@ -1,8 +1,7 @@
-import _ from 'lodash';
 import { useState } from 'react';
 
 import { EventCheckinsTable } from '@/Components/Dashboard/Events/Tabs/Checkins/EventCheckinsTable';
-import { useGetEventRegistrationsQuery } from '@/hooks/queries/useGetEventRegistrationsQuery';
+import { useGetEventCheckinsQuery } from '@/hooks/queries/useGetEventCheckinsQuery';
 
 interface SortingState {
 	id: string;
@@ -17,10 +16,10 @@ export const EventCheckinsTab = ({ eventId } : EventCheckinsTabProps) => {
 	const [sorting, setSorting] = useState<SortingState[]>([]);
 
 	const {
-		data: registrations = [],
-		isLoading: isParticipantRegistrationsLoading,
+		data: checkIns = [],
+		isLoading: isParticipantCheckinsLoading,
 		error,
-	} = useGetEventRegistrationsQuery({ eventId });
+	} = useGetEventCheckinsQuery({ eventId });
 
 	if (error) {
 		return (
@@ -30,12 +29,10 @@ export const EventCheckinsTab = ({ eventId } : EventCheckinsTabProps) => {
 		);
 	}
 
-	const checkIns = _.filter(registrations, 'checkedIn');
-
 	return (
 		<div className="space-y-6">
 			{
-				isParticipantRegistrationsLoading
+				isParticipantCheckinsLoading
 					? (
 						<p className="text-sm text-muted-foreground">
 							Loading Checkins...
