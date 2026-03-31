@@ -31,8 +31,8 @@ export const ThemeToggle = () => {
 				}>
 				{
 					isChecked
-						? <Icon as={Moon} />
-						: <Icon as={Sun} />
+						? <Icon as={Moon} size={14} />
+						: <Icon as={Sun} size={14} />
 				}
 			</span>
 

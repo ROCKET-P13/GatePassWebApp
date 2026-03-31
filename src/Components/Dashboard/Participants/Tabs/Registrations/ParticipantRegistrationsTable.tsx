@@ -1,4 +1,5 @@
 import { flexRender, getCoreRowModel, getSortedRowModel, OnChangeFn, SortingState, useReactTable } from '@tanstack/react-table';
+import { Checkbox } from '@ui/Checkbox';
 import { Icon } from '@ui/Icon';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableHeader, TableRow } from '@ui/Table';
 import { ChevronDown, ChevronsUpDown, ChevronUp } from 'lucide-react';
@@ -34,6 +35,12 @@ export const ParticipantRegistrationsTable = ({ registrations, sorting, onSortin
 			{
 				accessorKey: 'checkedIn',
 				header: 'Checked In',
+				cell: (info: { getValue: () => boolean }) => (
+					<Checkbox
+						checked={info.getValue()}
+						disabled
+					/>
+				),
 			},
 		],
 		[]
