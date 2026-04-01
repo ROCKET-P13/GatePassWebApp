@@ -35,7 +35,6 @@ export const DeleteEventDialog = ({ open, eventToDelete, queryKey }: DeleteEvent
 			onClose={closeDialog}
 			onExited={clearDialog}
 		>
-
 			<DialogContent>
 				<DialogHeader>
 					<DialogTitle>Delete Event?</DialogTitle>
@@ -46,13 +45,13 @@ export const DeleteEventDialog = ({ open, eventToDelete, queryKey }: DeleteEvent
 						variant="outline"
 						onClick={closeDialog}
 					>
-					Cancel
+						Cancel
 					</Button>
 					<Button
 						onClick={handleSubmit}
 						variant="destructive"
 					>
-					Delete
+						Delete
 					</Button>
 				</DialogFooter>
 			</DialogContent>

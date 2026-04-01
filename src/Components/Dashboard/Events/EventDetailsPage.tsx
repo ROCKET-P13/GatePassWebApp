@@ -66,7 +66,7 @@ export const EventDetailsPage = () => {
 				<Tab value={TabIds.CHECK_INS}>Check-Ins</Tab>
 
 				<TabPanel value={TabIds.REGISTRATIONS}>
-					<EventRegistrationsTab eventId={event.id} />
+					<EventRegistrationsTab event={event} />
 				</TabPanel>
 
 				<TabPanel value={TabIds.CHECK_INS}>

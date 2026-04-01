@@ -1,10 +1,13 @@
 import { Button } from '@ui/Button';
 import { useState } from 'react';
 
+import { CheckinParticipantDialog } from '@/Components/Dialogs/CheckinParticipantDialog';
 import { useGetAllParticipantsQuery } from '@/hooks/queries/useGetAllParticipantsQuery';
 import { useGetEventRegistrationsQuery } from '@/hooks/queries/useGetEventRegistrationsQuery';
 import { addEventClassStore } from '@/Store/addEventClassStore';
+import { checkinParticipantStore } from '@/Store/checkinParticipantStore';
 import { registerParticipantStore } from '@/Store/registerParticipantStore';
+import { Event } from '@/types/Event';
 
 import { EventRegistrationsTable } from './EventRegistrationsTable';
 import { AddEventClassDialog } from '../../../../Dialogs/AddEventClassDialog';
@@ -16,25 +19,25 @@ interface SortingState {
 }
 
 interface EventRegistrationsTabProps {
-	eventId: string;
+	event: Event;
 }
 
-export const EventRegistrationsTab = ({ eventId }: EventRegistrationsTabProps) => {
+export const EventRegistrationsTab = ({ event }: EventRegistrationsTabProps) => {
 	const [sorting, setSorting] = useState<SortingState[]>([]);
 
 	const openRegisterParticipantDialog = registerParticipantStore((state) => state.openDialog);
 	const isRegisterParticipantDialogOpen = registerParticipantStore((state) => state.isOpen);
 
-	const {
-		openDialog: openCreateEventClassDialog,
-		isOpen: isCreateEventClassDialogOpen,
-	} = addEventClassStore((state) => state);
+	const openCreateEventClassDialog = addEventClassStore((state) => state.openDialog);
+	const isCreateEventClassDialogOpen = addEventClassStore((state) => state.isOpen);
+
+	const isCheckinParticipantDialogOpen = checkinParticipantStore((state) => state.isOpen);
 
 	const {
 		data: registrations = [],
 		isLoading: isParticipantRegistrationsLoading,
 		error,
-	} = useGetEventRegistrationsQuery({ eventId });
+	} = useGetEventRegistrationsQuery({ eventId: event.id });
 
 	const {
 		data: participants = [],
@@ -85,14 +88,18 @@ export const EventRegistrationsTab = ({ eventId }: EventRegistrationsTabProps) =
 				!isParticipantsLoading && (
 					<RegisterParticipantDialog
 						open={isRegisterParticipantDialogOpen}
-						eventId={eventId}
+						eventId={event.id}
 						participants={participants}
 					/>
 				)
 			}
 			<AddEventClassDialog
 				open={isCreateEventClassDialogOpen}
-				eventId={eventId}
+				eventId={event.id}
+			/>
+			<CheckinParticipantDialog
+				open={isCheckinParticipantDialogOpen}
+				event={event}
 			/>
 
 		</div>

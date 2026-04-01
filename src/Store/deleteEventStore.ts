@@ -14,7 +14,7 @@ interface DeleteEventState {
 	setEventToDelete: (event: EventToDelete) => void;
 }
 
-export const deleteEventStore = create<DeleteEventState>((set, get) => ({
+export const deleteEventStore = create<DeleteEventState>((set) => ({
 	isOpen: false,
 	eventToDelete: {
 		id: '',

@@ -7,6 +7,7 @@ import { ChevronDown, ChevronsUpDown, ChevronUp } from 'lucide-react';
 import { useMemo } from 'react';
 
 import { Routes } from '@/Common/routes';
+import { checkinParticipantStore } from '@/Store/checkinParticipantStore';
 import { EventRegistration } from '@/types/EventRegistration';
 interface EventRegistrationsTableProps {
 	registrations: EventRegistration[];
@@ -15,7 +16,9 @@ interface EventRegistrationsTableProps {
 }
 
 export const EventRegistrationsTable = ({ registrations, sorting, onSortingChange } : EventRegistrationsTableProps) => {
-	console.log({ registrations });
+	const setParticipantToCheckin = checkinParticipantStore((state) => state.setParticipantToCheckin);
+	const openCheckinParticipantDialog = checkinParticipantStore((state) => state.openDialog);
+
 	const columns = useMemo<ColumnDef<EventRegistration>[]>(
 		() => [
 			{
@@ -49,8 +52,16 @@ export const EventRegistrationsTable = ({ registrations, sorting, onSortingChang
 				cell: (info) => {
 					return (
 						<Checkbox
-							disabled
 							checked={info.getValue() as boolean}
+							onChange={() => {
+								const registration = info.row.original;
+								setParticipantToCheckin({
+									id: registration.participantId,
+									firstName: registration.participantFirstName,
+									lastName: registration.participantLastName,
+								});
+								openCheckinParticipantDialog();
+							}}
 						/>
 					);
 				},

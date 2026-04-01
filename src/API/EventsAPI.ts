@@ -2,6 +2,7 @@ import dayjs, { Dayjs } from 'dayjs';
 import _ from 'lodash';
 
 import { Event } from '@/types/Event';
+import { EventClass } from '@/types/EventClass';
 import { EventRegistration } from '@/types/EventRegistration';
 
 import { APIClient } from './APIClient';
@@ -17,16 +18,6 @@ interface RawEvent {
 	participantCapacity?: number;
 	status: string;
 	startDateTime: Dayjs;
-}
-
-interface EventClass {
-	id: string;
-	name: string;
-	gender?: string;
-	skillLevel?: string;
-	maximumAge?: number;
-	minimumAge?: number;
-	participantCapacity?: number;
 }
 
 interface GetAllParams {

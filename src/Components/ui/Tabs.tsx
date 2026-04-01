@@ -1,6 +1,23 @@
-import { ReactElement, ReactNode, useState, Children, cloneElement } from 'react';
+import { createContext, useContext, useState, ReactNode } from 'react';
 
 import { mergeTailwindClasses } from '@/utils/mergeTailwindClasses';
+
+interface TabsContextType {
+	value: string | null;
+	onSelect: (value: string) => void;
+}
+
+const TabsContext = createContext<TabsContextType | null>(null);
+
+const useTabs = () => {
+	const context = useContext(TabsContext);
+
+	if (!context) {
+		throw new Error('Tabs components must be used within <Tabs>');
+	}
+
+	return context;
+};
 
 interface TabsProps {
 	defaultValue?: string;
@@ -9,69 +26,60 @@ interface TabsProps {
 	children: ReactNode;
 }
 
-export const Tabs = ({ defaultValue, value: controlledValue, onChange, children }: TabsProps) => {
-	const [activeTab, setActiveTab] = useState(defaultValue || null);
-	const selectedValue = controlledValue !== undefined ? controlledValue : activeTab;
+export const Tabs = (
+	{
+		defaultValue,
+		value: controlledValue,
+		onChange,
+		children,
+	}: TabsProps
+) => {
+	const [internalValue, setInternalValue] = useState<string | null>(
+		defaultValue ?? null
+	);
+
+	const selectedValue = (controlledValue !== undefined) ? controlledValue : internalValue;
 
 	const handleSelect = (val: string) => {
 		if (controlledValue === undefined) {
-			setActiveTab(val);
+			setInternalValue(val);
 		}
 		onChange?.(val);
 	};
 
 	return (
-		<div className="w-full">
-			<div className="flex border-b border-border">
-				{
-					Children.map(children, (child) => {
-						const element = child as ReactElement<TabProps>;
-						if (element.type !== Tab) {
-							return null;
-						}
-
-						const isActive = element.props.value === selectedValue;
-						return cloneElement(element, {
-							isActive,
-							onSelect: handleSelect,
-						});
-					})
-				}
+		<TabsContext.Provider value={{ value: selectedValue, onSelect: handleSelect }}>
+			<div className="w-full">
+				{children}
 			</div>
-
-			<div className="mt-4">
-				{
-					Children.map(children, (child) => {
-						const element = child as ReactElement<TabPanelProps>;
-						if (element.type !== TabPanel) {
-							return null;
-						}
-						return element.props.value === selectedValue ? child : null;
-					})
-				}
-			</div>
-		</div>
+		</TabsContext.Provider>
 	);
 };
 
 interface TabProps {
 	value: string;
 	children: ReactNode;
-	isActive?: boolean;
-	onSelect?: (value: string) => void;
+	className?: string;
 }
 
-export const Tab = ({ value, children, isActive, onSelect }: TabProps) => {
+export const Tab = ({ value, children, className = '' }: TabProps) => {
+	const { value: activeValue, onSelect } = useTabs();
+
+	const isActive = activeValue === value;
+
 	return (
 		<button
 			type="button"
-			onClick={() => onSelect?.(value)}
-			className={mergeTailwindClasses(
-				'px-4 py-2 font-medium transition-colors',
-				isActive
-					? 'border-b-2 border-primary'
-					: 'text-muted-foreground hover:text-foreground'
-			)}
+			onClick={() => onSelect(value)}
+			className={
+				mergeTailwindClasses(
+					'px-4 py-2 font-medium transition-colors',
+					isActive
+						? 'border-b-2 border-primary'
+						: 'text-muted-foreground hover:text-foreground',
+					className
+				)
+			}
 		>
 			{children}
 		</button>
@@ -79,10 +87,21 @@ export const Tab = ({ value, children, isActive, onSelect }: TabProps) => {
 };
 
 interface TabPanelProps {
-	value?: string;
+	value: string;
 	children: ReactNode;
+	className?: string;
 }
 
-export const TabPanel = ({ children }: TabPanelProps) => {
-	return <div>{children}</div>;
+export const TabPanel = ({ value, children, className = '' }: TabPanelProps) => {
+	const { value: activeValue } = useTabs();
+
+	if (value !== activeValue) {
+		return null;
+	}
+
+	return (
+		<div className={mergeTailwindClasses('mt-4', className)}>
+			{children}
+		</div>
+	);
 };
