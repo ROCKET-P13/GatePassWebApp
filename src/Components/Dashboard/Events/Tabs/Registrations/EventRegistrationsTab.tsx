@@ -4,13 +4,11 @@ import { useState } from 'react';
 import { CheckinParticipantDialog } from '@/Components/Dialogs/CheckinParticipantDialog';
 import { useGetAllParticipantsQuery } from '@/hooks/queries/useGetAllParticipantsQuery';
 import { useGetEventRegistrationsQuery } from '@/hooks/queries/useGetEventRegistrationsQuery';
-import { addEventClassStore } from '@/stores/addEventClassStore';
 import { checkinParticipantStore } from '@/stores/checkinParticipantStore';
 import { registerParticipantStore } from '@/stores/registerParticipantStore';
 import { Event } from '@/types/Event';
 
 import { EventRegistrationsTable } from './EventRegistrationsTable';
-import { AddEventClassDialog } from '../../../../Dialogs/AddEventClassDialog';
 import { RegisterParticipantDialog } from '../../../../Dialogs/RegisterParticipantDialog';
 
 interface SortingState {
@@ -27,9 +25,6 @@ export const EventRegistrationsTab = ({ event }: EventRegistrationsTabProps) => 
 
 	const openRegisterParticipantDialog = registerParticipantStore((state) => state.openDialog);
 	const isRegisterParticipantDialogOpen = registerParticipantStore((state) => state.isOpen);
-
-	const openCreateEventClassDialog = addEventClassStore((state) => state.openDialog);
-	const isCreateEventClassDialogOpen = addEventClassStore((state) => state.isOpen);
 
 	const isCheckinParticipantDialogOpen = checkinParticipantStore((state) => state.isOpen);
 
@@ -61,12 +56,6 @@ export const EventRegistrationsTab = ({ event }: EventRegistrationsTabProps) => 
 				>
 					Register Participant
 				</Button>
-				<Button
-					variant="default"
-					onClick={openCreateEventClassDialog}
-				>
-					Add Class
-				</Button>
 			</div>
 			{
 				isParticipantRegistrationsLoading
@@ -93,10 +82,7 @@ export const EventRegistrationsTab = ({ event }: EventRegistrationsTabProps) => 
 					/>
 				)
 			}
-			<AddEventClassDialog
-				open={isCreateEventClassDialogOpen}
-				eventId={event.id}
-			/>
+
 			<CheckinParticipantDialog
 				open={isCheckinParticipantDialogOpen}
 				event={event}

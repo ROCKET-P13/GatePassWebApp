@@ -1,82 +1,50 @@
-import { Link } from '@tanstack/react-router';
-import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable, SortingState, OnChangeFn, ColumnDef } from '@tanstack/react-table';
-import { Checkbox } from '@ui/Checkbox';
+import { flexRender, getCoreRowModel, getSortedRowModel, OnChangeFn, SortingState, useReactTable } from '@tanstack/react-table';
 import { Icon } from '@ui/Icon';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableHeader, TableRow } from '@ui/Table';
 import { ChevronDown, ChevronsUpDown, ChevronUp } from 'lucide-react';
 import { useMemo } from 'react';
 
-import { Routes } from '@/Common/routes';
-import { checkinParticipantStore } from '@/stores/checkinParticipantStore';
-import { EventRegistration } from '@/types/EventRegistration';
-interface EventRegistrationsTableProps {
-	registrations: EventRegistration[];
+import { EventClass } from '@/types/EventClass';
+
+interface EventClassesTableProps {
+	eventClasses: EventClass[];
 	sorting: SortingState;
 	onSortingChange: OnChangeFn<SortingState>;
 }
 
-export const EventRegistrationsTable = ({ registrations, sorting, onSortingChange }: EventRegistrationsTableProps) => {
-	const setParticipantToCheckin = checkinParticipantStore((state) => state.setParticipantToCheckin);
-	const openCheckinParticipantDialog = checkinParticipantStore((state) => state.openDialog);
-
-	const columns = useMemo<ColumnDef<EventRegistration>[]>(
+export const EventClassesTable = ({ eventClasses, sorting, onSortingChange }: EventClassesTableProps) => {
+	const columns = useMemo(
 		() => [
 			{
-				accessorKey: 'participantFirstName',
-				header: 'First Name',
-				cell: (info) => (
-					<Link
-						to={`${Routes.DASHBOARD}/${Routes.PARTICIPANTS}/$participantId`}
-						params={{ participantId: info.row.original.participantId }}
-						className="font-medium hover:underline"
-					>
-						{info.getValue() as string}
-					</Link>
-				),
+				accessorKey: 'name',
+				header: 'Name',
 			},
 			{
-				accessorKey: 'participantLastName',
-				header: 'Last Name',
+				accessorKey: 'gender',
+				header: 'Gender',
 			},
 			{
-				accessorKey: 'eventNumber',
-				header: 'Event Number',
+				accessorKey: 'skillLevel',
+				header: 'Skill Level',
 			},
 			{
-				accessorKey: 'class',
-				header: 'Class',
+				accessorKey: 'maximumAge',
+				header: 'Maximum Age',
 			},
 			{
-				accessorKey: 'checkedIn',
-				header: 'Checked In',
-				cell: (info) => {
-					const registration = info.row.original;
-					return (
-						<Checkbox
-							checked={registration.checkedIn}
-							className='opacity-100'
-							disabled={registration.checkedIn}
-							onChange={() => {
-								if (registration.checkedIn) {
-									return;
-								}
-								setParticipantToCheckin({
-									id: registration.participantId,
-									firstName: registration.participantFirstName,
-									lastName: registration.participantLastName,
-								});
-								openCheckinParticipantDialog();
-							}}
-						/>
-					);
-				},
+				accessorKey: 'minimumAge',
+				header: 'Minimum Age',
+			},
+			{
+				accessorKey: 'participantCapacity',
+				header: 'Participant Capacity',
 			},
 		],
-		[openCheckinParticipantDialog, setParticipantToCheckin]
+		[]
 	);
 
 	const table = useReactTable({
-		data: registrations,
+		data: eventClasses,
 		columns,
 		state: { sorting },
 		onSortingChange,

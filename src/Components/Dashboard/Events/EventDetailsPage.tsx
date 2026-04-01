@@ -6,6 +6,7 @@ import { Tab, TabPanel, Tabs } from '@ui/Tabs';
 import { EventStatusColorClass } from '@/Common/EventStatus';
 import { Routes } from '@/Common/routes';
 import { EventCheckinsTab } from '@/Components/Dashboard/Events/Tabs/Checkins/EventCheckinsTab';
+import { EventClassesTab } from '@/Components/Dashboard/Events/Tabs/Classes/EventClassesTab';
 import { EventRegistrationsTab } from '@/Components/Dashboard/Events/Tabs/Registrations/EventRegistrationsTab';
 import { EditEventDialog } from '@/Components/Dialogs/EditEventDialog';
 import { useEditEventDetailsMutation } from '@/hooks/mutations/useEditEventDetailsMutation';
@@ -15,6 +16,7 @@ import { Event } from '@/types/Event';
 const TabIds = Object.freeze({
 	REGISTRATIONS: 'registrations',
 	CHECK_INS: 'checkins',
+	CLASSES: 'classes',
 });
 
 export const EventDetailsPage = () => {
@@ -64,6 +66,7 @@ export const EventDetailsPage = () => {
 			<Tabs defaultValue={TabIds.REGISTRATIONS}>
 				<Tab value={TabIds.REGISTRATIONS}>Registrations</Tab>
 				<Tab value={TabIds.CHECK_INS}>Check-Ins</Tab>
+				<Tab value={TabIds.CLASSES}>Classes</Tab>
 
 				<TabPanel value={TabIds.REGISTRATIONS}>
 					<EventRegistrationsTab event={event} />
@@ -71,6 +74,10 @@ export const EventDetailsPage = () => {
 
 				<TabPanel value={TabIds.CHECK_INS}>
 					<EventCheckinsTab eventId={event.id} />
+				</TabPanel>
+
+				<TabPanel value={TabIds.CLASSES}>
+					<EventClassesTab event={event} />
 				</TabPanel>
 			</Tabs>
 
