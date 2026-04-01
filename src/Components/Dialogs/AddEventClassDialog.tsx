@@ -7,7 +7,7 @@ import { useMemo } from 'react';
 
 import { Gender } from '@/Common/Gender';
 import { useAddEventClassMutation } from '@/hooks/mutations/useAddEventClassMutation';
-import { addEventClassStore } from '@/Store/addEventClassStore';
+import { addEventClassStore } from '@/stores/addEventClassStore';
 
 interface AddEventClassDialogProps {
 	open: boolean;

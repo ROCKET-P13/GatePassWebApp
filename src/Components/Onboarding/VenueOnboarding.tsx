@@ -1,8 +1,8 @@
 import { Stepper } from '@ui/Stepper';
 
 import { WaiverStep } from '@/Components/Onboarding/Components.jsx/WaiverStep';
-import { onboardingStore } from '@/Store/onboardingStore';
-import { Steps } from '@/Store/onboardingStore';
+import { onboardingStore } from '@/stores/onboardingStore';
+import { Steps } from '@/stores/onboardingStore';
 
 import { CompleteStep } from './Components.jsx/CompleteStep';
 import { FeaturesStep } from './Components.jsx/FeaturesStep';

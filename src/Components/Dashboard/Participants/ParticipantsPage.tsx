@@ -2,7 +2,7 @@ import { Button } from '@ui/Button';
 import { useState } from 'react';
 
 import { useGetAllParticipantsQuery } from '@/hooks/queries/useGetAllParticipantsQuery';
-import { addParticipantStore } from '@/Store/addParticipantStore';
+import { addParticipantStore } from '@/stores/addParticipantStore';
 
 import { ParticipantsFilter } from './ParticipantsFilters';
 import { ParticipantsTable } from './ParticipantsTable';

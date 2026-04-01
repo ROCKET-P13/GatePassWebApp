@@ -3,7 +3,7 @@ import { Button } from '@ui/Button';
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@ui/Dialog';
 
 import { useDeleteEventMutation } from '@/hooks/mutations/useDeleteEventMutation';
-import { deleteEventStore } from '@/Store/deleteEventStore';
+import { deleteEventStore } from '@/stores/deleteEventStore';
 
 interface EventToDelete {
 	id: string;

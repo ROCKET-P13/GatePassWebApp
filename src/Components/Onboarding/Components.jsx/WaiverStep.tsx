@@ -1,7 +1,7 @@
 import { Button } from '@ui/Button';
 
 import { useCreateVenueMutation } from '@/hooks/mutations/useCreateVenueMutation';
-import { onboardingStore } from '@/Store/onboardingStore';
+import { onboardingStore } from '@/stores/onboardingStore';
 
 export const WaiverStep = () => {
 	const next = onboardingStore((state) => state.next);

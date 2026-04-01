@@ -1,7 +1,7 @@
 import { Icon } from '@ui/Icon';
 import { Moon, Sun } from 'lucide-react';
 
-import { themeStore } from '@/Store/themeStore';
+import { themeStore } from '@/stores/themeStore';
 import { mergeTailwindClasses } from '@/utils/mergeTailwindClasses';
 
 export const ThemeToggle = () => {

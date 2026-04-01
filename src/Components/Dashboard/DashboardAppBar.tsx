@@ -8,7 +8,7 @@ import { Icon } from '@ui/Icon';
 import { ThemeToggle } from '@ui/ThemeToggle';
 import { MenuIcon } from 'lucide-react';
 
-import { dashboardStore } from '@/Store/dashboardStore';
+import { dashboardStore } from '@/stores/dashboardStore';
 
 export const DashboardAppBar = () => {
 	const toggleDrawer = dashboardStore((state) => state.toggleDrawer);

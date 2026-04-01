@@ -4,9 +4,9 @@ import { useState } from 'react';
 import { CheckinParticipantDialog } from '@/Components/Dialogs/CheckinParticipantDialog';
 import { useGetAllParticipantsQuery } from '@/hooks/queries/useGetAllParticipantsQuery';
 import { useGetEventRegistrationsQuery } from '@/hooks/queries/useGetEventRegistrationsQuery';
-import { addEventClassStore } from '@/Store/addEventClassStore';
-import { checkinParticipantStore } from '@/Store/checkinParticipantStore';
-import { registerParticipantStore } from '@/Store/registerParticipantStore';
+import { addEventClassStore } from '@/stores/addEventClassStore';
+import { checkinParticipantStore } from '@/stores/checkinParticipantStore';
+import { registerParticipantStore } from '@/stores/registerParticipantStore';
 import { Event } from '@/types/Event';
 
 import { EventRegistrationsTable } from './EventRegistrationsTable';

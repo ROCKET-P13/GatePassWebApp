@@ -4,7 +4,7 @@ import { NavigationItem } from '@ui/NavigationItem';
 import { Calendar, FileCheckCorner, LayoutDashboard, Settings, SquareUser, UserCog, Users, LucideIcon } from 'lucide-react';
 
 import { Routes } from '@/Common/routes';
-import { dashboardStore } from '@/Store/dashboardStore';
+import { dashboardStore } from '@/stores/dashboardStore';
 
 import { DashboardAppBar } from './DashboardAppBar';
 

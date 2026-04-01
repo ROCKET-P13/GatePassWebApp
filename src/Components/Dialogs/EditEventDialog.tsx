@@ -10,7 +10,7 @@ import _ from 'lodash';
 import { useMemo } from 'react';
 
 import { EventStatus } from '@/Common/EventStatus';
-import { editEventStore } from '@/Store/editEventStore';
+import { editEventStore } from '@/stores/editEventStore';
 
 interface EventDraft {
 	id?: string;

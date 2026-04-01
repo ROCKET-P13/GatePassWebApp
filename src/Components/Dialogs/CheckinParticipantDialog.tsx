@@ -2,7 +2,7 @@ import { Button } from '@ui/Button';
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@ui/Dialog';
 
 import { useCheckinParticipantMutation } from '@/hooks/mutations/useCheckinParticipantMutation';
-import { checkinParticipantStore } from '@/Store/checkinParticipantStore';
+import { checkinParticipantStore } from '@/stores/checkinParticipantStore';
 import { Event } from '@/types/Event';
 
 interface CheckinParticipantDialogProps {

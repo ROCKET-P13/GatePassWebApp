@@ -7,7 +7,7 @@ import _ from 'lodash';
 import { ChangeEvent, useMemo } from 'react';
 
 import { useRegisterParticipantMutation } from '@/hooks/mutations/useRegisterParticipantMutation';
-import { registerParticipantStore } from '@/Store/registerParticipantStore';
+import { registerParticipantStore } from '@/stores/registerParticipantStore';
 import { Participant } from '@/types/Participant';
 
 interface RegisterParticipantDialogProps {

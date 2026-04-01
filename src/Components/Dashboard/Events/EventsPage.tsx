@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { EventsTable } from '@/Components/Dashboard/Events/EventsTable';
 import { AddEventDialog } from '@/Components/Dialogs/AddEventDialog';
 import { useGetAllEventsQuery } from '@/hooks/queries/useGetAllEventsQuery';
-import { addEventStore } from '@/Store/addEventStore';
+import { addEventStore } from '@/stores/addEventStore';
 
 interface SortingState {
 	id: string;

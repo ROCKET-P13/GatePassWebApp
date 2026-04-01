@@ -9,7 +9,7 @@ import { EventCheckinsTab } from '@/Components/Dashboard/Events/Tabs/Checkins/Ev
 import { EventRegistrationsTab } from '@/Components/Dashboard/Events/Tabs/Registrations/EventRegistrationsTab';
 import { EditEventDialog } from '@/Components/Dialogs/EditEventDialog';
 import { useEditEventDetailsMutation } from '@/hooks/mutations/useEditEventDetailsMutation';
-import { editEventStore } from '@/Store/editEventStore';
+import { editEventStore } from '@/stores/editEventStore';
 import { Event } from '@/types/Event';
 
 const TabIds = Object.freeze({

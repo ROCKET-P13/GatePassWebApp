@@ -6,7 +6,7 @@ import _ from 'lodash';
 import { useMemo } from 'react';
 
 import { useAddParticipantMutation } from '@/hooks/mutations/useAddParticipantMutation';
-import { addParticipantStore } from '@/Store/addParticipantStore';
+import { addParticipantStore } from '@/stores/addParticipantStore';
 
 interface AddParticipantDialogProps {
 	open: boolean;

@@ -7,7 +7,7 @@ import { ChevronDown, ChevronsUpDown, ChevronUp } from 'lucide-react';
 import { useMemo } from 'react';
 
 import { Routes } from '@/Common/routes';
-import { checkinParticipantStore } from '@/Store/checkinParticipantStore';
+import { checkinParticipantStore } from '@/stores/checkinParticipantStore';
 import { EventRegistration } from '@/types/EventRegistration';
 interface EventRegistrationsTableProps {
 	registrations: EventRegistration[];

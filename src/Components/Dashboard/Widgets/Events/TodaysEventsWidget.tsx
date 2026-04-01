@@ -8,7 +8,7 @@ import { EventStatusColorClass } from '@/Common/EventStatus';
 import { Routes } from '@/Common/routes';
 import { AddEventDialog } from '@/Components/Dialogs/AddEventDialog';
 import { useGetTodaysEventsQuery } from '@/hooks/queries/useGetTodaysEventsQuery';
-import { addEventStore } from '@/Store/addEventStore';
+import { addEventStore } from '@/stores/addEventStore';
 
 import { WidgetCard } from '../WidgetCard';
 

@@ -11,7 +11,7 @@ import { useMemo } from 'react';
 
 import { EventStatus } from '@/Common/EventStatus';
 import { useAddEventMutation } from '@/hooks/mutations/useAddEventMutation';
-import { addEventStore } from '@/Store/addEventStore';
+import { addEventStore } from '@/stores/addEventStore';
 
 interface AddEventDialogProps {
 	open: boolean;

@@ -5,7 +5,7 @@ import _ from 'lodash';
 import { ChangeEvent, useMemo } from 'react';
 
 import { States } from '@/Components/Onboarding/Common/states';
-import { onboardingStore } from '@/Store/onboardingStore';
+import { onboardingStore } from '@/stores/onboardingStore';
 
 export const VenueStep = () => {
 	const venue = onboardingStore((state) => state.venue);

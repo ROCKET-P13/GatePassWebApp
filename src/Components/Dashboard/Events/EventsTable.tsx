@@ -25,8 +25,8 @@ import { useMemo } from 'react';
 import { EventStatusColorClass } from '@/Common/EventStatus';
 import { Routes } from '@/Common/routes';
 import { useEditEventTableMutation } from '@/hooks/mutations/useEditEventTableMutation';
-import { deleteEventStore } from '@/Store/deleteEventStore';
-import { editEventStore } from '@/Store/editEventStore';
+import { deleteEventStore } from '@/stores/deleteEventStore';
+import { editEventStore } from '@/stores/editEventStore';
 import { Event } from '@/types/Event';
 
 import { DeleteEventDialog } from '../../Dialogs/DeleteEventDialog';
