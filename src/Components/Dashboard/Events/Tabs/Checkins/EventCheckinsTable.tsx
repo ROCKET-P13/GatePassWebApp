@@ -38,6 +38,7 @@ export const EventCheckinsTable = ({ checkIns, sorting, onSortingChange } : Even
 				cell: (info: { getValue: () => boolean }) => {
 					return (
 						<Checkbox
+							className='opacity-100'
 							disabled
 							checked={info.getValue()}
 						/>

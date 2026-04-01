@@ -50,11 +50,16 @@ export const EventRegistrationsTable = ({ registrations, sorting, onSortingChang
 				accessorKey: 'checkedIn',
 				header: 'Checked In',
 				cell: (info) => {
+					const registration = info.row.original;
 					return (
 						<Checkbox
-							checked={info.getValue() as boolean}
+							checked={registration.checkedIn}
+							className='opacity-100'
+							disabled={registration.checkedIn}
 							onChange={() => {
-								const registration = info.row.original;
+								if (registration.checkedIn) {
+									return;
+								}
 								setParticipantToCheckin({
 									id: registration.participantId,
 									firstName: registration.participantFirstName,

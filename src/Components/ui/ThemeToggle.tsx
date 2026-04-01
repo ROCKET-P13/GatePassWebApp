@@ -18,7 +18,7 @@ export const ThemeToggle = () => {
 			className={
 				mergeTailwindClasses(
 					'relative inline-flex shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors focus:outline-none',
-					isChecked ? 'bg-primary' : 'bg-muted'
+					isChecked ? 'bg-chart-1' : 'bg-primary'
 				)
 			}
 		>

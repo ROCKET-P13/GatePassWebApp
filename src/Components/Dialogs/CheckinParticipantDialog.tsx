@@ -1,6 +1,7 @@
 import { Button } from '@ui/Button';
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@ui/Dialog';
 
+import { useCheckinParticipantMutation } from '@/hooks/mutations/useCheckinParticipantMutation';
 import { checkinParticipantStore } from '@/Store/checkinParticipantStore';
 import { Event } from '@/types/Event';
 
@@ -15,8 +16,10 @@ export const CheckinParticipantDialog = ({ open, event }: CheckinParticipantDial
 
 	const participant = checkinParticipantStore((state) => state.participant);
 
+	const checkinParticipantMutation = useCheckinParticipantMutation({ eventId: event.id });
+
 	const handleSubmit = () => {
-		console.log({ participant, event });
+		checkinParticipantMutation.mutate({ participantId: participant.id });
 		closeDialog();
 	};
 

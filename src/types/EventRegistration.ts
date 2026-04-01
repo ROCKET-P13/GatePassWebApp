@@ -6,4 +6,5 @@ export interface EventRegistration {
 	class: string;
 	eventNumber: string;
 	checkedIn: boolean;
+	eventClassName?: string;
 }
