@@ -6,4 +6,5 @@ export interface EventClass {
 	maximumAge?: number;
 	minimumAge?: number;
 	participantCapacity?: number;
+	startTime?: string;
 }

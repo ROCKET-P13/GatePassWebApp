@@ -220,6 +220,12 @@ export class EventsAPI {
 		});
 	}
 
+	async getClasses ({ eventId }: { eventId: string }): Promise<EventClass[]> {
+		return await this.#apiClient.get({
+			url: `${this.#url}/${eventId}/classes`,
+		}) as EventClass[];
+	}
+
 	async update ({ id, name, startDateTime, participantCapacity, status }: UpdateEventParams): Promise<Event> {
 		return await this.#apiClient.patch({
 			url: `${this.#url}/${id}`,
