@@ -37,6 +37,7 @@ export const Tooltip = (
 	}: TooltipProps
 ) => {
 	const [visible, setVisible] = useState(false);
+	const [mounted, setMounted] = useState(false);
 	const [coords, setCoords] = useState<{ top: number; left: number } | null>(null);
 	const triggerRef = useRef<HTMLDivElement | null>(null);
 	const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -68,7 +69,7 @@ export const Tooltip = (
 		};
 
 		setCoords(positions[position]);
-
+		setMounted(true);
 		timeoutRef.current = setTimeout(() => setVisible(true), delay);
 	};
 
@@ -78,6 +79,7 @@ export const Tooltip = (
 		}
 
 		setVisible(false);
+		setTimeout(() => setMounted(false), delay);
 	};
 
 	useEffect(() => () => {
@@ -99,7 +101,7 @@ export const Tooltip = (
 				{children}
 			</div>
 
-			{coords
+			{mounted && coords
 				&& createPortal(
 					<div
 						role="tooltip"
