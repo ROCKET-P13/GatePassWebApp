@@ -3,7 +3,7 @@ import { ColumnDef, flexRender, getCoreRowModel, getSortedRowModel, OnChangeFn, 
 import { Checkbox } from '@ui/Checkbox';
 import { Icon } from '@ui/Icon';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableHeader, TableRow } from '@ui/Table';
-import { ChevronDown, ChevronsUpDown, ChevronUp, SquareArrowOutUpRight } from 'lucide-react';
+import { ChevronDown, ChevronsUpDown, ChevronUp, Pencil, SquareArrowOutUpRight } from 'lucide-react';
 import { useMemo } from 'react';
 
 import { Routes } from '@/Common/routes';
@@ -52,6 +52,12 @@ export const EventCheckinsTable = ({ checkIns, sorting, onSortingChange } : Even
 				header: 'Actions',
 				cell: ({ row }) => (
 					<div className='flex gap-2'>
+						<button
+							className="p-1 rounded-md hover:bg-muted hover:cursor-pointer"
+							onClick={() => console.log(row.original)}
+						>
+							<Icon as={Pencil} />
+						</button>
 						<Link
 							to={`${Routes.DASHBOARD}/${Routes.PARTICIPANTS}/$participantId`}
 							params={{ participantId: row.original.participantId }}
@@ -60,7 +66,6 @@ export const EventCheckinsTable = ({ checkIns, sorting, onSortingChange } : Even
 								<Icon as={SquareArrowOutUpRight} />
 							</button>
 						</Link>
-
 					</div>
 				),
 			},
