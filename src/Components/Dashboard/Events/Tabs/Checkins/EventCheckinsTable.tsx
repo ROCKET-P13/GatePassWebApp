@@ -1,10 +1,12 @@
-import { flexRender, getCoreRowModel, getSortedRowModel, OnChangeFn, SortingState, useReactTable } from '@tanstack/react-table';
+import { Link } from '@tanstack/react-router';
+import { ColumnDef, flexRender, getCoreRowModel, getSortedRowModel, OnChangeFn, SortingState, useReactTable } from '@tanstack/react-table';
 import { Checkbox } from '@ui/Checkbox';
 import { Icon } from '@ui/Icon';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableHeader, TableRow } from '@ui/Table';
-import { ChevronDown, ChevronsUpDown, ChevronUp } from 'lucide-react';
+import { ChevronDown, ChevronsUpDown, ChevronUp, SquareArrowOutUpRight } from 'lucide-react';
 import { useMemo } from 'react';
 
+import { Routes } from '@/Common/routes';
 import { EventRegistration } from '@/types/EventRegistration';
 
 interface EventCheckinsTableProps {
@@ -14,7 +16,7 @@ interface EventCheckinsTableProps {
 }
 
 export const EventCheckinsTable = ({ checkIns, sorting, onSortingChange } : EventCheckinsTableProps) => {
-	const columns = useMemo(
+	const columns = useMemo<ColumnDef<EventRegistration>[]>(
 		() => [
 			{
 				accessorKey: 'participantFirstName',
@@ -35,15 +37,32 @@ export const EventCheckinsTable = ({ checkIns, sorting, onSortingChange } : Even
 			{
 				accessorKey: 'checkedIn',
 				header: 'Checked In',
-				cell: (info: { getValue: () => boolean }) => {
+				cell: ({ row }) => {
 					return (
 						<Checkbox
 							className='opacity-100'
 							disabled
-							checked={info.getValue()}
+							checked={row.original.checkedIn}
 						/>
 					);
 				},
+			},
+			{
+				accessorKey: 'actions',
+				header: 'Actions',
+				cell: ({ row }) => (
+					<div className='flex gap-2'>
+						<Link
+							to={`${Routes.DASHBOARD}/${Routes.PARTICIPANTS}/$participantId`}
+							params={{ participantId: row.original.participantId }}
+						>
+							<button className='p-1 rounded-md hover:bg-muted hover:cursor-pointer'>
+								<Icon as={SquareArrowOutUpRight} />
+							</button>
+						</Link>
+
+					</div>
+				),
 			},
 		],
 		[]
