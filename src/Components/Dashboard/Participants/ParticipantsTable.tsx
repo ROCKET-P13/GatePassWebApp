@@ -18,6 +18,7 @@ import {
 	TableCell,
 	TableContainer
 } from '@ui/Table';
+import { Tooltip } from '@ui/Tooltip';
 import { ChevronDown, ChevronsUpDown, ChevronUp, Pencil, Trash } from 'lucide-react';
 import { useMemo } from 'react';
 
@@ -60,19 +61,24 @@ export const ParticipantsTable = ({ participants, sorting, onSortingChange }: Pa
 				enableSorting: false,
 				cell: ({ row }) => (
 					<div className="flex gap-2">
-						<button
-							className="p-1 rounded-md hover:bg-muted"
-							onClick={() => console.log(row.original)}
-						>
-							<Icon as={Pencil} />
-						</button>
+						<Tooltip content="Edit Participant">
+							<button
+								className="p-1 rounded-md hover:bg-muted"
+								onClick={() => console.log(row.original)}
+							>
+								<Icon as={Pencil} />
+							</button>
+						</Tooltip>
 
-						<button
-							className="p-1 rounded-md hover:bg-muted"
-							onClick={() => console.log(row.original)}
-						>
-							<Icon as={Trash} />
-						</button>
+						<Tooltip content="Delete Participant">
+							<button
+								className="p-1 rounded-md hover:bg-muted"
+								onClick={() => console.log(row.original)}
+							>
+								<Icon as={Trash} />
+							</button>
+						</Tooltip>
+
 					</div>
 				),
 			},
