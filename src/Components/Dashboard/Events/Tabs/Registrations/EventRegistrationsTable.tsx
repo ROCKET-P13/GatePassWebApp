@@ -3,6 +3,7 @@ import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable, SortingS
 import { Checkbox } from '@ui/Checkbox';
 import { Icon } from '@ui/Icon';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableHeader, TableRow } from '@ui/Table';
+import { Tooltip } from '@ui/Tooltip';
 import { ChevronDown, ChevronsUpDown, ChevronUp, Pencil, SquareArrowOutUpRight } from 'lucide-react';
 import { useMemo } from 'react';
 
@@ -67,20 +68,27 @@ export const EventRegistrationsTable = ({ registrations, sorting, onSortingChang
 				header: 'Actions',
 				cell: ({ row }) => (
 					<div className='flex gap-2'>
-						<button
-							className="p-1 rounded-md hover:bg-muted hover:cursor-pointer"
-							onClick={() => console.log(row.original)}
-						>
-							<Icon as={Pencil} />
-						</button>
-						<Link
-							to={`${Routes.DASHBOARD}/${Routes.PARTICIPANTS}/$participantId`}
-							params={{ participantId: row.original.participantId }}
-						>
-							<button className='p-1 rounded-md hover:bg-muted hover:cursor-pointer'>
-								<Icon as={SquareArrowOutUpRight} />
+						<Tooltip content="Edit Registration">
+							<button
+								className="p-1 rounded-md hover:bg-muted hover:cursor-pointer"
+								onClick={() => console.log(row.original)}
+							>
+								<Icon as={Pencil} />
 							</button>
-						</Link>
+						</Tooltip>
+
+						<Tooltip content="View Particpant">
+							<Link
+								to={`${Routes.DASHBOARD}/${Routes.PARTICIPANTS}/$participantId`}
+								params={{ participantId: row.original.participantId }}
+								target='_blank'
+							>
+								<button className='p-1 rounded-md hover:bg-muted hover:cursor-pointer'>
+									<Icon as={SquareArrowOutUpRight} />
+								</button>
+							</Link>
+						</Tooltip>
+
 					</div>
 				),
 			},

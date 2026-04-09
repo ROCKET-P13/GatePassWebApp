@@ -2,9 +2,8 @@ import { ReactNode, useState, useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 
 import { mergeTailwindClasses } from '@/utils/mergeTailwindClasses';
-
 type TooltipProps = {
-	content: ReactNode;
+	content: string;
 	children: ReactNode;
 	position?: 'top' | 'bottom' | 'left' | 'right';
 	delay?: number;
@@ -125,8 +124,9 @@ export const Tooltip = (
 								)
 							}
 						/>
-						{content}
-
+						<p className='font-xs'>
+							{content}
+						</p>
 					</div>,
 					document.getElementById('root') as HTMLElement
 				)}
