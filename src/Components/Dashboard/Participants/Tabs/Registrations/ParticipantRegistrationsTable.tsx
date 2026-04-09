@@ -37,6 +37,7 @@ export const ParticipantRegistrationsTable = ({ registrations, sorting, onSortin
 				header: 'Checked In',
 				cell: (info: { getValue: () => boolean }) => (
 					<Checkbox
+						className='opacity-100'
 						checked={info.getValue()}
 						disabled
 					/>
