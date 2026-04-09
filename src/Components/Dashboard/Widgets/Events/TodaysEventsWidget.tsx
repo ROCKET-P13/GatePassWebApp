@@ -1,6 +1,7 @@
 import { Link } from '@tanstack/react-router';
 import { Icon } from '@ui/Icon';
 import { List, ListItem } from '@ui/List';
+import { Tooltip } from '@ui/Tooltip';
 import _ from 'lodash';
 import { SquarePlus } from 'lucide-react';
 
@@ -32,12 +33,15 @@ export const TodaysEventsWidget = () => {
 			<WidgetCard
 				title="Today's Events"
 				action={
-					<button
-						className='p-1 rounded-md cursor-pointer'
-						onClick={openAddEventDialog}
-					>
-						<Icon as={SquarePlus} />
-					</button>
+					<Tooltip content="Add Event">
+						<button
+							className='p-1 rounded-md cursor-pointer'
+							onClick={openAddEventDialog}
+						>
+							<Icon as={SquarePlus} />
+						</button>
+					</Tooltip>
+
 				}
 			>
 				{
