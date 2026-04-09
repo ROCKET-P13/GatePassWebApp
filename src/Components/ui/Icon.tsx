@@ -12,7 +12,7 @@ export const Icon = forwardRef<SVGSVGElement, IconProps>(
 	(
 		{
 			as: Component,
-			size = 16,
+			size = 14,
 			className = '',
 			...props
 		},

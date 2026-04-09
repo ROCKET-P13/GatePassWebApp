@@ -20,7 +20,7 @@ import {
 	TableContainer
 } from '@ui/Table';
 import { Tooltip } from '@ui/Tooltip';
-import { ChevronDown, ChevronsUpDown, ChevronUp, Pencil, Trash } from 'lucide-react';
+import { ChevronDown, ChevronsUpDown, ChevronUp, Pencil, SquareArrowOutUpRight, Trash } from 'lucide-react';
 import { useMemo } from 'react';
 
 import { EventStatusColorClass } from '@/Common/EventStatus';
@@ -64,13 +64,22 @@ export const EventsTable = ({ events, sorting, onSortingChange }: EventsTablePro
 				accessorKey: 'name',
 				header: 'Event',
 				cell: (info) => (
-					<Link
-						to={`${Routes.DASHBOARD}/${Routes.EVENTS}/$eventId`}
-						params={{ eventId: info.row.original.id }}
-						className="font-medium hover:underline"
-					>
-						{info.getValue() as string}
-					</Link>
+					<div className='flex flex-row gap-2'>
+						<p>{info.getValue() as string}</p>
+						<Tooltip content='View Event'>
+							<Link
+								to={`${Routes.DASHBOARD}/${Routes.EVENTS}/$eventId`}
+								params={{ eventId: info.row.original.id }}
+								className="font-medium hover:underline"
+							>
+								<button className='p-0 rounded-md hover:bg-muted hover:cursor-pointer'>
+									<Icon size={12} className='text-muted-foreground' as={SquareArrowOutUpRight} />
+								</button>
+							</Link>
+
+						</Tooltip>
+					</div>
+
 				),
 			},
 			{

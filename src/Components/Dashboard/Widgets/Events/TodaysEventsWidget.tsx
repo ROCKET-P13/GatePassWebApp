@@ -38,7 +38,7 @@ export const TodaysEventsWidget = () => {
 							className='p-1 rounded-md cursor-pointer'
 							onClick={openAddEventDialog}
 						>
-							<Icon as={SquarePlus} />
+							<Icon size={18} as={SquarePlus} />
 						</button>
 					</Tooltip>
 
@@ -73,7 +73,6 @@ export const TodaysEventsWidget = () => {
 							</List>
 						)
 				}
-
 			</WidgetCard>
 
 			<AddEventDialog
