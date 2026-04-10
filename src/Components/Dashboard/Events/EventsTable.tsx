@@ -71,6 +71,7 @@ export const EventsTable = ({ events, sorting, onSortingChange }: EventsTablePro
 								to={`${Routes.DASHBOARD}/${Routes.EVENTS}/$eventId`}
 								params={{ eventId: info.row.original.id }}
 								className="font-medium hover:underline"
+								target='_blank'
 							>
 								<button className='p-0 rounded-md hover:bg-muted hover:cursor-pointer'>
 									<Icon size={12} className='text-muted-foreground' as={SquareArrowOutUpRight} />
