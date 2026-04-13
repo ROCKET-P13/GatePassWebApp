@@ -1,7 +1,9 @@
 import { UseMutationResult } from '@tanstack/react-query';
 import { useLoaderData } from '@tanstack/react-router';
-import { Button } from '@ui/Button';
+import { Icon } from '@ui/Icon';
 import { Tab, TabPanel, Tabs } from '@ui/Tabs';
+import { Tooltip } from '@ui/Tooltip';
+import { Settings } from 'lucide-react';
 
 import { EventStatusColorClass } from '@/Common/EventStatus';
 import { Routes } from '@/Common/routes';
@@ -33,9 +35,30 @@ export const EventDetailsPage = () => {
 		<div>
 			<div className='flex justify-between items-center mb-4'>
 				<div className='flex flex-col items-start gap-2'>
-					<h1 className='text-4xl font-semibold'>
-						{event.name}
-					</h1>
+					<div className='flex flex-row gap-2'>
+						<h1 className='text-4xl font-semibold'>
+							{event.name}
+						</h1>
+						<Tooltip content='Edit Event'>
+							<button
+								className='p-1 rounded-md cursor-pointer'
+								onClick={() => {
+									openEditEventDialog();
+									setEventDraft({
+										id: event.id,
+										name: event.name,
+										status: event.status,
+										participantCapacity: event.participantCapacity || null,
+										startDateTime: event.startDateTime,
+										startTime: event.startDateTime,
+										date: event.startDateTime,
+									});
+								}}
+							>
+								<Icon size={20} as={Settings} />
+							</button>
+						</Tooltip>
+					</div>
 
 					<p className='text-muted-foreground'>
 						{event.date} - {event.startTime}
@@ -45,22 +68,7 @@ export const EventDetailsPage = () => {
 						{event.status}
 					</span>
 				</div>
-				<Button
-					onClick={() => {
-						openEditEventDialog();
-						setEventDraft({
-							id: event.id,
-							name: event.name,
-							status: event.status,
-							participantCapacity: event.participantCapacity || null,
-							startDateTime: event.startDateTime,
-							startTime: event.startDateTime,
-							date: event.startDateTime,
-						});
-					}}
-				>
-					Edit Event
-				</Button>
+
 			</div>
 
 			<Tabs defaultValue={TabIds.REGISTRATIONS}>
