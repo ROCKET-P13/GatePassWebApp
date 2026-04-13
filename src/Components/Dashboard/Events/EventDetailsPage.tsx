@@ -5,7 +5,6 @@ import { Tab, TabPanel, Tabs } from '@ui/Tabs';
 import { Tooltip } from '@ui/Tooltip';
 import { Settings } from 'lucide-react';
 
-import { EventStatusColorClass } from '@/Common/EventStatus';
 import { Routes } from '@/Common/routes';
 import { EventCheckinsTab } from '@/Components/Dashboard/Events/Tabs/Checkins/EventCheckinsTab';
 import { EventClassesTab } from '@/Components/Dashboard/Events/Tabs/Classes/EventClassesTab';
