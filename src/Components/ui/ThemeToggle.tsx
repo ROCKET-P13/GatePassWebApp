@@ -17,7 +17,7 @@ export const ThemeToggle = () => {
 			aria-checked={isChecked}
 			className={
 				mergeTailwindClasses(
-					'relative inline-flex shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors focus:outline-none',
+					'relative inline-flex shrink-0 h-5 w-10 border-2 border-transparent rounded-full cursor-pointer transition-colors focus:outline-none',
 					isChecked ? 'bg-chart-1' : 'bg-primary'
 				)
 			}
@@ -25,7 +25,7 @@ export const ThemeToggle = () => {
 			<span
 				className={
 					mergeTailwindClasses(
-						'flex justify-center items-center h-5 w-5 rounded-full bg-background shadow transform ring-0 transition-transform',
+						'flex justify-center items-center h-4 w-4 rounded-full bg-background shadow transform ring-0 transition-transform',
 						isChecked ? 'translate-x-5' : 'translate-x-0'
 					)
 				}>
