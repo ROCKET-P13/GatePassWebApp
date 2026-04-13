@@ -59,14 +59,9 @@ export const EventDetailsPage = () => {
 							</button>
 						</Tooltip>
 					</div>
-
 					<p className='text-muted-foreground'>
 						{event.date} - {event.startTime}
 					</p>
-
-					<span className={`px-2 py-1 text-xs rounded-md font-medium ${EventStatusColorClass[event.status]}`}>
-						{event.status}
-					</span>
 				</div>
 
 			</div>
