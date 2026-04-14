@@ -18,7 +18,7 @@ export const useGetAllEventClassesQuery = ({ eventId }: UseGetAllEventClassesQue
 
 	return useQuery({
 		queryKey: ['classes', eventId],
-		queryFn: () => eventsAPI.getClasses({ eventId }),
+		queryFn: async () => await eventsAPI.getClasses({ eventId }),
 		enabled: isAuthenticated,
 		placeholderData: (previousData) => previousData,
 	});

@@ -27,15 +27,16 @@ export const useDeleteEventMutation = ({ queryKey }: UseDeleteEventMutationProps
 	return useMutation<void, Error, string, MutationContext>({
 		mutationFn: (eventId) => eventsAPI.delete({ eventId }),
 		onMutate: async (eventId) => {
-			await queryClient.cancelQueries({
-				queryKey: queryKey,
-			});
+			await queryClient.cancelQueries({ queryKey });
 
 			const previousEvents = queryClient.getQueryData<Event[]>(queryKey);
 
-			queryClient.setQueryData<Event[]>(queryKey, (old = []) => {
-				return _.filter(old, (event) => event.id !== eventId);
-			});
+			queryClient.setQueryData<Event[]>(
+				queryKey,
+				(old = []) => {
+					return _.filter(old, (event) => event.id !== eventId);
+				}
+			);
 
 			return { previousEvents };
 		},
@@ -50,7 +51,7 @@ export const useDeleteEventMutation = ({ queryKey }: UseDeleteEventMutationProps
 			);
 		},
 		onSettled: () => {
-			queryClient.invalidateQueries({ queryKey: queryKey });
+			queryClient.invalidateQueries({ queryKey });
 		},
 	});
 };
