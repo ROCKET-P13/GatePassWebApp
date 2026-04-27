@@ -14,6 +14,7 @@ import { EventRegistrationsTab } from '@/Components/Dashboard/Events/Tabs/Regist
 import { EditEventDialog } from '@/Components/Dialogs/EditEventDialog';
 import { useEditEventDetailsMutation } from '@/hooks/mutations/useEditEventDetailsMutation';
 import { editEventStore } from '@/stores/editEventStore';
+import { eventClassStore } from '@/stores/eventClassStore';
 import { Event } from '@/types/Event';
 
 const TabIds = Object.freeze({
@@ -32,6 +33,7 @@ export const EventDetailsPage = () => {
 	const setEventDraft = editEventStore((state) => state.setEventDraft);
 
 	const editEventMutation = useEditEventDetailsMutation({ queryKey: ['events', event.id] });
+	const selectedEventClass = eventClassStore((state) => state.selectedEventClass);
 
 	return (
 		<div>
@@ -75,7 +77,7 @@ export const EventDetailsPage = () => {
 				<Tab value={TabIds.CLASSES}>Classes</Tab>
 
 				<TabPanel value={TabIds.MOTOS}>
-					<MotosTab eventId={event.id} />
+					<MotosTab eventId={event.id} eventClassId={selectedEventClass.id} />
 				</TabPanel>
 
 				<TabPanel value={TabIds.REGISTRATIONS}>

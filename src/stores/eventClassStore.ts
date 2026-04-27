@@ -3,12 +3,15 @@ import { create } from 'zustand';
 import { EventClass } from '@/types/EventClass';
 
 interface EventClassStore {
-	selectedEventClass?: EventClass;
+	selectedEventClass: EventClass;
 	setSelectedClass: (eventClass: EventClass) => void;
 }
 
 export const eventClassStore = create<EventClassStore>((set) => ({
-	selectedEventClass: undefined,
+	selectedEventClass: {
+		id: '',
+		name: '',
+	},
 	setSelectedClass: (eventClass) => set(() => ({
 		selectedEventClass: eventClass,
 	})),

@@ -42,8 +42,8 @@ export class RaceAPI {
 
 	async getMotosByClassId ({ eventClassId }: GetMotosByClassId) {
 		const motos = await this.#apiClient.get({
-			url: `${this.#url}/classes/${eventClassId}`,
-		});
+			url: `${this.#url}/classes/${eventClassId}/motos`,
+		}) as Moto[];
 
 		return motos;
 	}

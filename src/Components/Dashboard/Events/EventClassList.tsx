@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { useEffect } from 'react';
 
 import { useGetAllEventClassesQuery } from '@/hooks/queries/useGetAllEventClassesQuery';
@@ -18,7 +19,7 @@ export const EventClassList = ({ eventId }: EventClassListProps) => {
 	const selectedEventClass = eventClassStore((state) => state.selectedEventClass);
 
 	useEffect(() => {
-		if (!selectedEventClass && eventClasses.length > 0) {
+		if (_.isEmpty(selectedEventClass.id) && eventClasses.length > 0) {
 			setSelectedEventClass(eventClasses[0]);
 		}
 	}, [selectedEventClass, eventClasses, setSelectedEventClass]);
@@ -26,7 +27,7 @@ export const EventClassList = ({ eventId }: EventClassListProps) => {
 	if (isEventClassesLoading) {
 		return (
 			<p className="text-sm text-muted-foreground">
-					Loading...
+				Loading...
 			</p>
 		);
 	}
@@ -34,7 +35,7 @@ export const EventClassList = ({ eventId }: EventClassListProps) => {
 	if (error) {
 		return (
 			<p className="text-sm font-medium text-red-500">
-					Error
+				Error
 			</p>
 		);
 	}

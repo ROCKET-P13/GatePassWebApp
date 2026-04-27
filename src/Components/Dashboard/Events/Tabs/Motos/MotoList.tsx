@@ -1,51 +1,11 @@
 import _ from 'lodash';
 
-import { eventClassStore } from '@/stores/eventClassStore';
 import { Moto, MotoStatus, MotoType } from '@/types/Moto';
 import { mergeTailwindClasses } from '@/utils/mergeTailwindClasses';
 
 interface MotoListProps {
-	eventId: string;
+	motos: Moto[];
 }
-
-const motos: Moto[] = [
-	{
-		id: 'one',
-		eventClassId: 'eventClassOne',
-		motoNumber: 1,
-		type: 'Heat',
-		status: 'Scheduled',
-		startTime: '00000000',
-		createdAt: '123213123123',
-	},
-	{
-		id: 'two',
-		eventClassId: 'eventClassTwo',
-		motoNumber: 2,
-		type: 'Heat',
-		status: 'Staging',
-		startTime: '00000000',
-		createdAt: '123213123123',
-	},
-	{
-		id: 'three',
-		eventClassId: 'eventClassThree',
-		motoNumber: 3,
-		type: 'LastChanceQualifier',
-		status: 'Racing',
-		startTime: '00000000',
-		createdAt: '123213123123',
-	},
-	{
-		id: 'four',
-		eventClassId: 'eventClassFour',
-		type: 'Main',
-		motoNumber: 4,
-		status: 'Finished',
-		startTime: '00000000',
-		createdAt: '123213123123',
-	},
-];
 
 const MotoStatusBadgeStyles: Record<MotoStatus, string> = {
 	Scheduled: 'bg-muted text-muted-foreground',
@@ -60,20 +20,9 @@ const MotoTypeDisplayName: Record<MotoType, string> = {
 	Main: 'Main',
 };
 
-export const MotoList = ({ eventId }: MotoListProps) => {
-	const selectedEventClass = eventClassStore((state) => state.selectedEventClass);
-	// console.log({ selectedEventClass });
-	if (!selectedEventClass) {
-		return;
-	}
-
-	// const testing = useGetMotosForClassQuery({ eventId, eventClassId: selectedEventClass.id });
-	// if (!selectedEventClass) {
-	// 	return;
-	// }
-
+export const MotoList = ({ motos }: MotoListProps) => {
 	return (
-		<div className='space-y-6 flex-row'>
+		<div className='space-y-6 flex-row overflow-x-auto scrollbar-hidden'>
 			<div className="flex flex-row gap-2">
 				{
 					motos.map((moto) => {

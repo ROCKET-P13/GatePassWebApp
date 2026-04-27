@@ -19,7 +19,7 @@ export const useGetMotosForClassQuery = ({ eventId, eventClassId }: UseGetMotosF
 
 	return useQuery({
 		queryKey: ['motos', eventClassId],
-		queryFn: async () => await raceAPI.getMotosByClassId({ eventClassId }),
+		queryFn: () => raceAPI.getMotosByClassId({ eventClassId }),
 		enabled: isAuthenticated,
 		placeholderData: (previousData) => previousData,
 	});
